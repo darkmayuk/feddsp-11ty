@@ -1,0 +1,38 @@
+<section id="plugins" class="container py-5">
+  <div class="row g-4">
+    {% for product in products %}
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="border rounded h-100 d-flex flex-column p-3">
+        
+        <!-- Title (link to product page) -->
+        <h5 class="mb-3">
+          <a href="/products/{{ product.id }}/" class="text-decoration-none text-dark">
+            {{ product.name }}
+          </a>
+        </h5>
+        
+        <!-- Image (link to product page) -->
+        <div class="mb-3" style="height: 200px; overflow: hidden;">
+          <a href="/products/{{ product.id }}/">
+            <img src="{{ product.image }}" 
+                 alt="{{ product.name }}" 
+                 class="w-100 h-100" 
+                 style="object-fit: cover;">
+          </a>
+        </div>
+        
+        <!-- Footer (buy button direct to LS, description shown here) -->
+        <div class="mt-auto">
+          <a href="{{ product.buyLink }}" 
+             class="btn btn-primary w-100 mb-2" 
+             data-ls-overlay>
+            Buy {{ product.price }}
+          </a>
+          <p class="small text-muted mb-0">{{ product.description }}</p>
+        </div>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>

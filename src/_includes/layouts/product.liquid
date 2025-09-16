@@ -1,0 +1,19 @@
+---
+layout: layouts/base.liquid
+---
+
+{% include "components/product-hero.liquid" %}
+
+<section class="container py-5 text-center">
+  <a href="{{ product.buyLink }}" class="btn btn-lg btn-primary me-2" data-ls-overlay>Buy {{ product.price }}</a>
+  <a href="{{ product.demoLink }}" class="btn btn-lg btn-outline-secondary">Download Demo</a>
+</section>
+
+{% include "components/product-features.liquid" %}
+
+{% include "components/product-reviews.liquid" %}
+
+{% include "components/product-videos.liquid" %}
+
+{% include "components/product-details.liquid" %}
+

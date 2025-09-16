@@ -1,0 +1,41 @@
+<section id="reviews" class="container py-5">
+  <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+
+      {% for review in reviews %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="d-flex justify-content-center">
+          <div class="card border-0" style="max-width: 600px;">
+            <div class="d-flex align-items-center p-3">
+              
+              <!-- Reviewer image -->
+              <div class="flex-shrink-0 me-3" style="width: 80px; height: 80px; overflow: hidden; border-radius: 50%;">
+                <img src="{{ review.image }}" alt="{{ review.name }}" 
+                     class="w-100 h-100" style="object-fit: cover;">
+              </div>
+              
+              <!-- Text + name -->
+              <div>
+                <p class="mb-1 fst-italic">“{{ review.text }}”</p>
+                <p class="mb-0 fw-bold text-muted">- {{ review.name }}</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <!-- Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev">
+      <i class="bi bi-chevron-left text-secondary fs-3"></i>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next">
+      <i class="bi bi-chevron-right text-secondary fs-3"></i>
+    </button>
+
+  </div>
+</section>
+

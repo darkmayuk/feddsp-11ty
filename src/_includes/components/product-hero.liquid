@@ -1,0 +1,15 @@
+<section class="hero position-relative">
+  <img src="{{ product.heroImage }}" 
+       alt="{{ product.name }} hero image" 
+       class="w-100"
+       style="height: calc(100vh - 56px); object-fit: cover;">
+
+  <!-- Dark overlay -->
+  <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+
+  <!-- Text -->
+  <div class="hero-text position-absolute top-50 start-50 translate-middle text-center text-white px-3">
+    <h1 class="display-3 fw-bold">{{ product.heroHeadline }}</h1>
+    <p class="lead">{{ product.heroSub }}</p>
+  </div>
+</section>

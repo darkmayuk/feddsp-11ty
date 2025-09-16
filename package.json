@@ -1,0 +1,11 @@
+{
+  "name": "eleventy-site",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.0"
+  }
+}

@@ -1,0 +1,13 @@
+<section id="features" class="container py-5">
+  {% for f in product.features %}
+    {% assign odd = forloop.index0 | modulo: 2 %}
+    <div class="row align-items-center mb-5">
+      <div class="col-md-6 {% if odd == 1 %}order-md-2{% endif %}">
+        <img src="{{ f.image }}" alt="Feature image {{ forloop.index }}" class="img-fluid rounded">
+      </div>
+      <div class="col-md-6">
+        <p>{{ f.text }}</p>
+      </div>
+    </div>
+  {% endfor %}
+</section>
