@@ -2,33 +2,37 @@
   <div class="row g-4">
     {% for product in products %}
     <div class="col-12 col-md-6 col-lg-4">
-      <div class="border rounded h-100 d-flex flex-column p-3">
-        
+      <div class="card h-100 d-flex flex-column">
+
         <!-- Title (link to product page) -->
-        <h5 class="mb-3">
-          <a href="/products/{{ product.id }}/" class="text-decoration-none text-dark">
-            {{ product.name }}
-          </a>
-        </h5>
-        
-        <!-- Image (link to product page) -->
-        <div class="mb-3" style="height: 200px; overflow: hidden;">
-          <a href="/products/{{ product.id }}/">
-            <img src="{{ product.image }}" 
-                 alt="{{ product.name }}" 
-                 class="w-100 h-100" 
-                 style="object-fit: cover;">
-          </a>
+        <div class="card-header bg-white border-0">
+          <h5 class="mb-0">
+            <a href="/products/{{ product.id }}/" class="text-decoration-none text-dark">
+              {{ product.name }}
+            </a>
+          </h5>
         </div>
-        
-        <!-- Footer (buy button direct to LS, description shown here) -->
-        <div class="mt-auto">
-          <a href="{{ product.buyLink }}" 
-             class="btn btn-primary w-100 mb-2" 
-             data-ls-overlay>
-            Buy {{ product.price }}
-          </a>
-          <p class="small text-muted mb-0">{{ product.description }}</p>
+
+        <!-- Image -->
+        <a href="/products/{{ product.id }}/">
+          <img src="{{ product.image }}"
+               alt="{{ product.name }}"
+               class="card-img-top"
+               style="height: 200px; object-fit: cover;">
+        </a>
+
+        <!-- Body -->
+        <div class="card-body d-flex flex-column">
+          <p class="small text-muted flex-grow-1">{{ product.description }}</p>
+
+          <!-- Footer (button pinned to bottom) -->
+          <div class="mt-auto">
+            <a href="{{ product.buyLink }}"
+               class="btn btn-primary w-100"
+               data-ls-overlay>
+              Buy {{ product.price }}
+            </a>
+          </div>
         </div>
 
       </div>
