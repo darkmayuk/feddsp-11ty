@@ -1,0 +1,22 @@
+@font-face {
+  font-family: 'FedDSPHeader';
+  src: url('/assets/fonts/FedDSPCustomFont.otf') format('opentype');
+  font-display: swap;
+}
+
+body {
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h1.display-3 {
+  font-family: 'FedDSPHeader', sans-serif;
+  font-size: 5rem;
+  line-height: 0.9;
+  letter-spacing: 0.04em;
+}
+
+h5, h5.a {
+  font-family: 'FedDSPHeader', sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 0.01em;
+}
