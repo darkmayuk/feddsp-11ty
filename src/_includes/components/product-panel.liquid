@@ -1,3 +1,36 @@
-<section id="product-panel">
-Hello this is the product panel matey
+<section class="product-panel position-relative text-white">
+  <!-- Background image -->
+  <div class="product-bg">
+    <img src="/assets/images/products/konvikt_3d.jpg" alt="Konamp background" class="w-100 h-100 object-fit-cover">
+  </div>
+
+  <!-- Overlay content -->
+  <div class="container position-relative z-1 py-5">
+
+    <!-- Headline -->
+    <h2 class="text-center mb-3">{{ product.heroHeadline }}</h2>
+    <p class="text-center mb-5">{{ product.heroSub }}</p>
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="bg-black p-4 rounded-3">
+          <h4 class="mb-3">Kon</h4>
+          <p>
+            And this is the sub-heading, that we will decide on before the site goes live.
+            Should explicitly mention fedDSP in there. Lorem ipsum dolor sit amet...
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="bg-black p-4 rounded-3">
+          <h4 class="mb-3">Amp</h4>
+          <p>
+            And this is the sub-heading, that we will decide on before the site goes live.
+            Should explicitly mention fedDSP in there. Lorem ipsum dolor sit amet...
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
