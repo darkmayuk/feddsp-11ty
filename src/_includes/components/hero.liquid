@@ -1,15 +1,17 @@
-<section class="hero position-relative">
+<section class="hero py-5">
+  <div class="hero-container d-flex flex-column flex-md-row align-items-center">
+    
+    <!-- Text -->
+    <div class="text-content me-md-5 mb-4 mb-md-0">
+      <h1 class="text-uppercase">{{ texts.heroHeadline | replace: '. ', '.<br>' }}</h1>
+      <p>{{ texts.heroSub }}</p>
+    </div>
 
-  <img src="/assets/images/fedHero.jpg" 
-       alt="fedDSP hero image" 
-       class="w-100"
-       style="height: calc(100vh - 56px); object-fit: cover;">
+    <!-- Image -->
+    <div class="hero-image-wrapper">
+      <img src="/assets/images/fedB&W.jpg" alt="fedDSP hero image" class="img-fluid rounded-4">
+    </div>
 
-  <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
-
-  <div class="hero-text position-absolute top-50 start-50 translate-middle text-center text-white px-3">
-    <h1 class="display-3 fw-bold">{{ texts.heroHeadline }}</h1>
-    <p class="lead">{{ texts.heroSub }}</p>
   </div>
 </section>
 

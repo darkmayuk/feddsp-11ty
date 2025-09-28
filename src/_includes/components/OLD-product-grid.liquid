@@ -1,0 +1,42 @@
+<section id="plugins" class="container py-5">
+  <div class="row g-4">
+    {% for product in products %}
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 d-flex flex-column">
+
+        <!-- Title (link to product page) -->
+        <div class="card-header bg-white border-0">
+          <h5 class="mb-0">
+            <a href="/products/{{ product.id }}/" class="text-decoration-none text-dark">
+              {{ product.name }}
+            </a>
+          </h5>
+        </div>
+
+        <!-- Image -->
+        <a href="/products/{{ product.id }}/">
+          <img src="{{ product.image }}"
+               alt="{{ product.name }}"
+               class="card-img-top"
+               style="height: 200px; object-fit: cover;">
+        </a>
+
+        <!-- Body -->
+        <div class="card-body d-flex flex-column">
+          <p class="small text-muted flex-grow-1">{{ product.description }}</p>
+
+          <!-- Footer (button pinned to bottom) -->
+          <div class="mt-auto">
+            <a href="{{ product.buyLink }}"
+               class="btn btn-primary w-100"
+               data-ls-overlay>
+              Buy {{ product.price }}
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>

@@ -1,19 +1,38 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
+<nav class="navbar navbar-expand-sm sticky-top" style="--nav-x: var(--container-x-margin); --brand-color: var(--brand-pink);">
+  <div class="container-fluid d-flex justify-content-between align-items-center" style="padding-inline: var(--nav-x);">
+
+    <!-- Logo -->
     <a class="navbar-brand" href="/">
-    <img src="/assets/images/fedDSP_logo.png" alt="fedDSP logo" style="max-height:35px;">
+      <img src="/assets/images/fedDSP_logo_text_small_WonB.png" alt="fedDSP logo" class="logo-default">
+      <img src="/assets/images/fedDSPlogo_hover.png" alt="fedDSP logo hover" class="logo-hover">
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+    <!-- Toggler for mobile -->
+    <button class="navbar-toggler d-sm-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
       aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarMain">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/#plugins">Plugins</a>
+    <!-- Main menu -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarMain">
+      <ul class="navbar-nav mb-2 mb-lg-0 align-items-lg-center ms-auto">
+
+        <!-- Plugins dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Plugins
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/products/phaturator/">Phaturator</a></li>
+            <li><a class="dropdown-item" href="/products/konvikt/">Konvikt</a></li>
+            <li><a class="dropdown-item" href="/products/fedvox/">FedVox</a></li>
+            <li><a class="dropdown-item" href="/products/hush/">Hush</a></li>
+            <li><a class="dropdown-item" href="/products/opto/">Opto</a></li>
+            <li><a class="dropdown-item" href="/products/fiery/">Fiery</a></li>
+          </ul>
         </li>
+
+        <!-- Other links -->
         <li class="nav-item">
           <a class="nav-link" href="/about/">About</a>
         </li>
@@ -23,6 +42,14 @@
         <li class="nav-item">
           <a class="nav-link" href="/login/">Login</a>
         </li>
+
+        <!-- Cart icon -->
+        <li class="nav-item ms-auto">
+          <a class="nav-link cart-icon" href="/checkout/">
+            <i class="bi bi-cart-fill"></i>
+          </a>
+        </li>
+
       </ul>
     </div>
   </div>
