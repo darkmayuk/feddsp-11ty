@@ -26,15 +26,30 @@
 
   h1, h2, h3, h4, h1.display-3 {
     font-family: 'FedDSPHeader', sans-serif;
-    font-size: 6rem;
     line-height: 0.9;
     letter-spacing: 0.03em;
+  }
+
+  h1 {
+    font-size: 5rem;
+  }
+
+  h2 {
+    font-size: 4rem;
+  }
+
+  h3 {
+    font-size: 3rem;
   }
 
   h5, h5.a {
     font-family: 'FedDSPHeader', sans-serif;
     font-size: 2.5rem;
     letter-spacing: 0.01em;
+  }
+
+  p {
+    font-size: 0.9rem;
   }
 
   footer p {
@@ -242,3 +257,139 @@
     object-fit: cover;
   }
 
+/* PRODUCT PANEL */
+
+  .product-panel {
+    position: relative;
+    min-height: 70vh;
+    overflow: hidden;
+  }
+
+  .product-panel video { 
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    z-index: 0;
+  }
+
+  .product-panel .overlay-content {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+  }
+
+  .overlay-bottom .container {
+    max-width: 900px;
+  }
+
+/* ABOUT PANEL */
+
+  .about-section {
+    position: relative;
+    background-color: var(--brand-pink);
+    padding-left: var(--container-x-margin-lg);
+    padding-right: var(--container-x-margin-lg);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    min-height: 60vh;
+  }
+
+  @media (max-width: 991.98px) {
+    .about-section { padding-left: var(--container-x-margin-sm); padding-right: var(--container-x-margin-sm); }
+  }
+  @media (max-width: 575.98px) {
+    .about-section { padding-left: var(--container-x-margin-xs); padding-right: var(--container-x-margin-xs); }
+  }
+
+  .about-copy { 
+    max-width: 500px; 
+  }
+
+  /* background logo */
+    .about-section::before {
+      content: "";
+      position: absolute;
+      top: -100%;
+      left: -100%;
+      width: 300%;
+      height: 300%;
+      background-image: url('/assets/images/fedDSP_logo.png');
+      background-repeat: repeat;
+      background-size: 80px auto;
+      transform: rotate(30deg);
+      transform-origin: center;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+  /* Team grid avatars */
+
+    .team-member {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .team-member img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+
+    .team-member:hover img { transform: scale(1.2); }
+
+    .team-member .overlay {
+      border-radius: 50%;
+      background-color: rgba(0,0,0,.8);
+      opacity: 0;
+      padding: .5rem;
+      transition: opacity .25s ease;
+    }
+    .team-member:hover .overlay { opacity: 1; }
+
+/* CONTACT PANEL */
+
+  .contact-card {
+    max-width: 1100px;
+    border-radius: 1.25rem;
+  }
+
+  .contact-input {
+    background:#000;
+    color:#fff;
+    border: none;
+    padding: 0.95rem 1.25rem;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+  }
+  .contact-input::placeholder { color: var(--brand-pink); opacity: 1; }
+  .contact-input:focus {
+    background:#000;
+    color:#fff;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem color-mix(in oklab, var(--brand-pink) 35%, transparent);
+    border: 1px solid var(--brand-pink);
+  }
+
+  .contact-textarea { border-radius: 1.5rem; }
+
+  .contact-btn {
+    background: var(--brand-pink);
+    color: white;
+    border: none;
+    font-weight: 700;
+  }
+
+  .contact-btn:hover { filter: brightness(0.95); }

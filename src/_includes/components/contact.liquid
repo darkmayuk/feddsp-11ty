@@ -1,0 +1,60 @@
+<section class="contact-section py-5 bg-black text-white">
+  <div class="container">
+    <div class="contact-card mx-auto bg-white text-black shadow-sm p-4 p-md-5">
+      <div class="row g-4 align-items-start">
+        <!-- Left copy -->
+        <div class="col-lg-5">
+          <h2 class="mb-3">SUPPORT</h2>
+          <p class="mb-3">
+            And this is the sub-heading, that we will decide on before the site goes live.
+            Should explicitly mention fedDSP in there. Lorem ipsum dolor sit amet,
+            consectetur adipiscing elit, sed diam nonummy.
+          </p>
+          <p class="mb-0">
+            And this is the sub-heading, that we will decide on before the site goes live.
+            Should explicitly mention fedDSP in there.
+          </p>
+        </div>
+
+        <!-- Right form -->
+        <div class="col-lg-7">
+          <form class="contact-form" name="support" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="support">
+
+            <div class="mb-3">
+              <label for="cf-name" class="visually-hidden">Name</label>
+              <input id="cf-name" name="name" type="text"
+                     class="form-control form-control-lg contact-input rounded-pill"
+                     placeholder="Name" autocomplete="name" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="cf-email" class="visually-hidden">Email</label>
+              <input id="cf-email" name="email" type="email"
+                     class="form-control form-control-lg contact-input rounded-pill"
+                     placeholder="Email" autocomplete="email" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="cf-subject" class="visually-hidden">Subject</label>
+              <input id="cf-subject" name="subject" type="text"
+                     class="form-control form-control-lg contact-input rounded-pill"
+                     placeholder="Subject" required>
+            </div>
+
+            <div class="mb-4">
+              <label for="cf-message" class="visually-hidden">Message</label>
+              <textarea id="cf-message" name="message" rows="6"
+                        class="form-control form-control-lg contact-input contact-textarea"
+                        placeholder="Message" required></textarea>
+            </div>
+
+            <div class="text-end">
+              <button type="submit" class="btn btn-lg contact-btn px-4 rounded-pill">SEND</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

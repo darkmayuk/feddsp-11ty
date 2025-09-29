@@ -1,4 +1,13 @@
 {
   "heroHeadline": "Shaped by experience. Tuned by instinct. Proven in studios.",
-  "heroSub": "And this is the sub-heading, that we will decide on before the site goes live. Should explicitly mention fedDSP in there."
+  "heroSub": "And this is the sub-heading, that we will decide on before the site goes live. Should explicitly mention fedDSP in there.",
+  "team": [
+    { "name": "Federico Telesca", "role": "Founder & Chief Engineer", "blurb": "DSP design, plugin architecture, QA.", "avatar": "https://i.pravatar.cc/200?img=11" },
+    { "name": "Mark Day", "role": "Co-Founder & Business Director", "blurb": "Product strategy, partnerships, operations.", "avatar": "https://i.pravatar.cc/200?img=32" },
+    { "name": "Fausto Idini", "role": "Graphic Design", "blurb": "UI engineering, brand design.", "avatar": "https://i.pravatar.cc/200?img=5" },
+    { "name": "Riccardo Cenci", "role": "Videographer", "blurb": "Product videos", "avatar": "https://i.pravatar.cc/200?img=15" },
+    { "name": "Matty Fuge", "role": "Marketing", "blurb": "Social media, emails, advertising", "avatar": "https://i.pravatar.cc/200?img=47" },
+    { "name": "Marco Telesca", "role": "3D Graphics", "blurb": "3D product renders", "avatar": "https://i.pravatar.cc/200?img=66" },
+    { "name": "Tommaso Cappaneera", "role": "Samples & IRs", "blurb": "Sample packs, IR packs", "avatar": "https://i.pravatar.cc/200?img=23" }
+  ]
 }
