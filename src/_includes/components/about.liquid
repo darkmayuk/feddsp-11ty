@@ -1,7 +1,7 @@
 <section class="about-section text-white py-5">
   <div class="row g-0 align-items-center">
     <!-- Left: About copy -->
-    <div class="col-md-6">
+    <div class="col-lg-6">
       <div class="about-copy">
         <h2 class="mb-4 text-uppercase">About</h2>
         <p>{{ texts.heroSub }}</p>
@@ -12,10 +12,10 @@
     </div>
 
     <!-- Right: Team grid -->
-    <div class="col-md-6">
+    <div class="col-lg-6 mt-4">
       <div class="team-grid d-flex flex-wrap justify-content-center align-items-center">
         {% for member in texts.team %}
-          <div class="team-member position-relative m-3">
+          <div class="team-member position-relative m-3 m-xl-4">
             <img src="{{ member.avatar }}" alt="{{ member.name }}" class="rounded-circle img-fluid">
             <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center text-white">
               <h6 class="mb-1">{{ member.name }}</h6>

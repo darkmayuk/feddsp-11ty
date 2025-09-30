@@ -25,7 +25,7 @@
   },
   {
     "id": "konvikt",
-    "name": "Konvikt Amp",
+    "name": "Konvikt",
     "price": "$59",
     "description": "Aggressive amp sim inspired by the JCM800 2203 head.",
     "image": "/assets/images/products/konvikt.jpg",
@@ -73,7 +73,7 @@
   },
   {
     "id": "hush",
-    "name": "Hush Intelligent Gate",
+    "name": "Hush",
     "price": "$29",
     "description": "Smart gate that is particularly suited to drums. Great at cutting cymbal noise from the mix.",
     "image": "/assets/images/products/hush.jpg",
@@ -97,7 +97,7 @@
   },
   {
     "id": "opto",
-    "name": "Opto Compressor",
+    "name": "Opto",
     "price": "$29",
     "description": "Smooth, musical compression with an optical circuit feel.",
     "image": "/assets/images/products/opto.jpg",
@@ -121,7 +121,7 @@
   },
   {
     "id": "fiery",
-    "name": "Fiery Compressor",
+    "name": "Fiery",
     "price": "$35",
     "description": "Aggressive VCA-style compression for drums and mixes.",
     "image": "/assets/images/products/fiery.jpg",
