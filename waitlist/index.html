@@ -4,50 +4,82 @@
   <meta charset="utf-8">
   <title>fedDSP — Coming soon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="index,follow">
-  <link rel="preload" href="/assets/fonts/FedDSPCustomFont.otf" as="font" type="font/otf" crossorigin>
+
+  <!-- Favicon / app icons (place files in the site root or adjust paths) -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/favicon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Fonts / CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="preload" href="/assets/fonts/FedDSPCustomFont.otf" as="font" type="font/otf" crossorigin>
+
+  <!-- Plausible (prod domain) -->
   <script defer data-domain="feddsp.com" src="https://plausible.io/js/script.js"></script>
+
   <style>
-    :root { --brand-pink:#d466ad; --radius:12px; }
-    @font-face {
+    :root{
+      --brand-pink:#d466ad; --radius:16px;
+      --glow-x:50%; --glow-y:50%; /* updated by tiny JS */
+    }
+    @font-face{
       font-family:'FedDSPHeader';
       src:url('/assets/fonts/FedDSPCustomFont.otf') format('opentype');
       font-display: swap;
     }
-    body { background:#000; color:#fff; font-family: 'Montserrat', Arial, sans-serif; }
-    h1, h2 { font-family:'FedDSPHeader', sans-serif; line-height:.9; letter-spacing:.02em; }
-    .wrap { min-height: 100svh; display:flex; align-items:center; }
-    .logo { max-height:56px; }
-    .card-hold { background:#111; border-radius: var(--radius); padding:2rem; }
-    .waitlist-input {
-      background:#000; color:#fff; border:1px solid rgba(255,255,255,.12);
-      padding:.85rem 1rem; border-radius:999px;
+    html,body{height:100%}
+    body{background:#000;color:#fff;font-family:'Montserrat',Arial,sans-serif}
+    h1,h2{font-family:'FedDSPHeader',sans-serif;line-height:.9;letter-spacing:.02em}
+
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:2rem}
+    .card-hold{
+      border-radius: var(--radius);
+      background:
+        radial-gradient(500px 500px at var(--glow-x) var(--glow-y),
+          color-mix(in oklab, var(--brand-pink) 18%, transparent) 0%,
+          transparent 60%),
+        #111;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      transition: transform .2s ease, box-shadow .2s ease, background-position .1s;
     }
-    .waitlist-input:focus {
-      border-color: var(--brand-pink); box-shadow: 0 0 0 .25rem rgba(212,102,173,.35); outline:0;
+    .card-hold:hover{ transform: translateY(-2px); box-shadow: 0 28px 80px rgba(0,0,0,.55); }
+
+    .logo{max-height:60px}
+    .lead-muted{color:#bbb}
+
+    .waitlist-input{
+      background:#000;color:#fff;border:1px solid rgba(255,255,255,.14);
+      padding:.9rem 1.1rem;border-radius:999px
     }
-    .waitlist-btn { background: var(--brand-pink); color:#000; font-weight:700; border-radius:999px; padding:.85rem 1.5rem; }
-    .waitlist-btn:hover { background:#fff; color:#000; box-shadow: inset 0 0 0 2px var(--brand-pink); }
-    .smallprint { color: #bbb; }
+    .waitlist-input:focus{
+      border-color:var(--brand-pink);
+      box-shadow:0 0 0 .25rem color-mix(in oklab, var(--brand-pink) 35%, transparent);
+      outline:0
+    }
+    .waitlist-btn{background:var(--brand-pink);color:#000;font-weight:700;border-radius:999px;padding:.9rem 1.6rem;border:1px solid var(--brand-pink)}
+    .waitlist-btn:hover{background:#fff;color:#000}
+
+    .success-msg{display:none}
+    .error-msg{display:none;color:#ff8080}
   </style>
 </head>
 <body>
 
 <div class="wrap">
-  <div class="container text-center">
-    <img src="/assets/img/fedDSP_logo_text_small_WonB.png" alt="fedDSP" class="logo mb-3">
-    <h1 class="mb-2">Studio-proven plugins, launching soon</h1>
-    <p class="lead text-white-50 mb-4">Join the waitlist to get early access and launch pricing.</p>
-
+  <div class="container">
     <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="card-hold">
-          <!-- Formspree form -->
-          <form action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST" class="waitlist-form">
-            <div class="row g-2 justify-content-center">
+      <div class="col-xl-8">
+        <div class="card-hold p-4 p-md-5 text-center" id="hoverCard">
+          <img class="logo my-4" src="/fedDSP_logo_text_small_WonB.png" alt="fedDSP">
+          <h2 class="mb-5">Join the waiting list</h2>
+      
+
+          <!-- Waitlist form (Formspree) -->
+          <form id="waitlistForm" action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST" class="mx-auto" style="max-width:940px">
+            <div class="row g-2 align-items-center justify-content-center">
               <div class="col-md-4">
                 <input class="form-control form-control-lg waitlist-input" type="text" name="name" placeholder="Name" required autocomplete="name">
               </div>
@@ -59,17 +91,62 @@
               </div>
               <!-- honeypot -->
               <input type="text" name="_gotcha" style="display:none">
-              <!-- optional redirect after submit -->
-              <!-- <input type="hidden" name="_redirect" value="https://feddsp.com/thanks.html"> -->
             </div>
           </form>
-          <p class="small smallprint mt-3 mb-0">We’ll only email for launch updates. Unsubscribe anytime.</p>
+
+          <!-- Inline thank-you (no redirect) -->
+          <div class="success-msg mt-4" id="successMsg">
+            <h2 class="mb-2">Thanks — you’re on the list.</h2>
+            <p class="lead-muted mb-0">We’ll email only for launch updates. Unsubscribe anytime.</p>
+          </div>
+          <div class="error-msg mt-3" id="errorMsg">
+            Something went wrong. Please try again in a moment.
+          </div>
         </div>
+
       </div>
     </div>
-
   </div>
 </div>
 
+<!-- Tiny enhancement JS (no framework) -->
+<script>
+  // Inline thank-you (fetch Formspree, no new page)
+  (function(){
+    const form = document.getElementById('waitlistForm');
+    const ok = document.getElementById('successMsg');
+    const err = document.getElementById('errorMsg');
+    if(!form) return;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err.style.display = 'none';
+      const data = new FormData(form);
+      try{
+        const res = await fetch(form.action, { method:'POST', body:data, headers:{ 'Accept':'application/json' }});
+        if(res.ok){
+          form.style.display = 'none';
+          ok.style.display = 'block';
+        }else{
+          err.style.display = 'block';
+        }
+      }catch{
+        err.style.display = 'block';
+      }
+    });
+  })();
+
+  // Lightweight mouse-move glow/tilt (CSS vars only)
+  (function(){
+    const card = document.getElementById('hoverCard');
+    if(!card) return;
+    card.addEventListener('pointermove', (e)=>{
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 100;
+      const y = ((e.clientY - r.top) / r.height) * 100;
+      card.style.setProperty('--glow-x', x + '%');
+      card.style.setProperty('--glow-y', y + '%');
+    });
+  })();
+</script>
 </body>
 </html>
