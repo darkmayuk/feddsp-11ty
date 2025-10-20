@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>fedDSP — Coming soon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <link rel="preload" href="/assets/fonts/FedDSPCustomFont.otf" as="font" type="font/otf" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script defer data-domain="feddsp.com" src="https://plausible.io/js/script.js"></script>
+  <style>
+    :root { --brand-pink:#d466ad; --radius:12px; }
+    @font-face {
+      font-family:'FedDSPHeader';
+      src:url('/assets/fonts/FedDSPCustomFont.otf') format('opentype');
+      font-display: swap;
+    }
+    body { background:#000; color:#fff; font-family: 'Montserrat', Arial, sans-serif; }
+    h1, h2 { font-family:'FedDSPHeader', sans-serif; line-height:.9; letter-spacing:.02em; }
+    .wrap { min-height: 100svh; display:flex; align-items:center; }
+    .logo { max-height:56px; }
+    .card-hold { background:#111; border-radius: var(--radius); padding:2rem; }
+    .waitlist-input {
+      background:#000; color:#fff; border:1px solid rgba(255,255,255,.12);
+      padding:.85rem 1rem; border-radius:999px;
+    }
+    .waitlist-input:focus {
+      border-color: var(--brand-pink); box-shadow: 0 0 0 .25rem rgba(212,102,173,.35); outline:0;
+    }
+    .waitlist-btn { background: var(--brand-pink); color:#000; font-weight:700; border-radius:999px; padding:.85rem 1.5rem; }
+    .waitlist-btn:hover { background:#fff; color:#000; box-shadow: inset 0 0 0 2px var(--brand-pink); }
+    .smallprint { color: #bbb; }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="container text-center">
+    <img src="/assets/img/fedDSP_logo_text_small_WonB.png" alt="fedDSP" class="logo mb-3">
+    <h1 class="mb-2">Studio-proven plugins, launching soon</h1>
+    <p class="lead text-white-50 mb-4">Join the waitlist to get early access and launch pricing.</p>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card-hold">
+          <!-- Formspree form -->
+          <form action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST" class="waitlist-form">
+            <div class="row g-2 justify-content-center">
+              <div class="col-md-4">
+                <input class="form-control form-control-lg waitlist-input" type="text" name="name" placeholder="Name" required autocomplete="name">
+              </div>
+              <div class="col-md-4">
+                <input class="form-control form-control-lg waitlist-input" type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+              </div>
+              <div class="col-md-auto">
+                <button class="btn btn-lg waitlist-btn" type="submit">Join</button>
+              </div>
+              <!-- honeypot -->
+              <input type="text" name="_gotcha" style="display:none">
+              <!-- optional redirect after submit -->
+              <!-- <input type="hidden" name="_redirect" value="https://feddsp.com/thanks.html"> -->
+            </div>
+          </form>
+          <p class="small smallprint mt-3 mb-0">We’ll only email for launch updates. Unsubscribe anytime.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
