@@ -17,7 +17,13 @@
   <link rel="preload" href="/FedDSPCustomFont.otf" as="font" type="font/otf" crossorigin>
 
   <!-- Plausible -->
-  <script defer data-domain="feddsp.com" src="https://plausible.io/js/script.js"></script>
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-J3F9V_aWzkP06lWawfHxV.js"></script>
+  <script>
+    window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments) }, plausible.init = plausible.init || function (i) { plausible.o = i || {} };
+    plausible.init()
+  </script>
+
 
   <style>
     :root {
@@ -26,6 +32,7 @@
       /* bigger curve */
       --glow-x: 50%;
       --glow-y: 50%;
+      --hue: 320;
     }
 
     @font-face {
@@ -52,7 +59,8 @@
     h2 {
       font-family: 'FedDSPHeader', sans-serif;
       line-height: .9;
-      letter-spacing: .02em
+      letter-spacing: .04em;
+      font-size: 2.5rem;
     }
 
     /* Background “star” noise + slight vignette */
@@ -78,7 +86,7 @@
       mix-blend-mode: normal;
     }
 
-    /* Cursor “neon shard” (replace your block) */
+    /* Cursor “neon shard” */
     .cursor-shard {
       position: fixed;
       inset: 0;
@@ -89,18 +97,17 @@
     .cursor-shard::before {
       content: "";
       position: absolute;
-      width: 220px;
-      height: 6px;
-      /* thinner / longer */
-      left: calc(var(--mx, 50vw) - 110px);
-      top: calc(var(--my, 50vh) - 3px);
+      width: 90px;
+      height: 2px;
+      left: calc(var(--mx, 50vw) - 45px);
+      top: calc(var(--my, 50vh) - 1px);
       background: linear-gradient(90deg,
-          rgba(212, 102, 173, 0) 0%,
-          rgba(212, 102, 173, .6) 35%,
-          rgba(212, 102, 173, 1) 50%,
-          rgba(212, 102, 173, .6) 65%,
-          rgba(212, 102, 173, 0) 100%);
-      filter: drop-shadow(0 0 8px rgba(212, 102, 173, .55)) drop-shadow(0 0 18px rgba(212, 102, 173, .3));
+          hsl(var(--hue) 70% 60% / 0) 0%,
+          hsl(var(--hue) 70% 60% / .55) 35%,
+          hsl(var(--hue) 70% 60% / 1) 50%,
+          hsl(var(--hue) 70% 60% / .55) 65%,
+          hsl(var(--hue) 70% 60% / 0) 100%);
+      filter: drop-shadow(0 0 8px hsl(var(--hue) 70% 60% / .5)) drop-shadow(0 0 18px hsl(var(--hue) 70% 60% / .3));
       transform: translateZ(0) rotate(var(--mrot, -12deg)) skewX(-22deg);
       border-radius: 999px;
       opacity: .85;
@@ -109,18 +116,17 @@
     .cursor-shard::after {
       content: "";
       position: absolute;
-      width: 5px;
-      height: 130px;
-      /* thinner cross */
-      left: calc(var(--mx, 50vw) - 2.5px);
-      top: calc(var(--my, 50vh) - 65px);
+      width: 1.5px;
+      height: 45px;
+      left: calc(var(--mx, 50vw) - 0.75px);
+      top: calc(var(--my, 50vh) - 22.5px);
       background: linear-gradient(180deg,
-          rgba(212, 102, 173, 0) 0%,
-          rgba(212, 102, 173, .55) 40%,
-          rgba(212, 102, 173, 1) 50%,
-          rgba(212, 102, 173, .55) 60%,
-          rgba(212, 102, 173, 0) 100%);
-      filter: drop-shadow(0 0 7px rgba(212, 102, 173, .45)) drop-shadow(0 0 16px rgba(212, 102, 173, .28));
+          hsl(var(--hue) 70% 60% / 0) 0%,
+          hsl(var(--hue) 70% 60% / .55) 40%,
+          hsl(var(--hue) 70% 60% / 1) 50%,
+          hsl(var(--hue) 70% 60% / .55) 60%,
+          hsl(var(--hue) 70% 60% / 0) 100%);
+      filter: drop-shadow(0 0 6px hsl(var(--hue) 70% 60% / .45)) drop-shadow(0 0 14px hsl(var(--hue) 70% 60% / .28));
       transform: translateZ(0) rotate(var(--mrot2, 18deg)) skewY(-18deg);
       border-radius: 999px;
       opacity: .75;
@@ -160,6 +166,33 @@
       top: calc(var(--my, 50vh) + 6px);
       animation: sparkB 1.15s infinite alternate ease-in-out;
       opacity: .55;
+    }
+
+    .spark {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+          hsl(var(--spark-hue) 80% 65% / 1) 0%,
+          hsl(var(--spark-hue) 80% 65% / .5) 55%,
+          transparent 70%);
+      pointer-events: none;
+      will-change: transform, opacity;
+      animation: spark-fade var(--life, 1200ms) ease-out forwards;
+      filter: drop-shadow(0 0 10px hsl(var(--spark-hue) 80% 65% / .6));
+    }
+
+    @keyframes spark-fade {
+      0% {
+        opacity: .9;
+        transform: translate(0, 0) scale(.9);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(var(--dx, 8px), var(--dy, -8px)) scale(.4);
+      }
     }
 
     @keyframes sparkA {
@@ -241,19 +274,24 @@
       max-width: 980px;
       margin-inline: auto;
       --bs-gutter-x: .6rem;
+      /* horizontal gap */
       --bs-gutter-y: .6rem;
     }
 
     /* Inputs with pink active glow (CLS-safe) */
     .waitlist-input {
       background: #000;
-      color: #fff;
+      color: #fff !important;
       border: 1px solid transparent;
-      /* permanent border prevents layout shift */
       padding: .9rem 1.1rem;
       border-radius: 999px;
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12);
       transition: border-color .2s ease, box-shadow .2s ease, background .2s;
+    }
+
+    .waitlist-input::placeholder {
+      color: #bdbdbd !important;
+      opacity: 1;
     }
 
     .waitlist-input:focus {
@@ -266,18 +304,57 @@
     }
 
     .waitlist-btn {
+      display: inline-flex;
+      /* guarantees centering */
+      align-items: center;
+      justify-content: center;
+      gap: .25rem;
       border: 1px solid var(--brand-pink);
       background: var(--brand-pink);
       color: #000;
       font-weight: 700;
-      border-radius: 999px;
-      padding: .9rem 1.6rem;
-      transition: filter .15s ease, background .2s ease, color .2s ease;
+      border-radius: 24px;
+      /* less round than inputs */
+      padding: .9rem 1.4rem;
+      /* slightly tighter */
+      line-height: 1;
+      /* center text vertically */
+      box-shadow: none;
+      /* no extra thickness vs inputs */
+      transition: background .2s, color .2s, filter .15s;
     }
 
-    .waitlist-btn:hover {
+    .waitlist-btn:hover,
+    .waitlist-btn:focus {
       background: #fff;
       color: #000;
+    }
+
+    /* Tooltips float; no vertical reflow */
+    .position-relative .invalid-tooltip {
+      display: none;
+      /* Bootstrap toggles via .is-invalid on input */
+      background: rgba(212, 102, 173, .95);
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      padding: .35rem .5rem;
+      transform: translateY(6px);
+      font-size: .9rem;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .4);
+    }
+
+    .waitlist-input.is-invalid~.invalid-tooltip {
+      display: block;
+    }
+
+    /* Optional: unify valid/invalid outlines without resizing */
+    .waitlist-input.is-invalid {
+      box-shadow: inset 0 0 0 1px rgba(255, 80, 120, .55);
+    }
+
+    .waitlist-input.is-valid {
+      box-shadow: inset 0 0 0 1px rgba(120, 255, 160, .25);
     }
 
     .lead-muted {
@@ -293,6 +370,20 @@
       display: none;
       color: #ff8080;
     }
+
+    /* Use Bootstrap’s validation classes with your styling */
+    .waitlist-input.is-invalid {
+      box-shadow: inset 0 0 0 1px rgba(255, 0, 0, .35);
+    }
+
+    .waitlist-input.is-valid {
+      box-shadow: inset 0 0 0 1px rgba(0, 255, 0, .18);
+    }
+
+    /* Feedback text colour fits your palette */
+    .invalid-feedback {
+      color: #ff9da9;
+    }
   </style>
 </head>
 
@@ -304,7 +395,7 @@
   <div class="wrap">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-xl-7 col-lg-8">
+        <div class="col-12 col-md-12 col-lg-10 col-xl-9 col-xxl-8">
           <div class="card-hold p-4 p-md-5 text-center" id="hoverCard">
             <img class="logo mb-3" src="/fedDSP_logo_text_small_WonB.png" alt="fedDSP">
 
@@ -314,92 +405,158 @@
             <!-- Waitlist form -->
             <form id="waitlistForm" action="https://formspree.io/f/mpwyejge" method="POST" novalidate>
               <div class="row form-row gx-2 gy-2 justify-content-center align-items-center">
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6 position-relative">
                   <input type="email" name="email" class="form-control waitlist-input" placeholder="your@email.com"
-                    required>
+                    required autocomplete="email" inputmode="email">
+                  <div class="invalid-tooltip">Enter a valid email address.</div>
                 </div>
-                <div class="col-12 col-md-4">
-                  <input type="text" name="name" class="form-control waitlist-input" placeholder="your name">
+
+                <div class="col-12 col-md-4 position-relative">
+                  <input type="text" name="name" class="form-control waitlist-input" placeholder="your name" required>
+                  <div class="invalid-tooltip">Please tell us your name.</div>
                 </div>
-                <div class="col-12 col-md-auto">
+
+                <div class="col-12 col-md-2">
                   <button type="submit" class="btn btn-lg waitlist-btn w-100">JOIN</button>
                 </div>
               </div>
-              <!-- honeypot -->
+
               <input type="text" name="_gotcha" style="display:none">
-          </div>
-          </form>
+            </form>
 
-          <!-- Inline thank-you (no redirect) -->
-          <div class="success-msg mt-4" id="successMsg">
-            <h2 class="mb-2">Thanks — you’re on the list.</h2>
-            <p class="lead-muted mb-0">We’ll email only for launch updates. Unsubscribe anytime.</p>
+
+            <!-- Inline thank-you (no redirect) -->
+            <div class="success-msg mt-4" id="successMsg">
+              <h2 class="mb-2">Thanks - you're on the list.</h2>
+              <p class="lead-muted mb-0">We'll email only for launch updates. Unsubscribe anytime.</p>
+            </div>
+            <div class="error-msg mt-3" id="errorMsg">
+              Something went wrong. Please try again.
+            </div>
           </div>
-          <div class="error-msg mt-3" id="errorMsg">
-            Something went wrong. Please try again in a moment.
-          </div>
+
         </div>
-
       </div>
     </div>
-  </div>
-  </div>
 
-  <!-- Tiny JS: inline success + cursor effect + interactive panel glow -->
-  <script>
-    // Formspree inline success
-    (function () {
-      const form = document.getElementById('waitlistForm');
-      const ok = document.getElementById('successMsg');
-      const err = document.getElementById('errorMsg');
-      if (!form) return;
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        err.style.display = 'none';
-        const data = new FormData(form);
-        try {
-          const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
-          if (res.ok) {
-            form.style.display = 'none';
-            ok.style.display = 'block';
-          } else {
-            err.style.display = 'block';
-          }
-        } catch { err.style.display = 'block'; }
-      });
-    })();
 
-    (function () {
-      const card = document.getElementById('hoverCard');
-      const shard = document.querySelector('.cursor-shard');
-      const sparks = document.querySelector('.cursor-sparks');   /* NEW */
-      const clamp01 = v => Math.max(0, Math.min(100, v));
+    <script>
+        (() => {
+          const form = document.getElementById('waitlistForm');
+          const ok = document.getElementById('successMsg');
+          const err = document.getElementById('errorMsg');
+          if (!form) return;
 
-      window.addEventListener('pointermove', (e) => {
-        const x = e.clientX, y = e.clientY;
+          // Live validity styling without reflow
+          form.querySelectorAll('input').forEach(el => {
+            el.addEventListener('input', () => {
+              el.setCustomValidity('');
+              el.classList.toggle('is-invalid', !el.checkValidity());
+              el.classList.toggle('is-valid', el.checkValidity());
+            });
+          });
 
-        /* drive shard */
-        shard.style.setProperty('--mx', x + 'px');
-        shard.style.setProperty('--my', y + 'px');
-        shard.style.setProperty('--mrot', (x % 40) - 20 + 'deg');
-        shard.style.setProperty('--mrot2', (y % 36) - 18 + 'deg');
+          form.addEventListener('submit', async (e) => {
+            // Client-side gate: mark invalid fields, do not submit
+            if (!form.checkValidity()) {
+              e.preventDefault();
+              form.querySelectorAll('input').forEach(el => {
+                el.classList.toggle('is-invalid', !el.checkValidity());
+                el.classList.toggle('is-valid', el.checkValidity());
+              });
+              // focus first invalid
+              const firstBad = form.querySelector('input.is-invalid');
+              if (firstBad) firstBad.focus();
+              return;
+            }
 
-        /* drive sparks (same cursor position) */
-        if (sparks) {
-          sparks.style.setProperty('--mx', x + 'px');
-          sparks.style.setProperty('--my', y + 'px');
+            e.preventDefault();
+            err.style.display = 'none';
+
+            const data = new FormData(form);
+            try {
+              const res = await fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+              });
+
+              if (res.ok) {
+                form.style.display = 'none';
+                ok.style.display = 'block';
+              } else {
+                // Server-side failure → one global message only
+                let msg = 'Something went wrong. Please try again.';
+                try {
+                  const json = await res.json();
+                  if (json?.errors?.length) msg = json.errors.map(e => e.message).join(' ');
+                } catch { }
+                err.textContent = msg;
+                err.style.display = 'block';
+              }
+            } catch {
+              err.textContent = 'Network error. Please try again.';
+              err.style.display = 'block';
+            }
+          });
+        })();
+
+      /* Cursor shard + colour shift + trailing sparks (REPLACEMENT) */
+      (() => {
+        const card = document.getElementById('hoverCard');
+        const shard = document.querySelector('.cursor-shard');
+        const sparksLayer = document.querySelector('.cursor-sparks');
+        const clamp01 = v => Math.max(0, Math.min(100, v));
+        let lastSpawn = 0;
+
+        function spawnSpark(x, y) {
+          if (!sparksLayer) return;
+          const s = document.createElement('span');
+          s.className = 'spark';
+          // vary hue around the current --hue
+          const baseHue = Number(getComputedStyle(document.documentElement).getPropertyValue('--hue')) || 320;
+          const hue = (baseHue + (Math.random() * 40 - 20) + 360) % 360;
+          s.style.setProperty('--spark-hue', hue);
+          s.style.left = x + 'px';
+          s.style.top = y + 'px';
+          s.style.setProperty('--dx', (Math.random() * 40 - 20) + 'px');
+          s.style.setProperty('--dy', (Math.random() * 40 - 20) + 'px');
+          s.style.setProperty('--life', (900 + Math.random() * 700) + 'ms'); // 0.9–1.6s
+          sparksLayer.appendChild(s);
+          setTimeout(() => s.remove(), 1800);
         }
 
-        /* drive panel glow */
-        const r = card.getBoundingClientRect();
-        const gx = clamp01(((x - r.left) / r.width) * 100);
-        const gy = clamp01(((y - r.top) / r.height) * 100);
-        card.style.setProperty('--glow-x', gx + '%');
-        card.style.setProperty('--glow-y', gy + '%');
-      }, { passive: true });
-    })();
+        window.addEventListener('pointermove', (e) => {
+          const x = e.clientX, y = e.clientY;
 
-  </script>
+          // Drive shard
+          shard.style.setProperty('--mx', `${x}px`);
+          shard.style.setProperty('--my', `${y}px`);
+          shard.style.setProperty('--mrot', `${(x % 40) - 20}deg`);
+          shard.style.setProperty('--mrot2', `${(y % 36) - 18}deg`);
+
+          // Colour shift by position + time
+          const hue = ((x / innerWidth) * 360 + (Date.now() / 40)) % 360;
+          document.documentElement.style.setProperty('--hue', hue);
+
+          // Panel glow follows cursor
+          const r = card.getBoundingClientRect();
+          const gx = clamp01(((x - r.left) / r.width) * 100);
+          const gy = clamp01(((y - r.top) / r.height) * 100);
+          card.style.setProperty('--glow-x', `${gx}%`);
+          card.style.setProperty('--glow-y', `${gy}%`);
+
+          // Trailing sparks (throttled)
+          const now = performance.now();
+          if (now - lastSpawn > 40) { // ~25 fps
+            spawnSpark(x + (Math.random() * 10 - 5), y + (Math.random() * 10 - 5));
+            spawnSpark(x + (Math.random() * 10 - 5), y + (Math.random() * 10 - 5));
+            lastSpawn = now;
+          }
+        }, { passive: true });
+      })();
+
+    </script>
 </body>
 
 </html>
