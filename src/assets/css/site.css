@@ -3,11 +3,11 @@
   :root {
     --brand-pink: #d466ad;
     --container-x-margin-xs: 2rem;
-    --container-x-margin-sm: 3rem;
-    --container-x-margin-md: 4rem;
-    --container-x-margin-lg: 5rem;
-    --container-x-margin-xl: 7rem;
-    --container-x-margin-xxl: 12rem;
+    --container-x-margin-sm: 2rem;
+    --container-x-margin-md: 2rem;
+    --container-x-margin-lg: 3rem;
+    --container-x-margin-xl: 4rem;
+    --container-x-margin-xxl: 6rem;
   }
 
   html, body {
@@ -55,6 +55,11 @@
       padding-left: var(--container-x-margin-xxl);
       padding-right: var(--container-x-margin-xxl);
     }
+  }
+
+  .navbar, .hero-container, .about-section, section#product-carousel {
+    max-width: 1500px;
+    margin: auto;
   }
 
 /* FONTS */
@@ -481,7 +486,6 @@
 /* CONTACT PANEL */
 
   .contact-card {
-    max-width: 1100px;
     border-radius: 1.25rem;
   }
 
