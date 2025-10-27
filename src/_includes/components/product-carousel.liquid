@@ -1,14 +1,12 @@
-<section id="product-carousel">
-  <div id="productsCarousel"
-       class="carousel slide bg-white text-black rounded-4 p-5"
-       data-bs-ride="carousel"
-       data-bs-interval="5000"
-       data-bs-pause="hover">
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
+<section id="product-carousel">
+  <div id="productsCarousel" class="swiper bg-white text-black rounded-4 p-5">
     <!-- Slides -->
-    <div class="carousel-inner">
+    <div class="swiper-wrapper">
       {% for product in products %}
-        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="swiper-slide">
           <div class="slide-body">
             <!-- Header -->
             <div class="row g-4 align-items-start">
@@ -25,9 +23,7 @@
 
             <!-- Main product image -->
             <div class="product-img-wrap my-4 rounded-4">
-              <img src="{{ product.image }}"
-                   alt="{{ product.name }}"
-                   class="product-main-img">
+              <img src="{{ product.image }}" alt="{{ product.name }}" class="product-main-img">
             </div>
           </div>
         </div>
@@ -36,23 +32,29 @@
 
     <!-- Actions + indicators -->
     <div class="carousel-actions d-flex justify-content-center align-items-center gap-4 mt-3">
-      <div class="carousel-indicators custom-indicators position-static m-0">
-        {% for product in products %}
-          <button type="button"
-                  data-bs-target="#productsCarousel"
-                  data-bs-slide-to="{{ forloop.index0 }}"
-                  class="{% if forloop.first %}active{% endif %}"
-                  aria-current="{% if forloop.first %}true{% endif %}"
-                  aria-label="Slide {{ forloop.index }}">
-          </button>
-        {% endfor %}
-      </div>
+      <!-- Swiper will populate bullets here -->
+      <div class="carousel-indicators custom-indicators swiper-pagination position-static m-0"></div>
 
-      <a href="{{ product.buyLink }}"
-         class="btn btn-lg product-btn"
-         data-ls-overlay>BUY</a>
+      <a href="{{ product.buyLink }}" class="btn btn-lg product-btn" data-ls-overlay>BUY</a>
       <a href="{{ product.learnMoreLink }}" class="product-learn">Learn More</a>
     </div>
-
   </div>
 </section>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  const swiper = new Swiper('#productsCarousel', {
+    slidesPerView: 1,
+    loop: false,
+    effect: 'slide',
+    speed: 450,                             // Bootstrap-ish feel
+    autoplay: { delay: 5000, pauseOnMouseEnter: true, disableOnInteraction: false },
+    pagination: {
+      el: '#productsCarousel .swiper-pagination',
+      clickable: true,
+      bulletElement: 'button'
+    },
+    // match Bootstrap "hover to pause" behaviour above via autoplay
+  });
+</script>

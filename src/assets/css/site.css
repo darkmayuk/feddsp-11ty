@@ -8,6 +8,7 @@
     --container-x-margin-lg: 3rem;
     --container-x-margin-xl: 4rem;
     --container-x-margin-xxl: 6rem;
+    --footer-block-max: 460px;
   }
 
   html, body {
@@ -279,115 +280,81 @@
   }
 
 /* PRODUCT CAROUSEL */
+section#product-carousel { margin-top: 3rem; margin-bottom: 4rem; }
 
-  section#product-carousel {
-    margin-top: 3rem;
-    margin-bottom: 4rem;
+/* was: #productsCarousel .carousel-inner */
+#productsCarousel .swiper-wrapper { min-height: 400px; }
+
+.slide-body { padding-left: 12px; padding-right: 12px; }
+
+/* Let shadows/scale escape wrappers (map Bootstrap → Swiper) */
+#productsCarousel,
+#productsCarousel .swiper-wrapper,
+#productsCarousel .swiper-slide,
+#productsCarousel .slide-body { overflow: visible; }
+
+/* Product image (unchanged) */
+.product-img-wrap{
+  width:100%;
+  aspect-ratio:3 / 1;
+  display:flex; align-items:center; justify-content:center;
+  background:gray;
+  box-shadow:0 10px 10px 6px rgba(0,0,0,0.35);
+  transition: transform .35s ease, box-shadow .35s ease;
+  will-change: transform;
+}
+.product-main-img{
+  max-width:100%; max-height:100%; object-fit:contain;
+  transition: transform .5s ease;
+}
+
+/* keep your hover behaviour; support both old/new slide classes */
+@media (hover:hover) and (pointer:fine){
+  .carousel-item:hover .product-img-wrap,
+  .swiper-slide:hover .product-img-wrap {
+    transform: scale(1.02);
+    box-shadow: 0 20px 40px 8px rgba(0,0,0,0.45);
   }
+  .carousel-item:hover .product-main-img,
+  .swiper-slide:hover .product-main-img { transform: scale(1.06); }
+}
+@media (prefers-reduced-motion: reduce){
+  .product-img-wrap, .product-main-img { transition: none; }
+}
 
-  #productsCarousel .carousel-inner {
-  min-height: 400px;
-  }
+/* Buttons (unchanged) */
+.product-btn{
+  background: var(--brand-pink); color:#fff;
+  border-radius:999px; padding:.6rem 2rem; font-weight:700;
+  transition:all .2s ease; border:1px solid var(--brand-pink);
+}
+.product-btn:hover, .product-btn:focus { background:#fff; color:#000; }
 
-  .slide-body {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
+/* Learn More link (unchanged) */
+.product-learn{ color:var(--brand-pink); text-decoration:none; font-weight:500; }
+.product-learn:hover{ text-decoration:underline; }
 
-  /* Let shadows/scale escape the carousel wrappers */
-    #productsCarousel,
-    #productsCarousel .carousel-inner,
-    #productsCarousel .carousel-item,
-    #productsCarousel .slide-body {
-      overflow: visible;
-    }
+/* Indicators: keep your pill container; map to Swiper bullets */
+.carousel-actions{ max-width:850px; margin:0 auto; }
+.carousel-indicators.custom-indicators{
+  position: static; display:flex; gap:.5rem;
+  background:#000; padding:1.2rem; border-radius:999px;
+}
+/* Swiper adds .swiper-pagination-bullet / -active */
+.carousel-indicators.custom-indicators .swiper-pagination-bullet{
+  width:14px; height:14px; border-radius:999px;
+  background-color: var(--brand-pink);
+  opacity:.6; border:none; transition:all .2s ease;
+}
+.carousel-indicators.custom-indicators .swiper-pagination-bullet-active{
+  width:36px; opacity:1;
+}
 
-  /* Product image */
-    .product-img-wrap {
-      width: 100%;
-      aspect-ratio: 3 / 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: gray;
-      box-shadow: 0 10px 10px 6px rgba(0,0,0,0.35);
-      transition: transform .35s ease, box-shadow .35s ease;
-      will-change: transform; 
-    }
+/* Fix Swiper pagination width override */
+#productsCarousel .swiper-pagination {
+  width: auto !important;
+}
 
-    .product-main-img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      transition: transform .5s ease;
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      .carousel-item:hover .product-img-wrap {
-        transform: scale(1.02);
-        box-shadow: 0 20px 40px 8px rgba(0,0,0,0.45);
-      }
-      .carousel-item:hover .product-main-img {
-        transform: scale(1.06);
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .product-img-wrap, .product-main-img { transition: none; }
-    }
-
-  /* Buy button */
-    .product-btn {
-      background: var(--brand-pink);
-      color: #fff;
-      border-radius: 999px;
-      padding: 0.6rem 2rem;
-      font-weight: 700;
-      transition: all 0.2s ease;
-      border: 1px solid var(--brand-pink);
-    }
-    .product-btn:hover,
-    .product-btn:focus {
-      background: #fff;
-      color: #000;
-    }
-
-  /* Learn More link */
-    .product-learn {
-      color: var(--brand-pink);
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .product-learn:hover {
-      text-decoration: underline;
-    }
-
-  /* Carousel indicators */
-    .carousel-actions {
-      max-width: 850px;
-      margin: 0 auto;
-    }
-    .carousel-indicators.custom-indicators {
-      position: static;
-      display: flex;
-      gap: 0.5rem;
-      background: #000;
-      padding: 1.2rem;
-      border-radius: 999px;
-    }
-    .carousel-indicators.custom-indicators button {
-      width: 14px;
-      height: 14px;
-      border-radius: 999px;
-      background-color: var(--brand-pink);
-      opacity: 0.6;
-      border: none;
-      transition: all 0.2s ease;
-    }
-    .carousel-indicators.custom-indicators button.active {
-      width: 36px;
-      opacity: 1;
-    }
 
 /* PRODUCT PANEL */
 
@@ -520,6 +487,20 @@
   .contact-btn:hover { filter: brightness(0.95); }
 
 /* FOOTER */
+
+  .footer-block{
+    text-align: left;
+    display: inline-block;
+    max-width: var(--footer-block-max);
+  }
+
+  .site-footer .col-lg-6,
+  .site-footer .col-lg-3 {
+    text-align: center;
+  }
+
+  .site-footer h6 { margin-bottom: 0.75rem; }
+  .footer-links a { display:inline-block; padding:0.25rem 0; }
 
   .footer-logo {
     max-height: 50px;
