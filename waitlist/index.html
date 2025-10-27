@@ -26,17 +26,11 @@
 
   <style>
     :root {
-      --brand-pink: #d466ad;
-      /* original accent if needed */
       --accent-pink: #de54af;
-      /* on-active (from new file) */
       --error-red: #E53024;
-      /* error */
       --panel-radius: 28px;
       --glow-x: 50%;
       --glow-y: 50%;
-
-      /* new-file base neutrals for inputs */
       --fdsp-white-30: rgba(255, 255, 255, .3);
       --fdsp-white-40: rgba(255, 255, 255, .4);
     }
@@ -53,12 +47,14 @@
     }
 
     body {
+      min-height: 100svh;
       margin: 0;
+      display: flex;
+      flex-direction: column;
       background: #000;
       color: #fff;
       font-family: 'Montserrat', Arial, sans-serif;
       overflow-x: hidden;
-      /* keep scroll if needed */
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -71,7 +67,7 @@
       font-size: 2.5rem;
     }
 
-    /* Background layers: particle canvas + aurora */
+    /* Background layers */
     #background-canvas {
       position: fixed;
       inset: 0;
@@ -97,16 +93,17 @@
 
     @keyframes auroraDrift {
       from {
-        transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0)
       }
 
       to {
-        transform: translate3d(200px, -200px, 0);
+        transform: translate3d(200px, -200px, 0)
       }
     }
 
+    /* Main wrap centers the card and grows to push footer down */
     .wrap {
-      min-height: 100%;
+      flex: 1 0 auto;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -119,14 +116,11 @@
       border-radius: var(--panel-radius);
       background:
         radial-gradient(600px 600px at var(--glow-x) var(--glow-y),
-          color-mix(in oklab, #fff 12%, transparent) 0%,
-          transparent 65%),
+          color-mix(in oklab, #fff 12%, transparent) 0%, transparent 65%),
         rgba(20, 20, 20, .92);
       border: 1px solid rgba(255, 255, 255, .08);
       box-shadow: 0 0 40px rgba(255, 255, 255, .14), 0 30px 90px rgba(0, 0, 0, .6);
       transition: transform .2s ease, box-shadow .2s ease, background-position .1s;
-      padding-bottom: calc(2rem + 12px) !important;
-      /* breathing room for errors */
     }
 
     .card-hold:hover {
@@ -149,15 +143,13 @@
       --bs-gutter-y: .6rem;
     }
 
-    /* Inputs: keep dark base, but adopt NEW FILE's on-active glow */
+    /* Inputs with “pink bloom” focus */
     .waitlist-input {
       background: rgba(255, 255, 255, .02);
       color: #fff !important;
       border: 2px solid var(--fdsp-white-30);
-      /* stronger base border */
       padding: .9rem 1.1rem;
       border-radius: 999px;
-      /* keep your pill shape */
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06);
       transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
     }
@@ -172,7 +164,6 @@
       outline: none;
       border-color: var(--accent-pink);
       background: rgba(255, 255, 255, .03);
-      /* pink bloom from the new file */
       box-shadow:
         0 0 28px 6px rgba(222, 84, 175, .42),
         0 0 10px 2px rgba(222, 84, 175, .55),
@@ -180,7 +171,7 @@
         inset 0 0 0 1px rgba(255, 255, 255, .08);
     }
 
-    /* Submit button (keep your current style) */
+    /* Submit button */
     .waitlist-btn {
       position: relative;
       overflow: hidden;
@@ -215,7 +206,7 @@
       transition: opacity .2s;
     }
 
-    /* Validation: only invalid (no green) */
+    /* Validation visuals */
     .waitlist-input.is-invalid {
       box-shadow:
         inset 0 0 0 2px color-mix(in oklab, var(--error-red) 65%, transparent),
@@ -227,25 +218,20 @@
       box-shadow: none;
     }
 
-    /* Keep columns aligned: reserve space for one-line error always */
+    /* Keep columns aligned: reserve one-line height for tooltip */
     .form-row .form-field {
       display: flex;
       flex-direction: column;
     }
 
-    /* Always occupy space; only toggle visibility */
     .form-field .invalid-tooltip {
       position: static;
       transform: none;
       display: block;
-      /* always in flow */
       visibility: hidden;
-      /* hidden by default */
       min-height: 1.1rem;
-      /* reserve vertical space (≈ one line) */
       margin-top: .375rem;
       margin-bottom: 0;
-      /* no extra push on show */
       background: transparent;
       color: var(--error-red);
       box-shadow: none;
@@ -255,9 +241,23 @@
       font-size: .95rem;
     }
 
-    /* Show text when invalid */
     .waitlist-input.is-invalid+.invalid-tooltip {
       visibility: visible;
+    }
+
+    /* Footer */
+    footer.site-footer {
+      margin-top: auto;
+      flex-shrink: 0;
+      text-align: center;
+      padding: 1rem 0 1.25rem;
+      font-size: .72rem;
+      color: rgba(255, 255, 255, .55);
+    }
+
+    footer.site-footer p {
+      margin: 0;
+      line-height: 1.35;
     }
   </style>
 </head>
@@ -267,7 +267,7 @@
   <canvas id="background-canvas" aria-hidden="true"></canvas>
   <div id="aurora" aria-hidden="true"></div>
 
-  <div class="wrap">
+  <main class="wrap">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-12 col-md-12 col-lg-10 col-xl-9 col-xxl-8">
@@ -279,8 +279,8 @@
             <form id="waitlistForm" action="https://formspree.io/f/mpwyejge" method="POST" novalidate>
               <div class="row form-row gx-2 gy-2 justify-content-center align-items-start">
                 <div class="col-12 col-md-6 position-relative form-field">
-                  <input type="email" name="email" class="form-control waitlist-input" placeholder="your@email.com"
-                    required autocomplete="email" inputmode="email">
+                  <input type="email" name="email" id="email" class="form-control waitlist-input"
+                    placeholder="your@email.com" required autocomplete="email" inputmode="email">
                   <div class="invalid-tooltip">Enter a valid email address.</div>
                 </div>
 
@@ -310,278 +310,312 @@
         </div>
       </div>
     </div>
+  </main>
 
-    <script>
-      (() => {
-        const form = document.getElementById('waitlistForm');
-        const ok = document.getElementById('successMsg');
-        const err = document.getElementById('errorMsg');
-        if (!form) return;
+  <footer class="site-footer ms-5 me-5">
+    <p>© Copyright fedDSP 2025<br>
+      fedDSP is a trading name of fedDSP Ltd, Registered in England &amp; Wales, Company Number 16604307.
+      Registered Office: Ward Court, 203 Ecclesall Road, Sheffield S11 8HW, United Kingdom.</p>
+  </footer>
 
-        // Initial state
+  <script>
+    /* Validation: blur-based, with stricter email rule; Formspree submit */
+    (() => {
+      const form = document.getElementById('waitlistForm');
+      const ok = document.getElementById('successMsg');
+      const err = document.getElementById('errorMsg');
+      if (!form) return;
+
+      const email = document.getElementById('email');
+      const emailTip = email?.nextElementSibling;
+
+      // Stricter email (e.g. "a@b" fails)
+      const emailRe = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+      ok.hidden = true; err.hidden = true;
+
+      form.querySelectorAll('input').forEach(el => {
+        el.addEventListener('input', () => {
+          // Clear custom validity while typing; don't nag
+          el.setCustomValidity('');
+          el.classList.remove('is-invalid');
+          err.hidden = true;
+        }, { passive: true });
+
+        el.addEventListener('blur', () => {
+          // Custom check for email field
+          if (el === email) {
+            const valid = emailRe.test(el.value.trim());
+            if (!valid) {
+              el.setCustomValidity('invalid');
+              if (emailTip) emailTip.textContent = 'Enter a valid email address.';
+              el.classList.add('is-invalid');
+              return;
+            }
+          }
+          el.setCustomValidity('');
+          el.classList.toggle('is-invalid', !el.checkValidity());
+        }, { passive: true });
+      });
+
+      form.addEventListener('submit', async (e) => {
+        // Final gate with custom email rule
+        const emailValid = emailRe.test(email.value.trim());
+        if (!emailValid) {
+          email.setCustomValidity('invalid');
+          if (emailTip) emailTip.textContent = 'Enter a valid email address.';
+        } else {
+          email.setCustomValidity('');
+        }
+
+        if (!form.checkValidity()) {
+          e.preventDefault();
+          form.querySelectorAll('input').forEach(el => {
+            el.classList.toggle('is-invalid', !el.checkValidity());
+          });
+          const firstBad = form.querySelector('input.is-invalid');
+          if (firstBad) firstBad.focus();
+          return;
+        }
+
+        e.preventDefault();
         ok.hidden = true; err.hidden = true;
 
-        form.querySelectorAll('input').forEach(el => {
-          // While typing: don't show errors; clear any existing one
-          el.addEventListener('input', () => {
-            el.setCustomValidity('');
-            el.classList.remove('is-invalid');
-            err.hidden = true; // clear global error on user action
-          }, { passive: true });
+        const data = new FormData(form);
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
 
-          // When user leaves the field: validate and show error if needed
-          el.addEventListener('blur', () => {
-            el.classList.toggle('is-invalid', !el.checkValidity());
-          }, { passive: true });
-        });
-
-        form.addEventListener('submit', async (e) => {
-          // Final gate: validate all fields
-          if (!form.checkValidity()) {
-            e.preventDefault();
-            form.querySelectorAll('input').forEach(el => {
-              el.classList.toggle('is-invalid', !el.checkValidity());
-            });
-            const firstBad = form.querySelector('input.is-invalid');
-            if (firstBad) firstBad.focus();
-            return;
-          }
-
-          e.preventDefault();
-          ok.hidden = true; err.hidden = true;
-
-          const data = new FormData(form);
-          try {
-            const res = await fetch(form.action, {
-              method: 'POST', body: data, headers: { 'Accept': 'application/json' }
-            });
-
-            if (res.ok) {
-              form.style.display = 'none';
-              ok.hidden = false;
-            } else {
-              let msg = 'Something went wrong. Please try again.';
-              try {
-                const json = await res.json();
-                if (json?.errors?.length) msg = json.errors.map(e => e.message).join(' ');
-              } catch { }
-              err.textContent = msg;
-              err.hidden = false;
-            }
-          } catch {
-            err.textContent = 'Network error. Please try again.';
+          if (res.ok) {
+            form.style.display = 'none';
+            ok.hidden = false;
+          } else {
+            let msg = 'Something went wrong. Please try again.';
+            try {
+              const json = await res.json();
+              if (json?.errors?.length) msg = json.errors.map(e => e.message).join(' ');
+            } catch { }
+            err.textContent = msg;
             err.hidden = false;
           }
-        });
-      })();
-
-
-      /* Panel glow follows cursor (keep) */
-      (() => {
-        const card = document.getElementById('hoverCard');
-        let mx = innerWidth / 2, my = innerHeight / 2;
-        addEventListener('pointermove', e => {
-          mx = e.clientX; my = e.clientY;
-          const r = card.getBoundingClientRect();
-          const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
-          const gx = clamp(((mx - r.left) / r.width) * 100, 0, 100);
-          const gy = clamp(((my - r.top) / r.height) * 100, 0, 100);
-          card.style.setProperty('--glow-x', gx + '%');
-          card.style.setProperty('--glow-y', gy + '%');
-        }, { passive: true });
-      })();
-
-      /* Button shine hotspot (keep) */
-      (() => {
-        const btn = document.querySelector('.waitlist-btn');
-        if (!btn) return;
-        btn.addEventListener('pointermove', e => {
-          const r = btn.getBoundingClientRect();
-          const x = ((e.clientX - r.left) / r.width * 100).toFixed(2) + '%';
-          const y = ((e.clientY - r.top) / r.height * 100).toFixed(2) + '%';
-          btn.style.setProperty('--mx', x);
-          btn.style.setProperty('--my', y);
-        }, { passive: true });
-      })();
-
-      /* ===== Featherweight particle “sparkles” background (from new file) ===== */
-      (() => {
-        const canvas = document.getElementById('background-canvas');
-        const ctx = canvas.getContext('2d', { alpha: true });
-
-        const DPR = Math.max(1, Math.min(1.5, window.devicePixelRatio || 1));
-        let W = 0, H = 0;
-
-        const mouse = { x: 0, y: 0, active: false, radius: 110 };
-        let particles = [];
-        const LINK_DIST = 170;
-        const LINK_DIST2 = LINK_DIST * LINK_DIST;
-
-        function resize() {
-          W = Math.floor(window.innerWidth);
-          H = Math.floor(window.innerHeight);
-          canvas.width = Math.floor(W * DPR);
-          canvas.height = Math.floor(H * DPR);
-          canvas.style.width = W + 'px';
-          canvas.style.height = H + 'px';
-          ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-          initParticles();
+        } catch {
+          err.textContent = 'Network error. Please try again.';
+          err.hidden = false;
         }
+      });
+    })();
 
-        function initParticles() {
-          const area = W * H;
-          const N = Math.min(140, Math.max(80, Math.round(area / 17000)));
-          particles = [];
-          for (let i = 0; i < N; i++) {
-            particles.push({
-              x: Math.random() * W,
-              y: Math.random() * H,
-              vx: (Math.random() - 0.5) * 0.4,
-              vy: (Math.random() - 0.5) * 0.4,
-              size: 1 + Math.random() * 1.1,
-              seed: Math.random() * 1000
-            });
-          }
+    /* Panel glow follows cursor */
+    (() => {
+      const card = document.getElementById('hoverCard');
+      addEventListener('pointermove', e => {
+        const r = card.getBoundingClientRect();
+        const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+        const gx = clamp(((e.clientX - r.left) / r.width) * 100, 0, 100);
+        const gy = clamp(((e.clientY - r.top) / r.height) * 100, 0, 100);
+        card.style.setProperty('--glow-x', gx + '%');
+        card.style.setProperty('--glow-y', gy + '%');
+      }, { passive: true });
+    })();
+
+    /* Button shine hotspot */
+    (() => {
+      const btn = document.querySelector('.waitlist-btn');
+      if (!btn) return;
+      btn.addEventListener('pointermove', e => {
+        const r = btn.getBoundingClientRect();
+        btn.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(2) + '%');
+        btn.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(2) + '%');
+      }, { passive: true });
+    })();
+
+    /* Sparkles background: wrap edges, no drift, tiny zero-mean jitter */
+    (() => {
+      const canvas = document.getElementById('background-canvas');
+      const ctx = canvas.getContext('2d', { alpha: true });
+
+      const DPR = Math.max(1, Math.min(1.5, window.devicePixelRatio || 1));
+      let W = 0, H = 0;
+
+      const mouse = { x: 0, y: 0, active: false, radius: 110 };
+      let particles = [];
+      const LINK_DIST = 170;
+      const LINK_DIST2 = LINK_DIST * LINK_DIST;
+      const EDGE_WRAP_MARGIN = 24;
+
+      function resize() {
+        W = Math.floor(window.innerWidth);
+        H = Math.floor(window.innerHeight);
+        canvas.width = Math.floor(W * DPR);
+        canvas.height = Math.floor(H * DPR);
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+        initParticles();
+      }
+
+      function initParticles() {
+        const area = W * H;
+        const N = Math.min(140, Math.max(80, Math.round(area / 17000)));
+        particles = [];
+        for (let i = 0; i < N; i++) {
+          particles.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            size: 1 + Math.random() * 1.1,
+            seed: Math.random() * 1000
+          });
         }
+      }
 
-        function flow(x, y, t) {
-          const a = Math.sin(0.0023 * x + 0.0017 * y + 0.7 * t);
-          const b = Math.cos(0.0019 * x - 0.0021 * y - 0.6 * t);
-          const c = Math.sin(0.0011 * y - 0.0013 * x + 0.5 * t);
-          return [a + c * 0.6, b - c * 0.6];
-        }
+      function flow(x, y, t) {
+        const a = Math.sin(0.0023 * x + 0.0017 * y + 0.7 * t);
+        const b = Math.cos(0.0019 * x - 0.0021 * y - 0.6 * t);
+        const c = Math.sin(0.0011 * y - 0.0013 * x + 0.5 * t);
+        return [a + c * 0.6, b - c * 0.6];
+      }
 
-        let last = performance.now();
-        function loop(now) {
-          const dt = Math.min(0.04, (now - last) / 1000);
-          last = now;
-          const t = now * 0.0012;
+      let last = performance.now();
+      function loop(now) {
+        const dt = Math.min(0.04, (now - last) / 1000);
+        last = now;
+        const t = now * 0.0012;
 
-          ctx.clearRect(0, 0, W, H);
+        ctx.clearRect(0, 0, W, H);
 
-          // Update & draw dots
-          for (let p of particles) {
-            const [fx, fy] = flow(p.x + p.seed, p.y - p.seed, t);
-            p.vx += fx * 0.02 * dt * 60;
-            p.vy += fy * 0.02 * dt * 60;
+        for (let p of particles) {
+          const [fx, fy] = flow(p.x + p.seed, p.y - p.seed, t);
+          p.vx += fx * 0.02 * dt * 60;
+          p.vy += fy * 0.02 * dt * 60;
 
-            if (mouse.active) {
-              const dx = p.x - mouse.x, dy = p.y - mouse.y;
-              const dist = Math.hypot(dx, dy), R = mouse.radius * 1.1;
-              if (dist < R && dist > 0.01) {
-                const f = (1 - dist / R) * 0.06;
-                p.vx += (dx / dist) * f;
-                p.vy += (dy / dist) * f;
-              }
-            }
-
-            p.vx *= 0.988; p.vy *= 0.988;
-            const sp = Math.hypot(p.vx, p.vy), maxSp = 1.0;
-            if (sp > maxSp) { const s = maxSp / sp; p.vx *= s; p.vy *= s; }
-
-            p.x += p.vx; p.y += p.vy;
-
-            if (p.x < 0 || p.x > W) p.vx *= -1, p.x = Math.max(0, Math.min(W, p.x));
-            if (p.y < 0 || p.y > H) p.vy *= -1, p.y = Math.max(0, Math.min(H, p.y));
-
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255,255,255,0.35)';
-            ctx.fill();
-          }
-
-          if (mouse.active) { drawLines(t); }
-
-          requestAnimationFrame(loop);
-        }
-
-        function drawLines(t) {
-          const mx = mouse.x, my = mouse.y, R = mouse.radius;
-          const subset = [];
-          const bound = R + LINK_DIST;
-          for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            if (Math.abs(p.x - mx) <= bound && Math.abs(p.y - my) <= bound) {
-              subset.push(i);
+          if (mouse.active) {
+            const dx = p.x - mouse.x, dy = p.y - mouse.y;
+            const dist = Math.hypot(dx, dy), R = mouse.radius * 1.1;
+            if (dist < R && dist > 0.01) {
+              const f = (1 - dist / R) * 0.06;
+              p.vx += (dx / dist) * f;
+              p.vy += (dy / dist) * f;
             }
           }
-          if (!subset.length) return;
 
-          const g = ctx.createRadialGradient(mx, my, 0, mx, my, R * 1.2);
-          g.addColorStop(0.00, 'rgba(255,225,242,0.95)');
-          g.addColorStop(0.35, 'rgba(245,140,205,0.95)');
-          g.addColorStop(0.70, 'rgba(222,84,175,0.93)');
-          g.addColorStop(1.00, 'rgba(222,84,175,0.00)');
+          // tiny zero-mean jitter to avoid lock-in; no net drift
+          p.vx += (Math.random() - 0.5) * 0.006 * dt * 60;
+          p.vy += (Math.random() - 0.5) * 0.006 * dt * 60;
 
-          ctx.globalCompositeOperation = 'screen';
+          p.vx *= 0.988; p.vy *= 0.988;
+          const sp = Math.hypot(p.vx, p.vy), maxSp = 1.0;
+          if (sp > maxSp) { const s = maxSp / sp; p.vx *= s; p.vy *= s; }
 
-          let edges = 0, EDGE_LIMIT = 700;
-          for (let ai = 0; ai < subset.length; ai++) {
-            const i = subset[ai], a = particles[i];
-            for (let bi = ai + 1; bi < subset.length; bi++) {
-              const j = subset[bi], b = particles[j];
-              const dx = a.x - b.x, dy = a.y - b.y;
-              const d2 = dx * dx + dy * dy;
-              if (d2 > LINK_DIST2) continue;
+          p.x += p.vx; p.y += p.vy;
 
-              const dLine = segDist(mx, my, a.x, a.y, b.x, b.y);
-              if (dLine >= R) continue;
+          // toroidal wrap (no edge accumulation)
+          if (p.x < -EDGE_WRAP_MARGIN) p.x += W + EDGE_WRAP_MARGIN * 2;
+          else if (p.x > W + EDGE_WRAP_MARGIN) p.x -= W + EDGE_WRAP_MARGIN * 2;
+          if (p.y < -EDGE_WRAP_MARGIN) p.y += H + EDGE_WRAP_MARGIN * 2;
+          else if (p.y > H + EDGE_WRAP_MARGIN) p.y -= H + EDGE_WRAP_MARGIN * 2;
 
-              const intensity = 1 - (dLine / R);
-              const dist = Math.sqrt(d2);
-              const opacity = Math.min(1, (1 - dist / LINK_DIST) * (0.35 + intensity * 0.65));
-              const swell = 1 + intensity * 2.0;
-
-              ctx.lineWidth = swell * 1.7;
-              ctx.strokeStyle = g;
-              ctx.globalAlpha = Math.min(1, 0.10 + opacity * 0.55);
-              ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-
-              ctx.lineWidth = swell * 0.85;
-              ctx.globalAlpha = Math.min(1, 0.20 + opacity * 0.85);
-              ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-
-              if (++edges > EDGE_LIMIT) break;
-            }
-            if (edges > EDGE_LIMIT) break;
-          }
-
-          ctx.globalAlpha = 1;
-          ctx.globalCompositeOperation = 'source-over';
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255,255,255,0.35)';
+          ctx.fill();
         }
 
-        function segDist(px, py, x1, y1, x2, y2) {
-          const dx = x2 - x1, dy = y2 - y1;
-          const len2 = dx * dx + dy * dy || 1;
-          let t = ((px - x1) * dx + (py - y1) * dy) / len2;
-          t = Math.max(0, Math.min(1, t));
-          const nx = x1 + t * dx, ny = y1 + t * dy;
-          const ddx = px - nx, ddy = py - ny;
-          return Math.hypot(ddx, ddy);
-        }
+        if (mouse.active) { drawLines(t); }
 
-        function enablePointer() {
-          const move = (x, y) => { mouse.x = x; mouse.y = y; mouse.active = true; };
-          window.addEventListener('pointermove', (e) => move(e.clientX, e.clientY));
-          window.addEventListener('pointerenter', (e) => move(e.clientX, e.clientY));
-          window.addEventListener('pointerdown', (e) => move(e.clientX, e.clientY));
-          window.addEventListener('pointerleave', () => { mouse.active = false; });
-
-          window.addEventListener('touchstart', (e) => {
-            const t = e.touches[0]; if (t) move(t.clientX, t.clientY);
-          }, { passive: true });
-          window.addEventListener('touchmove', (e) => {
-            const t = e.touches[0]; if (t) move(t.clientX, t.clientY);
-          }, { passive: true });
-          window.addEventListener('touchend', () => { mouse.active = false; });
-        }
-
-        resize(); enablePointer();
-        window.addEventListener('resize', resize);
         requestAnimationFrame(loop);
-      })();
-    </script>
-  </div>
+      }
+
+      function drawLines(t) {
+        const mx = mouse.x, my = mouse.y, R = mouse.radius;
+        const subset = [];
+        const bound = R + LINK_DIST;
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          if (Math.abs(p.x - mx) <= bound && Math.abs(p.y - my) <= bound) {
+            subset.push(i);
+          }
+        }
+        if (!subset.length) return;
+
+        const g = ctx.createRadialGradient(mx, my, 0, mx, my, R * 1.2);
+        g.addColorStop(0.00, 'rgba(255,225,242,0.95)');
+        g.addColorStop(0.35, 'rgba(245,140,205,0.95)');
+        g.addColorStop(0.70, 'rgba(222,84,175,0.93)');
+        g.addColorStop(1.00, 'rgba(222,84,175,0.00)');
+
+        ctx.globalCompositeOperation = 'screen';
+
+        let edges = 0, EDGE_LIMIT = 700;
+        for (let ai = 0; ai < subset.length; ai++) {
+          const i = subset[ai], a = particles[i];
+          for (let bi = ai + 1; bi < subset.length; bi++) {
+            const j = subset[bi], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const d2 = dx * dx + dy * dy;
+            if (d2 > LINK_DIST2) continue;
+
+            const dLine = segDist(mx, my, a.x, a.y, b.x, b.y);
+            if (dLine >= R) continue;
+
+            const intensity = 1 - (dLine / R);
+            const dist = Math.sqrt(d2);
+            const opacity = Math.min(1, (1 - dist / LINK_DIST) * (0.35 + intensity * 0.65));
+            const swell = 1 + intensity * 2.0;
+
+            ctx.lineWidth = swell * 1.7;
+            ctx.strokeStyle = g;
+            ctx.globalAlpha = Math.min(1, 0.10 + opacity * 0.55);
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+
+            ctx.lineWidth = swell * 0.85;
+            ctx.globalAlpha = Math.min(1, 0.20 + opacity * 0.85);
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+
+            if (++edges > EDGE_LIMIT) break;
+          }
+          if (edges > EDGE_LIMIT) break;
+        }
+
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-over';
+      }
+
+      function segDist(px, py, x1, y1, x2, y2) {
+        const dx = x2 - x1, dy = y2 - y1;
+        const len2 = dx * dx + dy * dy || 1;
+        let t = ((px - x1) * dx + (py - y1) * dy) / len2;
+        t = Math.max(0, Math.min(1, t));
+        const nx = x1 + t * dx, ny = y1 + t * dy;
+        const ddx = px - nx, ddy = py - ny;
+        return Math.hypot(ddx, ddy);
+      }
+
+      function enablePointer() {
+        const move = (x, y) => { mouse.x = x; mouse.y = y; mouse.active = true; };
+        window.addEventListener('pointermove', e => move(e.clientX, e.clientY));
+        window.addEventListener('pointerenter', e => move(e.clientX, e.clientY));
+        window.addEventListener('pointerdown', e => move(e.clientX, e.clientY));
+        window.addEventListener('pointerleave', () => { mouse.active = false; });
+
+        window.addEventListener('touchstart', e => {
+          const t = e.touches[0]; if (t) move(t.clientX, t.clientY);
+        }, { passive: true });
+        window.addEventListener('touchmove', e => {
+          const t = e.touches[0]; if (t) move(t.clientX, t.clientY);
+        }, { passive: true });
+        window.addEventListener('touchend', () => { mouse.active = false; });
+      }
+
+      resize(); enablePointer();
+      window.addEventListener('resize', resize);
+      requestAnimationFrame(loop);
+    })();
+  </script>
 </body>
 
 </html>
