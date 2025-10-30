@@ -20,6 +20,8 @@
           </div>
           <div class="product-img-wrap my-4 rounded-4">
             <img src="{{ product.image }}" alt="{{ product.name }}" class="product-main-img">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
           </div>
         </div>
       </div>
@@ -27,13 +29,12 @@
     </div>
 
     <div class="carousel-actions d-flex justify-content-center align-items-center gap-4 mt-3">
-      <div class="carousel-indicators custom-indicators swiper-pagination position-static m-0"></div>
+      <div class="carousel-indicators custom-indicators swiper-pagination position-static m-0 d-none d-sm-flex"></div>
       <a href="{{ product.buyLink }}" class="btn btn-lg product-btn" data-ls-overlay>BUY</a>
       <a href="{{ product.learnMoreLink }}" class="product-learn">Learn More</a>
     </div>
 
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
+    
   </div>
 </section>
 

@@ -39,7 +39,7 @@ section#product-carousel {
   }
 }
 
-@media (min-width: 768) {
+@media (min-width: 768px) {
 
   /* md */
   .navbar,
@@ -469,24 +469,27 @@ ul.navbar-nav {
 
   /* media queries */
 
+    @media (max-width: 991.98px) {
+  
+      #productsCarousel { 
+        padding: 1.25rem;
+      }
+    
+    }
+
+  /* prev/ next arrows */
+
     .swiper-button-prev, .swiper-button-next {
       visibility: hidden;
     }
 
-    @media (max-width: 991.98px){
-
-      #productsCarousel { 
-        padding: 1.25rem;
-      }          
-
+    @media (max-width: 991.98px) and (hover: hover) and (pointer: fine) {
+ 
       .swiper-button-prev, .swiper-button-next {
         visibility: visible;
         transform: scale(0.8);
         transition: transform 0.3s ease;
       }
-
-      #productsCarousel .swiper-button-prev { left: 1.5rem; }
-      #productsCarousel .swiper-button-next { right: 1.5rem; }
 
       #productsCarousel .swiper-button-prev:hover,
       #productsCarousel .swiper-button-next:hover {
@@ -503,12 +506,12 @@ ul.navbar-nav {
       }
 
       #productsCarousel .swiper-button-prev::after {
-        border-width: 15px 20px 15px 0;
+        border-width: 10px 15px 10px 0;
         border-color: transparent white transparent transparent;
       }
 
       #productsCarousel .swiper-button-next::after {
-        border-width: 15px 0 15px 20px;
+        border-width: 10px 0 10px 15px;
         border-color: transparent transparent transparent white;
       }
   }
