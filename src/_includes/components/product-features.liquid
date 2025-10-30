@@ -1,13 +1,33 @@
-<section id="features" class="container py-5">
-  {% for f in product.features %}
-    {% assign odd = forloop.index0 | modulo: 2 %}
+<section class="product-features bg-black text-white py-5">
+  <div class="container-fluid">
+
     <div class="row align-items-center mb-5">
-      <div class="col-md-6 {% if odd == 1 %}order-md-2{% endif %}">
-        <img src="{{ f.image }}" alt="Feature image {{ forloop.index }}" class="img-fluid rounded">
+      <div class="col-md-3 text-start">
+        <p class="product-feature-text">{{ product.description }}</p>
+        <p class="product-feature-text">{{ product.extraText }}</p>
       </div>
-      <div class="col-md-6">
-        <p>{{ f.text }}</p>
+
+      <div class="col-md-6 text-center">
+        <img src="{{ product.image }}" alt="{{ product.name }} main image" class="img-fluid rounded-4 product-feature-image mb-4 mb-md-0">
+      </div>
+
+      <div class="col-md-3 text-start">
+        <p class="product-feature-text">{{ product.description }}</p>
+        <p class="product-feature-text">{{ product.extraText }}</p>
       </div>
     </div>
-  {% endfor %}
+
+    <div class="row text-center g-5">
+      <div class="col-md-4">
+        <div class="product-feature-box bg-white rounded-4"></div>
+      </div>
+      <div class="col-md-4">
+        <div class="product-feature-box bg-white rounded-4"></div>
+      </div>
+      <div class="col-md-4">
+        <div class="product-feature-box bg-white rounded-4"></div>
+      </div>
+    </div>
+
+  </div>
 </section>

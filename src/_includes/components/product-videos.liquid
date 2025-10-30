@@ -1,17 +1,16 @@
-<section id="videos" class="container py-5">
-  {% for v in product.videos %}
-    {% assign odd = forloop.index0 | modulo: 2 %}
-    <div class="row align-items-center mb-5">
-      <div class="col-md-6 {% if odd == 1 %}order-md-2{% endif %}">
-        <div class="ratio ratio-16x9">
-          <iframe src="{{ v.embed }}" 
-                  title="YouTube video {{ forloop.index }}" 
-                  allowfullscreen></iframe>
-        </div>
+<section class="product-videos d-flex align-items-center justify-content-center py-5"
+         style="background-color: {{ product.heroColour | default: '#000' }};">
+  <div class="container text-center">
+    {% for video in product.videos %}
+      <div class="ratio ratio-16x9 mb-5 product-video-wrap">
+        <iframe
+          src="{{ video.embed }}"
+          title="{{ product.name }} video {{ forloop.index }}"
+          allowfullscreen
+          class="rounded-4 border-0">
+        </iframe>
       </div>
-      <div class="col-md-6">
-        <p>{{ v.text }}</p>
-      </div>
-    </div>
-  {% endfor %}
+    {% endfor %}
+  </div>
 </section>
+

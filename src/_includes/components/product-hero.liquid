@@ -1,15 +1,27 @@
-<section class="product-hero position-relative">
-  <img src="{{ product.heroImage }}" 
-       alt="{{ product.name }} hero image" 
-       class="w-100 product-heroImage"
-       style="object-fit: cover;">
+{% assign hasHeroImage = product.heroImage and product.heroImage != '' %}
 
-  <!-- Dark overlay -->
-  <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+<section
+  class="product-hero{% unless hasHeroImage %} no-image{% endunless %}"
+  style="
+    --hero-bg: {{ product.heroColour | default: '#111' }};
+    --hero-text: {{ product.heroTextColour | default: '#fff' }};
+  "
+>
+  {% if hasHeroImage %}
+    <img
+      src="{{ product.heroImage }}"
+      alt="{{ product.name }} hero image"
+      class="product-heroImage"
+    >
+  {% endif %}
 
-  <!-- Text -->
-  <div class="hero-text position-absolute top-50 start-50 translate-middle text-center text-white px-3">
-    <h1 class="display-3 fw-bold">{{ product.heroHeadline }}</h1>
-    <p class="lead">{{ product.heroSub }}</p>
+  <div class="product-hero-text px-3">
+    <h2 class="text-uppercase">{{ product.heroHeadline }}</h2>
+    <img
+      src="{{ product.logo }}"
+      alt="{{ product.name }} logo"
+      class="product-hero-logo mb-4"
+    >
+    <p>{{ product.heroSub }}</p>
   </div>
 </section>

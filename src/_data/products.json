@@ -1,27 +1,65 @@
 [
   {
     "id": "phaturator",
-    "name": "Phaturator",
+    "name": "PHATurator",
     "price": "$49",
     "description": "Analog-modeled saturation with zero latency for fattening any track.",
     "extraText": "Six different types of saturation, each of which can be chained",
     "image": "/assets/images/products/phaturator.jpg",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/0b52c713-20a5-43ae-a90b-c711d045947a?discount=0",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/phaturator",
-    "heroImage": "https://picsum.photos/id/1015/1600/600",
-    "heroHeadline": "Phaturator - Fat Sound, Zero Latency",
+    "logo": "/assets/images/products/phat-logo.png",
+    "heroColour": "#1c1c1c",
+    "heroTextColour": "#fff",
+    "heroHeadline": "Colour Your Sound",
     "heroSub": "Bring vintage warmth and punch to your mixes.",
     "features": [
       { "image": "https://picsum.photos/id/1025/600/400", "text": "Drive your signal into authentic analog saturation." },
       { "image": "https://picsum.photos/id/1035/600/400", "text": "Zero-latency engine, perfect for live performance." }
     ],
     "videos": [
-      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ", "text": "Quick walkthrough of controls." },
-      { "embed": "https://www.youtube.com/embed/3JZ_D3ELwOQ", "text": "Plugin in action on a mix." }
+      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ", "text": "Quick walkthrough of controls." }
     ],
     "details": {
       "features": ["Analog-modeled drive circuit", "Zero-latency processing", "Resizable UI"],
       "specs": { "windows": "Windows 10+, VST3/AU", "mac": "macOS 11+, AU/VST3", "ram": "4 GB RAM minimum", "cpu": "Intel i5 / Apple Silicon or better" }
+    }
+  },
+    {
+    "id": "leone",
+    "name": "LeONE",
+    "price": "$49",
+    "description": "Transparent brickwall limiting with musical warmth and precision control.",
+    "extraText": "The first ever limiter to operate with zero latency.",
+    "image": "/assets/images/products/leone.png",
+    "buyLink": "https://yourshop.lemonsqueezy.com/buy/leone",
+    "demoLink": "https://yourshop.lemonsqueezy.com/demo/leone",
+    "logo": "/assets/images/products/leone-logo.png",
+    "heroColour": "#EFC0CB",
+    "heroTextColour": "#111",
+    "heroHeadline": "Push Your Limits",
+    "heroSub": "Precision limiting that stays musical, even at the edge.",
+    "features": [
+      { "image": "https://picsum.photos/id/1051/600/400", "text": "Ultra-transparent brickwall limiting for mix and master." },
+      { "image": "https://picsum.photos/id/1052/600/400", "text": "Intelligent release algorithm preserves punch and depth." },
+      { "image": "https://picsum.photos/id/1053/600/400", "text": "True peak detection with zero overs." }
+    ],
+    "videos": [
+      { "embed": "https://www.youtube.com/embed/3JZ_D3ELwOQ", "text": "Mastering a track with LeONE." }
+    ],
+    "details": {
+      "features": [
+        "True peak limiting up to -0.1 dBFS",
+        "Adaptive release curve",
+        "Warmth drive option for subtle harmonic lift",
+        "Output ceiling and LUFS meter"
+      ],
+      "specs": {
+        "windows": "Windows 10+, VST3/AU",
+        "mac": "macOS 11+, AU/VST3",
+        "ram": "4 GB RAM",
+        "cpu": "Intel i5 / Apple Silicon"
+      }
     }
   },
   {
@@ -142,41 +180,6 @@
     "details": {
       "features": ["VCA-style compression", "Parallel mix knob", "Attack/release fine tuning"],
       "specs": { "windows": "Windows 10+, VST3/AU", "mac": "macOS 11+, AU/VST3", "ram": "4 GB RAM", "cpu": "Intel i5 / Apple Silicon" }
-    }
-  },
-  {
-    "id": "leone",
-    "name": "LeONE",
-    "price": "$49",
-    "description": "Transparent brickwall limiting with musical warmth and precision control.",
-    "image": "/assets/images/products/leone.jpg",
-    "buyLink": "https://yourshop.lemonsqueezy.com/buy/leone",
-    "demoLink": "https://yourshop.lemonsqueezy.com/demo/leone",
-    "heroImage": "https://picsum.photos/id/1050/1600/600",
-    "heroHeadline": "LeONE — Loud. Clear. Effortless.",
-    "heroSub": "Precision limiting that stays musical, even at the edge.",
-    "features": [
-      { "image": "https://picsum.photos/id/1051/600/400", "text": "Ultra-transparent brickwall limiting for mix and master." },
-      { "image": "https://picsum.photos/id/1052/600/400", "text": "Intelligent release algorithm preserves punch and depth." },
-      { "image": "https://picsum.photos/id/1053/600/400", "text": "True peak detection with zero overs." }
-    ],
-    "videos": [
-      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ", "text": "Mastering a track with LeONE." },
-      { "embed": "https://www.youtube.com/embed/3JZ_D3ELwOQ", "text": "Transparent loudness without the crush." }
-    ],
-    "details": {
-      "features": [
-        "True peak limiting up to -0.1 dBFS",
-        "Adaptive release curve",
-        "Warmth drive option for subtle harmonic lift",
-        "Output ceiling and LUFS meter"
-      ],
-      "specs": {
-        "windows": "Windows 10+, VST3/AU",
-        "mac": "macOS 11+, AU/VST3",
-        "ram": "4 GB RAM",
-        "cpu": "Intel i5 / Apple Silicon"
-      }
     }
   }
 ]

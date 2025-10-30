@@ -1,0 +1,22 @@
+<section id="details" class="container py-5">
+  <h2 class="mb-4">Details</h2>
+  
+  <!-- Feature list -->
+  <h5>Key Features</h5>
+  <ul>
+    {% for feat in product.details.features %}
+    <li>{{ feat }}</li>
+    {% endfor %}
+  </ul>
+
+  <!-- Specs -->
+  <h5 class="mt-4">System Requirements</h5>
+  <p>Windows spec: {{ product.details.specs.windows }}</p>
+
+  <ul>
+    <li>Windows: {{ product.details.specs.windows }}</li>
+    <li>Mac: {{ product.details.specs.mac }}</li>
+    <li>RAM: {{ product.details.specs.ram }}</li>
+    <li>CPU: {{ product.details.specs.cpu }}</li>
+  </ul>
+</section>
