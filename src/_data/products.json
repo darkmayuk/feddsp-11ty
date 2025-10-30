@@ -143,5 +143,40 @@
       "features": ["VCA-style compression", "Parallel mix knob", "Attack/release fine tuning"],
       "specs": { "windows": "Windows 10+, VST3/AU", "mac": "macOS 11+, AU/VST3", "ram": "4 GB RAM", "cpu": "Intel i5 / Apple Silicon" }
     }
+  },
+  {
+    "id": "leone",
+    "name": "LeONE",
+    "price": "$49",
+    "description": "Transparent brickwall limiting with musical warmth and precision control.",
+    "image": "/assets/images/products/leone.jpg",
+    "buyLink": "https://yourshop.lemonsqueezy.com/buy/leone",
+    "demoLink": "https://yourshop.lemonsqueezy.com/demo/leone",
+    "heroImage": "https://picsum.photos/id/1050/1600/600",
+    "heroHeadline": "LeONE — Loud. Clear. Effortless.",
+    "heroSub": "Precision limiting that stays musical, even at the edge.",
+    "features": [
+      { "image": "https://picsum.photos/id/1051/600/400", "text": "Ultra-transparent brickwall limiting for mix and master." },
+      { "image": "https://picsum.photos/id/1052/600/400", "text": "Intelligent release algorithm preserves punch and depth." },
+      { "image": "https://picsum.photos/id/1053/600/400", "text": "True peak detection with zero overs." }
+    ],
+    "videos": [
+      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ", "text": "Mastering a track with LeONE." },
+      { "embed": "https://www.youtube.com/embed/3JZ_D3ELwOQ", "text": "Transparent loudness without the crush." }
+    ],
+    "details": {
+      "features": [
+        "True peak limiting up to -0.1 dBFS",
+        "Adaptive release curve",
+        "Warmth drive option for subtle harmonic lift",
+        "Output ceiling and LUFS meter"
+      ],
+      "specs": {
+        "windows": "Windows 10+, VST3/AU",
+        "mac": "macOS 11+, AU/VST3",
+        "ram": "4 GB RAM",
+        "cpu": "Intel i5 / Apple Silicon"
+      }
+    }
   }
 ]

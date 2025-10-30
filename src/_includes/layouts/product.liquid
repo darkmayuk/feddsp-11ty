@@ -2,18 +2,32 @@
 layout: layouts/base.liquid
 ---
 
-{% include "components/product-hero.liquid" %}
+{%- comment -%}
+Look up the product in products.json based on the page slug
+(e.g. phaturator.md → "phaturator"). Optionally override with
+front matter key productId if needed.
+{%- endcomment -%}
 
-<section class="container py-5 text-center">
-  <a href="{{ product.buyLink }}" class="btn btn-lg btn-primary me-2" data-ls-overlay>Buy {{ product.price }}</a>
-  <a href="{{ product.demoLink }}" class="btn btn-lg btn-outline-secondary">Download Demo</a>
-</section>
+{% assign _id = page.fileSlug %}
+{% assign product = null %}
+{% for p in products %}
+  {% if p.id == _id %}
+    {% assign product = p %}
+    {% break %}
+  {% endif %}
+{% endfor %}
 
-{% include "components/product-features.liquid" %}
+{% if product == null %}
+  <section class="container py-5 text-center">
+    <h1>Product not found</h1>
+    <p>No product with ID '{{ _id }}' found in products.json.</p>
+  </section>
+{% else %}
 
-{% include "components/product-reviews.liquid" %}
+  {% include "components/product-hero.liquid" %}
+  {% include "components/product-features.liquid" %}
+  {% include "components/product-reviews.liquid" %}
+  {% include "components/product-videos.liquid" %}
+  {% include "components/product-details.liquid" %}
 
-{% include "components/product-videos.liquid" %}
-
-{% include "components/product-details.liquid" %}
-
+{% endif %}
