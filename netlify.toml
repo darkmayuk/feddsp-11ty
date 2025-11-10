@@ -1,0 +1,7 @@
+[build]
+command = "npx @11ty/eleventy"
+publish = "dist"
+functions = "netlify/functions"
+
+[functions]
+node_bundler = "esbuild"
