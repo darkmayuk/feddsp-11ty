@@ -1,46 +1,20 @@
 ---
+permalink: /account/index.html
 layout: layouts/base.liquid
 title: My Account
 ---
 
-<section id="account">
-  <h1>My Account</h1>
-  <div id="account-status">Loading…</div>
-  <div id="purchases"></div>
+<section class="container my-5 restrict-width">
+  <header class="mb-3">
+    <h1>My Account</h1>
+    <p id="account-email" class="text-muted small">Loading your account…</p>
+  </header>
+
+  <div id="account-messages"></div>
+
+  <div id="account-purchases" class="row g-3 mt-2">
+    {# Cards injected by JS #}
+  </div>
 </section>
 
-<script>
-  async function loadAccount() {
-    const statusEl = document.getElementById('account-status');
-    const container = document.getElementById('purchases');
-
-    try {
-      const res = await fetch('/.netlify/functions/account');
-      if (!res.ok) {
-        statusEl.textContent = 'Error loading account data.';
-        return;
-      }
-      const data = await res.json();
-      statusEl.textContent = 'Signed in as ' + data.email;
-
-      if (!data.purchases || !data.purchases.length) {
-        container.textContent = 'No purchases found.';
-        return;
-      }
-
-      container.innerHTML = data.purchases.map(p => `
-        <article class="purchase">
-          <h2>${p.productName}</h2>
-          <p>Order #${p.orderNumber} — ${new Date(p.purchasedAt).toLocaleDateString()}</p>
-          <p><strong>License key:</strong> <code>${p.licenseKey}</code></p>
-          <p><a href="${p.downloadUrl}">Download</a></p>
-        </article>
-      `).join('');
-    } catch (err) {
-      statusEl.textContent = 'Account service unavailable.';
-      console.error(err);
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', loadAccount);
-</script>
+<script src="/assets/js/account-ui.js" defer></script>

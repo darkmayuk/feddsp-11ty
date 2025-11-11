@@ -1,0 +1,105 @@
+// src/assets/js/account-ui.js
+const dummyAccountData = {
+  email: "john@smith.com",
+  purchases: [
+    {
+      id: "order-001",
+      orderNumber: "1001",
+      purchasedAt: "2025-01-01T12:00:00Z",
+      productName: "Phaturator",
+      licenseKey: "PHAT-TEST-KEY-123",
+      licenseStatus: "active",
+      downloadUrl: "#",
+      receiptUrl: "#"
+    },
+    {
+      id: "order-002",
+      orderNumber: "1002",
+      purchasedAt: "2025-02-10T09:30:00Z",
+      productName: "Marshall Amp Sim",
+      licenseKey: "AMP-TEST-777",
+      licenseStatus: "active",
+      downloadUrl: "#",
+      receiptUrl: "#"
+    }
+  ]
+};
+
+function renderAccount(data) {
+  const emailEl     = document.getElementById("account-email");
+  const messagesEl  = document.getElementById("account-messages");
+  const purchasesEl = document.getElementById("account-purchases");
+
+  if (!emailEl || !messagesEl || !purchasesEl) return;
+
+  messagesEl.innerHTML = "";
+  purchasesEl.innerHTML = "";
+
+  if (!data || !data.email) {
+    emailEl.textContent = "Not signed in";
+    addMessage(messagesEl, "Sign in to view your purchases and downloads.", "info");
+    return;
+  }
+
+  emailEl.textContent = "Signed in as " + data.email;
+
+  if (!data.purchases || !data.purchases.length) {
+    addMessage(messagesEl, "No purchases found for this account yet.", "info");
+    return;
+  }
+
+  const cards = data.purchases.map(p => {
+    const date = p.purchasedAt
+      ? new Date(p.purchasedAt).toLocaleDateString()
+      : "Unknown date";
+
+    const status = p.licenseStatus
+      ? p.licenseStatus.charAt(0).toUpperCase() + p.licenseStatus.slice(1)
+      : "Unknown";
+
+    return `
+      <div class="col-12 col-md-6">
+        <article class="card h-100 bg-dark border-secondary text-light">
+          <div class="card-body d-flex flex-column">
+            <h2 class="card-title mb-3">${p.productName || "Untitled product"}</h2>
+            <p class="card-subtitle small mb-3">
+              Order #${p.orderNumber || "—"} · ${date}
+            </p>
+
+            <p class="mb-2">
+              <span class="mb-1">License key:</span>
+              <code class="account-license-key">${p.licenseKey || "—"}</code>
+            </p>
+
+            <div class="mt-auto pt-2 d-flex flex-wrap gap-2">
+              ${p.downloadUrl ? `
+                <a class="btn btn-sm btn-primary" href="${p.downloadUrl}">
+                  Download
+                </a>
+              ` : ""}
+
+              ${p.receiptUrl ? `
+                <a class="btn btn-sm btn-outline-secondary" href="${p.receiptUrl}" target="_blank" rel="noopener">
+                  View receipt
+                </a>
+              ` : ""}
+            </div>
+          </div>
+        </article>
+      </div>
+    `;
+  }).join("");
+
+  purchasesEl.innerHTML = cards;
+}
+
+function addMessage(container, text, type) {
+  const div = document.createElement("div");
+  div.className = "account-message account-message--" + type + " mb-3";
+  div.textContent = text;
+  container.appendChild(div);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderAccount(dummyAccountData);
+});
