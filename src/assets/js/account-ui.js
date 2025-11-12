@@ -1,12 +1,13 @@
-// src/assets/js/account-ui.js
+const USE_LIVE_FUNCTION = true;  // ← set to false to go back to dummy instantly
+
 const dummyAccountData = {
-  email: "john@smith.com",
+  email: "mark@markday.co.uk",
   purchases: [
     {
       id: "order-001",
       orderNumber: "1001",
       purchasedAt: "2025-01-01T12:00:00Z",
-      productName: "Phaturator",
+      productName: "PHATurator",
       licenseKey: "PHAT-TEST-KEY-123",
       licenseStatus: "active",
       downloadUrl: "#",
@@ -16,8 +17,18 @@ const dummyAccountData = {
       id: "order-002",
       orderNumber: "1002",
       purchasedAt: "2025-02-10T09:30:00Z",
-      productName: "Marshall Amp Sim",
-      licenseKey: "AMP-TEST-777",
+      productName: "Fiery",
+      licenseKey: "FIERY-TEST-777",
+      licenseStatus: "active",
+      downloadUrl: "#",
+      receiptUrl: "#"
+    },
+    {
+      id: "order-003",
+      orderNumber: "1003",
+      purchasedAt: "2025-03-05T10:00:00Z",
+      productName: "LeONE",
+      licenseKey: "LEONE-TEST-999",
       licenseStatus: "active",
       downloadUrl: "#",
       receiptUrl: "#"
@@ -100,6 +111,21 @@ function addMessage(container, text, type) {
   container.appendChild(div);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderAccount(dummyAccountData);
+document.addEventListener("DOMContentLoaded", async () => {
+  if (!USE_LIVE_FUNCTION) {
+    renderAccount(dummyAccountData);
+    return;
+  }
+  try {
+    // TEMP: use ?email= until Clerk is in place
+    const url = "/.netlify/functions/account";
+    const res = await fetch(url, { credentials: "include" });
+    if (!res.ok) throw new Error("Account function error");
+    const data = await res.json();
+    renderAccount(data);
+  } catch (e) {
+    console.error(e);
+    renderAccount({ email: "", purchases: [] });
+  }
 });
+
