@@ -117,11 +117,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
   try {
-    // TEMP: use ?email= until Clerk is in place
-    const url = "/.netlify/functions/account";
-    const res = await fetch(url, { credentials: "include" });
+    const res = await fetch("/.netlify/functions/account", { credentials: "include" });
     if (!res.ok) throw new Error("Account function error");
     const data = await res.json();
+    // Optional: console.log(data) to confirm source/email
     renderAccount(data);
   } catch (e) {
     console.error(e);
