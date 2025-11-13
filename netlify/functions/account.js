@@ -41,14 +41,25 @@ export const handler = async (event) => {
       });
 
       const keysByOrderItem = new Map();
+      const allKeysForOrder = [];
+
       for (const lk of licenseKeys) {
         const a = lk.attributes || {};
-        const orderItemId =
-          a.order_item_id ??
+        const key = a.key;
+        if (!key) continue;
+
+        allKeysForOrder.push(key);
+
+        // Coerce to string so "6416131" and 6416131 don't mismatch
+        const relOrderItemId =
           lk.relationships?.["order-item"]?.data?.id ??
+          a.order_item_id ??
           null;
+
+        const orderItemId = relOrderItemId != null ? String(relOrderItemId) : null;
+
         const arr = keysByOrderItem.get(orderItemId) || [];
-        if (a.key) arr.push(a.key);
+        arr.push(key);
         keysByOrderItem.set(orderItemId, arr);
       }
 
@@ -56,10 +67,12 @@ export const handler = async (event) => {
         const ia = item.attributes || {};
         const productName = ia.product_name || "Product";
 
-        const keys =
-          keysByOrderItem.get(item.id) ||
+        const keysForItem =
+          keysByOrderItem.get(String(item.id)) ||
           keysByOrderItem.get(null) ||
-          [];
+          allKeysForOrder;
+
+        const firstKey = Array.isArray(keysForItem) ? keysForItem[0] : null;
 
         purchases.push({
           id: `${orderId}:${item.id}`,
@@ -67,8 +80,8 @@ export const handler = async (event) => {
           purchasedAt: o.created_at || null,
           productId: ia.product_id || null,
           productName,
-          licenseKey: keys[0] || "",
-          licenseStatus: keys.length ? "active" : "",
+          licenseKey: firstKey || "",
+          licenseStatus: firstKey ? "active" : "",
           downloadUrl: "#",
           receiptUrl: o.urls?.receipt || o.urls?.invoice_url || "#"
         });
