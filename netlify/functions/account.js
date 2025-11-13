@@ -1,11 +1,24 @@
+import { verifyToken } from "@clerk/backend";
+
 const API_BASE = "https://api.lemonsqueezy.com/v1";
 
 export const handler = async (event) => {
   try {
+    // We always need the LS API key
     requireEnv("LEMONSQUEEZY_API_KEY");
 
-    const email = getEmail(event);
-    if (!email) return json(401, { error: "Not authenticated (no email)" });
+    // 1) Try to get email from Clerk JWT
+    const emailFromClerk = await getEmailFromClerk(event);
+
+    // 2) Fallbacks (query param, then env override) while we’re testing
+    const email =
+      emailFromClerk ||
+      getFallbackEmail(event) ||
+      null;
+
+    if (!email) {
+      return json(401, { error: "Not authenticated (no email)" });
+    }
 
     const storeId = process.env.LEMONSQUEEZY_STORE_ID?.trim() || null;
 
@@ -30,7 +43,10 @@ export const handler = async (event) => {
       const keysByOrderItem = new Map();
       for (const lk of licenseKeys) {
         const a = lk.attributes || {};
-        const orderItemId = a.order_item_id ?? lk.relationships?.["order-item"]?.data?.id ?? null;
+        const orderItemId =
+          a.order_item_id ??
+          lk.relationships?.["order-item"]?.data?.id ??
+          null;
         const arr = keysByOrderItem.get(orderItemId) || [];
         if (a.key) arr.push(a.key);
         keysByOrderItem.set(orderItemId, arr);
@@ -40,7 +56,11 @@ export const handler = async (event) => {
         const ia = item.attributes || {};
         const productName = ia.product_name || "Product";
 
-        const keys = keysByOrderItem.get(item.id) || keysByOrderItem.get(null) || [];
+        const keys =
+          keysByOrderItem.get(item.id) ||
+          keysByOrderItem.get(null) ||
+          [];
+
         purchases.push({
           id: `${orderId}:${item.id}`,
           orderNumber: o.order_number || "",
@@ -54,6 +74,7 @@ export const handler = async (event) => {
         });
       }
 
+      // Edge case: no order items
       if (orderItems.length === 0) {
         const keys = licenseKeys.map(k => k.attributes?.key).filter(Boolean);
         purchases.push({
@@ -70,7 +91,9 @@ export const handler = async (event) => {
       }
     }
 
-    purchases.sort((a, b) => (b.purchasedAt || "").localeCompare(a.purchasedAt || ""));
+    purchases.sort((a, b) =>
+      (b.purchasedAt || "").localeCompare(a.purchasedAt || "")
+    );
 
     return json(200, { source: "lemonsqueezy", email, purchases });
   } catch (err) {
@@ -79,23 +102,53 @@ export const handler = async (event) => {
   }
 };
 
-/* helpers */
+/* ---------- helpers ---------- */
+
 function json(status, body) {
   return { statusCode: status, body: JSON.stringify(body) };
 }
+
 function requireEnv(name) {
   if (!process.env[name]) throw new Error(`Missing required env var: ${name}`);
 }
-function getEmail(event) {
+
+// NEW: Clerk-based email
+async function getEmailFromClerk(event) {
+  try {
+    if (!process.env.CLERK_SECRET_KEY) return null;
+
+    const authHeader = event.headers?.authorization || "";
+    const token = authHeader.replace(/^Bearer\s+/i, "");
+    if (!token) return null;
+
+    const { payload } = await verifyToken(token, {
+      secretKey: process.env.CLERK_SECRET_KEY
+    });
+
+    // Matches the "email" claim in your JWT template
+    return payload?.email || null;
+  } catch (err) {
+    console.error("Clerk token verification failed", err);
+    return null;
+  }
+}
+
+// OLD behaviour kept as fallback for now
+function getFallbackEmail(event) {
   const qs = event.queryStringParameters || {};
   if (qs.email) return String(qs.email).trim();
-  if (process.env.NETLIFY_EMAIL_OVERRIDE) return process.env.NETLIFY_EMAIL_OVERRIDE.trim();
+  if (process.env.NETLIFY_EMAIL_OVERRIDE) {
+    return process.env.NETLIFY_EMAIL_OVERRIDE.trim();
+  }
   return null;
 }
+
 async function fetchAll(path, paramsObj = {}) {
   const items = [];
   let url = new URL(API_BASE + path);
-  for (const [k, v] of Object.entries(paramsObj)) url.searchParams.set(k, v);
+  for (const [k, v] of Object.entries(paramsObj)) {
+    url.searchParams.set(k, v);
+  }
   while (true) {
     const res = await lsFetch(url.toString());
     if (Array.isArray(res.data)) items.push(...res.data);
@@ -105,6 +158,7 @@ async function fetchAll(path, paramsObj = {}) {
   }
   return items;
 }
+
 async function lsFetch(url) {
   const res = await fetch(url, {
     headers: {

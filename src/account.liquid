@@ -4,6 +4,14 @@ layout: layouts/base.liquid
 title: My Account
 ---
 
+<!-- Clerk loader (browser SDK) -->
+<script
+  async
+  crossorigin="anonymous"
+  data-clerk-publishable-key="{{ env.CLERK_PUBLISHABLE_KEY }}"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js">
+</script>
+
 <section class="container my-5 restrict-width">
   <header class="mb-3">
     <h1>My Account</h1>
@@ -12,9 +20,10 @@ title: My Account
 
   <div id="account-messages"></div>
 
-  <div id="account-purchases" class="row g-3 mt-2">
-    {# Cards injected by JS #}
-  </div>
+  <!-- Clerk will mount Sign In here when logged out -->
+  <div id="sign-in" class="my-4"></div>
+
+  <div id="account-purchases" class="row g-3 mt-2"></div>
 </section>
 
 <script src="/assets/js/account-ui.js" defer></script>
