@@ -152,7 +152,9 @@ async function boot() {
 
   // Mount user button (top right)
   if (userButtonEl) {
-    window.Clerk.mountUserButton(userButtonEl);
+    window.Clerk.mountUserButton(userButtonEl, {
+      afterSignOutUrl: "/account"
+    });
   }
 
   // If not signed in, show Sign In UI and stop
