@@ -8,7 +8,7 @@ const PRODUCT_MAP = {
   '636851': 'fedDSP-PHAT',
   '691171': 'fedDSP-leONE',
   '702853': 'fedDSP-OPTO',
-  '702855': 'fedDSP-VCA'
+  '702855': 'fedDSP-VCA',
 };
 
 // Helpers
@@ -18,17 +18,6 @@ function base64UrlEncode(buffer) {
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/g, '');
-}
-
-function canonicalJson(obj) {
-  const ordered = {};
-  Object.keys(obj)
-    .sort()
-    .forEach((key) => {
-      ordered[key] = obj[key];
-    });
-  // Compact JSON, no spaces
-  return JSON.stringify(ordered);
 }
 
 export const handler = async (event, context) => {
@@ -111,25 +100,30 @@ export const handler = async (event, context) => {
       lsProductId,
       '— fill PRODUCT_MAP in lemon-webhook.js'
     );
-    return { statusCode: 200, body: 'OK (unmapped product, no license issued)' };
+    return {
+      statusCode: 200,
+      body: 'OK (unmapped product, no license issued)',
+    };
   }
 
   const issuedAt = attributes.created_at || new Date().toISOString();
   const identifier = attributes.identifier || data.id || 'unknown';
   const licenseId = `LS-${identifier}`;
 
-  // 4. Build your license payload (canonical, sorted keys)
+  // 4. Build payload object (match the structure the plugin expects)
+  // Order of keys matters if the plugin does JSON.stringify(payload) before verify,
+  // so we define them in a stable order:
   const licensePayload = {
-    email: userEmail,
-    issued_at: issuedAt,
-    license_id: licenseId,
     license_to: userName,
+    email: userEmail,
     product_id: mappedProductId,
+    license_id: licenseId,
+    issued_at: issuedAt,
     version: '1',
   };
 
-  const canonicalPayloadJson = canonicalJson(licensePayload);
-  const payloadBytes = Buffer.from(canonicalPayloadJson, 'utf8');
+  const payloadJson = JSON.stringify(licensePayload);
+  const payloadBytes = Buffer.from(payloadJson, 'utf8');
 
   // 5. Sign with Ed25519 (k1) using private key from env
   const privateKeyEnv = process.env.LIC_ED25519_PRIVATE_KEY;
@@ -145,7 +139,9 @@ export const handler = async (event, context) => {
       /-----BEGIN PRIVATE KEY-----\s*([A-Za-z0-9+/=]+)\s*-----END PRIVATE KEY-----/
     );
     if (!match) {
-      console.error('LIC_ED25519_PRIVATE_KEY is not in a recognised one-line PEM format');
+      console.error(
+        'LIC_ED25519_PRIVATE_KEY is not in a recognised one-line PEM format'
+      );
       return { statusCode: 500, body: 'Invalid license key format' };
     }
     const b64 = match[1];
@@ -162,16 +158,24 @@ export const handler = async (event, context) => {
     return { statusCode: 500, body: 'License signing failed' };
   }
 
-  const payloadB64Url = base64UrlEncode(payloadBytes);
   const signatureB64Url = base64UrlEncode(signature);
 
-  const coreLicenseKey = `${payloadB64Url}.${signatureB64Url}`;
+  // Build the envelope that matches the "RIGHT" license:
+  const envelope = {
+    version: '1',
+    algorithm: 'Ed25519',
+    payload: licensePayload,
+    signature: signatureB64Url,
+  };
+
+  const envelopeJson = JSON.stringify(envelope);
+  const coreLicenseKey = Buffer.from(envelopeJson, 'utf8').toString('base64');
 
   // --- DIAGNOSTIC LOGGING ---
-  console.log('License payload JSON:', canonicalPayloadJson);
-  console.log('License payload (b64url):', payloadB64Url);
-  console.log('License signature (b64url):', signatureB64Url);
-  console.log('Core license key:', coreLicenseKey);
+  console.log('License payload JSON:', payloadJson);
+  console.log('Envelope JSON:', envelopeJson);
+  console.log('Signature (b64url):', signatureB64Url);
+  console.log('Core license key (base64 envelope):', coreLicenseKey);
 
   // Wrapped version sent to customer
   const licenseString = [
@@ -183,10 +187,7 @@ export const handler = async (event, context) => {
     '-----END fedDSP LICENSE-----',
   ].join('\n');
 
-  // --- MORE DIAGNOSTICS: entire final license ---
   console.log('Final wrapped license string:\n' + licenseString);
-
-
   console.log('Generated license for', userEmail, 'license_id', licenseId);
 
   // 6. Email the license via Postmark
