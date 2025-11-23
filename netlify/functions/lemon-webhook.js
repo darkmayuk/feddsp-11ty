@@ -131,7 +131,7 @@ export const handler = async (event, context) => {
   const canonicalPayloadJson = canonicalJson(licensePayload);
   const payloadBytes = Buffer.from(canonicalPayloadJson, 'utf8');
 
-    // 5. Sign with Ed25519 (k1) using private key from env
+  // 5. Sign with Ed25519 (k1) using private key from env
   const privateKeyEnv = process.env.LIC_ED25519_PRIVATE_KEY;
   if (!privateKeyEnv) {
     console.error('Missing LIC_ED25519_PRIVATE_KEY env var');
@@ -162,11 +162,21 @@ export const handler = async (event, context) => {
     return { statusCode: 500, body: 'License signing failed' };
   }
 
-
   const payloadB64Url = base64UrlEncode(payloadBytes);
   const signatureB64Url = base64UrlEncode(signature);
 
-  const licenseString = `FED1k1.${payloadB64Url}.${signatureB64Url}`;
+  // Core machine-readable key (no FED1k1 prefix)
+  const coreLicenseKey = `${payloadB64Url}.${signatureB64Url}`;
+
+  // Human-readable wrapper fedDSP wants
+  const licenseString = [
+    '-----BEGIN fedDSP LICENSE-----',
+    `Product: ${mappedProductId}`,
+    `Licensee: ${userName}`,
+    '',
+    coreLicenseKey,
+    '-----END fedDSP LICENSE-----',
+  ].join('\n');
 
   console.log('Generated license for', userEmail, 'license_id', licenseId);
 
@@ -190,7 +200,7 @@ export const handler = async (event, context) => {
   const textBody = [
     `Hi ${userName},`,
     '',
-    `Thanks for your purchase! Here’s your license for ${mappedProductId}:`,
+    `Thanks for your purchase! Here's your license for ${mappedProductId}:`,
     '',
     licenseString,
     '',
