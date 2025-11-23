@@ -131,11 +131,25 @@ export const handler = async (event, context) => {
   const canonicalPayloadJson = canonicalJson(licensePayload);
   const payloadBytes = Buffer.from(canonicalPayloadJson, 'utf8');
 
-  // 5. Sign with Ed25519 (k1) using private key from env
-  const privateKeyPem = process.env.LIC_ED25519_PRIVATE_KEY;
-  if (!privateKeyPem) {
+    // 5. Sign with Ed25519 (k1) using private key from env
+  const privateKeyEnv = process.env.LIC_ED25519_PRIVATE_KEY;
+  if (!privateKeyEnv) {
     console.error('Missing LIC_ED25519_PRIVATE_KEY env var');
     return { statusCode: 500, body: 'Server misconfigured (no license key)' };
+  }
+
+  // Normalise: if it’s all on one line with spaces, rebuild proper PEM with newlines
+  let privateKeyPem = privateKeyEnv.trim();
+  if (!privateKeyPem.includes('\n')) {
+    const match = privateKeyPem.match(
+      /-----BEGIN PRIVATE KEY-----\s*([A-Za-z0-9+/=]+)\s*-----END PRIVATE KEY-----/
+    );
+    if (!match) {
+      console.error('LIC_ED25519_PRIVATE_KEY is not in a recognised one-line PEM format');
+      return { statusCode: 500, body: 'Invalid license key format' };
+    }
+    const b64 = match[1];
+    privateKeyPem = `-----BEGIN PRIVATE KEY-----\n${b64}\n-----END PRIVATE KEY-----`;
   }
 
   let signature;
@@ -147,6 +161,7 @@ export const handler = async (event, context) => {
     console.error('Error signing license payload with Ed25519', err);
     return { statusCode: 500, body: 'License signing failed' };
   }
+
 
   const payloadB64Url = base64UrlEncode(payloadBytes);
   const signatureB64Url = base64UrlEncode(signature);
