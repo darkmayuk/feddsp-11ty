@@ -1,8 +1,9 @@
-// netlify/functions/lemon-webhook.js
+// .netlify/functions/lemon-webhook.js
 import crypto from 'node:crypto';
 
-// Map LS product IDs -> your internal product_ids used in the license payload
-// FILL THIS IN with your real mappings (keys must be strings)
+// ==============================
+// CONFIG: map LS product IDs -> your internal product_ids
+// (keys must be strings)
 const PRODUCT_MAP = {
   '691169': 'fedDSP-FIERY',
   '636851': 'fedDSP-PHAT',
@@ -11,225 +12,256 @@ const PRODUCT_MAP = {
   '702855': 'fedDSP-VCA',
 };
 
+// ==============================
 // Helpers
+
+// Base64URL (no padding)
 function base64UrlEncode(buffer) {
-  return buffer
+  return Buffer.from(buffer)
     .toString('base64')
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/g, '');
 }
 
-export const handler = async (event, context) => {
-  // 1. Only accept POST from Lemon Squeezy
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+// Fold long lines to 64 chars (cosmetic, matches your local tool output)
+const fold64 = (s) => s.replace(/(.{64})/g, '$1\n');
+
+// Canonical JSON: sorted keys, compact separators (matches your local signer)
+function canonicalStringify(obj) {
+  const ordered = {};
+  Object.keys(obj).sort().forEach((k) => {
+    ordered[k] = obj[k];
+  });
+  return JSON.stringify(ordered);
+}
+
+// Force ISO-8601 without milliseconds, e.g. 2025-11-23T14:18:29Z
+function isoNoMsUTC(date = new Date()) {
+  return new Date(Math.floor(date.getTime() / 1000) * 1000)
+    .toISOString()
+    .replace(/\.\d{3}Z$/, 'Z');
+}
+
+// Load Ed25519 private key from env; supports:
+//  - PEM with real newlines
+//  - single-line PEM with BEGIN/END and no newlines
+//  - base64-encoded DER (PKCS#8)
+function loadPrivateKeyFromEnv(envValRaw) {
+  if (!envValRaw) throw new Error('LIC_ED25519_PRIVATE_KEY is empty');
+
+  let raw = envValRaw.trim();
+
+  // If someone pasted PEM with escaped "\n", restore real newlines
+  if (raw.includes('\\n') && !raw.includes('\n')) {
+    raw = raw.replace(/\\n/g, '\n');
   }
 
-  const secret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET;
-  if (!secret) {
-    console.error('Missing LEMONSQUEEZY_WEBHOOK_SECRET');
-    return { statusCode: 500, body: 'Server misconfigured' };
+  // Case 1: full PEM with BEGIN/END and actual newlines
+  if (raw.includes('-----BEGIN PRIVATE KEY-----') && raw.includes('\n')) {
+    return crypto.createPrivateKey(raw);
   }
 
-  const rawBody = event.body || '';
-  const signatureHeader =
-    event.headers['x-signature'] || event.headers['X-Signature'] || '';
-
-  // 2. Verify Lemon Squeezy webhook signature (HMAC-SHA256 of raw body)
-  try {
-    const hmac = crypto.createHmac('sha256', secret);
-    const digest = hmac.update(rawBody).digest('hex');
-
-    const expected = Buffer.from(digest, 'utf8');
-    const actual = Buffer.from(signatureHeader, 'utf8');
-
-    if (
-      expected.length !== actual.length ||
-      !crypto.timingSafeEqual(expected, actual)
-    ) {
-      console.warn('Invalid Lemon Squeezy signature');
-      return { statusCode: 400, body: 'Invalid signature' };
-    }
-  } catch (err) {
-    console.error('Error verifying signature', err);
-    return { statusCode: 400, body: 'Signature verification failed' };
-  }
-
-  // 3. At this point, we trust the payload
-  let payload;
-  try {
-    payload = JSON.parse(rawBody);
-  } catch (err) {
-    console.error('Invalid JSON from Lemon Squeezy', err);
-    return { statusCode: 400, body: 'Invalid JSON' };
-  }
-
-  const eventName =
-    payload?.meta?.event_name || event.headers['x-event-name'] || 'unknown';
-
-  console.log('Lemon Squeezy webhook received:', eventName);
-
-  // Only generate licenses for order_created (initial purchase)
-  if (eventName !== 'order_created') {
-    console.log('Ignoring event (no license generation needed):', eventName);
-    return {
-      statusCode: 200,
-      body: 'OK (no-op for this event)',
-    };
-  }
-
-  const data = payload?.data || {};
-  const attributes = data?.attributes || {};
-  const firstOrderItem = attributes.first_order_item || {};
-
-  const userEmail = attributes.user_email;
-  const userName = attributes.user_name || attributes.user_email || 'Customer';
-
-  const lsProductId = firstOrderItem.product_id;
-  const mappedProductId = PRODUCT_MAP[String(lsProductId)] || null;
-
-  if (!userEmail) {
-    console.error('Missing user_email in order payload, cannot issue license');
-    return { statusCode: 200, body: 'OK (no email, no license issued)' };
-  }
-
-  if (!mappedProductId) {
-    console.error(
-      'No product mapping for LS product_id:',
-      lsProductId,
-      '— fill PRODUCT_MAP in lemon-webhook.js'
-    );
-    return {
-      statusCode: 200,
-      body: 'OK (unmapped product, no license issued)',
-    };
-  }
-
-  const issuedAt = attributes.created_at || new Date().toISOString();
-  const identifier = attributes.identifier || data.id || 'unknown';
-  const licenseId = `LS-${identifier}`;
-
-  // 4. Build payload object (match the structure the plugin expects)
-  // Order of keys matters if the plugin does JSON.stringify(payload) before verify,
-  // so we define them in a stable order:
-  const licensePayload = {
-    license_to: userName,
-    email: userEmail,
-    product_id: mappedProductId,
-    license_id: licenseId,
-    issued_at: issuedAt,
-    version: '1',
-  };
-
-  const payloadJson = JSON.stringify(licensePayload);
-  const payloadBytes = Buffer.from(payloadJson, 'utf8');
-
-  // 5. Sign with Ed25519 (k1) using private key from env
-  const privateKeyEnv = process.env.LIC_ED25519_PRIVATE_KEY;
-  if (!privateKeyEnv) {
-    console.error('Missing LIC_ED25519_PRIVATE_KEY env var');
-    return { statusCode: 500, body: 'Server misconfigured (no license key)' };
-  }
-
-  // Normalise: if it’s all on one line with spaces, rebuild proper PEM with newlines
-  let privateKeyPem = privateKeyEnv.trim();
-  if (!privateKeyPem.includes('\n')) {
-    const match = privateKeyPem.match(
-      /-----BEGIN PRIVATE KEY-----\s*([A-Za-z0-9+/=]+)\s*-----END PRIVATE KEY-----/
-    );
-    if (!match) {
-      console.error(
-        'LIC_ED25519_PRIVATE_KEY is not in a recognised one-line PEM format'
-      );
-      return { statusCode: 500, body: 'Invalid license key format' };
-    }
+  // Case 2: single-line PEM with BEGIN/END (no newlines)
+  if (raw.startsWith('-----BEGIN PRIVATE KEY-----') && raw.endsWith('-----END PRIVATE KEY-----')) {
+    const match = raw.match(/-----BEGIN PRIVATE KEY-----\s*([A-Za-z0-9+/=]+)\s*-----END PRIVATE KEY-----/);
+    if (!match) throw new Error('Single-line PEM format not recognized');
     const b64 = match[1];
-    privateKeyPem = `-----BEGIN PRIVATE KEY-----\n${b64}\n-----END PRIVATE KEY-----`;
+    const pemFixed = `-----BEGIN PRIVATE KEY-----\n${b64}\n-----END PRIVATE KEY-----`;
+    return crypto.createPrivateKey(pemFixed);
   }
 
-  let signature;
+  // Case 3: assume base64 DER (PKCS#8)
   try {
-    const privateKey = crypto.createPrivateKey(privateKeyPem);
-    // Ed25519: pass null algorithm, sign raw bytes (no prehash)
-    signature = crypto.sign(null, payloadBytes, privateKey);
-  } catch (err) {
-    console.error('Error signing license payload with Ed25519', err);
-    return { statusCode: 500, body: 'License signing failed' };
+    const der = Buffer.from(raw, 'base64');
+    return crypto.createPrivateKey({ key: der, format: 'der', type: 'pkcs8' });
+  } catch (e) {
+    throw new Error('Private key is not PEM or base64 DER');
   }
+}
 
-  const signatureB64Url = base64UrlEncode(signature);
+// ==============================
+// Main handler
 
-  // Build the envelope that matches the "RIGHT" license:
-  const envelope = {
-    version: '1',
-    algorithm: 'Ed25519',
-    payload: licensePayload,
-    signature: signatureB64Url,
-  };
+export const handler = async (event) => {
+  try {
+    // 1) Only accept POST
+    if (event.httpMethod !== 'POST') {
+      return { statusCode: 405, body: 'Method Not Allowed' };
+    }
 
-  const envelopeJson = JSON.stringify(envelope);
-  const coreLicenseKey = Buffer.from(envelopeJson, 'utf8').toString('base64');
+    // Secrets
+    const secret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET; // keep your current env name
+    if (!secret) {
+      console.error('Missing LEMONSQUEEZY_WEBHOOK_SECRET');
+      return { statusCode: 500, body: 'Server misconfigured' };
+    }
 
-  // --- DIAGNOSTIC LOGGING ---
-  console.log('License payload JSON:', payloadJson);
-  console.log('Envelope JSON:', envelopeJson);
-  console.log('Signature (b64url):', signatureB64Url);
-  console.log('Core license key (base64 envelope):', coreLicenseKey);
+    const rawBody = event.body || '';
 
-  // Wrapped version sent to customer
-  const licenseString = [
-    '-----BEGIN fedDSP LICENSE-----',
-    `Product: ${mappedProductId}`,
-    `Licensee: ${userName}`,
-    '',
-    coreLicenseKey,
-    '-----END fedDSP LICENSE-----',
-  ].join('\n');
+    // Signature header (case-insensitive)
+    const signatureHeader =
+      event.headers['x-signature'] ||
+      event.headers['X-Signature'] ||
+      event.headers['x-lemon-signature'] ||
+      '';
 
-  console.log('Final wrapped license string:\n' + licenseString);
-  console.log('Generated license for', userEmail, 'license_id', licenseId);
+    // 2) Verify Lemon Squeezy HMAC-SHA256 over RAW body
+    try {
+      const digestHex = crypto.createHmac('sha256', secret).update(rawBody, 'utf8').digest('hex');
+      const expected = Buffer.from(digestHex, 'utf8');
+      const actual = Buffer.from((signatureHeader || '').trim(), 'utf8');
+      if (expected.length !== actual.length || !crypto.timingSafeEqual(expected, actual)) {
+        console.warn('Invalid Lemon Squeezy signature');
+        return { statusCode: 400, body: 'Invalid signature' };
+      }
+    } catch (err) {
+      console.error('Error verifying signature', err);
+      return { statusCode: 400, body: 'Signature verification failed' };
+    }
 
-  // 6. Email the license via Postmark
-  const postmarkApiKey = process.env.POSTMARK_API_KEY;
-  const mailFrom = process.env.MAIL_FROM;
-  const supportEmail = process.env.SUPPORT_EMAIL || mailFrom;
+    // 3) Parse payload
+    let payload;
+    try {
+      payload = JSON.parse(rawBody);
+    } catch (err) {
+      console.error('Invalid JSON from Lemon Squeezy', err);
+      return { statusCode: 400, body: 'Invalid JSON' };
+    }
 
-  if (!postmarkApiKey || !mailFrom) {
-    console.error(
-      'Missing POSTMARK_API_KEY or MAIL_FROM env vars, cannot send email'
-    );
-    // Treat as a failure so LS retries and you can fix the config.
-    return {
-      statusCode: 500,
-      body: 'Server misconfigured (mail)',
+    const eventName = payload?.meta?.event_name || event.headers['x-event-name'] || 'unknown';
+    console.log('Lemon Squeezy webhook received:', eventName);
+
+    // Only issue license on order_created (adjust if you prefer order_paid)
+    if (eventName !== 'order_created') {
+      console.log('Ignoring event (no license generation needed):', eventName);
+      return { statusCode: 200, body: 'OK (no-op for this event)' };
+    }
+
+    const data = payload?.data || {};
+    const attributes = data?.attributes || {};
+    const firstOrderItem = attributes.first_order_item || {};
+
+    const userEmail = attributes.user_email;
+    const userName = attributes.user_name || attributes.customer_name || attributes.user_email || 'Customer';
+
+    // Resolve product to your internal id
+    const lsProductId = String(firstOrderItem.product_id || '');
+    const mappedProductId = PRODUCT_MAP[lsProductId] || null;
+
+    if (!userEmail) {
+      console.error('Missing user_email in order payload, cannot issue license');
+      return { statusCode: 200, body: 'OK (no email, no license issued)' };
+    }
+
+    if (!mappedProductId) {
+      console.error('No product mapping for LS product_id:', lsProductId, '— fill PRODUCT_MAP');
+      return { statusCode: 200, body: 'OK (unmapped product, no license issued)' };
+    }
+
+    const identifier = attributes.identifier || data.id || 'unknown';
+    const licenseId = `LS-${identifier}`; // FIXED: proper template string
+
+    // 4) Build the payload EXACTLY as plugins expect
+    const licensePayload = {
+      license_to: userName,
+      email: String(userEmail),
+      product_id: mappedProductId,
+      license_id: licenseId,
+      issued_at: isoNoMsUTC(), // FIXED: no fractional seconds
+      version: '1',
     };
-  }
 
-  const subject = `Your fedDSP license for ${mappedProductId}`;
-  const textBody = [
-    `Hi ${userName},`,
-    '',
-    `Thanks for your purchase! Here's your license for ${mappedProductId}:`,
-    '',
-    licenseString,
-    '',
-    'How to activate:',
-    `1) Open the ${mappedProductId} plugin.`,
-    '2) Click “Activate” or “Enter License”.',
-    '3) Paste the license above and press Confirm.',
-    '',
-    `Order: ${licenseId}`,
-    `Issued to: ${userEmail}`,
-    `Issued at: ${issuedAt} UTC`,
-    `Version: 1`,
-    '',
-    `Need help? Just reply to this email or contact ${supportEmail}.`,
-    '',
-    '— fedDSP',
-  ].join('\n');
+    // Canonicalize for signing (sorted keys, compact)
+    const payloadJsonCanon = canonicalStringify(licensePayload);
+    const payloadBytes = Buffer.from(payloadJsonCanon, 'utf8');
 
-  try {
+    // 5) Sign Ed25519 with k1 (from env)
+    const privateKeyEnv = process.env.LIC_ED25519_PRIVATE_KEY;
+    if (!privateKeyEnv) {
+      console.error('Missing LIC_ED25519_PRIVATE_KEY env var');
+      return { statusCode: 500, body: 'Server misconfigured (no license key)' };
+    }
+
+    let signature;
+    try {
+      const privateKey = loadPrivateKeyFromEnv(privateKeyEnv);
+      signature = crypto.sign(null, payloadBytes, privateKey); // plain Ed25519 (no prehash)
+    } catch (err) {
+      console.error('Error signing license payload with Ed25519', err);
+      return { statusCode: 500, body: 'License signing failed' };
+    }
+
+    const signatureB64Url = base64UrlEncode(signature); // no padding
+
+    // Build the wrapper (envelope) JSON exactly like your local tool
+    const envelope = {
+      version: '1',
+      algorithm: 'Ed25519',
+      payload: licensePayload,           // object, not canonical string
+      signature: signatureB64Url,        // base64url, no '='
+    };
+
+    const envelopeJson = JSON.stringify(envelope);     // compact
+    const envelopeBytes = Buffer.from(envelopeJson, 'utf8');
+
+    // FIXED: wrapper blob must be Base64URL (no padding), not standard base64
+    const coreLicenseKey = base64UrlEncode(envelopeBytes);
+
+    // Optional: fold to 64-char lines to match your "RIGHT" license visuals
+    const foldedBody = fold64(coreLicenseKey) + '\n';
+
+    // Final wrapped license block (human headers are cosmetic)
+    const licenseString = [
+      '-----BEGIN fedDSP LICENSE-----',
+      `Product: ${mappedProductId}`,
+      `Licensee: ${userName}`,
+      '',
+      foldedBody,
+      '-----END fedDSP LICENSE-----',
+    ].join('\n');
+
+    // --- Diagnostics (safe; no PII beyond product/id) ---
+    console.log('License payload (canonical):', payloadJsonCanon);
+    console.log('Envelope preview (first 120 chars):', envelopeJson.slice(0, 120) + '...');
+    console.log('Signature (b64url, first 24):', signatureB64Url.slice(0, 24) + '...');
+    console.log('Generated license for', userEmail, 'license_id', licenseId);
+
+    // 6) Email via Postmark
+    const postmarkApiKey = process.env.POSTMARK_API_KEY; // keep your current env name
+    const mailFrom = process.env.MAIL_FROM;
+    const supportEmail = process.env.SUPPORT_EMAIL || mailFrom;
+
+    if (!postmarkApiKey || !mailFrom) {
+      console.error('Missing POSTMARK_API_KEY or MAIL_FROM env vars, cannot send email');
+      // Return 500 so LS retries (don’t silently drop)
+      return { statusCode: 500, body: 'Server misconfigured (mail)' };
+    }
+
+    const subject = `Your fedDSP license for ${mappedProductId}`;
+    const textBody = [
+      `Hi ${userName},`,
+      '',
+      `Thanks for your purchase! Here's your license for ${mappedProductId}:`,
+      '',
+      licenseString,
+      '',
+      'How to activate:',
+      `1) Open the ${mappedProductId} plugin.`,
+      '2) Click “Activate” or “Enter License”.',
+      '3) Paste the license above and press Confirm.',
+      '',
+      `Order: ${licenseId}`,
+      `Issued to: ${userEmail}`,
+      `Issued at: ${licensePayload.issued_at} UTC`, // use payload’s no-ms value
+      'Version: 1',
+      '',
+      `Need help? Just reply to this email or contact ${supportEmail}.`,
+      '',
+      '— fedDSP',
+    ].join('\n');
+
+    // Use global fetch (Node 18+ / Netlify)
     const resp = await fetch('https://api.postmarkapp.com/email', {
       method: 'POST',
       headers: {
@@ -246,25 +278,15 @@ export const handler = async (event, context) => {
     });
 
     if (!resp.ok) {
-      const text = await resp.text();
+      const text = await resp.text().catch(() => '');
       console.error('Postmark error:', resp.status, text);
-      // Non-200 so LS retries; avoids silently dropping licenses
-      return {
-        statusCode: 502,
-        body: 'Failed to send license email',
-      };
+      return { statusCode: 502, body: 'Failed to send license email' };
     }
-  } catch (err) {
-    console.error('Error calling Postmark API', err);
-    return {
-      statusCode: 502,
-      body: 'Error sending license email',
-    };
-  }
 
-  // 7. All good
-  return {
-    statusCode: 200,
-    body: 'OK (license generated and emailed)',
-  };
+    // 7) Done
+    return { statusCode: 200, body: 'OK (license generated and emailed)' };
+  } catch (err) {
+    console.error('Unhandled error in lemon-webhook:', err);
+    return { statusCode: 500, body: 'Internal error' };
+  }
 };
