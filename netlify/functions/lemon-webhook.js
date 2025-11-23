@@ -4,11 +4,11 @@ import crypto from 'node:crypto';
 // Map LS product IDs -> your internal product_ids used in the license payload
 // FILL THIS IN with your real mappings (keys must be strings)
 const PRODUCT_MAP = {
-  '1': 'fedDSP-FIERY',
-  '2': 'fedDSP-PHAT',
-  '3': 'fedDSP-leONE',
-  '4': 'fedDSP-OPTO',
-  '5': 'fedDSP-VCA'
+  '691169': 'fedDSP-FIERY',
+  '636851': 'fedDSP-PHAT',
+  '691171': 'fedDSP-leONE',
+  '702853': 'fedDSP-OPTO',
+  '702855': 'fedDSP-VCA'
 };
 
 // Helpers
