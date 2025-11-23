@@ -165,10 +165,15 @@ export const handler = async (event, context) => {
   const payloadB64Url = base64UrlEncode(payloadBytes);
   const signatureB64Url = base64UrlEncode(signature);
 
-  // Core machine-readable key (no FED1k1 prefix)
   const coreLicenseKey = `${payloadB64Url}.${signatureB64Url}`;
 
-  // Human-readable wrapper fedDSP wants
+  // --- DIAGNOSTIC LOGGING ---
+  console.log('License payload JSON:', canonicalPayloadJson);
+  console.log('License payload (b64url):', payloadB64Url);
+  console.log('License signature (b64url):', signatureB64Url);
+  console.log('Core license key:', coreLicenseKey);
+
+  // Wrapped version sent to customer
   const licenseString = [
     '-----BEGIN fedDSP LICENSE-----',
     `Product: ${mappedProductId}`,
@@ -177,6 +182,10 @@ export const handler = async (event, context) => {
     coreLicenseKey,
     '-----END fedDSP LICENSE-----',
   ].join('\n');
+
+  // --- MORE DIAGNOSTICS: entire final license ---
+  console.log('Final wrapped license string:\n' + licenseString);
+
 
   console.log('Generated license for', userEmail, 'license_id', licenseId);
 
