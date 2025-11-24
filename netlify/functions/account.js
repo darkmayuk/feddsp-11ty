@@ -1,10 +1,12 @@
 import { verifyToken } from "@clerk/backend";
+import { getStore } from "@netlify/blobs";
 
 const API_BASE = "https://api.lemonsqueezy.com/v1";
+const LICENSE_STORE_NAME = "licenses";
 
 export const handler = async (event) => {
   try {
-    // We always need the LS API key
+    // We still need the LS API key (for orders + order-items)
     requireEnv("LEMONSQUEEZY_API_KEY");
 
     // 1) Try to get email from Clerk JWT
@@ -27,52 +29,50 @@ export const handler = async (event) => {
       ...(storeId ? { "filter[store_id]": storeId } : {})
     });
 
+    const licenseStore = getStore(LICENSE_STORE_NAME);
     const purchases = [];
+
     for (const order of orders) {
       const o = order.attributes || {};
       const orderId = order.id;
+      const orderIdStr = String(orderId);
 
       const orderItems = await fetchAll(`/order-items`, {
         "filter[order_id]": orderId
       });
 
-      const licenseKeys = await fetchAll(`/license-keys`, {
-        "filter[order_id]": orderId
-      });
-
-      const keysByOrderItem = new Map();
-      const allKeysForOrder = [];
-
-      for (const lk of licenseKeys) {
-        const a = lk.attributes || {};
-        const key = a.key;
-        if (!key) continue;
-
-        allKeysForOrder.push(key);
-
-        // Coerce to string so "6416131" and 6416131 don't mismatch
-        const relOrderItemId =
-          lk.relationships?.["order-item"]?.data?.id ??
-          a.order_item_id ??
-          null;
-
-        const orderItemId = relOrderItemId != null ? String(relOrderItemId) : null;
-
-        const arr = keysByOrderItem.get(orderItemId) || [];
-        arr.push(key);
-        keysByOrderItem.set(orderItemId, arr);
-      }
-
+      // For each order item, look up our own license from Netlify Blobs
       for (const item of orderItems) {
         const ia = item.attributes || {};
         const productName = ia.product_name || "Product";
+        const lsProductId = ia.product_id != null ? String(ia.product_id) : "";
 
-        const keysForItem =
-          keysByOrderItem.get(String(item.id)) ||
-          keysByOrderItem.get(null) ||
-          allKeysForOrder;
+        let licenseKey = "";
+        let licenseStatus = "";
+        let licenseMeta = null;
 
-        const firstKey = Array.isArray(keysForItem) ? keysForItem[0] : null;
+        if (lsProductId) {
+          const blobKey = `${orderIdStr}:${lsProductId}`;
+          try {
+            const record = await licenseStore.get(blobKey, { type: "json" });
+            if (record && record.license_string) {
+              licenseKey = record.license_string;
+              licenseStatus = "active";
+              licenseMeta = {
+                licenseId: record.license_id || null,
+                issuedAt: record.issued_at || null,
+                productId: record.product_id || null,
+              };
+            } else {
+              console.log("No license blob found for key", blobKey);
+            }
+          } catch (err) {
+            console.error("Error reading license from Netlify Blobs", {
+              blobKey,
+              err,
+            });
+          }
+        }
 
         purchases.push({
           id: `${orderId}:${item.id}`,
@@ -80,8 +80,9 @@ export const handler = async (event) => {
           purchasedAt: o.created_at || null,
           productId: ia.product_id || null,
           productName,
-          licenseKey: firstKey || "",
-          licenseStatus: firstKey ? "active" : "",
+          licenseKey: licenseKey || "",
+          licenseStatus,
+          licenseMeta,
           downloadUrl: "#",
           receiptUrl: o.urls?.receipt || o.urls?.invoice_url || "#"
         });
@@ -89,15 +90,16 @@ export const handler = async (event) => {
 
       // Edge case: no order items
       if (orderItems.length === 0) {
-        const keys = licenseKeys.map(k => k.attributes?.key).filter(Boolean);
+        // For now, no blob lookup here – LS should always have at least one item.
         purchases.push({
           id: `${orderId}`,
           orderNumber: o.order_number || "",
           purchasedAt: o.created_at || null,
           productId: null,
           productName: "Order",
-          licenseKey: keys[0] || "",
-          licenseStatus: keys.length ? "active" : "",
+          licenseKey: "",
+          licenseStatus: "",
+          licenseMeta: null,
           downloadUrl: "#",
           receiptUrl: o.urls?.receipt || o.urls?.invoice_url || "#"
         });
@@ -108,7 +110,7 @@ export const handler = async (event) => {
       (b.purchasedAt || "").localeCompare(a.purchasedAt || "")
     );
 
-    return json(200, { source: "lemonsqueezy", email, purchases });
+    return json(200, { source: "lemonsqueezy+blobs", email, purchases });
   } catch (err) {
     console.error(err);
     return json(500, { error: "Server error" });

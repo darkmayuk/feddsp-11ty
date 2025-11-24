@@ -227,7 +227,44 @@ export const handler = async (event) => {
     console.log('Signature (b64url, first 24):', signatureB64Url.slice(0, 24) + '...');
     console.log('Generated license for', userEmail, 'license_id', licenseId);
 
-    // 6) Email via Postmark
+    // 6) Add to db
+    try {
+      const store = getStore(LICENSE_STORE_NAME);
+
+      // Key design: orderId + LS product ID so account.js can recompute it
+      const blobKey = `${orderId}:${lsProductId}`;
+
+      const licenseRecord = {
+        // core license info
+        license_id: licenseId,
+        license_string: licenseString,
+        envelope, // includes payload + signature
+
+        // LS linkage
+        ls_order_id: orderId,
+        ls_order_identifier: identifier,
+        ls_order_number: attributes.order_number || null,
+        ls_product_id: lsProductId,
+        product_id: mappedProductId,
+
+        // customer
+        user_email: userEmail,
+        user_name: userName,
+
+        // meta
+        issued_at: licensePayload.issued_at,
+        event_name: eventName,
+        created_at: isoNoMsUTC(),
+      };
+
+      await store.setJSON(blobKey, licenseRecord);
+      console.log('Saved license to Netlify Blobs with key:', blobKey);
+    } catch (err) {
+      // Log but do NOT fail the webhook; email still goes out
+      console.error('Failed to persist license to Netlify Blobs', err);
+    }
+
+    // 7) Email via Postmark
     const postmarkApiKey = process.env.POSTMARK_API_KEY; // keep your current env name
     const mailFrom = process.env.MAIL_FROM;
     const supportEmail = process.env.SUPPORT_EMAIL || mailFrom;
@@ -248,17 +285,16 @@ export const handler = async (event) => {
       '',
       'How to activate:',
       `1) Open the ${mappedProductId} plugin.`,
-      '2) Click “Activate” or “Enter License”.',
-      '3) Paste the license above and press Confirm.',
+      '2) Press the I button on the menu bar: this opens the Information panel',
+      '3) Press the license button and paste your license code, including the lines "-----BEGIN fedDSP LICENSE-----" and "-----END fedDSP LICENSE-----"',
       '',
       `Order: ${licenseId}`,
       `Issued to: ${userEmail}`,
-      `Issued at: ${licensePayload.issued_at} UTC`, // use payload’s no-ms value
-      'Version: 1',
+      `Issued at: ${licensePayload.issued_at} UTC`,
       '',
-      `Need help? Just reply to this email or contact ${supportEmail}.`,
+      `Need help? Contact ${supportEmail}.`,
       '',
-      '— fedDSP',
+      'Thanks, fedDSP',
     ].join('\n');
 
     // Use global fetch (Node 18+ / Netlify)
@@ -283,7 +319,7 @@ export const handler = async (event) => {
       return { statusCode: 502, body: 'Failed to send license email' };
     }
 
-    // 7) Done
+    // 8) Done
     return { statusCode: 200, body: 'OK (license generated and emailed)' };
   } catch (err) {
     console.error('Unhandled error in lemon-webhook:', err);
