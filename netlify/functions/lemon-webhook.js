@@ -227,42 +227,56 @@ export const handler = async (event) => {
     console.log('Signature (b64url, first 24):', signatureB64Url.slice(0, 24) + '...');
     console.log('Generated license for', userEmail, 'license_id', licenseId);
 
-    // 6) Add to db
+    // 6) Persist license and related info to Netlify Blobs
     try {
       const store = getStore(LICENSE_STORE_NAME);
 
-      // Key design: orderId + LS product ID so account.js can recompute it
-      const blobKey = `${orderId}:${lsProductId}`;
+      const orderIdStr = String(orderId);
+      const blobKey = `${orderIdStr}:${lsProductId}`;
+
+      // Extra useful LS metadata
+      const urls = attributes.urls || {};
+      const receiptUrl = urls.receipt || urls.invoice_url || null;
+
+      // Add product version if LS exposes it (placeholder for now)
+      const productVersion =
+        firstOrderItem?.variant_name ||
+        firstOrderItem?.variant_id ||
+        null;
 
       const licenseRecord = {
         // core license info
         license_id: licenseId,
         license_string: licenseString,
-        envelope, // includes payload + signature
+        envelope, // payload + signature
 
         // LS linkage
-        ls_order_id: orderId,
+        ls_order_id: orderIdStr,
         ls_order_identifier: identifier,
         ls_order_number: attributes.order_number || null,
         ls_product_id: lsProductId,
         product_id: mappedProductId,
+        product_version: productVersion,
 
-        // customer
+        // customer details
         user_email: userEmail,
         user_name: userName,
 
-        // meta
+        // useful UI fields
+        order_receipt_url: receiptUrl,
+
+        // meta timestamps
         issued_at: licensePayload.issued_at,
-        event_name: eventName,
         created_at: isoNoMsUTC(),
+        event_name: eventName
       };
 
       await store.setJSON(blobKey, licenseRecord);
-      console.log('Saved license to Netlify Blobs with key:', blobKey);
+      console.log("Saved license to Netlify Blobs with key:", blobKey);
     } catch (err) {
-      // Log but do NOT fail the webhook; email still goes out
-      console.error('Failed to persist license to Netlify Blobs', err);
+      console.error("Failed to persist license to Netlify Blobs", err);
     }
+
 
     // 7) Email via Postmark
     const postmarkApiKey = process.env.POSTMARK_API_KEY; // keep your current env name
