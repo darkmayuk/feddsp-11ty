@@ -13,6 +13,9 @@ const PRODUCT_MAP = {
   '702855': 'fedDSP-VCA',
 };
 
+// Name of the Netlify Blobs store we'll use
+const LICENSE_STORE_NAME = 'licenses';
+
 // ==============================
 // Helpers
 
