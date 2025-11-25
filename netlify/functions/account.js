@@ -1,11 +1,13 @@
 // .netlify/functions/account.js
 import { verifyToken } from "@clerk/backend";
-import { getStore } from "@netlify/blobs";
+import { getStore, connectLambda } from "@netlify/blobs";
 
 const LICENSE_STORE_NAME = "licenses";
 
 export const handler = async (event) => {
+  
   try {
+    connectLambda(event);
     // 1) Get email from Clerk (or fallback during testing)
     const emailFromClerk = await getEmailFromClerk(event);
     const email =

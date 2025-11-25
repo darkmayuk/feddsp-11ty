@@ -1,6 +1,6 @@
 // .netlify/functions/lemon-webhook.js
 import crypto from 'node:crypto';
-import { getStore } from '@netlify/blobs';
+import { getStore, connectLambda } from '@netlify/blobs';
 
 // ==============================
 // CONFIG: map LS product IDs -> your internal product_ids
@@ -88,7 +88,9 @@ function loadPrivateKeyFromEnv(envValRaw) {
 // Main handler
 
 export const handler = async (event) => {
+  
   try {
+    connectLambda(event);
     // 1) Only accept POST
     if (event.httpMethod !== 'POST') {
       return { statusCode: 405, body: 'Method Not Allowed' };
