@@ -148,6 +148,8 @@ export const handler = async (event) => {
     const attributes = data?.attributes || {};
     const firstOrderItem = attributes.first_order_item || {};
 
+    const orderId = data.id || 'unknown-order-id';
+
     const userEmail = attributes.user_email;
     const userName = attributes.user_name || attributes.customer_name || attributes.user_email || 'Customer';
 
