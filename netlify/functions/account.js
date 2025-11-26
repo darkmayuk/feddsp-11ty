@@ -4,11 +4,19 @@ import { getStore, connectLambda } from "@netlify/blobs";
 
 const LICENSE_STORE_NAME = "licenses";
 
+// Map internal product IDs → friendly names for UI
+const PRODUCT_LABELS = {
+  "fedDSP-VCA": "VCA",
+  "fedDSP-PHAT": "PHATurator",
+  "fedDSP-OPTO": "OPTO",
+  "fedDSP-FIERY": "FIERY",
+  "fedDSP-leONE": "leONE",
+};
+
 export const handler = async (event) => {
-  
   try {
     connectLambda(event);
-    // 1) Get email from Clerk (or fallback during testing)
+
     const emailFromClerk = await getEmailFromClerk(event);
     const email =
       emailFromClerk ||
@@ -21,7 +29,6 @@ export const handler = async (event) => {
 
     const store = getStore(LICENSE_STORE_NAME);
 
-    // 2) List all license blobs and filter by user_email
     const { blobs } = await store.list();
     const purchases = [];
 
@@ -36,19 +43,23 @@ export const handler = async (event) => {
         const lsProductId = record.ls_product_id || "unknown-product";
         const createdAt = record.created_at || record.issued_at || null;
 
+        const productId = record.product_id || lsProductId;
+        const productName = PRODUCT_LABELS[productId] || productId;
+
         purchases.push({
           id: `${orderId}:${lsProductId}`,
           orderNumber: record.ls_order_number || "",
           purchasedAt: createdAt,
-          productId: record.product_id || lsProductId,
-          productName: record.product_id || lsProductId, // e.g. "fedDSP-FIERY"
+          productId,
+          productName,                      // friendly name (e.g. "PHATurator")
           licenseKey: record.license_string || "",
           licenseStatus: record.license_string ? "active" : "",
           licenseMeta: {
             licenseId: record.license_id || null,
             issuedAt: record.issued_at || null,
           },
-          downloadUrl: "#", // can be wired later if you like
+          downloadUrl: "/downloads",        // common downloads page
+          manualUrl: "#",                   // placeholder for now
           receiptUrl: record.order_receipt_url || "#",
         });
       } catch (err) {
@@ -56,7 +67,6 @@ export const handler = async (event) => {
       }
     }
 
-    // 3) Sort newest first
     purchases.sort((a, b) =>
       (b.purchasedAt || "").localeCompare(a.purchasedAt || "")
     );
@@ -74,7 +84,6 @@ function json(status, body) {
   return { statusCode: status, body: JSON.stringify(body) };
 }
 
-// NEW: Clerk-based email
 async function getEmailFromClerk(event) {
   try {
     if (!process.env.CLERK_SECRET_KEY) return null;
@@ -94,7 +103,6 @@ async function getEmailFromClerk(event) {
   }
 }
 
-// OLD behaviour kept as fallback for now (useful while testing)
 function getFallbackEmail(event) {
   const qs = event.queryStringParameters || {};
   if (qs.email) return String(qs.email).trim();

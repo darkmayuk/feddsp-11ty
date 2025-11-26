@@ -10,7 +10,8 @@ const dummyAccountData = {
       productName: "PHATurator",
       licenseKey: "PHAT-TEST-KEY-123",
       licenseStatus: "active",
-      downloadUrl: "#",
+      downloadUrl: "/downloads",
+      manualUrl: "#",
       receiptUrl: "#"
     },
     {
@@ -20,7 +21,8 @@ const dummyAccountData = {
       productName: "Fiery",
       licenseKey: "FIERY-TEST-777",
       licenseStatus: "active",
-      downloadUrl: "#",
+      downloadUrl: "/downloads",
+      manualUrl: "#",
       receiptUrl: "#"
     },
     {
@@ -30,11 +32,22 @@ const dummyAccountData = {
       productName: "LeONE",
       licenseKey: "LEONE-TEST-999",
       licenseStatus: "active",
-      downloadUrl: "#",
+      downloadUrl: "/downloads",
+      manualUrl: "#",
       receiptUrl: "#"
     }
   ]
 };
+
+// Simple HTML escaper for embedding license strings safely
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
 function renderAccount(data) {
   const emailEl     = document.getElementById("account-email");
@@ -68,6 +81,13 @@ function renderAccount(data) {
       ? p.licenseStatus.charAt(0).toUpperCase() + p.licenseStatus.slice(1)
       : "Unknown";
 
+    const hasLicense = !!p.licenseKey;
+    const licensePreview = hasLicense
+      ? (p.licenseKey.replace(/\s+/g, " ").slice(0, 60) + "…")
+      : "—";
+
+    const licenseAttr = hasLicense ? escapeHtml(p.licenseKey) : "";
+
     return `
       <div class="col-12 col-md-6">
         <article class="card h-100 bg-dark border-secondary text-light">
@@ -78,14 +98,31 @@ function renderAccount(data) {
             </p>
 
             <p class="mb-2">
-              <span class="mb-1">License key:</span>
-              <code class="account-license-key">${p.licenseKey || "—"}</code>
+              <span class="mb-1 d-block">License key:</span>
+              <code class="account-license-key-preview">${licensePreview}</code>
             </p>
+
+            ${hasLicense ? `
+              <div class="mb-3">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-light account-copy-btn"
+                  data-license="${licenseAttr}">
+                  Copy license key
+                </button>
+              </div>
+            ` : ""}
 
             <div class="mt-auto pt-2 d-flex flex-wrap gap-2">
               ${p.downloadUrl ? `
                 <a class="btn btn-sm btn-primary" href="${p.downloadUrl}">
                   Download
+                </a>
+              ` : ""}
+
+              ${p.manualUrl ? `
+                <a class="btn btn-sm btn-outline-secondary" href="${p.manualUrl}">
+                  Manual
                 </a>
               ` : ""}
 
@@ -102,6 +139,54 @@ function renderAccount(data) {
   }).join("");
 
   purchasesEl.innerHTML = cards;
+
+  attachCopyHandlers();
+}
+
+function attachCopyHandlers() {
+  const buttons = document.querySelectorAll(".account-copy-btn");
+  buttons.forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const license = btn.getAttribute("data-license") || "";
+      if (!license) return;
+
+      const originalText = btn.textContent;
+
+      const copyViaClipboardApi = async () => {
+        await navigator.clipboard.writeText(license);
+      };
+
+      const copyViaFallback = () => {
+        const textarea = document.createElement("textarea");
+        textarea.value = license;
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand("copy");
+        } finally {
+          document.body.removeChild(textarea);
+        }
+      };
+
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await copyViaClipboardApi();
+        } else {
+          copyViaFallback();
+        }
+        btn.textContent = "Copied!";
+      } catch (err) {
+        console.error("Failed to copy license key", err);
+        btn.textContent = "Copy failed";
+      }
+
+      setTimeout(() => {
+        btn.textContent = originalText;
+      }, 2000);
+    });
+  });
 }
 
 function addMessage(container, text, type) {
@@ -134,14 +219,12 @@ async function boot() {
   const userButtonEl = document.getElementById("user-button");
   const signInEl     = document.getElementById("sign-in");
 
-  // If Clerk script didn't load at all, just use the old behaviour
   if (!window.Clerk) {
     console.warn("Clerk not available, falling back to env/email-based account loading.");
     await loadViaFunctionWithoutClerk();
     return;
   }
 
-  // Initialise Clerk
   try {
     await window.Clerk.load();
   } catch (err) {
@@ -150,14 +233,12 @@ async function boot() {
     return;
   }
 
-  // Mount user button (top right)
   if (userButtonEl) {
     window.Clerk.mountUserButton(userButtonEl, {
       afterSignOutUrl: "/account"
     });
   }
 
-  // If not signed in, show Sign In UI and stop
   if (!window.Clerk.user) {
     if (signInEl) {
       window.Clerk.mountSignIn(signInEl, { redirectUrl: "/account" });
@@ -168,7 +249,6 @@ async function boot() {
     return;
   }
 
-  // Signed in → show email from Clerk
   const emailPrimary =
     window.Clerk.user?.primaryEmailAddress?.emailAddress ||
     window.Clerk.user?.emailAddresses?.[0]?.emailAddress ||
@@ -179,13 +259,11 @@ async function boot() {
   }
 
   if (!USE_LIVE_FUNCTION) {
-    // Use dummy data but with the Clerk email for consistency
     const data = { ...dummyAccountData, email: emailPrimary };
     renderAccount(data);
     return;
   }
 
-  // Get JWT from Clerk (template 'ls') and call the Netlify function
   let token = "";
   try {
     token = await window.Clerk.session.getToken({ template: "ls" });
@@ -200,7 +278,6 @@ async function boot() {
     });
     if (!res.ok) throw new Error("Account function error");
     const data = await res.json();
-    // If backend didn't return email for some reason, ensure one is present
     if (!data.email && emailPrimary) {
       data.email = emailPrimary;
     }
