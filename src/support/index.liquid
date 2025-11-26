@@ -1,0 +1,88 @@
+---
+permalink: /support/index.html
+layout: layouts/base.liquid
+title: Internal Support
+---
+
+<section class="container my-5 restrict-width">
+  <h1>Internal Support – License Lookup</h1>
+  <p class="small text-warning">
+    This page is not linked from the main site. Share the admin key only with trusted staff.
+  </p>
+
+  <form id="support-form" class="mb-4">
+    <div class="mb-3">
+      <label for="support-admin-key" class="form-label">Admin key</label>
+      <input type="password" id="support-admin-key" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="support-email" class="form-label">Customer email (recommended)</label>
+      <input type="email" id="support-email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label for="support-order" class="form-label">Order number (optional)</label>
+      <input type="text" id="support-order" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lookup</button>
+  </form>
+
+  <pre id="support-result" class="bg-dark text-light p-3 small" style="min-height: 6rem;"></pre>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form   = document.getElementById("support-form");
+  const result = document.getElementById("support-result");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    result.textContent = "Looking up license…";
+
+    const adminKey    = document.getElementById("support-admin-key").value.trim();
+    const email       = document.getElementById("support-email").value.trim();
+    const orderNumber = document.getElementById("support-order").value.trim();
+
+    if (!adminKey) {
+      result.textContent = "Admin key is required.";
+      return;
+    }
+    if (!email && !orderNumber) {
+      result.textContent = "Provide at least an email or an order number.";
+      return;
+    }
+
+    try {
+      const res = await fetch("/.netlify/functions/admin-get-license", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-key": adminKey
+        },
+        body: JSON.stringify({ email, orderNumber })
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        result.textContent = "Error " + res.status + ": " + text;
+        return;
+      }
+
+      const data = await res.json();
+      if (!data.matches || !data.matches.length) {
+        result.textContent = "No matching licenses found.";
+        return;
+      }
+
+      // Pretty-print matches
+      result.textContent = JSON.stringify(data.matches, null, 2);
+    } catch (err) {
+      console.error(err);
+      result.textContent = "Request failed. See console.";
+    }
+  });
+});
+</script>
