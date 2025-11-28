@@ -14,7 +14,10 @@
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/phaturator",
     "logo": "/assets/images/products/phat-logo.png",
     "heroColour": "#1c1c1c",
-    "heroTextColour": "#fff"
+    "heroTextColour": "#fff",
+    "videos": [
+      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+    ]
   },
   {
     "id": "leone",
@@ -26,12 +29,15 @@
     "header2": "Precise Control",
     "description1": "leONE is a dual limiter with zero latency, making it very useful for tracking and live work. By default, leONE is a super clean limiter, delivering transparent gain reduction. But with a Release envelope that can move from 2 seconds all the way to 0.01 milliseconds, brutal limiting with leONE is perfectly possible. Although super-simple to use, the dual stages in leONE allows maximum flexibility for gain staging.",
     "description2": "The basic controls of leONE are intentionally simple: In, Clamp (ceiling of main limiter), Release, Out. But advanced options are there at the click of a button when you need them. WARM mode creates some sweet bottom end, great on the mix bus, bass, or kick. CLARA adds clarity and bite in the upper midrange. TUBE recreates the subtle (or not so subtle) colour of the tubes that we found in our favourite hardware units. GRIT is a unique effect - we call it an envelope-aware saturator. It shaves off transients wonderfully, and when used with the second limiter, is a fantastic way to impart precise control to the mix.",
-    "image": "/assets/images/products/leone.jpg",
+    "image": "/assets/images/products/leone.png",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/leone",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/leone",
     "logo": "/assets/images/products/leone-logo.png",
     "heroColour": "#000",
-    "heroTextColour": "#fff"
+    "heroTextColour": "#fff",
+    "videos": [
+      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+    ] 
   },
   {
     "id": "fiery",
@@ -48,6 +54,9 @@
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/fiery",
     "logo": "/assets/images/products/fiery-logo.png",
     "heroColour": "#111",
-    "heroTextColour": "#fff"
+    "heroTextColour": "#fff",
+    "videos": [
+      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+    ]
   }
 ]
