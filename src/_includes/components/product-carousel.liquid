@@ -12,10 +12,10 @@
               <h3 class="mb-0">{{ product.name }}</h3>
             </div>
             <div class="col-md">
-              <p class="mb-0">{{ product.description }}</p>
+              <p class="mb-0">{{ product.subHeader }}</p>
             </div>
             <div class="col-md pe-4">
-              <p class="mb-0">{{ product.extraText }}</p>
+              <p class="mb-0">{{ product.description1 }}</p>
             </div>
           </div>
           <div class="product-img-wrap my-4 rounded-4">
@@ -31,7 +31,7 @@
     <div class="carousel-actions d-flex justify-content-center align-items-center gap-4 mt-3">
       <div class="carousel-indicators custom-indicators swiper-pagination position-static m-0 d-none d-sm-flex"></div>
       <a href="{{ product.buyLink }}" class="btn btn-lg product-btn" data-ls-overlay>BUY</a>
-      <a href="{{ product.learnMoreLink }}" class="product-learn">Learn More</a>
+      <a href="{{ product.id }}" class="product-learn">Learn More</a>
     </div>
 
     

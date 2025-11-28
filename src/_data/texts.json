@@ -1,13 +1,16 @@
 {
   "heroHeadline": "Shaped by experience. Tuned by instinct. Proven in studios.",
-  "heroSub": "And this is the sub-heading, that we will decide on before the site goes live. Should explicitly mention fedDSP in there.",
+  "heroSub": "We build musical tools that should exist, but dont. Our tools are made to be used in the real world: made to be played, made to be enjoyed, made to inspire the emotions. We do this by making them easy to use, but revealing astonishing audio depth and detail. Always zero latency. Always super lightweight CPU overhead. Always zero bullshit install and activation.",
+  "footerSub": "We build musical tools that should exist, but dont. Our tools are made to be used in the real world: made to be played, made to be enjoyed, made to inspire the emotions.",
+  "about": "We are proudly independent, passionate about making music, and we imagine and create the audio tools that we want to use in our own musical work. Fed Telesca is the instigator and heart of fedDSP. It is from Fed's 15 year experience as an industry leading producer and mastering engineer that he knows what musical tools should exist, but don't. Fed has the imagination to dream up new tools, and the exacting standards to build them into finished products that exceed the quality of anything else that is already out there. Fed is joined by a six man dream team, built around decades of experience in the music business: from performing, mixing, engineering, videography, promotion, and touring. Every one of the team is an active, passionate, and highly regarded musician in their own right.",
   "team": [
-    { "name": "Federico Telesca", "role": "Founder & Chief Engineer", "blurb": "DSP design, plugin architecture, QA.", "avatar": "https://i.pravatar.cc/200?img=11" },
-    { "name": "Mark Day", "role": "Co-Founder & Business Director", "blurb": "Product strategy, partnerships, operations.", "avatar": "https://i.pravatar.cc/200?img=32" },
+    { "name": "Federico Telesca", "role": "Founder & Chief Engineer", "blurb": "DSP design and development, Partnerships.", "avatar": "https://i.pravatar.cc/200?img=11" },
+    { "name": "Mark Day", "role": "Co-Founder & Business Director", "blurb": "Operations, CS, Sales.", "avatar": "https://i.pravatar.cc/200?img=32" },
     { "name": "Fausto Idini", "role": "Graphic Design", "blurb": "UI engineering, brand design.", "avatar": "https://i.pravatar.cc/200?img=5" },
     { "name": "Riccardo Cenci", "role": "Videographer", "blurb": "Product videos", "avatar": "https://i.pravatar.cc/200?img=15" },
     { "name": "Matty Fuge", "role": "Marketing", "blurb": "Social media, emails, advertising", "avatar": "https://i.pravatar.cc/200?img=47" },
     { "name": "Marco Telesca", "role": "3D Graphics", "blurb": "3D product renders", "avatar": "https://i.pravatar.cc/200?img=66" },
     { "name": "Tommaso Cappaneera", "role": "Samples & IRs", "blurb": "Sample packs, IR packs", "avatar": "https://i.pravatar.cc/200?img=23" }
-  ]
+  ],
+  "support": "At fedDSP it all starts with our community. We have an active Discord server and Facebook page, where users suggest features, report bugs, and ask questions directly to fedDSP. We pride ourselves on our customer support and satisfaction: we reply to issues within hours, not days."
 }

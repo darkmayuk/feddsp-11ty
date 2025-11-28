@@ -3,183 +3,51 @@
     "id": "phaturator",
     "name": "PHATurator",
     "price": "$49",
-    "description": "Analog-modeled saturation with zero latency for fattening any track.",
-    "extraText": "Six different types of saturation, each of which can be chained",
+    "headline": "Colour Your Sound",
+    "subHeader": "Analogue modelled multi-stage saturation, with zero latency. Dial in FET, Tube, Tape, Punch (SSL), Phat (Urei), Warmth (Neve) saturations, to apply anything from subtle warmth to brutal drive.",
+    "header1": "Stack Multiple Saturations",
+    "header2": "Fatten Any Source",
+    "description1": "The PHATurator is the only plugin that lets you stack multiple saturation models. In top studios, engineers routinely layer analogue saturations across sources to achieve richer harmonics, better depth, and controlled tonal grit without extreme settings. PHATurator brings this workflow to your DAW with zero latency, no noise, and hardware-style responsiveness.",
+    "description2": "PHATurator reshapes thin, spiky, or undefined tracks without noise or latency. CLEAN mode is transparent. PHAT adds subtle transformer saturation with resonant HPF. PHATTER stacks dual transformer stages with accentuated HPF resonance for fast tonal decisions, from drum rooms to piano to the full mix bus.",
     "image": "/assets/images/products/phaturator.jpg",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/0b52c713-20a5-43ae-a90b-c711d045947a?discount=0",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/phaturator",
     "logo": "/assets/images/products/phat-logo.png",
     "heroColour": "#1c1c1c",
-    "heroTextColour": "#fff",
-    "heroHeadline": "Colour Your Sound",
-    "heroSub": "Bring vintage warmth and punch to your mixes.",
-    "features": [
-      { "image": "https://picsum.photos/id/1025/600/400", "text": "Drive your signal into authentic analog saturation." },
-      { "image": "https://picsum.photos/id/1035/600/400", "text": "Zero-latency engine, perfect for live performance." }
-    ],
-    "videos": [
-      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ", "text": "Quick walkthrough of controls." }
-    ],
-    "details": {
-      "features": ["Analog-modeled drive circuit", "Zero-latency processing", "Resizable UI"],
-      "specs": { "windows": "Windows 10+, VST3/AU", "mac": "macOS 11+, AU/VST3", "ram": "4 GB RAM minimum", "cpu": "Intel i5 / Apple Silicon or better" }
-    }
+    "heroTextColour": "#fff"
   },
-    {
+  {
     "id": "leone",
-    "name": "LeONE",
+    "name": "leONE",
     "price": "$49",
-    "description": "Transparent brickwall limiting with musical warmth and precision control.",
-    "extraText": "The first ever limiter to operate with zero latency.",
-    "image": "/assets/images/products/leone.png",
-    "buyLink": "https://yourshop.lemonsqueezy.com/buy/leone",
+    "headline": "Push Your Limits",
+    "subHeader": "Crystal clear limiting with zero latency",
+    "header1": "Stack Multiple Saturations",
+    "header2": "Fatten Any Source",
+    "description1": "leONE is a dual zero-latency limiter built for tracking and live use. Default mode is ultra-clean and transparent. Release spans 2s → 0.01ms, so it can quietly glue or absolutely crush. Dual stages give flexible gain staging.",
+    "description2": "Core controls: In, Clamp (ceiling), Release, Out. One-click modes: WARM (adds low-end heft), CLARA (mid-range bite), TUBE (hardware colour), GRIT (envelope-aware transient shaving for surgical mix control when paired with stage 2).",
+    "image": "/assets/images/products/leone.jpg",
+    "buyLink": "https://feddsp.lemonsqueezy.com/buy/leone",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/leone",
     "logo": "/assets/images/products/leone-logo.png",
-    "heroColour": "#EFC0CB",
-    "heroTextColour": "#111",
-    "heroHeadline": "Push Your Limits",
-    "heroSub": "Precision limiting that stays musical, even at the edge.",
-    "features": [
-      { "image": "https://picsum.photos/id/1051/600/400", "text": "Ultra-transparent brickwall limiting for mix and master." },
-      { "image": "https://picsum.photos/id/1052/600/400", "text": "Intelligent release algorithm preserves punch and depth." },
-      { "image": "https://picsum.photos/id/1053/600/400", "text": "True peak detection with zero overs." }
-    ],
-    "videos": [
-      { "embed": "https://www.youtube.com/embed/3JZ_D3ELwOQ", "text": "Mastering a track with LeONE." }
-    ],
-    "details": {
-      "features": [
-        "True peak limiting up to -0.1 dBFS",
-        "Adaptive release curve",
-        "Warmth drive option for subtle harmonic lift",
-        "Output ceiling and LUFS meter"
-      ],
-      "specs": {
-        "windows": "Windows 10+, VST3/AU",
-        "mac": "macOS 11+, AU/VST3",
-        "ram": "4 GB RAM",
-        "cpu": "Intel i5 / Apple Silicon"
-      }
-    }
-  },
-  {
-    "id": "konvikt",
-    "name": "Konvikt",
-    "price": "$59",
-    "description": "Aggressive amp sim inspired by the JCM800 2203 head.",
-    "image": "/assets/images/products/konvikt.jpg",
-    "buyLink": "https://yourshop.lemonsqueezy.com/buy/marshall2203k",
-    "demoLink": "https://yourshop.lemonsqueezy.com/demo/konvikt",
-    "heroImage": "https://picsum.photos/id/1016/1600/600",
-    "heroHeadline": "Konvikt - Classic Marshall Fury",
-    "heroSub": "Iconic British crunch with modern precision. Aggressive amp sim inspired by the JCM800 2203 head.",
-    "features": [
-      { "image": "https://picsum.photos/id/1040/600/400", "text": "Rich overdrive tones with authentic tube dynamics." },
-      { "image": "https://picsum.photos/id/1041/600/400", "text": "Cab IR loader with built-in mic positioning." }
-    ],
-    "videos": [
-      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ", "text": "Demo of clean-to-crunch tones." },
-      { "embed": "https://www.youtube.com/embed/3JZ_D3ELwOQ", "text": "Metal rhythm tones through Konvikt." }
-    ],
-    "details": {
-      "features": ["Authentic tube amp modelling", "Built-in cab IR loader", "MIDI automation ready"],
-      "specs": { "windows": "Windows 10+, VST3", "mac": "macOS 11+, AU/VST3", "ram": "4 GB RAM", "cpu": "Intel i5 / Apple Silicon" }
-    }
-  },
-  {
-    "id": "fedvox",
-    "name": "FedVox",
-    "price": "$39",
-    "description": "Vintage channel strip emulation tuned for vocals and clarity.",
-    "image": "/assets/images/products/fedvox.jpg",
-    "buyLink": "https://yourshop.lemonsqueezy.com/buy/fedvox",
-    "demoLink": "https://yourshop.lemonsqueezy.com/demo/fedvox",
-    "heroImage": "https://picsum.photos/id/1018/1600/600",
-    "heroHeadline": "FedVox - Vocals First",
-    "heroSub": "A channel strip designed for vocal presence.",
-    "features": [
-      { "image": "https://picsum.photos/id/1042/600/400", "text": "Vintage EQ curves for natural warmth." },
-      { "image": "https://picsum.photos/id/1043/600/400", "text": "Transparent compression tailored for voice." }
-    ],
-    "videos": [
-      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ", "text": "Mix walkthrough using FedVox." },
-      { "embed": "https://www.youtube.com/embed/3JZ_D3ELwOQ", "text": "Enhancing vocals in context." }
-    ],
-    "details": {
-      "features": ["Vintage EQ and compressor", "Noise gate and de-esser", "Low CPU usage"],
-      "specs": { "windows": "Windows 10+, VST3/AU", "mac": "macOS 11+, AU/VST3", "ram": "4 GB RAM", "cpu": "Intel i5 / Apple Silicon" }
-    }
-  },
-  {
-    "id": "hush",
-    "name": "Hush",
-    "price": "$29",
-    "description": "Smart gate that is particularly suited to drums. Great at cutting cymbal noise from the mix.",
-    "image": "/assets/images/products/hush.jpg",
-    "buyLink": "https://yourshop.lemonsqueezy.com/buy/hush",
-    "demoLink": "https://yourshop.lemonsqueezy.com/demo/hush",
-    "heroImage": "https://picsum.photos/id/1019/1600/600",
-    "heroHeadline": "Hush - Intelligent Gating",
-    "heroSub": "Precision noise control for modern mixes.",
-    "features": [
-      { "image": "https://picsum.photos/id/1044/600/400", "text": "Adaptive threshold follows your performance." },
-      { "image": "https://picsum.photos/id/1045/600/400", "text": "Ideal for drum bleed and noisy guitars." }
-    ],
-    "videos": [
-      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ", "text": "Snare drum cleanup demo." },
-      { "embed": "https://www.youtube.com/embed/3JZ_D3ELwOQ", "text": "Full band mix cleanup." }
-    ],
-    "details": {
-      "features": ["Adaptive noise gating", "Fast attack/release response", "Sidechain capable"],
-      "specs": { "windows": "Windows 10+, VST3/AU", "mac": "macOS 11+, AU/VST3", "ram": "2 GB RAM", "cpu": "Intel i3 / Apple Silicon" }
-    }
-  },
-  {
-    "id": "opto",
-    "name": "Opto",
-    "price": "$29",
-    "description": "Smooth, musical compression with an optical circuit feel.",
-    "image": "/assets/images/products/opto.jpg",
-    "buyLink": "https://yourshop.lemonsqueezy.com/buy/opto",
-    "demoLink": "https://yourshop.lemonsqueezy.com/demo/opto",
-    "heroImage": "https://picsum.photos/id/1020/1600/600",
-    "heroHeadline": "Opto - Smooth Musical Compression",
-    "heroSub": "Glue your mix with natural dynamics.",
-    "features": [
-      { "image": "https://picsum.photos/id/1046/600/400", "text": "Warm optical compression curves." },
-      { "image": "https://picsum.photos/id/1047/600/400", "text": "Auto-gain makeup for easy workflow." }
-    ],
-    "videos": [
-      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ", "text": "Bus compression example with Opto." },
-      { "embed": "https://www.youtube.com/embed/3JZ_D3ELwOQ", "text": "Parallel compression in action." }
-    ],
-    "details": {
-      "features": ["Optical-style compression", "Auto gain makeup", "Mix knob for parallel compression"],
-      "specs": { "windows": "Windows 10+, VST3/AU", "mac": "macOS 11+, AU/VST3", "ram": "2 GB RAM", "cpu": "Intel i3 / Apple Silicon" }
-    }
+    "heroColour": "#000",
+    "heroTextColour": "#fff"
   },
   {
     "id": "fiery",
-    "name": "Fiery",
-    "price": "$35",
-    "description": "Aggressive VCA-style compression for drums and mixes.",
+    "name": "FIERY",
+    "price": "$49",
+    "headline": "Ignite Your Mix",
+    "header1": "Stack Multiple Saturations",
+    "header2": "Fatten Any Source",
+    "subHeader": "Explosive FET compression with instant attack and attitude",
+    "description1": "FIERY is not an 1176 clone. It merges the best traits of classic FET units for aggressive but harmonically rich, musical compression that reacts organically.",
+    "description2": "Modes: CLASSIC (modern, driven), VINTAGE (old-school colour + movement). Dual transformers engage the ADR (Analogue Drift Recreation) for hardware-like motion. DC reshapes release from violent to smooth.",
     "image": "/assets/images/products/fiery.jpg",
     "buyLink": "https://yourshop.lemonsqueezy.com/buy/fiery",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/fiery",
-    "heroImage": "https://picsum.photos/id/1021/1600/600",
-    "heroHeadline": "Fiery - Punchy VCA Compression",
-    "heroSub": "Add punch and glue with attitude.",
-    "features": [
-      { "image": "https://picsum.photos/id/1048/600/400", "text": "Fast VCA response for drums." },
-      { "image": "https://picsum.photos/id/1049/600/400", "text": "Mix control for parallel compression." }
-    ],
-    "videos": [
-      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ", "text": "Drum bus slam demo." },
-      { "embed": "https://www.youtube.com/embed/3JZ_D3ELwOQ", "text": "Mix bus glue with Fiery." }
-    ],
-    "details": {
-      "features": ["VCA-style compression", "Parallel mix knob", "Attack/release fine tuning"],
-      "specs": { "windows": "Windows 10+, VST3/AU", "mac": "macOS 11+, AU/VST3", "ram": "4 GB RAM", "cpu": "Intel i5 / Apple Silicon" }
-    }
+    "logo": "/assets/images/products/fiery-logo.png",
+    "heroColour": "#111",
+    "heroTextColour": "#fff"
   }
 ]
