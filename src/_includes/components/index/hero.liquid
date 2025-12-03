@@ -3,8 +3,11 @@
     
     <!-- Text -->
     <div class="text-content me-md-5 mb-4 mb-md-0">
-      <h1 class="text-uppercase">{{ texts.heroHeadline | replace: '. ', '.<br>' }}</h1>
-      <p>{{ texts.heroSub }}</p>
+      <h1 class="text-uppercase mb-4">{{ texts.heroHeadline | newline_to_br }}</h1>
+      {% assign lines = texts.heroSub | split: "\n" %}
+        {% for line in lines %}
+          <p>{{ line }}</p>
+        {% endfor %}
     </div>
 
     <!-- Image -->

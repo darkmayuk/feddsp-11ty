@@ -21,11 +21,11 @@
         <div class="row gx-5 bg-black bg-opacity-85 rounded-3 p-4">
           <div class="col-md-6">
             <h3 class="mt-2">KON</h3>
-            <p class="black-bg">{{ product.description1 }}</p>
+            <p class="black-bg">{{ product.description1 | newline_to_br }}</p>
           </div>
           <div class="col-md-6">
             <h3 class="mt-2">AMP</h3>
-            <p class="black-bg">{{ product.description2 }}</p>
+            <p class="black-bg">{{ product.description2 | newline_to_br }}</p>
           </div>
         </div>
       </div>

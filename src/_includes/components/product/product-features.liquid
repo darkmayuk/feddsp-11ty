@@ -4,7 +4,7 @@
     <div class="row align-items-center mb-5">
       <div class="col-md-3 text-start">
         <h3 class="text-uppercase">{{ product.header1 }}</h3>
-        <p class="product-feature-text">{{ product.description1 }}</p>
+        <p class="product-feature-text">{{ product.description1  | newline_to_br }}</p>
       </div>
 
       <div class="col-md-6 text-center">
@@ -13,7 +13,7 @@
 
       <div class="col-md-3 text-start">
         <h3 class="text-uppercase">{{ product.header2 }}</h3>
-        <p class="product-feature-text">{{ product.description2 }}</p>
+        <p class="product-feature-text">{{ product.description2 | newline_to_br }}</p>
       </div>
     </div>
 
