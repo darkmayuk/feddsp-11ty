@@ -7,6 +7,17 @@
     --hero-text: {{ product.heroTextColour | default: '#fff' }};
   "
 >
+
+  <video
+    class="product-heroVideo"
+    autoplay
+    muted
+    loop
+    playsinline
+  >
+    <source src="/assets/videos/9665235-hd_1280_720_25fps.mp4" type="video/mp4">
+  </video>
+
   {% if hasHeroImage %}
     <img
       src="{{ product.heroImage }}"
@@ -16,7 +27,7 @@
   {% endif %}
 
   <div class="product-hero-text px-3">
-    <h2 class="text-uppercase">{{ product.headline }}</h2>
+    <h2 class="text-uppercase gradient-text">{{ product.headline }}</h2>
     <img
       src="{{ product.logo }}"
       alt="{{ product.name }} logo"

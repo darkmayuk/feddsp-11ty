@@ -24,8 +24,18 @@ front matter key productId if needed.
   </section>
 {% else %}
 
-  {% include "components/product/product-hero.liquid" %}
-  {% include "components/product/product-features.liquid" %}
-  {% include "components/product/product-videos.liquid" %}
+  <div
+    class="product-page"
+    style="
+      --hero-gradient-start: {{ product.gradientStart | default: '#fff' }};
+      --hero-gradient-end:   {{ product.gradientEnd   | default: '#000' }};
+    "
+  >
+    {% include "components/product/product-hero.liquid" %}
+    {% include "components/product/product-features.liquid" %}
+    {% include "components/product/product-videos.liquid" %}
+  </div>
+
+  <script src="/assets/js/product-hero-parallax.js"></script>
 
 {% endif %}

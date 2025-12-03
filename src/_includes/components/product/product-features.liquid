@@ -1,32 +1,42 @@
 <section class="product-features bg-black text-white py-5 restrict-width">
   <div class="container-fluid">
 
-    <div class="row align-items-center mb-5">
-      <div class="col-md-3 text-start">
-        <h3 class="text-uppercase">{{ product.header1 }}</h3>
-        <p class="product-feature-text">{{ product.description1  | newline_to_br }}</p>
+    <div class="row align-items-center mb-4">
+
+      <div class="col-lg-3 mb-4 text-start">
+        <h3 class="text-uppercase gradient-text">{{ product.header1 }}</h3>
+        {% assign lines = product.description1 | split: "\n" %}
+          {% for line in lines %}
+            <p class="product-feature-text">{{ line }}</p>
+          {% endfor %}
       </div>
 
-      <div class="col-md-6 text-center">
-        <img src="{{ product.image }}" alt="{{ product.name }} main image" class="img-fluid rounded-4 product-feature-image mb-4 mb-md-0">
+      <div class="col-lg-6 mb-5">
+        <img 
+          src="{{ product.image }}" 
+          alt="{{ product.name }} main image" 
+          class="img-fluid rounded-4 product-feature-image mx-lg-auto">
       </div>
 
-      <div class="col-md-3 text-start">
-        <h3 class="text-uppercase">{{ product.header2 }}</h3>
-        <p class="product-feature-text">{{ product.description2 | newline_to_br }}</p>
+      <div class="col-lg-3 text-start">
+        <h3 class="text-uppercase gradient-text">{{ product.header2 }}</h3>
+        {% assign lines = product.description2 | split: "\n" %}
+          {% for line in lines %}
+            <p class="product-feature-text">{{ line }}</p>
+          {% endfor %}
       </div>
+
     </div>
 
-    <div class="row text-center g-5">
-      <div class="col-md-4">
-        <div class="product-feature-box bg-white rounded-4"></div>
-      </div>
-      <div class="col-md-4">
-        <div class="product-feature-box bg-white rounded-4"></div>
-      </div>
-      <div class="col-md-4">
-        <div class="product-feature-box bg-white rounded-4"></div>
-      </div>
+    <div class="row g-5">
+      {% for img in product.social %}
+        <div class="col-md-4">
+          <div
+            class="product-feature-box"
+            style="background-image: url('{{ img }}');"
+          ></div>
+        </div>
+      {% endfor %}
     </div>
 
   </div>

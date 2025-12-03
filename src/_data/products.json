@@ -4,19 +4,26 @@
     "name": "PHATurator",
     "price": "$49",
     "headline": "Colour Your Sound",
-    "subHeader": "Analogue modelled multi-stage saturation, with zero latency. Dial in FET, Tube, Tape, Punch (SSL), Phat (Urei), Warmth (Neve) saturations, to apply anything from subtle warmth to brutal drive.",
+    "subHeader": "Analogue modelled multi-stage saturation, with zero latency. Choose from - or stack - FET, Tube, Tape, Punch, Phat, Warmth saturations, to apply anything from subtle warmth to brutal drive.",
     "header1": "Stack Multiple Saturations",
-    "header2": "Fatten Any Source",
-    "description1": "The PHATurator is the only plugin that lets you stack multiple saturation models. In top studios, engineers routinely layer analogue saturations across sources to achieve richer harmonics, better depth, and controlled tonal grit without reaching for extreme settings on any one unit.  PHATurator brings that workflow to your DAW with zero latency and no added noise. Each model is obsessively engineered to capture the behaviour and character of its analogue original, giving you saturation that reacts the way hardware does.",
-    "description2": "PHATurator solves mix problems by giving you saturation that can replace a whole chain of hardware boxes when a track sounds thin, spiky, or undefined. You can reshape tone without adding noise or latency, and it works on anything from drum rooms, to piano, to the overall mix bus. The three modes let you compare options fast: PHAT adds a subtle transformer saturation with resonant HPF; PHATTER gives you dual transformer saturation and accentuated resonance on the HPF; while the default CLEAN mode gives you transparency with no resonance.",
+    "header2": "PHATten Any Source",
+    "description1": "The PHATurator is the only plugin that lets you stack multiple saturation models. In top studios, engineers routinely layer analogue saturations across sources to achieve richer harmonics, better depth, and controlled tonal grit without reaching for extreme settings on any one unit.\nPHATurator brings that workflow to your DAW with zero latency and no added noise. Each model is obsessively engineered to capture the behaviour and character of its analogue original, giving you saturation that reacts with life, depth, and detail - the way hardware does.",
+    "description2": "PHATurator solves mix problems by giving you saturation that can replace a whole chain of hardware boxes. Fix the mix when a track sounds thin, spiky, or undefined. You can reshape tone without adding noise or latency, on anything from drum rooms, piano, to the overall mix bus.\nThe three modes in PHATurator let you compare options fast: PHAT adds a subtle transformer saturation with resonant HPF; PHATTER gives you dual transformer saturation and accentuated resonance on the HPF; while the default CLEAN mode gives you transparency with no resonance.",
     "image": "/assets/images/products/phaturator.jpg",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/0b52c713-20a5-43ae-a90b-c711d045947a?discount=0",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/phaturator",
     "logo": "/assets/images/products/phat-logo.png",
     "heroColour": "#1c1c1c",
     "heroTextColour": "#fff",
+    "gradientStart": "#F199B7",
+    "gradientEnd": "#A42222",
+    "social": [
+      "/assets/images/social/square1.png",
+      "/assets/images/social/square2.png",
+      "/assets/images/social/square3.png"
+    ],
     "videos": [
-      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+      { "embed": "https://www.youtube.com/embed/Mz1uL3K75pY" }
     ]
   },
   {
@@ -27,16 +34,23 @@
     "subHeader": "Crystal clear limiting with zero latency",
     "header1": "Your Tracking Limiter",
     "header2": "Precise Control",
-    "description1": "leONE is a dual limiter with zero latency, making it very useful for tracking and live work. By default, leONE is a super clean limiter, delivering transparent gain reduction. But with a Release envelope that can move from 2 seconds all the way to 0.01 milliseconds, brutal limiting with leONE is perfectly possible. Although super-simple to use, the dual stages in leONE allows maximum flexibility for gain staging.",
-    "description2": "The basic controls of leONE are intentionally simple: In, Clamp (ceiling of main limiter), Release, Out. But advanced options are there at the click of a button when you need them. WARM mode creates some sweet bottom end, great on the mix bus, bass, or kick. CLARA adds clarity and bite in the upper midrange. TUBE recreates the subtle (or not so subtle) colour of the tubes that we found in our favourite hardware units. GRIT is a unique effect - we call it an envelope-aware saturator. It shaves off transients wonderfully, and when used with the second limiter, is a fantastic way to impart precise control to the mix.",
+    "description1": "leONE is a dual limiter with zero latency, making it very useful for tracking and live work. By default, leONE is a super clean limiter, delivering transparent gain reduction.\nBut with a Release envelope that can move from 2 seconds all the way to 0.01 milliseconds, brutal limiting with leONE is perfectly possible. Although super-simple to use, the dual stages in leONE allows maximum flexibility for gain staging.",
+    "description2": "The basic controls of leONE are intentionally simple: In, Clamp (ceiling of main limiter), Release, Out. But advanced options are there at the click of a button when you need them.\nWARM mode creates some sweet bottom end, great on the mix bus, bass, or kick. CLARA adds clarity and bite in the upper midrange. TUBE recreates the subtle (or not so subtle) colour of the tubes that we found in our favourite hardware units. GRIT is a unique effect - we call it an envelope-aware saturator - and can impart precise control to the mix.",
     "image": "/assets/images/products/leone.png",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/leone",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/leone",
     "logo": "/assets/images/products/leone-logo.png",
     "heroColour": "#000",
     "heroTextColour": "#fff",
+    "gradientStart": "#fff",
+    "gradientEnd": "#F38EB0",
+    "social": [
+      "/assets/images/social/square1.png",
+      "/assets/images/social/square2.png",
+      "/assets/images/social/square3.png"
+    ],
     "videos": [
-      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+      { "embed": "https://www.youtube.com/embed/Mz1uL3K75pY" }
     ] 
   },
   {
@@ -45,18 +59,25 @@
     "price": "$49",
     "headline": "Ignite Your Mix",
     "header1": "Not Another 1176 Clone",
-    "header2": "Analogue Drift Recreation",
+    "header2": "Multiple Compressors in One",
     "subHeader": "Explosive FET compression with instant attack and attitude. Fiery makes any source leap out of the speakers.",
-    "description1": "The FIERY is a FET compressor that goes way beyond being just another 1176 clone. We went back to all the classic FET compressors that we know and love, and created the FIERY from the best unique elements of each. The result is FET compression with that signature FET aggressiveness and organic sound, which responds to the source in a musically rich way.",
-    "description2": "FIERY gives you compression options that normally take multiple units. CLASSIC mode is saturated like a modern analogue unit, while VINTAGE gives you compression and saturation like older FET compression devices. The two transformers - pre and post compression - activate our unique Analogue Drift Recreation (ADR) algorithm, which recreates the analogue movement found in hardware units. The DC knob changes the shape of the compression Release envelope, allowing you to move from extremely aggressive, to very smooth.",
+    "description1": "The FIERY is a FET compressor that goes way beyond being just another 1176 clone.\nWe went back to all the classic FET compressors that we know and love, and created the FIERY from the best unique elements of each. The result is FET compression with that signature FET aggressiveness and organic sound, which responds to the source in a musically rich way.",
+    "description2": "FIERY gives you compression options that normally take multiple units. CLASSIC mode is saturated like a modern analogue unit, while VINTAGE gives you compression and saturation like older FET compression devices.\nThe two transformers - pre and post compression - activate our unique Analogue Drift Recreation (ADR) algorithm, which recreates the analogue movement found in hardware units.",
     "image": "/assets/images/products/fiery.jpg",
     "buyLink": "https://yourshop.lemonsqueezy.com/buy/fiery",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/fiery",
     "logo": "/assets/images/products/fiery-logo.png",
     "heroColour": "#111",
     "heroTextColour": "#fff",
+    "gradientStart": "#E26D2C",
+    "gradientEnd": "#911D1D",
+    "social": [
+      "/assets/images/social/square1.png",
+      "/assets/images/social/square2.png",
+      "/assets/images/social/square3.png"
+    ],
     "videos": [
-      { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+      { "embed": "https://www.youtube.com/embed/Mz1uL3K75pY" }
     ]
   }
 ]
