@@ -9,10 +9,11 @@
     "header2": "PHATten Any Source",
     "description1": "The PHATurator is the only plugin that lets you stack multiple saturation models. In top studios, engineers routinely layer analogue saturations across sources to achieve richer harmonics, better depth, and controlled tonal grit without reaching for extreme settings on any one unit.\nPHATurator brings that workflow to your DAW with zero latency and no added noise. Each model is obsessively engineered to capture the behaviour and character of its analogue original, giving you saturation that reacts with life, depth, and detail - the way hardware does.",
     "description2": "PHATurator solves mix problems by giving you saturation that can replace a whole chain of hardware boxes. Fix the mix when a track sounds thin, spiky, or undefined. You can reshape tone without adding noise or latency, on anything from drum rooms, piano, to the overall mix bus.\nThe three modes in PHATurator let you compare options fast: PHAT adds a subtle transformer saturation with resonant HPF; PHATTER gives you dual transformer saturation and accentuated resonance on the HPF; while the default CLEAN mode gives you transparency with no resonance.",
-    "image": "/assets/images/products/phaturator.jpg",
+    "image": "/assets/images/products/phaturator.png",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/0b52c713-20a5-43ae-a90b-c711d045947a?discount=0",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/phaturator",
     "logo": "/assets/images/products/phat-logo.png",
+    "borderColour": "blue",
     "heroColour": "#1c1c1c",
     "heroTextColour": "#fff",
     "gradientStart": "#F199B7",
@@ -22,6 +23,7 @@
       "/assets/images/social/square2.png",
       "/assets/images/social/square3.png"
     ],
+    "3dVideo": "/assets/videos/konvikt-3d.mp4",
     "videos": [
       { "embed": "https://www.youtube.com/embed/Mz1uL3K75pY" }
     ]
@@ -40,6 +42,7 @@
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/leone",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/leone",
     "logo": "/assets/images/products/leone-logo.png",
+    "borderColour": "pink",
     "heroColour": "#000",
     "heroTextColour": "#fff",
     "gradientStart": "#fff",
@@ -63,10 +66,11 @@
     "subHeader": "Explosive FET compression with instant attack and attitude. Fiery makes any source leap out of the speakers.",
     "description1": "The FIERY is a FET compressor that goes way beyond being just another 1176 clone.\nWe went back to all the classic FET compressors that we know and love, and created the FIERY from the best unique elements of each. The result is FET compression with that signature FET aggressiveness and organic sound, which responds to the source in a musically rich way.",
     "description2": "FIERY gives you compression options that normally take multiple units. CLASSIC mode is saturated like a modern analogue unit, while VINTAGE gives you compression and saturation like older FET compression devices.\nThe two transformers - pre and post compression - activate our unique Analogue Drift Recreation (ADR) algorithm, which recreates the analogue movement found in hardware units.",
-    "image": "/assets/images/products/fiery.jpg",
+    "image": "/assets/images/products/fiery.png",
     "buyLink": "https://yourshop.lemonsqueezy.com/buy/fiery",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/fiery",
     "logo": "/assets/images/products/fiery-logo.png",
+    "borderColour": "red",
     "heroColour": "#111",
     "heroTextColour": "#fff",
     "gradientStart": "#E26D2C",

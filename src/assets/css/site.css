@@ -90,6 +90,7 @@
   h2,
   h3,
   h4,
+  h5,
   h1.display-3 {
     font-family: 'FedDSPHeader', sans-serif;
     line-height: 0.9;
@@ -108,11 +109,12 @@
     font-size: 3.5rem;
   }
 
-  h5,
-  h5.a {
-    font-family: 'FedDSPHeader', sans-serif;
+  h4 {
+    font-size: 3rem;
+  }
+
+  h5 {
     font-size: 2.5rem;
-    letter-spacing: 0.01em;
   }
 
   p {
@@ -289,8 +291,7 @@
 
   .hero-image-wrapper {
     flex: 1;
-    aspect-ratio: 4 / 5;
-    max-width: 600px;
+    max-width: 500px;
     width: 100%;
   }
 
@@ -308,7 +309,7 @@
   }
 
   #productsCarousel {
-    padding: 3rem 6rem;
+    padding: 2rem 4rem;
   }
 
   .slide-head {
@@ -318,8 +319,12 @@
   }
 
   #productsCarousel h3 {
-    font-size: 5rem;
+    font-size: 6rem;
     transform: translateY(10px);
+  }
+
+  .slide-head p {
+    font-size: 0.8rem;
   }
 
   /* product images */
@@ -330,7 +335,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: gray;
       box-shadow: 0 10px 10px 6px rgba(0, 0, 0, 0.35);
       transition: transform .35s ease, box-shadow .35s ease;
       will-change: transform;
@@ -340,21 +344,23 @@
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
+      border-radius: 0.7rem;
       transition: transform .5s ease;
     }
 
     @media (hover:hover) and (pointer:fine) {
-      .swiper-slide:hover .product-img-wrap {
+      .product-img-wrap:hover {
         transform: scale(1.02);
         box-shadow: 0 20px 40px 8px rgba(0, 0, 0, 0.45);
       }
 
-      .swiper-slide:hover .product-main-img {
-        transform: scale(1.06);
+      .product-img-wrap:hover .product-main-img {
+        transform: scale(1.04);
       }
     }
 
-  /* Bottom buttons + links */
+  /* bottom buttons + links */
+
     .product-btn {
       background: var(--brand-pink);
       color: #fff;
@@ -388,7 +394,8 @@
     }
 
     .carousel-indicators.custom-indicators {
-      position: static;
+      position: relative;
+      z-index: 10;
       display: flex;
       gap: .5rem;
       background: #000;
@@ -414,14 +421,11 @@
     #productsCarousel .swiper-pagination {
       width: auto !important;
     }
-  
-  /* Next/ previous slides */
+
+  /* next/ previous slides */
 
     #productsCarousel .swiper-slide {
       cursor: pointer;
-    }
-
-    #productsCarousel .swiper-slide {
       transform: scale(0.7);
       transition: transform .4s ease, opacity .4s ease;
     }
@@ -448,68 +452,85 @@
       overflow: unset;
     }
 
-    .product-img-wrap { overflow: visible; }
+    .product-img-wrap {
+      overflow: visible;
+    }
 
-    /* Show text only on active slide */
-      #productsCarousel .slide-head {
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.35s ease;
-      }
+    #productsCarousel .slide-head {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
 
-      #productsCarousel .swiper-slide-active .slide-head {
-        opacity: 1;
-        pointer-events: auto;
-      }
+    #productsCarousel .swiper-slide-active .slide-head {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
   /* media queries */
 
     @media (max-width: 991.98px) {
-  
       #productsCarousel { 
         padding: 1.25rem;
       }
-    
     }
 
-  /* prev/ next arrows */
+    /* swiper next/ previous on small screens */
 
-    .swiper-button-prev, .swiper-button-next {
-      visibility: hidden;
-    }
-
-    @media (max-width: 991.98px) and (hover: hover) and (pointer: fine) {
- 
-      .swiper-button-prev, .swiper-button-next {
-        visibility: visible;
-        transform: scale(0.8);
-        transition: transform 0.3s ease;
+      .swiper-button-prev,
+      .swiper-button-next {
+        visibility: hidden;
       }
 
-      #productsCarousel .swiper-button-prev:hover,
-      #productsCarousel .swiper-button-next:hover {
-        transform: scale(1);
+      @media (max-width: 991.98px) {
+        #productsCarousel .swiper-button-prev,
+        #productsCarousel .swiper-button-next {
+          visibility: visible;
+          top: 65%;
+          transform: translateY(-50%) scale(0.8);
+          transition: transform 0.3s ease;
+        }
+
+        #productsCarousel .swiper-button-prev {
+          left: 2rem;
+        }
+
+        #productsCarousel .swiper-button-next {
+          right: 2rem;
+        }
+
+        #productsCarousel .swiper-button-prev:hover,
+        #productsCarousel .swiper-button-next:hover {
+          transform: translateY(-50%) scale(1);
+        }
+
+        #productsCarousel .swiper-button-prev::after,
+        #productsCarousel .swiper-button-next::after {
+          content: '';
+          border-style: solid;
+          display: block;
+          width: 0;
+          height: 0;
+        }
+
+        #productsCarousel .swiper-button-prev::after {
+          border-width: 10px 15px 10px 0;
+          border-color: transparent white transparent transparent;
+        }
+
+        #productsCarousel .swiper-button-next::after {
+          border-width: 10px 0 10px 15px;
+          border-color: transparent transparent transparent white;
+        }
       }
 
-      #productsCarousel .swiper-button-prev::after,
-      #productsCarousel .swiper-button-next::after {
-        content: '';
-        border-style: solid;
-        display: block;
-        width: 0;
-        height: 0;
+      @media (max-width: 575.98px) {
+        #productsCarousel .swiper-button-prev,
+        #productsCarousel .swiper-button-next {
+          top: 70%;
+        }
       }
 
-      #productsCarousel .swiper-button-prev::after {
-        border-width: 10px 15px 10px 0;
-        border-color: transparent white transparent transparent;
-      }
-
-      #productsCarousel .swiper-button-next::after {
-        border-width: 10px 0 10px 15px;
-        border-color: transparent transparent transparent white;
-      }
-  }
 
 /* PRODUCT PANEL */
 
@@ -543,6 +564,10 @@
     max-width: 900px;
   }
 
+  .product-panel-wrapper {
+    position: relative;
+  }
+
 /* ABOUT PANEL */
 
   .about-section {
@@ -559,56 +584,129 @@
   }
 
   /* background logo */
-  .about-section::before {
-    content: "";
-    position: absolute;
-    top: -100%;
-    left: -100%;
-    width: 300%;
-    height: 300%;
-    background-image: url('/assets/images/fedDSP_logo.png');
-    background-repeat: repeat;
-    background-size: 80px auto;
-    transform: rotate(30deg);
-    transform-origin: center;
-    opacity: 0.04;
-    pointer-events: none;
-    z-index: 0;
-  }
+    .about-section::before {
+      content: "";
+      position: absolute;
+      top: -100%;
+      left: -100%;
+      width: 300%;
+      height: 300%;
+      background-image: url('/assets/images/fedDSP_logo.png');
+      background-repeat: repeat;
+      background-size: 80px auto;
+      transform: rotate(30deg);
+      transform-origin: center;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
 
   /* Team grid avatars */
 
-  .team-member {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-  }
+    .team-member {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
 
-  .team-member img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform .5s ease;
-  }
+    .team-member img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
 
-  .team-member:hover img {
-    transform: scale(1.2);
-  }
+    .team-member:hover img {
+      transform: scale(1.2);
+    }
 
-  .team-member .overlay {
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, .8);
-    opacity: 0;
-    padding: .5rem;
-    transition: opacity .25s ease;
-  }
+    .team-member .overlay {
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, .8);
+      opacity: 0;
+      padding: .5rem;
+      transition: opacity .25s ease;
+    }
 
-  .team-member:hover .overlay {
-    opacity: 1;
-  }
+    .team-member:hover .overlay {
+      opacity: 1;
+    }
+
+  /* hex layout */
+
+    .team-grid {
+      display: flex;
+      justify-content: flex-end;
+      
+    }
+
+    .hex-layout {
+      position: relative;
+      width: 440px;
+      height: 440px;
+      margin: 0 0 0 2rem;
+    }
+
+    .hex-layout .team-member {
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .hex-layout .team-member img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hex-layout .team-member.center {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hex-layout .team-member.ring-1 {
+      top: 8%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hex-layout .team-member.ring-2 {
+      top: 25%;
+      left: 86%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hex-layout .team-member.ring-3 {
+      top: 75%;
+      left: 86%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hex-layout .team-member.ring-4 {
+      top: 92%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hex-layout .team-member.ring-5 {
+      top: 75%;
+      left: 14%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hex-layout .team-member.ring-6 {
+      top: 25%;
+      left: 14%;
+      transform: translate(-50%, -50%);
+    }
 
 /* CONTACT PANEL */
 
@@ -739,6 +837,19 @@
     text-align: center;
   }
 
+  .product-hero-wrapper {
+    position: relative;
+  }
+
+  .hero-full-link {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: block;
+    background: transparent;
+    cursor: pointer;
+  }
+
   .product-heroVideo {
     position: absolute;
     top: -15%;
@@ -863,13 +974,110 @@
 
 /* ACCOUNT PAGE */
 
-  .account-license-key {
-    font-family: monospace;
-    font-size: 0.85rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.5rem;
-    background: #1e1e1e;
-    display: inline-block;
+  #account-purchases {
+    margin-top: 2rem;
+  }
+
+  .account-card {
+    position: relative;
+    height: 100%;
+    border-radius: 20px;
+    padding: 2px;
+    background: radial-gradient(circle at top left, var(--border-colour, #ffffff), var(--border-colour, #ffffff));
+  }
+
+  .account-card-inner {
+    height: 100%;
+    border-radius: 18px;
+    background-color: #101010;
+    padding: 1.75rem 1.5rem 1.25rem;
+    text-align: center;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .account-card-title {
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0 0 0.75rem;
+  }
+
+  .account-card-meta {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin: 0 0 1.75rem;
+  }
+
+  .account-card-license {
+    margin-bottom: 1rem;
+  }
+
+  .account-card-license-label {
+    display: block;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-bottom: 0.25rem;
+  }
+
+  .account-license-key-preview {
+    display: block;
+    font-size: 0.8rem;
+    opacity: 0.6;
     word-break: break-all;
-    color: var(--brand-pink);
+  }
+
+  .account-btn {
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .account-btn--ghost {
+    align-self: center;
+    padding: 0.4rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid #ffffff;
+    background: transparent;
+    color: #ffffff;
+    margin-bottom: 1.4rem;
+  }
+
+  .account-btn--primary {
+    display: inline-block;
+    width: 100%;
+    max-width: 210px;
+    padding: 0.6rem 1.5rem;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #000000;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 auto 1.1rem;
+  }
+
+  .account-card-actions {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .account-card-links {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  .account-link {
+    text-decoration: none;
+    color: #ffffff;
+    opacity: 0.8;
+  }
+
+  .account-link:hover {
+    opacity: 1;
   }

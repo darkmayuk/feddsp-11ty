@@ -1,66 +1,41 @@
-<!-- Swiper CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-
 <section id="product-carousel" class="restrict-width">
   <div id="productsCarousel" class="swiper bg-white text-black rounded-4">
+
     <div class="swiper-wrapper">
       {% for product in products %}
-      <div class="swiper-slide">
+      <div class="swiper-slide"
+        data-buy="{{ product.buyLink }}"
+        data-learn="/products/{{ product.id }}/"
+      >
         <div class="slide-body">
-          <div class="row g-4 px-3 slide-head">
+          <div class="row px-3 slide-head align-items-center">
             <div class="col-md-auto pe-4">
-              <h3 class="mb-0">{{ product.name }}</h3>
+              <h3 class="mb-3 mb-md-0">{{ product.name }}</h3>
             </div>
             <div class="col-md">
-              <p class="mb-0">{{ product.subHeader }}</p>
+              <p class="mb-3 mb-md-0">{{ product.subHeader }}</p>
             </div>
             <div class="col-md pe-4">
-              <p class="mb-0">{{ product.description1 | newline_to_br }}</p>
+              <p class="mb-0">{{ product.description1 | truncatewords: 28, '…' }}</p>
             </div>
           </div>
+
           <div class="product-img-wrap my-4 rounded-4">
             <img src="{{ product.image }}" alt="{{ product.name }}" class="product-main-img">
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
           </div>
         </div>
       </div>
       {% endfor %}
     </div>
 
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
     <div class="carousel-actions d-flex justify-content-center align-items-center gap-4 mt-3">
       <div class="carousel-indicators custom-indicators swiper-pagination position-static m-0 d-none d-sm-flex"></div>
-      <a href="{{ product.buyLink }}" class="btn btn-lg product-btn" data-ls-overlay>BUY</a>
-      <a href="{{ product.id }}" class="product-learn">Learn More</a>
+      <a id="carouselBuy" class="btn btn-lg product-btn">BUY</a>
+      <a id="carouselLearn" class="product-learn">Learn More</a>
     </div>
 
-    
   </div>
 </section>
-
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-  const swiper = new Swiper('#productsCarousel', {
-    loop: true,
-    effect: 'slide',
-    slideToClickedSlide: true,
-    speed: 700,
-    autoplay: { delay: 8000, pauseOnMouseEnter: true, disableOnInteraction: true },
-    pagination: {
-      el: '#productsCarousel .swiper-pagination',
-      clickable: true,
-      bulletElement: 'button'
-    },
-    breakpoints: {
-      0: { slidesPerView: 1, spaceBetween: 0, centeredSlides: false },
-      992: { slidesPerView: 1.01, spaceBetween: -80, centeredSlides: true },
-      1200: { slidesPerView: 1.01, spaceBetween: -100, centeredSlides: true }
-    },
-    navigation: {
-      nextEl: '#productsCarousel .swiper-button-next',
-      prevEl: '#productsCarousel .swiper-button-prev'
-    },
-  });
-
-</script>

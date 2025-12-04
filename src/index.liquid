@@ -1,14 +1,47 @@
 ---
 layout: layouts/base.liquid
 title: fedDSP
+featuredProductId: phaturator
 ---
+
+{% assign featured = null %}
+{% for p in products %}
+  {% if p.id == featuredProductId %}
+    {% assign featured = p %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if featured %}
+  <div
+    class="product-page"
+    style="
+      --hero-gradient-start: {{ featured.gradientStart | default: '#ff00ff' }};
+      --hero-gradient-end:   {{ featured.gradientEnd   | default: '#00ffff' }};
+    "
+  >
+    {% assign product = featured %}
+    <div class="product-hero-wrapper">
+      {% include "components/product/product-hero.liquid" %}
+      <a class="hero-full-link" href="/products/{{ featured.id }}/"></a>
+    </div>
+  </div>
+{% endif %}
 
 {% include "components/index/hero.liquid" %}
 
 {% include "components/index/product-carousel.liquid" %}
 
-{% include "components/index/product-panel.liquid" %}
+<div class="product-panel-wrapper">
+  {% include "components/index/product-panel.liquid" %}
+  <a class="hero-full-link" href="/products/{{ featured.id }}/"></a>
+</div>
 
 {% include "components/index/about.liquid" %}
 
 {% include "components/index/contact.liquid" %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="/assets/js/product-hero-parallax.js"></script>
+<script src="/assets/js/product-carousel.js"></script>

@@ -1,5 +1,7 @@
-document.querySelectorAll('.product-panel').forEach(panel => {
-  const video = panel.querySelector('video');
-  panel.addEventListener('mouseenter', () => video.play());
-  panel.addEventListener('mouseleave', () => video.pause());
+document.querySelectorAll('.product-panel-wrapper').forEach(wrapper => {
+  const video = wrapper.querySelector('video');
+  if (!video) return;
+
+  wrapper.addEventListener('mouseenter', () => video.play());
+  wrapper.addEventListener('mouseleave', () => video.pause());
 });

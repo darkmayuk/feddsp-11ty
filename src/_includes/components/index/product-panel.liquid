@@ -1,35 +1,40 @@
+<!-- if index.liquid has already set `featured`, use that. Otherwise fall back to a specific product (konvikt). -->
+{% if featured %}
+{% assign product = featured %}
+{% else %}
 {% assign product = products | where: "id", "konvikt" | first %}
+{% endif %}
 
 <section class="product-panel d-flex flex-column justify-content-between text-white">
-  <video class="w-100 h-100 object-fit-cover" muted loop playsinline
-         poster="/assets/images/products/konvikt_3d.jpg">
-    <source src="/assets/videos/konvikt-3d.mp4" type="video/mp4">
+  <video class="w-100 h-100 object-fit-cover" muted loop playsinline preload="metadata">
+    {% if product['3dVideo'] %}
+    <source src="{{ product['3dVideo'] }}" type="video/mp4">
+    {% endif %}
     Your browser does not support the video tag.
   </video>
 
-  <!-- Flexbox overlay content -->
   <div class="overlay-content">
-    <!-- Headline overlay (top) -->
+
     <div class="overlay-top text-center px-3 pt-5">
-      <h2 class="text-uppercase">{{ product.headline }}</h2>
-      <p>{{ product.subHeader }}</p>
+      <h2 class="text-uppercase mb-4">{{ product.name }}</h2>
+      <p class="w-75 mx-auto">{{ product.subHeader }}</p>
     </div>
 
-    <!-- Black paragraph block (bottom) -->
     <div class="overlay-bottom w-100">
       <div class="container py-4">
         <div class="row gx-5 bg-black bg-opacity-85 rounded-3 p-4">
           <div class="col-md-6">
-            <h3 class="mt-2">KON</h3>
-            <p class="black-bg">{{ product.description1 | newline_to_br }}</p>
+            <h5 class="text-uppercase mt-2">{{ product.header1 }}</h3>
+              <p class="black-bg">{{ product.description1 | truncatewords: 28, '…' }}</p>
           </div>
           <div class="col-md-6">
-            <h3 class="mt-2">AMP</h3>
-            <p class="black-bg">{{ product.description2 | newline_to_br }}</p>
+            <h5 class="text-uppercase mt-2">{{ product.header2 }}</h3>
+              <p class="black-bg">{{ product.description2 | truncatewords: 28, '…' }}</p>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 

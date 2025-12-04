@@ -49,6 +49,23 @@ function escapeHtml(str) {
     .replace(/'/g, "&#39;");
 }
 
+function getBorderColourForPurchase(p) {
+  const styles = window.FED_PRODUCT_STYLES || {};
+  if (p.productId && styles[p.productId] && styles[p.productId].borderColour) {
+    return styles[p.productId].borderColour;
+  }
+
+  const nameKey = (p.productName || "").toLowerCase();
+  for (const key in styles) {
+    const prod = styles[key];
+    if ((prod.name || "").toLowerCase() === nameKey && prod.borderColour) {
+      return prod.borderColour;
+    }
+  }
+
+  return "#ffffff";
+}
+
 function renderAccount(data) {
   const emailEl     = document.getElementById("account-email");
   const messagesEl  = document.getElementById("account-messages");
@@ -72,14 +89,10 @@ function renderAccount(data) {
     return;
   }
 
-  const cards = data.purchases.map(p => {
+    const cards = data.purchases.map(p => {
     const date = p.purchasedAt
       ? new Date(p.purchasedAt).toLocaleDateString()
       : "Unknown date";
-
-    const status = p.licenseStatus
-      ? p.licenseStatus.charAt(0).toUpperCase() + p.licenseStatus.slice(1)
-      : "Unknown";
 
     const hasLicense = !!p.licenseKey;
     const licensePreview = hasLicense
@@ -87,50 +100,51 @@ function renderAccount(data) {
       : "—";
 
     const licenseAttr = hasLicense ? escapeHtml(p.licenseKey) : "";
+    const borderColour = getBorderColourForPurchase(p);
 
     return `
       <div class="col-12 col-md-6">
-        <article class="card h-100 bg-dark border-secondary text-light">
-          <div class="card-body d-flex flex-column">
-            <h2 class="card-title mb-3">${p.productName || "Untitled product"}</h2>
-            <p class="card-subtitle small mb-3">
-              Order #${p.orderNumber || "—"} · ${date}
+        <article class="account-card" style="--border-colour: ${borderColour};">
+          <div class="account-card-inner">
+            <h2 class="account-card-title">${p.productName || "Untitled product"}</h2>
+            <p class="account-card-meta">
+              ORDER #${p.orderNumber || "—"} · ${date}
             </p>
 
-            <p class="mb-2">
-              <span class="mb-1 d-block">License key:</span>
+            <div class="account-card-license">
+              <span class="account-card-license-label">License key:</span>
               <code class="account-license-key-preview">${licensePreview}</code>
-            </p>
+            </div>
 
             ${hasLicense ? `
-              <div class="mb-3">
-                <button
-                  type="button"
-                  class="btn btn-sm btn-outline-light account-copy-btn"
-                  data-license="${licenseAttr}">
-                  Copy license key
-                </button>
-              </div>
+              <button
+                type="button"
+                class="account-copy-btn account-btn account-btn--ghost"
+                data-license="${licenseAttr}">
+                COPY KEY
+              </button>
             ` : ""}
 
-            <div class="mt-auto pt-2 d-flex flex-wrap gap-2">
+            <div class="account-card-actions">
               ${p.downloadUrl ? `
-                <a class="btn btn-sm btn-primary" href="${p.downloadUrl}">
-                  Download
+                <a class="account-btn account-btn--primary" href="${p.downloadUrl}">
+                  DOWNLOAD
                 </a>
               ` : ""}
 
-              ${p.manualUrl ? `
-                <a class="btn btn-sm btn-outline-secondary" href="${p.manualUrl}">
-                  Manual
-                </a>
-              ` : ""}
+              <div class="account-card-links">
+                ${p.manualUrl ? `
+                  <a class="account-link" href="${p.manualUrl}">
+                    Manual
+                  </a>
+                ` : ""}
 
-              ${p.receiptUrl ? `
-                <a class="btn btn-sm btn-outline-secondary" href="${p.receiptUrl}" target="_blank" rel="noopener">
-                  View receipt
-                </a>
-              ` : ""}
+                ${p.receiptUrl ? `
+                  <a class="account-link" href="${p.receiptUrl}" target="_blank" rel="noopener">
+                    Receipt
+                  </a>
+                ` : ""}
+              </div>
             </div>
           </div>
         </article>

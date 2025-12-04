@@ -27,4 +27,15 @@ title: My Account
   <div id="account-purchases" class="row g-3 mt-2"></div>
 </section>
 
+<script>
+  window.FED_PRODUCT_STYLES = {
+    {% for product in products %}
+      "{{ product.id }}": {
+        "name": "{{ product.name | escape }}",
+        "borderColour": "{{ product.borderColour | default: '#ffffff' }}"
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  };
+</script>
+
 <script src="/assets/js/account-ui.js" defer></script>
