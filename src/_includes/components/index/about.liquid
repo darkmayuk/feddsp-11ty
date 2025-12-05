@@ -1,42 +1,44 @@
-<section class="about-section text-white py-5 restrict-width">
-  <div class="row w-100 g-0 align-items-center">
-    <!-- Left: About copy -->
-    <div class="col-lg-6">
-      <div class="about-copy">
-        <h2 class="mb-4 text-uppercase">About</h2>
-        {% assign lines = texts.about | split: "\n" %}
-        {% for line in lines %}
-        <p>{{ line }}</p>
-        {% endfor %}
-      </div>
-    </div>
-
-    <!-- Right: Team grid -->
-    <div class="col-lg-6 mt-5">
-      <div class="team-grid hex-layout">
-        {% assign fed = texts.team | first %}
-        {% assign others = texts.team | slice: 1, 6 %}
-
-        <!-- centre -->
-        <div class="team-member center">
-          <img src="{{ fed.avatar }}" alt="{{ fed.name }}">
-          <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center text-white">
-            <h6 class="mb-1">{{ fed.name }}</h6>
-            <div class="small">{{ fed.role }}</div>
-          </div>
+<div class="about-wrapper">
+  <section class="about-section text-white py-5 restrict-width">
+    <div class="row w-100 g-0 align-items-center">
+      <!-- Left: About copy -->
+      <div class="col-lg-6">
+        <div class="about-copy">
+          <h2 class="mb-4 text-uppercase">About</h2>
+          {% assign lines = texts.about | split: "\n" %}
+          {% for line in lines %}
+          <p>{{ line }}</p>
+          {% endfor %}
         </div>
-
-        <!-- 6 around -->
-        {% for member in others %}
-        <div class="team-member ring ring-{{ forloop.index }}">
-          <img src="{{ member.avatar }}" alt="{{ member.name }}">
-          <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center text-white">
-            <h6 class="mb-1">{{ member.name }}</h6>
-            <div class="small">{{ member.role }}</div>
-          </div>
-        </div>
-        {% endfor %}
       </div>
-    </div>
 
-</section>
+      <!-- Right: Team grid -->
+      <div class="col-lg-6 mt-5">
+        <div class="team-grid hex-layout ms-lg-5">
+          {% assign fed = texts.team | first %}
+          {% assign others = texts.team | slice: 1, 6 %}
+
+          <!-- centre -->
+          <div class="team-member center">
+            <img src="{{ fed.avatar }}" alt="{{ fed.name }}">
+            <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center text-white">
+              <h6 class="mb-1">{{ fed.name }}</h6>
+              <div class="small">{{ fed.role }}</div>
+            </div>
+          </div>
+
+          <!-- 6 around -->
+          {% for member in others %}
+          <div class="team-member ring ring-{{ forloop.index }}">
+            <img src="{{ member.avatar }}" alt="{{ member.name }}">
+            <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center text-white">
+              <h6 class="mb-1">{{ member.name }}</h6>
+              <div class="small">{{ member.role }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+  </section>
+</div>

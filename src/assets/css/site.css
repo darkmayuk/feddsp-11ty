@@ -572,36 +572,36 @@
 
 /* ABOUT PANEL */
 
+  .about-wrapper {
+    background-color: var(--brand-pink);
+    background-image: url('/assets/images/backgrounds/about.png');
+    background-repeat: repeat;
+    background-size: auto;
+    background-position: top left;
+    position: relative;
+  }
+
+  .about-wrapper::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2); 
+    z-index: 0;
+    pointer-events: none;
+  }
+
   .about-section {
     position: relative;
-    background-color: var(--brand-pink);
     overflow: hidden;
     display: flex;
     align-items: center;
     min-height: 80vh;
+    z-index: 1;
   }
 
   .about-copy {
     max-width: 500px;
-  }
-
-  /* background logo */
-    .about-section::before {
-      content: "";
-      position: absolute;
-      top: -100%;
-      left: -100%;
-      width: 300%;
-      height: 300%;
-      background-image: url('/assets/images/fedDSP_logo.png');
-      background-repeat: repeat;
-      background-size: 80px auto;
-      transform: rotate(30deg);
-      transform-origin: center;
-      opacity: 0.04;
-      pointer-events: none;
-      z-index: 0;
-    }
+}
 
   /* Team grid avatars */
 
@@ -642,14 +642,12 @@
     .team-grid {
       display: flex;
       justify-content: flex-end;
-      
     }
 
     .hex-layout {
       position: relative;
       width: 440px;
       height: 440px;
-      margin: 0 0 0 2rem;
     }
 
     .hex-layout .team-member {
