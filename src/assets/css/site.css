@@ -996,6 +996,10 @@
     flex: 0 0 auto;
   }
 
+  .account-card-meta {
+    font-size: 0.8rem;
+  }
+
   .account-card-license {
     margin-bottom: 0.5rem;
     font-size: 0.8rem;

@@ -88,6 +88,8 @@ function renderAccount(data) {
     const licenseAttr = hasLicense ? escapeHtml(p.licenseKey) : "";
     const borderColour = getBorderColourForPurchase(p);
 
+    console.log(borderColour);
+
     return `
       <div class="account-card-wrapper">
         <article class="account-card" style="border-color: ${borderColour};">
