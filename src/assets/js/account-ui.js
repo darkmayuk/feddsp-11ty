@@ -1,4 +1,4 @@
-const USE_LIVE_FUNCTION = true;  // ← set to false to go back to dummy instantly
+const USE_LIVE_FUNCTION = true;
 
 const dummyAccountData = {
   email: "mark@markday.co.uk",
@@ -8,22 +8,22 @@ const dummyAccountData = {
       orderNumber: "1001",
       purchasedAt: "2025-01-01T12:00:00Z",
       productName: "PHATurator",
-      licenseKey: "PHAT-TEST-KEY-123",
-      licenseStatus: "active",
+      licenseKey: "PHAT-TEST-KEY-123-qwerty-lotsOfCharacters_ready to split",
       downloadUrl: "/downloads",
       manualUrl: "#",
-      receiptUrl: "#"
+      receiptUrl: "#",
+      borderColour: "#ff7f27"
     },
     {
       id: "order-002",
       orderNumber: "1002",
       purchasedAt: "2025-02-10T09:30:00Z",
-      productName: "Fiery",
+      productName: "FIERY",
       licenseKey: "FIERY-TEST-777",
-      licenseStatus: "active",
       downloadUrl: "/downloads",
       manualUrl: "#",
-      receiptUrl: "#"
+      receiptUrl: "#",
+      borderColour: "#ff1744"
     },
     {
       id: "order-003",
@@ -31,15 +31,14 @@ const dummyAccountData = {
       purchasedAt: "2025-03-05T10:00:00Z",
       productName: "LeONE",
       licenseKey: "LEONE-TEST-999",
-      licenseStatus: "active",
       downloadUrl: "/downloads",
       manualUrl: "#",
-      receiptUrl: "#"
+      receiptUrl: "#",
+      borderColour: "#e91e63"
     }
   ]
 };
 
-// Simple HTML escaper for embedding license strings safely
 function escapeHtml(str) {
   return String(str)
     .replace(/&/g, "&amp;")
@@ -50,20 +49,7 @@ function escapeHtml(str) {
 }
 
 function getBorderColourForPurchase(p) {
-  const styles = window.FED_PRODUCT_STYLES || {};
-  if (p.productId && styles[p.productId] && styles[p.productId].borderColour) {
-    return styles[p.productId].borderColour;
-  }
-
-  const nameKey = (p.productName || "").toLowerCase();
-  for (const key in styles) {
-    const prod = styles[key];
-    if ((prod.name || "").toLowerCase() === nameKey && prod.borderColour) {
-      return prod.borderColour;
-    }
-  }
-
-  return "#ffffff";
+  return p.borderColour || "#ffffff";
 }
 
 function renderAccount(data) {
@@ -89,63 +75,47 @@ function renderAccount(data) {
     return;
   }
 
-    const cards = data.purchases.map(p => {
+  const cards = data.purchases.map(p => {
     const date = p.purchasedAt
       ? new Date(p.purchasedAt).toLocaleDateString()
       : "Unknown date";
 
     const hasLicense = !!p.licenseKey;
     const licensePreview = hasLicense
-      ? (p.licenseKey.replace(/\s+/g, " ").slice(0, 60) + "…")
+      ? (p.licenseKey.replace(/\s+/g, " ").slice(0, 50) + "…")
       : "—";
 
     const licenseAttr = hasLicense ? escapeHtml(p.licenseKey) : "";
     const borderColour = getBorderColourForPurchase(p);
 
     return `
-      <div class="col-12 col-md-6">
-        <article class="account-card" style="--border-colour: ${borderColour};">
-          <div class="account-card-inner">
-            <h2 class="account-card-title">${p.productName || "Untitled product"}</h2>
-            <p class="account-card-meta">
-              ORDER #${p.orderNumber || "—"} · ${date}
-            </p>
+      <div class="account-card-wrapper">
+        <article class="account-card" style="border-color: ${borderColour};">
+          <h2 class="account-card-title">${p.productName || "Untitled product"}</h2>
+          <p class="account-card-meta">
+            ORDER #${p.orderNumber || "—"} · ${date}
+          </p>
 
-            <div class="account-card-license">
-              <span class="account-card-license-label">License key:</span>
-              <code class="account-license-key-preview">${licensePreview}</code>
-            </div>
+          <div class="account-card-license">
+            <span>License key:</span>
+            <code class="account-license-key-preview">${licensePreview}</code>
+          </div>
 
-            ${hasLicense ? `
-              <button
-                type="button"
-                class="account-copy-btn account-btn account-btn--ghost"
-                data-license="${licenseAttr}">
-                COPY KEY
-              </button>
-            ` : ""}
+          ${hasLicense ? `
+            <button
+              type="button"
+              class="account-copy-btn account-btn">
+              COPY KEY
+            </button>
+          ` : ""}
 
-            <div class="account-card-actions">
-              ${p.downloadUrl ? `
-                <a class="account-btn account-btn--primary" href="${p.downloadUrl}">
-                  DOWNLOAD
-                </a>
-              ` : ""}
+          <a class="account-btn account-btn--primary" href="${p.downloadUrl || "#"}">
+            DOWNLOAD
+          </a>
 
-              <div class="account-card-links">
-                ${p.manualUrl ? `
-                  <a class="account-link" href="${p.manualUrl}">
-                    Manual
-                  </a>
-                ` : ""}
-
-                ${p.receiptUrl ? `
-                  <a class="account-link" href="${p.receiptUrl}" target="_blank" rel="noopener">
-                    Receipt
-                  </a>
-                ` : ""}
-              </div>
-            </div>
+          <div class="account-card-links">
+            ${p.manualUrl ? `<a class="account-link" href="${p.manualUrl}">Manual</a>` : ""}
+            ${p.receiptUrl ? `<a class="account-link" href="${p.receiptUrl}" target="_blank" rel="noopener">Receipt</a>` : ""}
           </div>
         </article>
       </div>
@@ -161,7 +131,9 @@ function attachCopyHandlers() {
   const buttons = document.querySelectorAll(".account-copy-btn");
   buttons.forEach(btn => {
     btn.addEventListener("click", async () => {
-      const license = btn.getAttribute("data-license") || "";
+      const card = btn.closest(".account-card");
+      const codeEl = card && card.querySelector(".account-license-key-preview");
+      const license = codeEl ? codeEl.textContent.replace(/…$/, "") : "";
       if (!license) return;
 
       const originalText = btn.textContent;
@@ -210,7 +182,6 @@ function addMessage(container, text, type) {
   container.appendChild(div);
 }
 
-// Fallback: old behaviour (no Clerk, or Clerk failed)
 async function loadViaFunctionWithoutClerk() {
   if (!USE_LIVE_FUNCTION) {
     renderAccount(dummyAccountData);
@@ -234,7 +205,6 @@ async function boot() {
   const signInEl     = document.getElementById("sign-in");
 
   if (!window.Clerk) {
-    console.warn("Clerk not available, falling back to env/email-based account loading.");
     await loadViaFunctionWithoutClerk();
     return;
   }
@@ -242,15 +212,13 @@ async function boot() {
   try {
     await window.Clerk.load();
   } catch (err) {
-    console.error("Clerk failed to load properly, falling back.", err);
+    console.error("Clerk failed to load, falling back.", err);
     await loadViaFunctionWithoutClerk();
     return;
   }
 
   if (userButtonEl) {
-    window.Clerk.mountUserButton(userButtonEl, {
-      afterSignOutUrl: "/account"
-    });
+    window.Clerk.mountUserButton(userButtonEl, { afterSignOutUrl: "/account" });
   }
 
   if (!window.Clerk.user) {
@@ -292,9 +260,7 @@ async function boot() {
     });
     if (!res.ok) throw new Error("Account function error");
     const data = await res.json();
-    if (!data.email && emailPrimary) {
-      data.email = emailPrimary;
-    }
+    if (!data.email && emailPrimary) data.email = emailPrimary;
     renderAccount(data);
   } catch (e) {
     console.error(e);
@@ -302,6 +268,4 @@ async function boot() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  boot();
-});
+document.addEventListener("DOMContentLoaded", boot);

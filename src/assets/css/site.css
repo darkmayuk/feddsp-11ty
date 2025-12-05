@@ -2,6 +2,8 @@
 
   :root {
     --brand-pink: #d466ad;
+    --dark-grey: #1a1a1a;
+    --light-grey: #aaaaaa;
     --container-x-margin-xs: 2rem;
     --container-x-margin-sm: 2rem;
     --container-x-margin-md: 2rem;
@@ -13,7 +15,7 @@
 
   html,
   body {
-    background-color: #000;
+    background-color: black;
     color: white;
   }
 
@@ -129,11 +131,11 @@
 
   .navbar-wrapper {
     width: 100%;
-    background-color: #000;
+    background-color: black;
   }
 
   .navbar {
-    background-color: #000 !important;
+    background-color: black !important;
     border-bottom: none;
   }
 
@@ -166,7 +168,7 @@
   }
 
   .navbar .nav-link {
-    color: #fff !important;
+    color: white !important;
     transition: color 0.2s, background-color 0.2s;
   }
 
@@ -363,7 +365,7 @@
 
     .product-btn {
       background: var(--brand-pink);
-      color: #fff;
+      color: white;
       border-radius: 999px;
       padding: .5rem 2rem;
       font-weight: 700;
@@ -373,8 +375,8 @@
 
     .product-btn:hover,
     .product-btn:focus {
-      background: #fff;
-      color: #000;
+      background: white;
+      color: black;
       border: 3px solid var(--brand-pink);
     }
 
@@ -398,7 +400,7 @@
       z-index: 10;
       display: flex;
       gap: .5rem;
-      background: #000;
+      background: black;
       padding: 1.2rem;
       border-radius: 999px;
     }
@@ -715,8 +717,8 @@
   }
 
   .contact-input {
-    background: #000;
-    color: #fff;
+    background: black;
+    color: white;
     border: 1px solid transparent;
     padding: 0.95rem 1.25rem;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
@@ -728,8 +730,8 @@
   }
 
   .contact-input:focus {
-    background: #000;
-    color: #fff;
+    background: black;
+    color: white;
     outline: 0;
     box-shadow: 0 0 0 .25rem color-mix(in oklab, var(--brand-pink) 35%, transparent);
     border: 1px solid var(--brand-pink);
@@ -789,15 +791,15 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: #fff;
-    color: #000;
+    background: white;
+    color: black;
     font-size: 1.2rem;
     transition: transform 0.2s ease, background 0.2s ease;
   }
 
   .footer-socials a:hover {
     background: var(--brand-pink);
-    color: #000;
+    color: black;
     transform: scale(1.1);
   }
 
@@ -806,7 +808,7 @@
   }
 
   .footer-links a {
-    color: #fff;
+    color: white;
     font-size: 1.2rem;
     text-decoration: none;
     display: inline-block;
@@ -819,7 +821,7 @@
 
   p.footer-bottom {
     font-size: 0.7rem;
-    color: gray;
+    color: var(--light-grey);
   }
 
 /* PRODUCT HEADER */
@@ -829,8 +831,8 @@
     overflow: hidden;
     min-height: 60vh;
     padding: 6rem 0;
-    background: var(--hero-bg, #111);
-    color: var(--hero-text, #fff);
+    background: var(--hero-bg, black);
+    color: var(--hero-text, white);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -903,8 +905,8 @@
 /* PRODUCT FEATURES */
 
   .product-features {
-    background: #000;
-    color: #fff;
+    background: black;
+    color: white;
   }
 
   .product-feature-text {
@@ -921,7 +923,7 @@
   .product-feature-box {
     width: 100%;
     aspect-ratio: 1 / 1;
-    background: #fff;
+    background: white;
     background-size: cover;
     background-position: top center;
     background-repeat: no-repeat;
@@ -955,7 +957,7 @@
 /* PRODUCT VIDEOS */
 
   .product-videos {
-    background-color: var(--hero-bg, #000);
+    background-color: var(--hero-bg, black);
     padding-top: 5rem;
     padding-bottom: 5rem;
   }
@@ -975,109 +977,95 @@
 /* ACCOUNT PAGE */
 
   #account-purchases {
-    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
   .account-card {
-    position: relative;
-    height: 100%;
-    border-radius: 20px;
-    padding: 2px;
-    background: radial-gradient(circle at top left, var(--border-colour, #ffffff), var(--border-colour, #ffffff));
-  }
-
-  .account-card-inner {
-    height: 100%;
-    border-radius: 18px;
-    background-color: #101010;
-    padding: 1.75rem 1.5rem 1.25rem;
+    height: 350px;
+    width: 260px;
+    padding: 1.5rem;
+    margin: 1.5rem;
+    border-radius: 1rem;
+    border: 4px solid #fff;
+    background: var(--dark-grey);
     text-align: center;
-    color: #ffffff;
     display: flex;
     flex-direction: column;
-  }
-
-  .account-card-title {
-    font-size: 1.6rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin: 0 0 0.75rem;
-  }
-
-  .account-card-meta {
-    font-size: 0.8rem;
-    opacity: 0.7;
-    margin: 0 0 1.75rem;
+    flex: 0 0 auto;
   }
 
   .account-card-license {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
   }
 
-  .account-card-license-label {
+  code.account-license-key-preview {
     display: block;
-    font-size: 0.8rem;
-    opacity: 0.8;
-    margin-bottom: 0.25rem;
-  }
-
-  .account-license-key-preview {
-    display: block;
-    font-size: 0.8rem;
-    opacity: 0.6;
-    word-break: break-all;
+    color: var(--light-grey);
   }
 
   .account-btn {
-    border: none;
-    cursor: pointer;
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .account-btn--ghost {
-    align-self: center;
-    padding: 0.4rem 1.4rem;
-    border-radius: 999px;
-    border: 1px solid #ffffff;
+    display: inline-block;
+    margin: 0 auto 1.5rem auto;
+    width: 120px;
+    padding: 0.3rem;
+    border-radius: 1rem;
+    border: 1px solid white;
     background: transparent;
-    color: #ffffff;
-    margin-bottom: 1.4rem;
+    color: white;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    cursor: pointer;
   }
 
   .account-btn--primary {
-    display: inline-block;
-    width: 100%;
-    max-width: 210px;
-    padding: 0.6rem 1.5rem;
-    border-radius: 999px;
-    background: #ffffff;
-    color: #000000;
+    background: #fff;
+    color: var(--dark-grey);
+    width: 160px;
+    margin: 0 auto 1.5rem auto;
     text-decoration: none;
-    font-weight: 500;
-    margin: 0 auto 1.1rem;
-  }
-
-  .account-card-actions {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    font-size: 1.1rem;
   }
 
   .account-card-links {
     display: flex;
+    justify-content: center;
     gap: 1.5rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   .account-link {
+    color: var(--light-grey);
     text-decoration: none;
-    color: #ffffff;
-    opacity: 0.8;
   }
 
   .account-link:hover {
     opacity: 1;
   }
+
+  .account-btn:hover,
+  .account-btn:active {
+    background: var(--light-grey);
+    border: 1px solid var(--light-grey);
+  }
+
+  .account-btn--primary:hover,
+  .account-btn--primary:active {
+    background: var(--light-grey);
+    color: white;
+  }
+
+  .account-link:hover,
+  .account-link:active {
+    color: white;
+    text-decoration: underline;
+  }
+
+  .account-btn,
+  .account-btn--primary,
+  .account-link {
+    transition: all 0.25s ease;
+  }
+
