@@ -81,6 +81,7 @@ function renderAccount(data) {
       : "Unknown date";
 
     const hasLicense = !!p.licenseKey;
+    const fullLicense = hasLicense ? p.licenseKey : "";
     const licensePreview = hasLicense
       ? (p.licenseKey.replace(/\s+/g, " ").slice(0, 50) + "…")
       : "—";
@@ -106,7 +107,8 @@ function renderAccount(data) {
           ${hasLicense ? `
             <button
               type="button"
-              class="account-copy-btn account-btn">
+              class="account-copy-btn account-btn"
+              data-license="${licenseAttr}">
               COPY KEY
             </button>
           ` : ""}
@@ -133,9 +135,7 @@ function attachCopyHandlers() {
   const buttons = document.querySelectorAll(".account-copy-btn");
   buttons.forEach(btn => {
     btn.addEventListener("click", async () => {
-      const card = btn.closest(".account-card");
-      const codeEl = card && card.querySelector(".account-license-key-preview");
-      const license = codeEl ? codeEl.textContent.replace(/…$/, "") : "";
+      const license = btn.getAttribute("data-license") || "";
       if (!license) return;
 
       const originalText = btn.textContent;
