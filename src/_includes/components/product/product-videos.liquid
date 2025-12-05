@@ -1,8 +1,7 @@
-<section class="product-videos d-flex align-items-center justify-content-center py-5"
-         style="background-color: {{ product.heroColour | default: '#000' }};">
+<section class="product-videos">
   <div class="container text-center">
     {% for video in product.videos %}
-      <div class="ratio ratio-16x9 mb-5 product-video-wrap">
+      <div class="ratio ratio-16x9 product-video-wrap">
         <iframe
           src="{{ video.embed }}"
           title="{{ product.name }} video {{ forloop.index }}"
@@ -14,3 +13,10 @@
   </div>
 </section>
 
+{% if product.background %}
+  <style>
+    .product-videos {
+      --product-bg: url('{{ product.background }}');
+    }
+  </style>
+{% endif %}

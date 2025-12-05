@@ -25,17 +25,30 @@ front matter key productId if needed.
 {% else %}
 
   <div
-    class="product-page"
+    class="product-page{% if product.comingSoon %} is-coming-soon{% endif %}"
     style="
       --hero-gradient-start: {{ product.gradientStart | default: '#fff' }};
       --hero-gradient-end:   {{ product.gradientEnd   | default: '#000' }};
     "
   >
-    {% include "components/product/product-hero.liquid" %}
-    {% include "components/product/product-features.liquid" %}
-    {% include "components/product/product-videos.liquid" %}
+
+    <div class="product-page-inner">
+      {% include "components/product/product-hero.liquid" %}
+      {% include "components/product/product-features.liquid" %}
+      {% include "components/product/product-videos.liquid" %}
+    </div>
+
+    {% if product.comingSoon %}
+      <div class="product-coming-soon-overlay">
+        <div class="product-coming-soon-banner">
+          <span class="badge">Coming soon</span>
+          <p class="m-0">We're putting the final touches on {{ product.name }} ... </p>
+        </div>
+      </div>
+    {% endif %}
+
   </div>
 
-  <script src="/assets/js/product-hero-parallax.js"></script>
+<script src="/assets/js/product-hero-parallax.js"></script>
 
 {% endif %}

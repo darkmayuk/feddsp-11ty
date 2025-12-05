@@ -2,6 +2,7 @@
   {
     "id": "phaturator",
     "name": "PHATurator",
+    "comingSoon": false,
     "price": "$49",
     "headline": "Colour Your Sound",
     "subHeader": "Analogue modelled multi-stage saturation, with zero latency. Choose from - or stack - FET, Tube, Tape, Punch, Phat, Warmth saturations, to apply anything from subtle warmth to brutal drive.",
@@ -13,6 +14,7 @@
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/0b52c713-20a5-43ae-a90b-c711d045947a?discount=0",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/phaturator",
     "logo": "/assets/images/products/phat-logo.png",
+    "background": "/assets/images/backgrounds/phat.png",
     "borderColour": "blue",
     "heroColour": "#1c1c1c",
     "heroTextColour": "#fff",
@@ -31,6 +33,7 @@
   {
     "id": "leone",
     "name": "leONE",
+    "comingSoon": true,
     "price": "$49",
     "headline": "Push Your Limits",
     "subHeader": "Crystal clear limiting with zero latency",
@@ -42,6 +45,7 @@
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/leone",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/leone",
     "logo": "/assets/images/products/leone-logo.png",
+    "background": "/assets/images/backgrounds/leone.png",
     "borderColour": "pink",
     "heroColour": "#000",
     "heroTextColour": "#fff",
@@ -59,6 +63,7 @@
   {
     "id": "fiery",
     "name": "FIERY",
+    "comingSoon": true,
     "price": "$49",
     "headline": "Ignite Your Mix",
     "header1": "Not Another 1176 Clone",
@@ -70,6 +75,7 @@
     "buyLink": "https://yourshop.lemonsqueezy.com/buy/fiery",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/fiery",
     "logo": "/assets/images/products/fiery-logo.png",
+    "background": "/assets/images/backgrounds/fiery.png",
     "borderColour": "red",
     "heroColour": "#111",
     "heroTextColour": "#fff",
