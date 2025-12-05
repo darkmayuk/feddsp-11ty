@@ -199,7 +199,7 @@
       color: black;
     }
 
-    @media (min-width: 576px) {
+    @media (min-width: 768px) {
       .nav-item.dropdown:hover .dropdown-menu {
         display: block;
       }
@@ -237,43 +237,43 @@
     }
 
   /* Mobile navbar */
-  .navbar-toggler {
-    border: none;
-    padding: 0.5rem;
-    background-color: transparent;
-  }
-
-  .navbar-toggler-icon {
-    width: 1.5em;
-    height: 1.5em;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-  }
-
-  .navbar-toggler:hover .navbar-toggler-icon,
-  .navbar-toggler:focus .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23d466ad' viewBox='0 0 30 30'%3e%3cpath stroke='%23d466ad' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-  }
-
-  @media (max-width: 575.98px) {
-    .navbar-collapse {
-      text-align: right;
-      padding-right: 1rem;
-      flex-direction: column;
-      align-items: flex-end;
+    .navbar-toggler {
+      border: none;
+      padding: 0.5rem;
+      background-color: transparent;
     }
 
-    .dropdown-menu {
-      position: static !important;
-      right: 0 !important;
-      text-align: right !important;
+    .navbar-toggler-icon {
+      width: 1.5em;
+      height: 1.5em;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
     }
 
-    .navbar .nav-link.cart-icon {
-      margin: 0.5rem 0;
+    .navbar-toggler:hover .navbar-toggler-icon,
+    .navbar-toggler:focus .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23d466ad' viewBox='0 0 30 30'%3e%3cpath stroke='%23d466ad' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     }
-  }
+
+    @media (max-width: 768px) {
+      .navbar-collapse {
+        text-align: right;
+        padding-right: 1rem;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      .dropdown-menu {
+        position: static !important;
+        right: 0 !important;
+        text-align: right !important;
+      }
+
+      .navbar .nav-link.cart-icon {
+        margin: 0.5rem 0;
+      }
+    }
 
 /* HERO */
 
@@ -1167,4 +1167,203 @@
     background: var(--brand-pink);
     text-transform: uppercase;
     font-size: 1.5rem;
+  }
+
+/* DOWNLOADS */
+
+  .downloads {
+    margin: 0 auto;
+  }
+
+  .downloads-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 400px));
+    gap: 3rem;
+    margin: 1rem 0;
+  }
+
+  .download-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    border: 1px solid white;
+    background: var(--light-grey);
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+  }
+
+  .download-card-image {
+    height: 50%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .download-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .download-card-image::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20%;
+    background: linear-gradient(
+      to bottom,
+      rgba(170, 170, 170, 0) 20%,
+      rgba(170, 170, 170, 1) 80%
+    );
+    pointer-events: none;
+  }
+
+  .download-card-body {
+    flex: 1;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .download-card-title {
+    color: var(--dark-grey);
+  }
+
+  .download-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .download-row--header {
+    justify-content: space-between;
+  }
+
+  .download-row--manual {
+    justify-content: center;
+  }
+
+  .download-row--installers {
+    justify-content: flex-end;
+  }
+
+  .download-row-label {
+    text-transform: uppercase;
+    color: black;
+    margin-right: 1rem;
+  }
+
+  .download-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border: 1px solid var(--dark-grey);
+    background: white;
+    color: var(--dark-grey);
+    cursor: pointer;
+  }
+
+  .download-link--manual {
+    padding: 0.5rem 4rem;
+  }
+
+  .download-link:hover {
+    background: var(--dark-grey);
+    color: white;
+  }
+
+  .download-link--buy {
+    border-color: var(--brand-pink);
+    background: var(--brand-pink);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    padding: 0.5rem 2rem;
+  }
+
+  .download-link--buy:hover {
+    background: white;
+    color: black;
+    border: 2px solid var(--brand-pink);
+  }
+
+  .is-coming-soon {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+/* SUPPORT */
+
+  .support-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .support-nav-link {
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--dark-grey);
+    text-decoration: none;
+    font-size: 0.9rem;
+    background: white;
+    color: var(--dark-grey);
+  }
+
+  .support-nav-link:hover {
+    background: var(--dark-grey);
+    color: white;
+  }
+
+  .faq-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1.5rem;
+  }
+
+  .faq-item {
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: var(--light-grey);
+    margin-bottom: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .faq-summary {
+    cursor: pointer;
+    font-weight: 500;
+    list-style: none;
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-summary::after {
+    content: "+";
+    float: right;
+    font-weight: 400;
+    opacity: 0.7;
+  }
+
+  details[open] .faq-summary::after {
+    content: "–";
+  }
+
+  .faq-body {
+    margin-top: 0.5rem;
+  }
+
+  .support-contact-list li + li {
+    margin-top: 0.25rem;
   }

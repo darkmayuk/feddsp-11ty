@@ -1,0 +1,57 @@
+---
+permalink: /downloads/index.html
+layout: layouts/base.liquid
+title: Downloads
+---
+<section class="downloads container my-5 restrict-width">
+  <h1 class="text-uppercase mb-5">Downloads</h1>
+
+  <div class="downloads-grid">
+    {% for product in products %}
+      <article class="download-card{% if product.comingSoon %} is-coming-soon{% endif %}">
+        {% if product.image %}
+          <div class="download-card-image">
+            <img src="{{ product.image }}" alt="{{ product.name }}">
+          </div>
+        {% endif %}
+
+        <div class="download-card-body">
+          <div class="download-row download-row--header">
+            <h2 class="download-card-title m-0">{{ product.name }}</h2>
+            <a
+              href="{{ product.buyLink | default: '#' }}"
+              class="download-link download-link--buy"
+            >
+              BUY
+            </a>
+          </div>
+
+          <div class="download-row download-row--manual">
+            <a
+              href="{{ product.manualLink | default: '#' }}"
+              class="download-link download-link--manual"
+            >
+              Manual
+            </a>
+          </div>
+
+          <div class="download-row download-row--installers">
+            <span class="download-row-label">Installers:</span>
+            <a
+              href="{{ product.windowsLink | default: '#' }}"
+              class="download-link"
+            >
+              Windows
+            </a>
+            <a
+              href="{{ product.macLink | default: '#' }}"
+              class="download-link"
+            >
+              macOS
+            </a>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
