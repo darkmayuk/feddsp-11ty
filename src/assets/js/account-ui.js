@@ -49,7 +49,33 @@ function escapeHtml(str) {
 }
 
 function getBorderColourForPurchase(p) {
-  return p.borderColour || "#ffffff";
+  if (p.borderColour) return p.borderColour;
+
+  const styles = window.FED_PRODUCT_STYLES || {};
+  const styleKeys = Object.keys(styles);
+  if (!styleKeys.length) return "#ffffff";
+
+  if (p.productId && styles[p.productId] && styles[p.productId].borderColour) {
+    return styles[p.productId].borderColour;
+  }
+
+  const nameKey = (p.productName || "").toLowerCase().trim();
+  if (nameKey) {
+    for (const key of styleKeys) {
+      const prod = styles[key];
+      if (!prod || !prod.name) continue;
+      const prodNameKey = prod.name.toLowerCase().trim();
+      if (
+        nameKey === prodNameKey ||
+        nameKey.includes(prodNameKey) ||
+        prodNameKey.includes(nameKey)
+      ) {
+        return prod.borderColour || "#ffffff";
+      }
+    }
+  }
+
+  return "#ffffff";
 }
 
 function renderAccount(data) {
@@ -81,7 +107,6 @@ function renderAccount(data) {
       : "Unknown date";
 
     const hasLicense = !!p.licenseKey;
-    const fullLicense = hasLicense ? p.licenseKey : "";
     const licensePreview = hasLicense
       ? (p.licenseKey.replace(/\s+/g, " ").slice(0, 50) + "…")
       : "—";
@@ -89,7 +114,7 @@ function renderAccount(data) {
     const licenseAttr = hasLicense ? escapeHtml(p.licenseKey) : "";
     const borderColour = getBorderColourForPurchase(p);
 
-    console.log(borderColour);
+    console.log("Border for", p.productName, "→", borderColour);
 
     return `
       <div class="account-card-wrapper">
@@ -166,7 +191,6 @@ function attachCopyHandlers() {
         }
         btn.textContent = "Copied!";
       } catch (err) {
-        console.error("Failed to copy license key", err);
         btn.textContent = "Copy failed";
       }
 
@@ -196,7 +220,6 @@ async function loadViaFunctionWithoutClerk() {
     const data = await res.json();
     renderAccount(data);
   } catch (e) {
-    console.error(e);
     renderAccount({ email: "", purchases: [] });
   }
 }
@@ -213,8 +236,7 @@ async function boot() {
 
   try {
     await window.Clerk.load();
-  } catch (err) {
-    console.error("Clerk failed to load, falling back.", err);
+  } catch {
     await loadViaFunctionWithoutClerk();
     return;
   }
@@ -251,21 +273,18 @@ async function boot() {
   let token = "";
   try {
     token = await window.Clerk.session.getToken({ template: "ls" });
-  } catch (e) {
-    console.error("Failed to get Clerk JWT, falling back to function without auth.", e);
-  }
+  } catch {}
 
   try {
     const res = await fetch("/.netlify/functions/account", {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
       credentials: "include"
     });
-    if (!res.ok) throw new Error("Account function error");
+    if (!res.ok) throw new Error();
     const data = await res.json();
     if (!data.email && emailPrimary) data.email = emailPrimary;
     renderAccount(data);
-  } catch (e) {
-    console.error(e);
+  } catch {
     renderAccount({ email: emailPrimary, purchases: [] });
   }
 }
