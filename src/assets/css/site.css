@@ -1,7 +1,7 @@
 /* OVERALL */
 
   :root {
-    --brand-pink: #d466ad;
+    --brand-pink: #8f8f8f; /* was #d466ad */
     --dark-grey: #1a1a1a;
     --light-grey: #aaaaaa;
     --container-x-margin-xs: 2rem;
@@ -12,9 +12,10 @@
     --container-x-margin-xxl: 6rem;
     --footer-block-max: 460px;
     --logo-pink-filter:
-      brightness(0) saturate(100%)
+      brightness(0) invert(56%);
+      /* was: brightness(0) saturate(100%)
       invert(72%) sepia(63%) saturate(1462%)
-      hue-rotate(291deg) brightness(98%) contrast(92%);
+      hue-rotate(291deg) brightness(98%) contrast(92%); */
   }
 
   html,
