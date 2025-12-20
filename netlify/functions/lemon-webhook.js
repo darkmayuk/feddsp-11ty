@@ -6,11 +6,7 @@ import { getStore, connectLambda } from '@netlify/blobs';
 // CONFIG: map LS product IDs -> your internal product_ids
 // (keys must be strings)
 const PRODUCT_MAP = {
-  '691169': 'fedDSP-FIERY',
-  '636851': 'fedDSP-PHAT',
-  '691171': 'fedDSP-leONE',
-  '702853': 'fedDSP-OPTO',
-  '702855': 'fedDSP-VCA',
+  '738772': 'fedDSP-PHAT'
 };
 
 // Name of the Netlify Blobs store we'll use
@@ -108,25 +104,47 @@ export const handler = async (event) => {
 
     const rawBody = event.body || '';
 
-    // Signature header (case-insensitive)
-    const signatureHeader =
-      event.headers['x-signature'] ||
-      event.headers['X-Signature'] ||
-      event.headers['x-lemon-signature'] ||
+    // --- Lemon Squeezy signature verification (hardened + diagnostics) ---
+
+    const signatureHeaderRaw =
+      event.headers?.['x-signature'] ||
+      event.headers?.['X-Signature'] ||
+      event.headers?.['x-lemon-signature'] ||
       '';
 
-    // 2) Verify Lemon Squeezy HMAC-SHA256 over RAW body
-    try {
-      const digestHex = crypto.createHmac('sha256', secret).update(rawBody, 'utf8').digest('hex');
-      const expected = Buffer.from(digestHex, 'utf8');
-      const actual = Buffer.from((signatureHeader || '').trim(), 'utf8');
-      if (expected.length !== actual.length || !crypto.timingSafeEqual(expected, actual)) {
-        console.warn('Invalid Lemon Squeezy signature');
-        return { statusCode: 400, body: 'Invalid signature' };
-      }
-    } catch (err) {
-      console.error('Error verifying signature', err);
-      return { statusCode: 400, body: 'Signature verification failed' };
+    const signatureHeader = String(signatureHeaderRaw || '').trim();
+    const token = signatureHeader.startsWith('sha256=')
+      ? signatureHeader.slice('sha256='.length).trim()
+      : signatureHeader;
+
+    // Raw body bytes (important: handle base64)
+    const rawBodyBytes = event.isBase64Encoded
+      ? Buffer.from(event.body || '', 'base64')
+      : Buffer.from(event.body || '', 'utf8');
+
+    // Compute HMAC-SHA256 hex digest
+    const digestHex = crypto
+      .createHmac('sha256', secret)
+      .update(rawBodyBytes)
+      .digest('hex');
+
+    // Non-sensitive diagnostics
+    console.log('LS sig diag:', {
+      isBase64Encoded: !!event.isBase64Encoded,
+      headerPrefix: signatureHeader.slice(0, 12),          // e.g. "sha256=abcd"
+      headerLen: signatureHeader.length,
+      tokenLen: token.length,
+      bodyLen: rawBodyBytes.length,
+      digestPrefix: digestHex.slice(0, 12),                // first 12 hex chars only
+    });
+
+    // Compare (case-insensitive)
+    const expected = Buffer.from(digestHex.toLowerCase(), 'utf8');
+    const actual = Buffer.from(token.toLowerCase(), 'utf8');
+
+    if (expected.length !== actual.length || !crypto.timingSafeEqual(expected, actual)) {
+      console.warn('Invalid Lemon Squeezy signature');
+      return { statusCode: 400, body: 'Invalid signature' };
     }
 
     // 3) Parse payload
