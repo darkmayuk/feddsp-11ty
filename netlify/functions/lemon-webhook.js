@@ -16,6 +16,9 @@ const PRODUCT_MAP = {
 // Name of the Netlify Blobs store we'll use
 const LICENSE_STORE_NAME = 'licenses';
 
+// Part C: append-only raw webhook event log store
+const EVENT_STORE_NAME = 'ls_events';
+
 // ==============================
 // Helpers
 
@@ -88,9 +91,9 @@ function loadPrivateKeyFromEnv(envValRaw) {
 // Main handler
 
 export const handler = async (event) => {
-  
   try {
     connectLambda(event);
+
     // 1) Only accept POST
     if (event.httpMethod !== 'POST') {
       return { statusCode: 405, body: 'Method Not Allowed' };
@@ -138,17 +141,78 @@ export const handler = async (event) => {
     const eventName = payload?.meta?.event_name || event.headers['x-event-name'] || 'unknown';
     console.log('Lemon Squeezy webhook received:', eventName);
 
-    // Only issue license on order_created (adjust if you prefer order_paid)
-    if (eventName !== 'order_created') {
-      console.log('Ignoring event (no license generation needed):', eventName);
-      return { statusCode: 200, body: 'OK (no-op for this event)' };
-    }
-
     const data = payload?.data || {};
     const attributes = data?.attributes || {};
     const firstOrderItem = attributes.first_order_item || {};
 
     const orderId = data.id || 'unknown-order-id';
+
+    // ==============================
+    // Part C: Append-only raw webhook event log (best-effort; never break sales)
+    // ==============================
+    let refundEventKey = null;
+    try {
+      const eventStore = getStore(EVENT_STORE_NAME);
+      const receivedAt = isoNoMsUTC();
+      const orderIdForEvent = String(orderId || 'unknown-order-id');
+      const rand = crypto.randomBytes(6).toString('hex');
+      refundEventKey = `evt_${receivedAt}_${eventName}_${orderIdForEvent}_${rand}`;
+
+      // Store raw payload; this is your replay/audit source.
+      await eventStore.setJSON(refundEventKey, {
+        received_at: receivedAt,
+        event_name: eventName,
+        ls_order_id: orderIdForEvent,
+        payload,
+      });
+    } catch (err) {
+      console.log('Event log write failed (continuing):', err?.message || err);
+      refundEventKey = null;
+    }
+
+    // ==============================
+    // Part D: Refund handling (revoke, don’t delete)
+    // ==============================
+    if (eventName === 'order_refunded') {
+      try {
+        const store = getStore(LICENSE_STORE_NAME);
+        const orderIdStr = String(orderId);
+        const lsProductId = String(firstOrderItem.product_id || '');
+        const blobKey = `${orderIdStr}:${lsProductId}`;
+
+        // If we can’t compute the same key, we can’t revoke.
+        if (!lsProductId) {
+          console.log('Refund event missing product_id; cannot compute blob key');
+          return { statusCode: 200, body: 'OK (refund: missing product_id)' };
+        }
+
+        const existing = await store.getJSON(blobKey).catch(() => null);
+        if (!existing) {
+          console.log('Refund received but no license blob found for key:', blobKey);
+          return { statusCode: 200, body: 'OK (refund: nothing to revoke)' };
+        }
+
+        existing.schema_version = existing.schema_version || 2;
+        existing.status = 'refunded';
+        existing.revoked_at = isoNoMsUTC();
+        existing.refund_event_key = refundEventKey;
+
+        // Part 7: if we cannot persist the revoke, return 500 so LS retries
+        await store.setJSON(blobKey, existing);
+
+        console.log('Marked license as refunded for key:', blobKey);
+        return { statusCode: 200, body: 'OK (refund processed)' };
+      } catch (err) {
+        console.error('Failed to persist refund revoke; forcing retry:', err);
+        return { statusCode: 500, body: 'Failed to persist refund revoke' };
+      }
+    }
+
+    // Only issue license on order_created (adjust if you prefer order_paid)
+    if (eventName !== 'order_created') {
+      console.log('Ignoring event (no license generation needed):', eventName);
+      return { statusCode: 200, body: 'OK (no-op for this event)' };
+    }
 
     const userEmail = attributes.user_email;
     const userName = attributes.user_name || attributes.customer_name || attributes.user_email || 'Customer';
@@ -184,7 +248,7 @@ export const handler = async (event) => {
     const payloadJsonCanon = canonicalStringify(licensePayload);
     const payloadBytes = Buffer.from(payloadJsonCanon, 'utf8');
 
-    // 5) Sign Ed25519 with k1 (from env)
+    // 5) Sign Ed25519 with k1 (from env) — unchanged
     const privateKeyEnv = process.env.LIC_ED25519_PRIVATE_KEY;
     if (!privateKeyEnv) {
       console.error('Missing LIC_ED25519_PRIVATE_KEY env var');
@@ -253,6 +317,14 @@ export const handler = async (event) => {
         null;
 
       const licenseRecord = {
+        // ==============================
+        // Part B: version + status fields (stateful record)
+        // ==============================
+        schema_version: 2,
+        status: 'active',        // active | refunded | revoked
+        revoked_at: null,
+        refund_event_key: null,
+
         // core license info
         license_id: licenseId,
         license_string: licenseString,
@@ -279,12 +351,14 @@ export const handler = async (event) => {
         event_name: eventName
       };
 
+      // Part 7: if we can’t persist, return 500 so LS retries
       await store.setJSON(blobKey, licenseRecord);
+
       console.log("Saved license to Netlify Blobs with key:", blobKey);
     } catch (err) {
       console.error("Failed to persist license to Netlify Blobs", err);
+      return { statusCode: 500, body: 'Failed to persist license record' };
     }
-
 
     // 7) Email via Postmark
     const postmarkApiKey = process.env.POSTMARK_API_KEY; // keep your current env name
