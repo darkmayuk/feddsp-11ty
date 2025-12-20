@@ -27,6 +27,13 @@ function base64UrlEncode(buffer) {
     .replace(/=+$/g, '');
 }
 
+async function storeGetJSON(store, key) {
+  const v = await store.get(key);
+  if (!v) return null;
+  const s = typeof v === 'string' ? v : Buffer.from(v).toString('utf8');
+  return JSON.parse(s);
+}
+
 // Fold long lines to 64 chars (cosmetic, matches your local tool output)
 const fold64 = (s) => s.replace(/(.{64})/g, '$1\n');
 
@@ -204,7 +211,7 @@ export const handler = async (event) => {
           return { statusCode: 200, body: 'OK (refund: missing product_id)' };
         }
 
-        const existing = await store.getJSON(blobKey).catch(() => null);
+        const existing = await storeGetJSON(store, blobKey).catch(() => null);
         if (!existing) {
           console.log('Refund received but no license blob found for key:', blobKey);
           return { statusCode: 200, body: 'OK (refund: nothing to revoke)' };
