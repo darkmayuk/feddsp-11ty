@@ -1,0 +1,65 @@
+<section class="py-5 bg-white text-center">
+  <div class="container py-5 reveal-on-scroll">
+
+    <div class="row align-items-center g-5">
+      <h2 class="text-uppercase mb-4 gradient-text2">
+        {{ product.sections.audio.title }}
+      </h2>
+    </div>
+    
+    <div class="bg-light-grey rounded-4 p-4 p-md-5 d-inline-block w-100 position-relative" style="max-width: 800px;">
+      
+      <div class="d-flex gap-2 flex-wrap justify-content-center mb-4">
+          {% for sample in product.sections.audio.samples %}
+          <button class="track-btn {% if forloop.first %}active{% endif %}">{{ sample }}</button>
+          {% endfor %}
+      </div>
+
+      <div class="bg-white rounded-4 p-4 shadow-sm">
+        
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <button class="play-btn-compact">
+              <i class="bi bi-play-fill"></i>
+            </button>
+
+            <div class="d-flex align-items-center text-dark font-body fw-bold">
+              <span class="me-2 small text-muted">DRY</span>
+              <div class="toggle-ui-wrapper">
+                <div class="toggle-knob"></div>
+              </div>
+              <span class="ms-2 small text-brand-pink">WET</span>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-center w-100 px-md-5" style="height: 120px;">
+            <div class="d-flex align-items-center gap-1 h-100 w-100 justify-content-center">
+              <div class="bg-dark rounded-pill" style="width:6px; height: 30%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 50%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 20%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 60%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 40%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 70%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 100%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 60%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 85%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 50%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 90%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 40%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 30%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 60%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 20%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 40%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 80%;"></div>
+              <div class="bg-dark rounded-pill" style="width:6px; height: 50%;"></div>
+            </div>
+        </div>
+
+      </div> </div>
+
+    <div class="mt-5 d-flex justify-content-center gap-3 align-items-center">
+      <a href="{{ product.buyLink }}" class="btn btn-pill btn-brand-solid btn-lg">BUY</a>
+      <a href="{{ product.demoLink | default: '#' }}" class="btn btn-pill btn-grey-solid">TRY IT FOR FREE</a>
+    </div>
+
+  </div>
+</section>

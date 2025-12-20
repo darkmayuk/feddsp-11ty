@@ -3,94 +3,197 @@
     "id": "phaturator",
     "name": "PHATurator",
     "comingSoon": false,
-    "price": "$49",
+    "badge": "New Release",
     "headline": "Colour Your Sound",
-    "subHeader": "Analogue modelled multi-stage saturation, with zero latency. Choose from - or stack - FET, Tube, Tape, Punch, Phat, Warmth saturations, to apply anything from subtle warmth to brutal drive.",
-    "header1": "Stack Multiple Saturations",
-    "header2": "PHATten Any Source",
-    "description1": "The PHATurator is the only plugin that lets you stack multiple saturation models. In top studios, engineers routinely layer analogue saturations across sources to achieve richer harmonics, better depth, and controlled tonal grit without reaching for extreme settings on any one unit.\nPHATurator brings that workflow to your DAW with zero latency and no added noise. Each model is obsessively engineered to capture the behaviour and character of its analogue original, giving you saturation that reacts with life, depth, and detail - the way hardware does.",
-    "description2": "PHATurator solves mix problems by giving you saturation that can replace a whole chain of hardware boxes. Fix the mix when a track sounds thin, spiky, or undefined. You can reshape tone without adding noise or latency, on anything from drum rooms, piano, to the overall mix bus.\nThe three modes in PHATurator let you compare options fast: PHAT adds a subtle transformer saturation with resonant HPF; PHATTER gives you dual transformer saturation and accentuated resonance on the HPF; while the default CLEAN mode gives you transparency with no resonance.",
+    "price": "£75",
+    "originalPrice": "£125",
+    "discountText": "Reduced price only applies to Founder's Month, first 1000 customers",
+    "logo": "/assets/images/products/phat-logo.png",
     "image": "/assets/images/products/phat-thin.png",
+    "heroVideo": "/assets/videos/test2.mp4",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/0b52c713-20a5-43ae-a90b-c711d045947a?discount=0",
     "demoLink": "https://yourshop.lemonsqueezy.com/demo/phaturator",
     "manualLink": "#",
-    "logo": "/assets/images/products/phat-logo.png",
-    "background": "/assets/images/backgrounds/phat.png",
-    "borderColour": "blue",
-    "heroColour": "#1c1c1c",
-    "heroTextColour": "#fff",
-    "gradientStart": "#F199B7",
-    "gradientEnd": "#A42222",
-    "social": [
-      "/assets/images/social/square1.png",
-      "/assets/images/social/square2.png",
-      "/assets/images/social/square3.png"
-    ],
-    "3dVideo": "/assets/videos/konvikt-3d.mp4",
-    "videos": [
-      { "embed": "https://www.youtube.com/embed/Mz1uL3K75pY" }
-    ]
+    "gradientStart": "#be1e2d",
+    "gradientEnd": "#f15a29",
+    "gradient2Start": "#204963",
+    "gradient2End": "#d366ac",
+    "sections": {
+      "overview": {
+        "title": "Masterclass In<br>Saturation",
+        "card1Title": "Stacking saturations has never been this easy.",
+        "card1Text": "Get the weight and character of multi-stage saturation at the click of a button.",
+        "description1": "In top studios, engineers routinely layer analogue saturations across sources to achieve richer harmonics, better depth, and controlled tonal grit without reaching for extreme settings on any one unit.",
+        "description2": "The range of tones available from blending these six analogue-inspired stages takes you from subtle warmth to dirty fuzz. Like all fedDSP units, the controls are so simple that there's nothing to learn, and no distractions - you can use your ears, and your emotions, to mix.",
+        "card2Title": "Six styles of timeless saturations.",
+        "card2Text": "Each saturation model is obsessively engineered to capture the behaviour and character of its analogue original.",
+        "card3Title": "Zero Latency.<br>Featherlight.",
+        "card3Text": "We've removed the friction of legacy software. No dongles, no internet requirements, and no barriers to your workflow. Engineered for maximum speed and efficiency, our plugins are light enough to run across your entire session, and fast enough for real-time tracking."
+      },
+      "audio": {
+        "title": "Experience the Difference",
+        "samples": ["Drums", "Vocals", "Bass", "Gtr", "Synth"]
+      },
+      "testimonials": [
+        {
+          "quote": "I think PHAT is gonna be one of those level game changers. I literally can't work without it now! I use it on pretty much every track.",
+          "author": "Bob Cooper",
+          "role": "MIX ENGINEER"
+        },
+        {
+          "quote": "The layout is really intuitive so the learning curve was minimal. I really enjoyed that the finer details were tucked away.",
+          "author": "Sam Bloor",
+          "role": "MASTERING"
+        },
+        {
+          "quote": "The depth knob is rad! It instantly pushes elements back or pulls them forward without messing with phase.",
+          "author": "Neil Kennedy",
+          "role": "PRODUCER"
+        }
+      ],
+      "features": {
+        "title": "What It Fixes",
+        "items": [
+          {
+            "title": "Thin Drums",
+            "icon": "bi-speaker-fill",
+            "text": "Adds weight and punch without turning harsh. Get analog density instantly.",
+            "colSize": "col-md-4",
+            "cardStyle": "card-white",
+            "iconColor": "text-brand-pink"
+          },
+          {
+            "title": "Sterile Guitars",
+            "icon": "bi-music-note-beamed",
+            "text": "Adds density and bite without digital fizz. Makes them sit in the midrange.",
+            "colSize": "col-md-4",
+            "cardStyle": "card-white",
+            "iconColor": "text-brand-pink"
+          },
+          {
+            "title": "Spiky Vocals",
+            "icon": "bi-mic-fill",
+            "text": "Makes them forward and present without getting harsh. Smooths transients naturally.",
+            "colSize": "col-md-4",
+            "cardStyle": "card-white",
+            "iconColor": "text-brand-pink"
+          },
+          {
+            "title": "Plugin Hopping? Stop.",
+            "icon": "",
+            "text": "When you're not sure what to use, PHAT will get you 90% there with just a couple of moves. It's the \"make it better\" button for professional mixing.",
+            "colSize": "col-md-8",
+            "cardStyle": "card-white",
+            "iconColor": ""
+          },
+          {
+            "title": "Boring Loops?",
+            "icon": "",
+            "text": "Inject life and energy into static samples immediately.",
+            "colSize": "col-md-4",
+            "cardStyle": "card-black",
+            "iconColor": ""
+          }
+        ]
+      },
+      "techSpecs": {
+        "title": "Tech that removes fear",
+        "items": [
+          { "title": "Zero Latency", "text": "Track through it. Mix with it. Live perform with it. No delay." },
+          { "title": "Lightweight on CPU", "text": "Put it on every channel. We optimized the DSP for maximum instance count." },
+          { "title": "Offline Licensing", "text": "Install. Authorize once (offline supported). Work forever. No internet checks." }
+        ]
+      },
+      "faq": {
+        "title": "FAQS",
+        "items": [
+          { "q": "What is PHATurator?", "a": "PHATurator is an analogue-modeled multi-stage saturation plugin. Unlike standard saturators that offer just one flavour, PHATurator lets you stack and blend six distinct analogue circuits—from Tube and Tape to FET and Class A Preamp styles—to colour your sound with rich harmonics, depth, and controlled grit. It also features a global Mix knob for instant parallel processing." },
+          { "q": "What are the saturation models?", "a": "PHATurator includes six distinct saturation algorithms:<ul class='mt-2 mb-0 ps-3'><li class='mb-1'><strong class='text-white'>FET:</strong> Detector-driven dynamics (76-style feel) for punch and control.</li><li class='mb-1'><strong class='text-white'>TUBE:</strong> Classic tube saturation to make sources fuller and harmonically rich.</li><li class='mb-1'><strong class='text-white'>TAPE:</strong> Vintage glue, tasty saturation, and subtle stereo width.</li><li class='mb-1'><strong class='text-white'>PUNCH:</strong> Large-format British console saturation with tight low end, snappy transients, and assertive upper mids.</li><li class='mb-1'><strong class='text-white'>PHAT:</strong> Fuller low-mid punch with pleasing compression-like behaviour. Very loudness-friendly.</li><li class='mb-1'><strong class='text-white'>WARMTH:</strong> Thick, transformer-rich 70s British Class A preamp vibe with creamy low mids.</li></ul>" },
+          { "q": "What formats does it come in?", "a": "We provide VST3, AU (Audio Unit), and AAX formats for both Mac and Windows." },
+          { "q": "Does it work on M1/M2/M3 Macs?", "a": "Yes. PHATurator is fully native for Apple Silicon chips (M1, M2, M3 etc) as well as Intel Macs. No Rosetta required." },
+          { "q": "What DAWs does it work on?", "a": "It works in any DAW that supports VST3, AU, or AAX plugins. This includes Logic Pro X, Pro Tools, Ableton Live, Cubase, Studio One, FL Studio, Reaper, and Bitwig." },
+          { "q": "System Requirements", "a": "<strong>Mac:</strong> macOS 10.13 or higher (Intel or Apple Silicon).<br><strong>Windows:</strong> Windows 10 or 11 (64-bit).<br><strong>General:</strong> 4GB RAM required (8GB recommended), 500MB free disk space." },
+          { "q": "How many computers can I install it on?", "a": "Our license allows for 3 simultaneous activations per user (e.g. your studio machine, your laptop, and a travel rig)." },
+          { "q": "Is there a demo?", "a": "Yes, you can download a 14-day fully functional trial from our <a href='/pages/downloads' class='text-white text-decoration-underline'>Downloads page</a>." },
+          { "q": "Is there a manual?", "a": "Yes, you can read the full <a href='#' class='text-white text-decoration-underline'>User Manual here</a>." }
+        ]
+      }
+    }
   },
   {
     "id": "leone",
     "name": "LeONE",
     "comingSoon": true,
-    "price": "$49",
+    "badge": "Coming Soon",
     "headline": "Push Your Limits",
-    "subHeader": "Crystal clear limiting with zero latency",
-    "header1": "Your Tracking Limiter",
-    "header2": "Precise Control",
-    "description1": "LeONE is a dual limiter with zero latency, making it very useful for tracking and live work. By default, LeONE is a super clean limiter, delivering transparent gain reduction.\nBut with a Release envelope that can move from 2 seconds all the way to 0.01 milliseconds, brutal limiting with LeONE is perfectly possible. Although super-simple to use, the dual stages in LeONE allows maximum flexibility for gain staging.",
-    "description2": "The basic controls of LeONE are intentionally simple: In, Clamp (ceiling of main limiter), Release, Out. But advanced options are there at the click of a button when you need them.\nWARM mode creates some sweet bottom end, great on the mix bus, bass, or kick. CLARA adds clarity and bite in the upper midrange. TUBE recreates the subtle (or not so subtle) colour of the tubes that we found in our favourite hardware units. GRIT is a unique effect - we call it an envelope-aware saturator - and can impart precise control to the mix.",
-    "image": "/assets/images/products/LeONE.png",
-    "buyLink": "https://feddsp.lemonsqueezy.com/buy/LeONE",
-    "demoLink": "https://yourshop.lemonsqueezy.com/demo/LeONE",
-    "manualLink": "#",
+    "price": "£49",
+    "originalPrice": "",
+    "discountText": "Join the waitlist",
     "logo": "/assets/images/products/LeONE-logo.png",
-    "background": "/assets/images/backgrounds/LeONE.png",
-    "borderColour": "pink",
-    "heroColour": "#000",
-    "heroTextColour": "#fff",
+    "image": "/assets/images/products/LeONE.png",
+    "heroVideo": "", 
+    "buyLink": "https://feddsp.lemonsqueezy.com/buy/LeONE",
+    "demoLink": "#",
+    "manualLink": "#",
     "gradientStart": "#fff",
     "gradientEnd": "#F38EB0",
-    "social": [
-      "/assets/images/social/square1.png",
-      "/assets/images/social/square2.png",
-      "/assets/images/social/square3.png"
-    ],
-    "videos": [
-      { "embed": "https://www.youtube.com/embed/Mz1uL3K75pY" }
-    ] 
+    "gradient2Start": "#204963",
+    "gradient2End": "#d366ac",
+    "sections": {
+        "overview": {
+            "title": "Precision Limiting",
+            "card1Title": "Transparent Power",
+            "card1Text": "Crystal clear limiting with zero latency.",
+            "description1": "LeONE is a dual limiter with zero latency, making it very useful for tracking and live work.",
+            "description2": "With a Release envelope that can move from 2 seconds all the way to 0.01 milliseconds, brutal limiting with LeONE is perfectly possible.",
+            "card2Title": "Dual Stage Control",
+            "card2Text": "Advanced options are there at the click of a button when you need them.",
+            "card3Title": "Zero Latency",
+            "card3Text": "Designed for live tracking and performance."
+        },
+        "audio": { "title": "Hear the Limiting", "samples": [] },
+        "testimonials": [],
+        "features": { "title": "Features", "items": [] },
+        "techSpecs": { "title": "Specs", "items": [] },
+        "faq": { "title": "FAQ", "items": [] }
+    }
   },
   {
     "id": "fiery",
     "name": "FIERY",
     "comingSoon": true,
-    "price": "$49",
+    "badge": "In Development",
     "headline": "Ignite Your Mix",
-    "header1": "Not Another 1176 Clone",
-    "header2": "Multiple Compressors in One",
-    "subHeader": "Explosive FET compression with instant attack and attitude. Fiery makes any source leap out of the speakers.",
-    "description1": "The FIERY is a FET compressor that goes way beyond being just another 1176 clone.\nWe went back to all the classic FET compressors that we know and love, and created the FIERY from the best unique elements of each. The result is FET compression with that signature FET aggressiveness and organic sound, which responds to the source in a musically rich way.",
-    "description2": "FIERY gives you compression options that normally take multiple units. CLASSIC mode is saturated like a modern analogue unit, while VINTAGE gives you compression and saturation like older FET compression devices.\nThe two transformers - pre and post compression - activate our unique Analogue Drift Recreation (ADR) algorithm, which recreates the analogue movement found in hardware units.",
-    "image": "/assets/images/products/fiery.png",
-    "buyLink": "https://yourshop.lemonsqueezy.com/buy/fiery",
-    "demoLink": "https://yourshop.lemonsqueezy.com/demo/fiery",
-    "manualLink": "#",
+    "price": "£49",
+    "originalPrice": "",
+    "discountText": "Coming Soon",
     "logo": "/assets/images/products/fiery-logo.png",
-    "background": "/assets/images/backgrounds/fiery.png",
-    "borderColour": "red",
-    "heroColour": "#111",
-    "heroTextColour": "#fff",
+    "image": "/assets/images/products/fiery.png",
+    "heroVideo": "",
+    "buyLink": "https://yourshop.lemonsqueezy.com/buy/fiery",
+    "demoLink": "#",
+    "manualLink": "#",
     "gradientStart": "#E26D2C",
     "gradientEnd": "#911D1D",
-    "social": [
-      "/assets/images/social/square1.png",
-      "/assets/images/social/square2.png",
-      "/assets/images/social/square3.png"
-    ],
-    "videos": [
-      { "embed": "https://www.youtube.com/embed/Mz1uL3K75pY" }
-    ]
+    "gradient2Start": "#000",
+    "gradient2End": "#333",
+    "sections": {
+        "overview": {
+            "title": "Explosive FET",
+            "card1Title": "Not just a clone",
+            "card1Text": "Explosive FET compression with instant attack.",
+            "description1": "We went back to all the classic FET compressors that we know and love, and created the FIERY from the best unique elements of each.",
+            "description2": "The two transformers - pre and post compression - activate our unique Analogue Drift Recreation (ADR) algorithm.",
+            "card2Title": "Vintage & Modern",
+            "card2Text": "Switch between classic saturated tones and modern punch.",
+            "card3Title": "Drift Technology",
+            "card3Text": "Recreates the analogue movement found in hardware units."
+        },
+        "audio": { "title": "Hear the Fire", "samples": [] },
+        "testimonials": [],
+        "features": { "title": "Features", "items": [] },
+        "techSpecs": { "title": "Specs", "items": [] },
+        "faq": { "title": "FAQ", "items": [] }
+    }
   }
 ]

@@ -1,0 +1,22 @@
+{% if product.sections.testimonials.size > 0 %}
+<section class="py-5 bg-dark-grey text-white">
+  <div class="container py-5 reveal-on-scroll">
+    <h2 class="text-center mb-5 font-header">USED BY THE PROS</h2>
+    <div class="row g-4">
+      
+      {% for testimonial in product.sections.testimonials %}
+      <div class="col-md-4">
+          <div class="card-v2 card-grey h-100 d-flex flex-column">
+            <p class="mb-4">"{{ testimonial.quote }}"</p>
+            <footer class="mt-auto">
+              <div class="fw-bold font-body text-dark">{{ testimonial.author }}</div>
+              <div class="text-muted small text-uppercase">{{ testimonial.role }}</div>
+            </footer>
+          </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+{% endif %}

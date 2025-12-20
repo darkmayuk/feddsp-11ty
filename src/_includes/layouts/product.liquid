@@ -2,12 +2,6 @@
 layout: layouts/base.liquid
 ---
 
-{%- comment -%}
-Look up the product in products.json based on the page slug
-(e.g. phaturator.md → "phaturator"). Optionally override with
-front matter key productId if needed.
-{%- endcomment -%}
-
 {% assign _id = page.fileSlug %}
 {% assign product = null %}
 {% for p in products %}
@@ -20,35 +14,32 @@ front matter key productId if needed.
 {% if product == null %}
   <section class="container py-5 text-center">
     <h1>Product not found</h1>
-    <p>No product with ID '{{ _id }}' found in products.json.</p>
   </section>
 {% else %}
 
-  <div
-    class="product-page{% if product.comingSoon %} is-coming-soon{% endif %}"
-    style="
-      --hero-gradient-start: {{ product.gradientStart | default: '#fff' }};
-      --hero-gradient-end:   {{ product.gradientEnd   | default: '#000' }};
-    "
-  >
+<div class="product-page-v2" 
+    style="--hero-gradient-start: {{ product.gradientStart }}; 
+          --hero-gradient-end: {{ product.gradientEnd }};
+          --hero-gradient2-start: {{ product.gradient2Start }};
+          --hero-gradient2-end: {{ product.gradient2End }};
+    ">
 
-    <div class="product-page-inner">
-      {% include "components/product/product-hero.liquid" %}
-      {% include "components/product/product-features.liquid" %}
-      {% include "components/product/product-videos.liquid" %}
-    </div>
+  {% include "components/products/hero.liquid" %}
+  
+  {% include "components/products/overview.liquid" %}
+  
+  {% include "components/products/audio-player.liquid" %}
+  
+  {% include "components/products/testimonials.liquid" %}
+  
+  {% include "components/products/features.liquid" %}
+  
+  {% include "components/products/tech-specs.liquid" %}
+  
+  {% include "components/products/faq.liquid" %}
 
-    {% if product.comingSoon %}
-      <div class="product-coming-soon-overlay">
-        <div class="product-coming-soon-banner">
-          <span class="badge">Coming soon</span>
-          <p class="m-0">We're putting the final touches on {{ product.name }} ... </p>
-        </div>
-      </div>
-    {% endif %}
-
-  </div>
-
-<script src="/assets/js/product-hero-parallax.js"></script>
+</div>
 
 {% endif %}
+
+<script src="/assets/js/animate-reveal.js"></script>

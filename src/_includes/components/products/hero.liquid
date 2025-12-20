@@ -1,0 +1,44 @@
+<section class="hero-v2 bg-dark-grey text-center d-flex flex-column align-items-center justify-content-center"
+  style="min-height: 90vh; position: relative; overflow: hidden;">
+  
+  {% if product.heroVideo %}
+  <video autoplay muted loop playsinline 
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.5">
+    <source src="{{ product.heroVideo }}" type="video/mp4">
+  </video>
+  {% endif %}
+
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%); z-index: 1; pointer-events: none;"></div>
+
+  <div class="container position-relative" style="z-index: 2;">
+    <p class="text-uppercase mb-5 text-white-50 lead">{{ product.badge }}</p>
+    
+    <img src="{{ product.logo }}" alt="{{ product.name }}" class="hero-logo-img mb-4">
+    
+    <h2 class="h3 mb-5 font-body">
+      {{ product.headline }}
+    </h2>
+
+    <div class="hero-product-container mb-5">
+      <div class="gradient-border-wrap">
+        {% if product.image %}
+          <img src="{{ product.image }}" alt="{{ product.name }} Interface" class="img-fluid">
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="carousel-actions d-flex justify-content-center align-items-center mt-3 gap-3 flex-wrap">
+      <a href="{{ product.buyLink }}" class="btn btn-pill btn-brand-solid btn-lg">BUY</a>
+      
+      <div class="d-flex align-items-center">
+        {% if product.originalPrice %}
+        <span class="text-decoration-line-through fs-5 me-2 text-white-50">{{ product.originalPrice }}</span>
+        {% endif %}
+        <span class="text-white fs-4 fw-bold pink-price">{{ product.price }}</span>
+      </div>
+      
+      <p class="small text-white-50 m-0">{{ product.discountText }}</p>
+    </div>
+
+  </div>
+</section>

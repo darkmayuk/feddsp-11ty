@@ -1,0 +1,16 @@
+<section class="py-5 bg-white border-bottom">
+  <div class="container py-4 text-center reveal-on-scroll">
+    <h2 class="text-uppercase gradient-text2 mb-2">{{ product.sections.techSpecs.title }}</h2>
+    
+    <div class="row g-4 justify-content-center mt-4">
+      {% for spec in product.sections.techSpecs.items %}
+      <div class="col-md-4">
+          <div class="card-v2 bg-light-grey">
+            <h6 class="font-body fw-bold mb-3 fs-5">{{ spec.title }}</h6>
+            <p class="small text-muted mb-0">{{ spec.text }}</p>
+          </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

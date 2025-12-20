@@ -1,0 +1,41 @@
+<section class="py-5 bg-light-grey">
+  <div class="container py-5" style="max-width: 600px;">
+    
+    <div class="row mb-4 text-start reveal-on-scroll">
+      <div class="col-12">
+          <h2 class="text-uppercase gradient-text">
+          {{ product.sections.overview.title }}
+        </h2>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      
+      <div class="col-md-6 reveal-on-scroll">
+        <div class="card-v2 card-white flex-fill d-flex flex-column justify-content-between">
+            <h4 class="h5 fw-bold mb-3 font-body">{{ product.sections.overview.card1Title }}</h4>
+            <p class="small text-muted">{{ product.sections.overview.card1Text }}</p>
+            <p class="small text-muted">{{ product.sections.overview.description1 }}</p>
+            <p class="small text-muted">{{ product.sections.overview.description2 }}</p>
+          </div>
+      </div>
+
+      <div class="col-md-6 reveal-on-scroll delay-100">
+        <div class="d-flex flex-column h-100 gap-4">
+          
+          <div class="card-v2 card-white flex-fill d-flex flex-column justify-content-between">
+            <h4 class="h5 fw-bold mb-3 font-body">{{ product.sections.overview.card2Title }}</h4>
+            <p class="small text-muted mb-0">{{ product.sections.overview.card2Text }}</p>
+          </div>
+
+          <div class="card-v2 card-white h-100 d-flex flex-column justify-content-between">
+            <h4 class="h5 fw-bold mb-4 font-body" style="line-height: 1.4;">{{ product.sections.overview.card3Title }}</h4>
+            <p class="text-muted mb-0">{{ product.sections.overview.card3Text }}</p>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

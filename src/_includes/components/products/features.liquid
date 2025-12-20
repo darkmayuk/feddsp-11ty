@@ -1,0 +1,32 @@
+<section class="py-5 bg-light-grey text-dark">
+  <div class="container py-5 reveal-on-scroll">
+    
+    <h2 class="text-uppercase mb-5 font-header gradient-text" style="font-size: 3.5rem; line-height: 0.9;">
+      {{ product.sections.features.title }}
+    </h2>
+    
+    <div class="row g-4">
+        
+        {% for feature in product.sections.features.items %}
+        <div class="{{ feature.colSize }}">
+          <div class="card-v2 {{ feature.cardStyle }} h-100 d-flex flex-column justify-content-center">
+            <h4 class="h5 fw-bold mb-3 font-body">
+              {% if feature.icon != blank %}
+              <i class="bi {{ feature.icon }} {{ feature.iconColor }} me-2"></i>
+              {% endif %}
+              {{ feature.title }}
+            </h4>
+            <p class="small {% if feature.cardStyle == 'card-black' %}text-white-50{% else %}text-muted{% endif %} mb-0">{{ feature.text }}</p>
+          </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+
+      <div class="mt-5 d-flex justify-content-center gap-3 align-items-center">
+      <a href="{{ product.buyLink }}" class="btn btn-pill btn-brand-solid btn-lg">BUY</a>
+      <a href="{{ product.demoLink | default: '#' }}" class="btn btn-pill btn-grey-solid fw-bold">TRY IT FOR FREE</a>
+    </div>
+
+  </div>
+</section>
