@@ -1,5 +1,5 @@
 // .netlify/functions/account.js
-import { verifyToken, clerkClient } from "@clerk/backend";
+import { verifyToken } from "@clerk/backend";
 import { getStore, connectLambda } from "@netlify/blobs";
 
 const LICENSE_STORE_NAME = "licenses";
@@ -18,18 +18,19 @@ export const handler = async (event) => {
   try {
     connectLambda(event);
 
-    // Require Clerk auth in all non-dev contexts
     const auth = await getClerkAuth(event);
     if (!auth) {
       return json(401, { error: "Not authenticated" });
     }
 
-    const { clerkUserId, verifiedEmails } = auth;
+    const { clerkUserId, tokenEmail } = auth;
+    const verifiedEmails = new Set();
+    if (tokenEmail) verifiedEmails.add(tokenEmail);
 
     const licenseStore = getStore(LICENSE_STORE_NAME);
     const identityStore = getStore(IDENTITY_STORE_NAME);
 
-    // Try to load existing mapping
+    // Load existing mapping (if any)
     const mappingKey = `v1/clerk/${clerkUserId}.json`;
     const existingMapping = await safeGetJson(identityStore, mappingKey);
     const mappedLsCustomerIds = new Set(existingMapping?.lsCustomerIds || []);
@@ -47,15 +48,15 @@ export const handler = async (event) => {
         const record = await licenseStore.get(key, { type: "json" });
         if (!record) continue;
 
-        // Prefer stable mapping if we have it and the record has an LS customer id.
         const recordLsCustomerId = record.ls_customer_id || record.ls_customer || null;
 
         let isMine = false;
 
+        // Prefer stable mapping if we have it
         if (mappedLsCustomerIds.size > 0 && recordLsCustomerId) {
           isMine = mappedLsCustomerIds.has(String(recordLsCustomerId));
         } else {
-          // First-time linking / fallback: match by VERIFIED email(s) only.
+          // First-time linking / fallback: match by token email only (no querystring, no overrides)
           const recordEmail = (record.user_email || "").trim().toLowerCase();
           if (recordEmail && verifiedEmails.has(recordEmail)) {
             isMine = true;
@@ -64,7 +65,6 @@ export const handler = async (event) => {
 
         if (!isMine) continue;
 
-        // If we matched, harvest LS customer id for mapping (if present)
         if (recordLsCustomerId) discoveredLsCustomerIds.add(String(recordLsCustomerId));
 
         const orderId = record.ls_order_id || "unknown-order-id";
@@ -134,35 +134,18 @@ async function getClerkAuth(event) {
     const clerkUserId = payload?.sub || null;
     if (!clerkUserId) return null;
 
-    // Get verified emails from Clerk server-side.
-    // This avoids relying on custom JWT claims and prevents "email missing" failures.
-    const verifiedEmails = await getVerifiedEmailsForUser(clerkUserId);
+    // Your token template ("ls") must include this claim, otherwise linking-by-email won't happen yet.
+    // Mapping still works once ls_customer_id exists and becomes linked.
+    const tokenEmail =
+      (payload?.email && String(payload.email).trim().toLowerCase()) ||
+      (payload?.email_address && String(payload.email_address).trim().toLowerCase()) ||
+      null;
 
-    return { clerkUserId, verifiedEmails };
+    return { clerkUserId, tokenEmail };
   } catch (err) {
     console.error("Clerk token verification failed", err);
     return null;
   }
-}
-
-async function getVerifiedEmailsForUser(clerkUserId) {
-  const set = new Set();
-
-  try {
-    const user = await clerkClient.users.getUser(clerkUserId);
-
-    // Add verified email addresses (lowercased)
-    for (const addr of user.emailAddresses || []) {
-      if (addr?.verification?.status === "verified" && addr.emailAddress) {
-        set.add(String(addr.emailAddress).trim().toLowerCase());
-      }
-    }
-  } catch (err) {
-    // If Clerk API call fails for any reason, we return an empty set; account will show no purchases.
-    console.error("Failed to fetch Clerk user emails", { clerkUserId, err });
-  }
-
-  return set;
 }
 
 async function safeGetJson(store, key) {
@@ -177,10 +160,8 @@ async function maybeWriteMapping(store, clerkUserId, existingMapping, discovered
   try {
     const discovered = Array.from(discoveredSet);
 
-    // Only write if we have something meaningful to store.
     if (discovered.length === 0) return;
 
-    // Avoid needless writes if nothing changed.
     const existing = (existingMapping?.lsCustomerIds || []).map(String);
     const existingSet = new Set(existing);
     const changed =
@@ -201,7 +182,7 @@ async function maybeWriteMapping(store, clerkUserId, existingMapping, discovered
       contentType: "application/json",
     });
 
-    // Optional reverse index (best effort). Doesn’t affect core behaviour.
+    // Optional reverse index (best effort)
     for (const lsCustomerId of next.lsCustomerIds) {
       await store.set(
         `v1/ls/${lsCustomerId}.json`,
