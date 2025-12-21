@@ -1,6 +1,7 @@
-// .netlify/functions/account.js
-import { verifyToken } from "@clerk/backend";
-import { getStore, connectLambda } from "@netlify/blobs";
+// .netlify/functions/account.js  (CommonJS - Netlify-safe)
+
+const { verifyToken } = require("@clerk/backend");
+const { getStore, connectLambda } = require("@netlify/blobs");
 
 const LICENSE_STORE_NAME = "licenses";
 const IDENTITY_STORE_NAME = "identity";
@@ -14,7 +15,7 @@ const PRODUCT_LABELS = {
   "fedDSP-leONE": "leONE",
 };
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   try {
     connectLambda(event);
 
@@ -24,8 +25,8 @@ export const handler = async (event) => {
     }
 
     const { clerkUserId, tokenEmail } = auth;
-    const verifiedEmails = new Set();
-    if (tokenEmail) verifiedEmails.add(tokenEmail);
+    const tokenEmailSet = new Set();
+    if (tokenEmail) tokenEmailSet.add(tokenEmail);
 
     const licenseStore = getStore(LICENSE_STORE_NAME);
     const identityStore = getStore(IDENTITY_STORE_NAME);
@@ -48,7 +49,8 @@ export const handler = async (event) => {
         const record = await licenseStore.get(key, { type: "json" });
         if (!record) continue;
 
-        const recordLsCustomerId = record.ls_customer_id || record.ls_customer || null;
+        const recordLsCustomerId =
+          record.ls_customer_id || record.ls_customer || null;
 
         let isMine = false;
 
@@ -56,9 +58,9 @@ export const handler = async (event) => {
         if (mappedLsCustomerIds.size > 0 && recordLsCustomerId) {
           isMine = mappedLsCustomerIds.has(String(recordLsCustomerId));
         } else {
-          // First-time linking / fallback: match by token email only (no querystring, no overrides)
+          // First-time linking / fallback: match by token email only (no querystring fallbacks)
           const recordEmail = (record.user_email || "").trim().toLowerCase();
-          if (recordEmail && verifiedEmails.has(recordEmail)) {
+          if (recordEmail && tokenEmailSet.has(recordEmail)) {
             isMine = true;
           }
         }
@@ -123,8 +125,9 @@ async function getClerkAuth(event) {
   try {
     if (!process.env.CLERK_SECRET_KEY) return null;
 
-    const authHeader = event.headers?.authorization || "";
-    const token = authHeader.replace(/^Bearer\s+/i, "").trim();
+    const headers = event.headers || {};
+    const authHeader = headers.authorization || headers.Authorization || "";
+    const token = String(authHeader).replace(/^Bearer\s+/i, "").trim();
     if (!token) return null;
 
     const { payload } = await verifyToken(token, {
@@ -134,8 +137,6 @@ async function getClerkAuth(event) {
     const clerkUserId = payload?.sub || null;
     if (!clerkUserId) return null;
 
-    // Your token template ("ls") must include this claim, otherwise linking-by-email won't happen yet.
-    // Mapping still works once ls_customer_id exists and becomes linked.
     const tokenEmail =
       (payload?.email && String(payload.email).trim().toLowerCase()) ||
       (payload?.email_address && String(payload.email_address).trim().toLowerCase()) ||
@@ -186,7 +187,12 @@ async function maybeWriteMapping(store, clerkUserId, existingMapping, discovered
     for (const lsCustomerId of next.lsCustomerIds) {
       await store.set(
         `v1/ls/${lsCustomerId}.json`,
-        JSON.stringify({ lsCustomerId, clerkUserId, linkedAt: next.linkedAt, updatedAt: now }),
+        JSON.stringify({
+          lsCustomerId,
+          clerkUserId,
+          linkedAt: next.linkedAt,
+          updatedAt: now,
+        }),
         { contentType: "application/json" }
       );
     }
