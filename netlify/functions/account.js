@@ -20,8 +20,11 @@ exports.handler = async (event) => {
     connectLambda(event);
 
     const auth = await getClerkAuth(event);
-    if (!auth) {
-      return json(401, { error: "Not authenticated" });
+    if (!auth || auth.error) {
+      return json(401, {
+        error: "Not authenticated",
+        reason: auth?.error || "unknown",
+      });
     }
 
     const { clerkUserId, tokenEmail } = auth;
@@ -58,7 +61,7 @@ exports.handler = async (event) => {
         if (mappedLsCustomerIds.size > 0 && recordLsCustomerId) {
           isMine = mappedLsCustomerIds.has(String(recordLsCustomerId));
         } else {
-          // First-time linking / fallback: match by token email only (no querystring fallbacks)
+          // First-time linking / fallback: match by token email only
           const recordEmail = (record.user_email || "").trim().toLowerCase();
           if (recordEmail && tokenEmailSet.has(recordEmail)) {
             isMine = true;
@@ -123,29 +126,40 @@ function json(status, body) {
 
 async function getClerkAuth(event) {
   try {
-    if (!process.env.CLERK_SECRET_KEY) return null;
+    if (!process.env.CLERK_SECRET_KEY) {
+      return { error: "missing_clerk_secret_key" };
+    }
 
     const headers = event.headers || {};
     const authHeader = headers.authorization || headers.Authorization || "";
     const token = String(authHeader).replace(/^Bearer\s+/i, "").trim();
-    if (!token) return null;
+    if (!token) {
+      return { error: "missing_bearer_token" };
+    }
 
-    const { payload } = await verifyToken(token, {
-      secretKey: process.env.CLERK_SECRET_KEY,
-    });
+    let payload;
+    try {
+      ({ payload } = await verifyToken(token, { secretKey: process.env.CLERK_SECRET_KEY }));
+    } catch (e) {
+      console.error("verifyToken failed", e);
+      return { error: "token_verify_failed" };
+    }
 
     const clerkUserId = payload?.sub || null;
-    if (!clerkUserId) return null;
+    if (!clerkUserId) {
+      return { error: "missing_sub_claim" };
+    }
 
     const tokenEmail =
       (payload?.email && String(payload.email).trim().toLowerCase()) ||
       (payload?.email_address && String(payload.email_address).trim().toLowerCase()) ||
       null;
 
+    // Note: tokenEmail may be null depending on your Clerk token config.
     return { clerkUserId, tokenEmail };
   } catch (err) {
-    console.error("Clerk token verification failed", err);
-    return null;
+    console.error("getClerkAuth unexpected failure", err);
+    return { error: "auth_exception" };
   }
 }
 
@@ -160,7 +174,6 @@ async function safeGetJson(store, key) {
 async function maybeWriteMapping(store, clerkUserId, existingMapping, discoveredSet) {
   try {
     const discovered = Array.from(discoveredSet);
-
     if (discovered.length === 0) return;
 
     const existing = (existingMapping?.lsCustomerIds || []).map(String);

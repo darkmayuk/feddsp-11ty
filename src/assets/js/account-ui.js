@@ -127,10 +127,16 @@ async function loadPurchasesWithToken(token, emailPrimary) {
     });
 
     if (res.status === 401) {
-      setMessage("Please sign in to view your licenses.", "warning");
+      let reason = "";
+      try {
+        const body = await res.json();
+        reason = body?.reason ? ` (${body.reason})` : "";
+      } catch { }
+      setMessage(`Signed in, but authentication was rejected${reason}.`, "warning");
       renderAccount({ purchases: [] }, emailPrimary);
       return;
     }
+
 
     if (!res.ok) {
       throw new Error(`Account API returned ${res.status}`);
@@ -175,7 +181,7 @@ async function boot() {
   // Logged in: unmount sign-in UI if it exists
   try {
     if (signInDiv) window.Clerk.unmountSignIn(signInDiv);
-  } catch {}
+  } catch { }
 
   const emailPrimary = window.Clerk.user?.primaryEmailAddress?.emailAddress || null;
 
