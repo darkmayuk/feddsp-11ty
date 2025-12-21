@@ -1,10 +1,9 @@
-// .netlify/functions/account.js  (CommonJS - Netlify-safe)
-
-const { verifyToken } = require("@clerk/backend");
-const { getStore, connectLambda } = require("@netlify/blobs");
+// .netlify/functions/account.js
+import { verifyToken } from "@clerk/backend";
+import { getStore, connectLambda } from "@netlify/blobs";
 
 const LICENSE_STORE_NAME = "licenses";
-const IDENTITY_STORE_NAME = "identity";
+const IDENTITY_STORE_NAME = "identity"; // NEW
 
 // Map internal product IDs → friendly names for UI
 const PRODUCT_LABELS = {
@@ -15,46 +14,34 @@ const PRODUCT_LABELS = {
   "fedDSP-leONE": "leONE",
 };
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   try {
     connectLambda(event);
 
-    const auth = await getClerkAuth(event);
-    if (!auth || auth.error) {
-      return json(401, {
-        error: "Not authenticated",
-        reason: auth?.error || "unknown",
-      });
+    const clerk = await getClerkClaims(event);
+    const email =
+      clerk.email ||
+      getFallbackEmail(event) ||
+      null;
+
+    if (!email) {
+      return json(401, { error: "Not authenticated (no email)" });
     }
 
-    const { clerkUserId } = auth;
+    const store = getStore(LICENSE_STORE_NAME);
 
-    // ✅ Fetch verified emails from Clerk API (don’t depend on JWT email claims)
-    const verifiedEmails = await getVerifiedEmailsFromClerkAPI(clerkUserId);
-    // If Clerk API fails, this will be empty, and you’ll see no purchases.
-    // That’s better than guessing.
-
-    const licenseStore = getStore(LICENSE_STORE_NAME);
-    const identityStore = getStore(IDENTITY_STORE_NAME);
-
-    // Load existing mapping (if any)
-    const mappingKey = `v1/clerk/${clerkUserId}.json`;
-    const existingMapping = await safeGetJson(identityStore, mappingKey);
-    const mappedLsCustomerIds = new Set(existingMapping?.lsCustomerIds || []);
-
-    const { blobs } = await licenseStore.list();
+    const { blobs } = await store.list();
     const purchases = [];
-
-    // During scan, collect LS customer IDs that belong to this user
-    const discoveredLsCustomerIds = new Set(mappedLsCustomerIds);
+    const discoveredCustomerIds = new Set(); // NEW
 
     for (const entry of blobs) {
       const key = entry.key;
 
       try {
-        const record = await licenseStore.get(key, { type: "json" });
-        if (!record) continue;
+        const record = await store.get(key, { type: "json" });
+        if (!record || record.user_email !== email) continue;
 
+        // NEW: collect LS customer ids if present (defensive)
         const recordLsCustomerId =
           record.ls_customer_id ??
           record.customer_id ??
@@ -62,22 +49,9 @@ exports.handler = async (event) => {
           record.ls_customer ??
           null;
 
-        let isMine = false;
-
-        // Prefer stable mapping if we have it
-        if (mappedLsCustomerIds.size > 0 && recordLsCustomerId) {
-          isMine = mappedLsCustomerIds.has(String(recordLsCustomerId));
-        } else {
-          // First-time linking / fallback: match by VERIFIED email(s)
-          const recordEmail = (record.user_email || "").trim().toLowerCase();
-          if (recordEmail && verifiedEmails.has(recordEmail)) {
-            isMine = true;
-          }
+        if (recordLsCustomerId != null) {
+          discoveredCustomerIds.add(String(recordLsCustomerId));
         }
-
-        if (!isMine) continue;
-
-        if (recordLsCustomerId) discoveredLsCustomerIds.add(String(recordLsCustomerId));
 
         const orderId = record.ls_order_id || "unknown-order-id";
         const lsProductId = record.ls_product_id || "unknown-product";
@@ -111,14 +85,12 @@ exports.handler = async (event) => {
       (b.purchasedAt || "").localeCompare(a.purchasedAt || "")
     );
 
-    // Persist mapping if we discovered anything new
-    await maybeWriteMapping(identityStore, clerkUserId, existingMapping, discoveredLsCustomerIds);
+    // NEW: write identity mapping (best-effort; never blocks account UI)
+    if (clerk.userId && discoveredCustomerIds.size > 0) {
+      await writeIdentityMapping(clerk.userId, [...discoveredCustomerIds]);
+    }
 
-    return json(200, {
-      source: "blobs",
-      clerkUserId,
-      purchases,
-    });
+    return json(200, { source: "blobs", email, purchases });
   } catch (err) {
     console.error(err);
     return json(500, { error: "Server error" });
@@ -131,120 +103,68 @@ function json(status, body) {
   return { statusCode: status, body: JSON.stringify(body) };
 }
 
-async function getClerkAuth(event) {
+async function getClerkClaims(event) {
   try {
-    if (!process.env.CLERK_SECRET_KEY) {
-      return { error: "missing_clerk_secret_key" };
-    }
+    if (!process.env.CLERK_SECRET_KEY) return { userId: null, email: null };
 
-    const headers = event.headers || {};
-    const authHeader = headers.authorization || headers.Authorization || "";
-    const token = String(authHeader).replace(/^Bearer\s+/i, "").trim();
-    if (!token) {
-      return { error: "missing_bearer_token" };
-    }
+    const authHeader = event.headers?.authorization || "";
+    const token = authHeader.replace(/^Bearer\s+/i, "");
+    if (!token) return { userId: null, email: null };
 
-    let verified;
-    try {
-      // verifyToken returns the verified claims directly
-      verified = await verifyToken(token, { secretKey: process.env.CLERK_SECRET_KEY });
-    } catch (e) {
-      console.error("verifyToken failed", e);
-      return { error: "token_verify_failed" };
-    }
-
-    const clerkUserId = verified?.sub || null;
-    if (!clerkUserId) {
-      return { error: "missing_sub_claim" };
-    }
-
-    return { clerkUserId };
-  } catch (err) {
-    console.error("getClerkAuth unexpected failure", err);
-    return { error: "auth_exception" };
-  }
-}
-
-async function getVerifiedEmailsFromClerkAPI(clerkUserId) {
-  const set = new Set();
-
-  try {
-    const res = await fetch(`https://api.clerk.com/v1/users/${encodeURIComponent(clerkUserId)}`, {
-      headers: {
-        Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
-      },
+    const { payload } = await verifyToken(token, {
+      secretKey: process.env.CLERK_SECRET_KEY,
     });
 
-    if (!res.ok) {
-      console.error("Clerk API user fetch failed", { status: res.status });
-      return set;
-    }
-
-    const user = await res.json();
-    const emails = user.email_addresses || user.emailAddresses || [];
-
-    for (const e of emails) {
-      const addr = e.email_address || e.emailAddress;
-      const verification = e.verification || {};
-      const status = verification.status;
-
-      if (addr && status === "verified") {
-        set.add(String(addr).trim().toLowerCase());
-      }
-    }
+    return {
+      userId: payload?.sub || null,      // Clerk user id
+      email: payload?.email || null,     // may be present depending on your Clerk config
+    };
   } catch (err) {
-    console.error("Clerk API fetch exception", err);
-  }
-
-  return set;
-}
-
-async function safeGetJson(store, key) {
-  try {
-    return await store.get(key, { type: "json" });
-  } catch {
-    return null;
+    console.error("Clerk token verification failed", err);
+    return { userId: null, email: null };
   }
 }
 
-async function maybeWriteMapping(store, clerkUserId, existingMapping, discoveredSet) {
+function getFallbackEmail(event) {
+  const qs = event.queryStringParameters || {};
+  if (qs.email) return String(qs.email).trim();
+  if (process.env.NETLIFY_EMAIL_OVERRIDE) {
+    return process.env.NETLIFY_EMAIL_OVERRIDE.trim();
+  }
+  return null;
+}
+
+async function writeIdentityMapping(clerkUserId, lsCustomerIds) {
   try {
-    const discovered = Array.from(discoveredSet);
-    if (discovered.length === 0) return;
-
-    const existing = (existingMapping?.lsCustomerIds || []).map(String);
-    const existingSet = new Set(existing);
-    const changed =
-      discovered.length !== existing.length ||
-      discovered.some((id) => !existingSet.has(id));
-
-    if (!changed) return;
+    const identity = getStore(IDENTITY_STORE_NAME);
 
     const now = new Date().toISOString();
-    const next = {
-      clerkUserId,
-      lsCustomerIds: discovered.sort(),
-      linkedAt: existingMapping?.linkedAt || now,
-      updatedAt: now,
+    const clerkKey = `v1/clerk/${clerkUserId}.json`;
+
+    // Upsert clerk -> customers
+    const clerkDoc = {
+      clerk_user_id: clerkUserId,
+      ls_customer_ids: lsCustomerIds,
+      updated_at: now,
+      schema_version: 1,
     };
 
-    await store.set(`v1/clerk/${clerkUserId}.json`, JSON.stringify(next), {
-      contentType: "application/json",
-    });
+    await identity.setJSON(clerkKey, clerkDoc);
 
-    // Optional reverse index (best effort)
-    for (const lsCustomerId of next.lsCustomerIds) {
-      await store.set(
-        `v1/ls/${lsCustomerId}.json`,
-        JSON.stringify({
-          lsCustomerId,
-          clerkUserId,
-          linkedAt: next.linkedAt,
-          updatedAt: now,
-        }),
-        { contentType: "application/json" }
-      );
+    // Upsert reverse index customer -> clerk
+    // (best-effort; doesn't need to be perfect to be useful)
+    for (const cid of lsCustomerIds) {
+      const custKey = `v1/ls/${cid}.json`;
+      const custDoc = {
+        ls_customer_id: cid,
+        clerk_user_ids: [clerkUserId],
+        updated_at: now,
+        schema_version: 1,
+      };
+      await identity.setJSON(custKey, custDoc);
     }
+
+    console.log("Identity mapping written", { clerkUserId, lsCustomerIds });
   } catch (err) {
     console.error("Failed to write identity mapping", err);
   }
