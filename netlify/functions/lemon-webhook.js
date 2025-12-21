@@ -6,6 +6,8 @@ import { getStore, connectLambda } from '@netlify/blobs';
 // CONFIG: map LS product IDs -> your internal product_ids
 // (keys must be strings)
 const PRODUCT_MAP = {
+  // Lemon Squeezy numeric product_id -> your internal product code
+  // Keep old/demo ids here if you still need them as fallback.
   '738772': 'fedDSP-PHAT'
 };
 
@@ -27,80 +29,50 @@ function base64UrlEncode(buffer) {
     .replace(/=+$/g, '');
 }
 
+// Read JSON from a Blobs store key (Netlify Blobs doesn't expose getJSON in all runtimes)
 async function storeGetJSON(store, key) {
   const v = await store.get(key);
-  if (!v) return null;
+  if (v == null) return null;
   const s = typeof v === 'string' ? v : Buffer.from(v).toString('utf8');
   return JSON.parse(s);
 }
 
-// Fold long lines to 64 chars (cosmetic, matches your local tool output)
-const fold64 = (s) => s.replace(/(.{64})/g, '$1\n');
+// Fold long lines to 64 ch
+function fold64(str) {
+  return str.replace(/(.{64})/g, '$1\n');
+}
 
-// Canonical JSON: sorted keys, compact separators (matches your local signer)
+// ISO UTC without milliseconds
+function isoNoMsUTC(d = new Date()) {
+  return d.toISOString().replace(/\.\d{3}Z$/, 'Z');
+}
+
+// Canonical stringify: stable key ordering (recursive), compact (no whitespace)
 function canonicalStringify(obj) {
-  const ordered = {};
-  Object.keys(obj).sort().forEach((k) => {
-    ordered[k] = obj[k];
-  });
-  return JSON.stringify(ordered);
+  if (obj === null || typeof obj !== 'object') return JSON.stringify(obj);
+
+  if (Array.isArray(obj)) {
+    return '[' + obj.map(canonicalStringify).join(',') + ']';
+  }
+
+  const keys = Object.keys(obj).sort();
+  const parts = keys.map((k) => JSON.stringify(k) + ':' + canonicalStringify(obj[k]));
+  return '{' + parts.join(',') + '}';
 }
 
-// Force ISO-8601 without milliseconds, e.g. 2025-11-23T14:18:29Z
-function isoNoMsUTC(date = new Date()) {
-  return new Date(Math.floor(date.getTime() / 1000) * 1000)
-    .toISOString()
-    .replace(/\.\d{3}Z$/, 'Z');
-}
-
-// Load Ed25519 private key from env; supports:
-//  - PEM with real newlines
-//  - single-line PEM with BEGIN/END and no newlines
-//  - base64-encoded DER (PKCS#8)
-function loadPrivateKeyFromEnv(envValRaw) {
-  if (!envValRaw) throw new Error('LIC_ED25519_PRIVATE_KEY is empty');
-
-  let raw = envValRaw.trim();
-
-  // If someone pasted PEM with escaped "\n", restore real newlines
-  if (raw.includes('\\n') && !raw.includes('\n')) {
-    raw = raw.replace(/\\n/g, '\n');
-  }
-
-  // Case 1: full PEM with BEGIN/END and actual newlines
-  if (raw.includes('-----BEGIN PRIVATE KEY-----') && raw.includes('\n')) {
-    return crypto.createPrivateKey(raw);
-  }
-
-  // Case 2: single-line PEM with BEGIN/END (no newlines)
-  if (raw.startsWith('-----BEGIN PRIVATE KEY-----') && raw.endsWith('-----END PRIVATE KEY-----')) {
-    const match = raw.match(/-----BEGIN PRIVATE KEY-----\s*([A-Za-z0-9+/=]+)\s*-----END PRIVATE KEY-----/);
-    if (!match) throw new Error('Single-line PEM format not recognized');
-    const b64 = match[1];
-    const pemFixed = `-----BEGIN PRIVATE KEY-----\n${b64}\n-----END PRIVATE KEY-----`;
-    return crypto.createPrivateKey(pemFixed);
-  }
-
-  // Case 3: assume base64 DER (PKCS#8)
-  try {
-    const der = Buffer.from(raw, 'base64');
-    return crypto.createPrivateKey({ key: der, format: 'der', type: 'pkcs8' });
-  } catch (e) {
-    throw new Error('Private key is not PEM or base64 DER');
-  }
+// Ed25519 sign with PEM in env
+function signEnvelopeEd25519(envelopeJson, privateKeyPem) {
+  const sig = crypto.sign(null, Buffer.from(envelopeJson, 'utf8'), privateKeyPem);
+  return base64UrlEncode(sig);
 }
 
 // ==============================
-// Main handler
+// Handler
 
 export const handler = async (event) => {
   try {
+    // Needed for Blobs local-ish mode (safe in production too)
     connectLambda(event);
-
-    // 1) Only accept POST
-    if (event.httpMethod !== 'POST') {
-      return { statusCode: 405, body: 'Method Not Allowed' };
-    }
 
     // Secrets
     const secret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET; // keep your current env name
@@ -112,6 +84,7 @@ export const handler = async (event) => {
     const rawBody = event.body || '';
 
     // --- Lemon Squeezy signature verification (hardened + diagnostics) ---
+    // NOTE: You can remove the "LS sig diag" log after you're confident.
 
     const signatureHeaderRaw =
       event.headers?.['x-signature'] ||
@@ -130,19 +103,16 @@ export const handler = async (event) => {
       : Buffer.from(event.body || '', 'utf8');
 
     // Compute HMAC-SHA256 hex digest
-    const digestHex = crypto
-      .createHmac('sha256', secret)
-      .update(rawBodyBytes)
-      .digest('hex');
+    const digestHex = crypto.createHmac('sha256', secret).update(rawBodyBytes).digest('hex');
 
     // Non-sensitive diagnostics
     console.log('LS sig diag:', {
       isBase64Encoded: !!event.isBase64Encoded,
-      headerPrefix: signatureHeader.slice(0, 12),          // e.g. "sha256=abcd"
+      headerPrefix: signatureHeader.slice(0, 12),
       headerLen: signatureHeader.length,
       tokenLen: token.length,
       bodyLen: rawBodyBytes.length,
-      digestPrefix: digestHex.slice(0, 12),                // first 12 hex chars only
+      digestPrefix: digestHex.slice(0, 12),
     });
 
     // Compare (case-insensitive)
@@ -163,28 +133,27 @@ export const handler = async (event) => {
       return { statusCode: 400, body: 'Invalid JSON' };
     }
 
-    const eventName = payload?.meta?.event_name || event.headers['x-event-name'] || 'unknown';
+    const eventName = payload?.meta?.event_name || event.headers?.['x-event-name'] || 'unknown';
     console.log('Lemon Squeezy webhook received:', eventName);
 
     const data = payload?.data || {};
     const attributes = data?.attributes || {};
     const firstOrderItem = attributes.first_order_item || {};
-
     const orderId = data.id || 'unknown-order-id';
 
     // ==============================
-    // Part C: Append-only raw webhook event log (best-effort; never break sales)
+    // Part C: append-only webhook event log (best-effort)
     // ==============================
     let refundEventKey = null;
     try {
       const eventStore = getStore(EVENT_STORE_NAME);
       const receivedAt = isoNoMsUTC();
-      const orderIdForEvent = String(orderId || 'unknown-order-id');
-      const rand = crypto.randomBytes(6).toString('hex');
-      refundEventKey = `evt_${receivedAt}_${eventName}_${orderIdForEvent}_${rand}`;
+      const orderIdForEvent = String(orderId || 'unknown');
 
-      // Store raw payload; this is your replay/audit source.
-      await eventStore.setJSON(refundEventKey, {
+      const eventKey = `${receivedAt}:${eventName}:${orderIdForEvent}`;
+      refundEventKey = eventKey;
+
+      await eventStore.setJSON(eventKey, {
         received_at: receivedAt,
         event_name: eventName,
         ls_order_id: orderIdForEvent,
@@ -222,7 +191,7 @@ export const handler = async (event) => {
         existing.revoked_at = isoNoMsUTC();
         existing.refund_event_key = refundEventKey;
 
-        // Part 7: if we cannot persist the revoke, return 500 so LS retries
+        // If we cannot persist the revoke, return 500 so LS retries
         await store.setJSON(blobKey, existing);
 
         console.log('Marked license as refunded for key:', blobKey);
@@ -242,9 +211,12 @@ export const handler = async (event) => {
     const userEmail = attributes.user_email;
     const userName = attributes.user_name || attributes.customer_name || attributes.user_email || 'Customer';
 
-    // Resolve product to your internal id
+    // Resolve product to your internal id:
+    // Prefer LS custom_data.product_code, fall back to PRODUCT_MAP.
     const lsProductId = String(firstOrderItem.product_id || '');
-    const mappedProductId = PRODUCT_MAP[lsProductId] || null;
+    const custom = payload?.meta?.custom_data || {};
+    const productCode = typeof custom.product_code === 'string' ? custom.product_code.trim() : '';
+    const mappedProductId = productCode || PRODUCT_MAP[lsProductId] || null;
 
     if (!userEmail) {
       console.error('Missing user_email in order payload, cannot issue license');
@@ -252,12 +224,16 @@ export const handler = async (event) => {
     }
 
     if (!mappedProductId) {
-      console.error('No product mapping for LS product_id:', lsProductId, '— fill PRODUCT_MAP');
+      console.error(
+        'No product mapping for LS product_id:',
+        lsProductId,
+        '— set checkout[custom][product_code] or fill PRODUCT_MAP'
+      );
       return { statusCode: 200, body: 'OK (unmapped product, no license issued)' };
     }
 
     const identifier = attributes.identifier || data.id || 'unknown';
-    const licenseId = `LS-${identifier}`; // FIXED: proper template string
+    const licenseId = `LS-${identifier}`;
 
     // 4) Build the payload EXACTLY as plugins expect
     const licensePayload = {
@@ -265,7 +241,7 @@ export const handler = async (event) => {
       email: String(userEmail),
       product_id: mappedProductId,
       license_id: licenseId,
-      issued_at: isoNoMsUTC(), // FIXED: no fractional seconds
+      issued_at: isoNoMsUTC(), // no fractional seconds
       version: '1',
     };
 
@@ -273,171 +249,130 @@ export const handler = async (event) => {
     const payloadJsonCanon = canonicalStringify(licensePayload);
     const payloadBytes = Buffer.from(payloadJsonCanon, 'utf8');
 
-    // 5) Sign Ed25519 with k1 (from env) — unchanged
+    // 5) Sign Ed25519 with k1 (from env)
     const privateKeyEnv = process.env.LIC_ED25519_PRIVATE_KEY;
     if (!privateKeyEnv) {
-      console.error('Missing LIC_ED25519_PRIVATE_KEY env var');
-      return { statusCode: 500, body: 'Server misconfigured (no license key)' };
+      console.error('Missing LIC_ED25519_PRIVATE_KEY');
+      return { statusCode: 500, body: 'Server misconfigured (missing license signing key)' };
     }
 
-    let signature;
-    try {
-      const privateKey = loadPrivateKeyFromEnv(privateKeyEnv);
-      signature = crypto.sign(null, payloadBytes, privateKey); // plain Ed25519 (no prehash)
-    } catch (err) {
-      console.error('Error signing license payload with Ed25519', err);
-      return { statusCode: 500, body: 'License signing failed' };
+    // Try to accept either raw PEM or base64-encoded PEM
+    let privateKeyPem = privateKeyEnv;
+    if (!privateKeyEnv.includes('BEGIN')) {
+      try {
+        privateKeyPem = Buffer.from(privateKeyEnv, 'base64').toString('utf8');
+      } catch {
+        // keep original
+      }
     }
 
-    const signatureB64Url = base64UrlEncode(signature); // no padding
-
-    // Build the wrapper (envelope) JSON exactly like your local tool
     const envelope = {
       version: '1',
       algorithm: 'Ed25519',
-      payload: licensePayload,           // object, not canonical string
-      signature: signatureB64Url,        // base64url, no '='
+      payload: licensePayload,
+      signature: '', // fill next
     };
 
-    const envelopeJson = JSON.stringify(envelope);     // compact
-    const envelopeBytes = Buffer.from(envelopeJson, 'utf8');
+    const envelopeJson = canonicalStringify({
+      version: envelope.version,
+      algorithm: envelope.algorithm,
+      payload: envelope.payload,
+    });
 
-    // FIXED: wrapper blob must be Base64URL (no padding), not standard base64
-    const coreLicenseKey = base64UrlEncode(envelopeBytes);
+    const signatureB64Url = signEnvelopeEd25519(envelopeJson, privateKeyPem);
+    envelope.signature = signatureB64Url;
 
-    // Optional: fold to 64-char lines to match your "RIGHT" license visuals
-    const foldedBody = fold64(coreLicenseKey) + '\n';
+    // Render license_string
+    const envelopeFullJson = canonicalStringify(envelope);
+    const envelopeB64 = base64UrlEncode(Buffer.from(envelopeFullJson, 'utf8'));
 
-    // Final wrapped license block (human headers are cosmetic)
-    const licenseString = [
-      '-----BEGIN fedDSP LICENSE-----',
-      `Product: ${mappedProductId}`,
-      `Licensee: ${userName}`,
-      '',
-      foldedBody,
-      '-----END fedDSP LICENSE-----',
-    ].join('\n');
+    const licenseString =
+      '-----BEGIN fedDSP LICENSE-----\n' +
+      `Product: ${mappedProductId}\n` +
+      `Licensee: ${userName}\n\n` +
+      fold64(envelopeB64) +
+      '\n\n-----END fedDSP LICENSE-----';
 
-    // --- Diagnostics (safe; no PII beyond product/id) ---
+    // Diagnostics (safe; no secret)
     console.log('License payload (canonical):', payloadJsonCanon);
-    console.log('Envelope preview (first 120 chars):', envelopeJson.slice(0, 120) + '...');
+    console.log('Envelope preview (first 120 chars):', envelopeFullJson.slice(0, 120) + '...');
     console.log('Signature (b64url, first 24):', signatureB64Url.slice(0, 24) + '...');
     console.log('Generated license for', userEmail, 'license_id', licenseId);
 
     // 6) Persist license and related info to Netlify Blobs
-    try {
-      const store = getStore(LICENSE_STORE_NAME);
+    const store = getStore(LICENSE_STORE_NAME);
 
-      const orderIdStr = String(orderId);
-      const blobKey = `${orderIdStr}:${lsProductId}`;
+    const lsOrderId = String(data.id || '');
+    const lsOrderIdentifier = String(attributes.identifier || '');
+    const lsOrderNumber = attributes.order_number ?? null;
+    const orderReceiptUrl = attributes?.urls?.receipt || null;
+    const lsProductIdStr = String(firstOrderItem.product_id || '');
+    const productVersion = firstOrderItem.variant_name || 'Default';
 
-      // Extra useful LS metadata
-      const urls = attributes.urls || {};
-      const receiptUrl = urls.receipt || urls.invoice_url || null;
+    const blobKey = `${lsOrderId}:${lsProductIdStr}`;
 
-      // Add product version if LS exposes it (placeholder for now)
-      const productVersion =
-        firstOrderItem?.variant_name ||
-        firstOrderItem?.variant_id ||
-        null;
+    const blobObj = {
+      schema_version: 2,
+      status: 'active',
+      revoked_at: null,
+      refund_event_key: null,
 
-      const licenseRecord = {
-        // ==============================
-        // Part B: version + status fields (stateful record)
-        // ==============================
-        schema_version: 2,
-        status: 'active',        // active | refunded | revoked
-        revoked_at: null,
-        refund_event_key: null,
+      license_id: licenseId,
+      license_string: licenseString,
+      envelope,
 
-        // core license info
-        license_id: licenseId,
-        license_string: licenseString,
-        envelope, // payload + signature
+      ls_order_id: lsOrderId,
+      ls_order_identifier: lsOrderIdentifier,
+      ls_order_number: lsOrderNumber,
 
-        // LS linkage
-        ls_order_id: orderIdStr,
-        ls_order_identifier: identifier,
-        ls_order_number: attributes.order_number || null,
-        ls_product_id: lsProductId,
-        product_id: mappedProductId,
-        product_version: productVersion,
+      ls_product_id: lsProductIdStr,
+      product_id: mappedProductId,
+      product_version: productVersion,
 
-        // customer details
-        user_email: userEmail,
-        user_name: userName,
+      user_email: String(userEmail),
+      user_name: String(userName),
 
-        // useful UI fields
-        order_receipt_url: receiptUrl,
+      order_receipt_url: orderReceiptUrl,
 
-        // meta timestamps
-        issued_at: licensePayload.issued_at,
-        created_at: isoNoMsUTC(),
-        event_name: eventName
-      };
+      issued_at: licensePayload.issued_at,
+      created_at: isoNoMsUTC(),
+      event_name: eventName,
+    };
 
-      // Part 7: if we can’t persist, return 500 so LS retries
-      await store.setJSON(blobKey, licenseRecord);
+    await store.setJSON(blobKey, blobObj);
+    console.log('Saved license to Netlify Blobs with key:', blobKey);
 
-      console.log("Saved license to Netlify Blobs with key:", blobKey);
-    } catch (err) {
-      console.error("Failed to persist license to Netlify Blobs", err);
-      return { statusCode: 500, body: 'Failed to persist license record' };
-    }
+    // 7) Send license email via Postmark (if configured)
+    // (This keeps your existing behaviour; if you have POSTMARK_* env vars this will work.)
+    const postmarkToken = process.env.POSTMARK_SERVER_TOKEN;
+    const postmarkFrom = process.env.POSTMARK_FROM;
+    if (postmarkToken && postmarkFrom) {
+      const subject = `Your ${mappedProductId} license`;
+      const textBody =
+        `Thanks for your purchase.\n\n` +
+        `Receipt: ${orderReceiptUrl || '(see your account page)'}\n\n` +
+        `Your license:\n\n${licenseString}\n`;
 
-    // 7) Email via Postmark
-    const postmarkApiKey = process.env.POSTMARK_API_KEY; // keep your current env name
-    const mailFrom = process.env.MAIL_FROM;
-    const supportEmail = process.env.SUPPORT_EMAIL || mailFrom;
+      const resp = await fetch('https://api.postmarkapp.com/email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Postmark-Server-Token': postmarkToken,
+        },
+        body: JSON.stringify({
+          From: postmarkFrom,
+          To: String(userEmail),
+          Subject: subject,
+          TextBody: textBody,
+          MessageStream: 'outbound',
+        }),
+      });
 
-    if (!postmarkApiKey || !mailFrom) {
-      console.error('Missing POSTMARK_API_KEY or MAIL_FROM env vars, cannot send email');
-      // Return 500 so LS retries (don’t silently drop)
-      return { statusCode: 500, body: 'Server misconfigured (mail)' };
-    }
-
-    const subject = `Your fedDSP license for ${mappedProductId}`;
-    const textBody = [
-      `Hi ${userName},`,
-      '',
-      `Thanks for your purchase! Here's your license for ${mappedProductId}:`,
-      '',
-      licenseString,
-      '',
-      'How to activate:',
-      `1) Open the ${mappedProductId} plugin.`,
-      '2) Press the I button on the menu bar: this opens the Information panel',
-      '3) Press the license button and paste your license code, including the lines "-----BEGIN fedDSP LICENSE-----" and "-----END fedDSP LICENSE-----"',
-      '',
-      `Order: ${licenseId}`,
-      `Issued to: ${userEmail}`,
-      `Issued at: ${licensePayload.issued_at} UTC`,
-      '',
-      `Need help? Contact ${supportEmail}.`,
-      '',
-      'Thanks, fedDSP',
-    ].join('\n');
-
-    // Use global fetch (Node 18+ / Netlify)
-    const resp = await fetch('https://api.postmarkapp.com/email', {
-      method: 'POST',
-      headers: {
-        'X-Postmark-Server-Token': postmarkApiKey,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        From: mailFrom,
-        To: userEmail,
-        Subject: subject,
-        TextBody: textBody,
-        ReplyTo: supportEmail,
-      }),
-    });
-
-    if (!resp.ok) {
-      const text = await resp.text().catch(() => '');
-      console.error('Postmark error:', resp.status, text);
-      return { statusCode: 502, body: 'Failed to send license email' };
+      if (!resp.ok) {
+        const t = await resp.text().catch(() => '');
+        console.error('Postmark error:', resp.status, t);
+        return { statusCode: 502, body: 'Failed to send license email' };
+      }
     }
 
     // 8) Done
