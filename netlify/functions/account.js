@@ -137,25 +137,25 @@ async function getClerkAuth(event) {
       return { error: "missing_bearer_token" };
     }
 
-    let payload;
+    let verified;
     try {
-      ({ payload } = await verifyToken(token, { secretKey: process.env.CLERK_SECRET_KEY }));
+      // ✅ IMPORTANT: verifyToken returns the verified payload (claims) directly
+      verified = await verifyToken(token, { secretKey: process.env.CLERK_SECRET_KEY });
     } catch (e) {
       console.error("verifyToken failed", e);
       return { error: "token_verify_failed" };
     }
 
-    const clerkUserId = payload?.sub || null;
+    const clerkUserId = verified?.sub || null;
     if (!clerkUserId) {
       return { error: "missing_sub_claim" };
     }
 
     const tokenEmail =
-      (payload?.email && String(payload.email).trim().toLowerCase()) ||
-      (payload?.email_address && String(payload.email_address).trim().toLowerCase()) ||
+      (verified?.email && String(verified.email).trim().toLowerCase()) ||
+      (verified?.email_address && String(verified.email_address).trim().toLowerCase()) ||
       null;
 
-    // Note: tokenEmail may be null depending on your Clerk token config.
     return { clerkUserId, tokenEmail };
   } catch (err) {
     console.error("getClerkAuth unexpected failure", err);
