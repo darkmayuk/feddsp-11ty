@@ -256,14 +256,9 @@ export const handler = async (event) => {
       return { statusCode: 500, body: 'Server misconfigured (missing license signing key)' };
     }
 
-    // Try to accept either raw PEM or base64-encoded PEM
-    let privateKeyPem = privateKeyEnv;
-    if (!privateKeyEnv.includes('BEGIN')) {
-      try {
-        privateKeyPem = Buffer.from(privateKeyEnv, 'base64').toString('utf8');
-      } catch {
-        // keep original
-      }
+    const privateKeyPem = process.env.LIC_ED25519_PRIVATE_KEY;
+    if (!privateKeyPem || !privateKeyPem.includes('BEGIN')) {
+      throw new Error('LIC_ED25519_PRIVATE_KEY must be raw PEM, not base64');
     }
 
     const envelope = {
