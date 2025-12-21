@@ -79,8 +79,8 @@ function getBorderColourForPurchase(p) {
 }
 
 function renderAccount(data) {
-  const emailEl     = document.getElementById("account-email");
-  const messagesEl  = document.getElementById("account-messages");
+  const emailEl = document.getElementById("account-email");
+  const messagesEl = document.getElementById("account-messages");
   const purchasesEl = document.getElementById("account-purchases");
 
   if (!emailEl || !messagesEl || !purchasesEl) return;
@@ -208,10 +208,10 @@ function addMessage(container, text, type) {
 }
 
 async function boot() {
-  const emailEl      = document.getElementById("account-email");
-  const messagesEl   = document.getElementById("account-messages");
+  const emailEl = document.getElementById("account-email");
+  const messagesEl = document.getElementById("account-messages");
   const userButtonEl = document.getElementById("user-button");
-  const signInEl     = document.getElementById("sign-in");
+  const signInEl = document.getElementById("sign-in");
 
   // With the hardened backend, the account API requires Clerk auth.
   // If Clerk isn't present, we can't load purchases.
@@ -233,8 +233,22 @@ async function boot() {
 
   if (!window.Clerk.user || !window.Clerk.session) {
     if (signInEl) {
-      window.Clerk.mountSignIn(signInEl, { redirectUrl: "/account" });
+      const params = new URLSearchParams(window.location.search);
+      const mode = params.get("mode");
+
+      if (mode === "sign-up") {
+        window.Clerk.mountSignUp(signInEl, {
+          signInUrl: "/account",
+          redirectUrl: "/account",
+        });
+      } else {
+        window.Clerk.mountSignIn(signInEl, {
+          signUpUrl: "/account?mode=sign-up",
+          redirectUrl: "/account",
+        });
+      }
     }
+
     if (emailEl) {
       emailEl.textContent = "Please sign in to view your purchases.";
     }
@@ -280,7 +294,7 @@ async function boot() {
       try {
         const body = await res.json();
         reason = body?.reason ? ` (${body.reason})` : "";
-      } catch {}
+      } catch { }
 
       if (messagesEl) {
         messagesEl.innerHTML = "";
