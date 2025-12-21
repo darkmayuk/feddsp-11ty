@@ -312,6 +312,8 @@ export const handler = async (event) => {
     const lsProductIdStr = String(firstOrderItem.product_id || '');
     const productVersion = firstOrderItem.variant_name || 'Default';
 
+    const lsCustomerId = attributes.customer_id ?? null;
+
     const blobKey = `${lsOrderId}:${lsProductIdStr}`;
 
     const blobObj = {
@@ -327,6 +329,8 @@ export const handler = async (event) => {
       ls_order_id: lsOrderId,
       ls_order_identifier: lsOrderIdentifier,
       ls_order_number: lsOrderNumber,
+
+      ls_customer_id: lsCustomerId,
 
       ls_product_id: lsProductIdStr,
       product_id: mappedProductId,

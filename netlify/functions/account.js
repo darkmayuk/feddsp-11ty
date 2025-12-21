@@ -56,7 +56,11 @@ exports.handler = async (event) => {
         if (!record) continue;
 
         const recordLsCustomerId =
-          record.ls_customer_id || record.ls_customer || null;
+          record.ls_customer_id ??
+          record.customer_id ??
+          record.lsCustomerId ??
+          record.ls_customer ??
+          null;
 
         let isMine = false;
 
