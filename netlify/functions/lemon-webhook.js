@@ -247,7 +247,6 @@ export const handler = async (event) => {
 
     // Canonicalize for signing (sorted keys, compact)
     const payloadJsonCanon = canonicalStringify(licensePayload);
-    const payloadBytes = Buffer.from(payloadJsonCanon, 'utf8');
 
     // 5) Sign Ed25519 with k1 (from env)
     // Use base64-encoded PEM stored in Netlify as LIC_ED25519_PRIVATE_KEY_B64

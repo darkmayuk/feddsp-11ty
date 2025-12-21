@@ -14,23 +14,13 @@ const dummyAccountData = {
       receiptUrl: "#",
       borderColour: "#ff7f27"
     },
-    {
-      id: "order-002",
-      orderNumber: "1002",
-      purchasedAt: "2025-02-10T09:30:00Z",
-      productName: "FIERY",
-      licenseKey: "FIERY-TEST-777",
-      downloadUrl: "/downloads",
-      manualUrl: "#",
-      receiptUrl: "#",
-      borderColour: "#ff1744"
-    },
+...
     {
       id: "order-003",
       orderNumber: "1003",
-      purchasedAt: "2025-03-05T10:00:00Z",
-      productName: "LeONE",
-      licenseKey: "LEONE-TEST-999",
+      purchasedAt: "2025-03-01T12:00:00Z",
+      productName: "FIERY",
+      licenseKey: "FIRY-TEST-KEY-789",
       downloadUrl: "/downloads",
       manualUrl: "#",
       receiptUrl: "#",
@@ -39,252 +29,166 @@ const dummyAccountData = {
   ]
 };
 
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+function el(id) {
+  return document.getElementById(id);
 }
 
-function getBorderColourForPurchase(p) {
-  if (p.borderColour) return p.borderColour;
-
-  const styles = window.FED_PRODUCT_STYLES || {};
-  const styleKeys = Object.keys(styles);
-  if (!styleKeys.length) return "#ffffff";
-
-  if (p.productId && styles[p.productId] && styles[p.productId].borderColour) {
-    return styles[p.productId].borderColour;
-  }
-
-  const nameKey = (p.productName || "").toLowerCase().trim();
-  if (nameKey) {
-    for (const key of styleKeys) {
-      const prod = styles[key];
-      if (!prod || !prod.name) continue;
-      const prodNameKey = prod.name.toLowerCase().trim();
-      if (
-        nameKey === prodNameKey ||
-        nameKey.includes(prodNameKey) ||
-        prodNameKey.includes(nameKey)
-      ) {
-        return prod.borderColour || "#ffffff";
-      }
-    }
-  }
-
-  return "#ffffff";
+function setMessage(html, kind = "info") {
+  const box = el("account-messages");
+  if (!box) return;
+  box.innerHTML = `
+    <div class="alert alert-${kind} small" role="alert">
+      ${html}
+    </div>
+  `;
 }
 
-function renderAccount(data) {
-  const emailEl     = document.getElementById("account-email");
-  const messagesEl  = document.getElementById("account-messages");
-  const purchasesEl = document.getElementById("account-purchases");
+function clearMessage() {
+  const box = el("account-messages");
+  if (!box) return;
+  box.innerHTML = "";
+}
 
-  if (!emailEl || !messagesEl || !purchasesEl) return;
+function renderPurchases(purchases, emailPrimary) {
+  const container = el("account-purchases");
+  if (!container) return;
 
-  messagesEl.innerHTML = "";
-  purchasesEl.innerHTML = "";
-
-  if (!data || !data.email) {
-    emailEl.textContent = "Not signed in";
-    addMessage(messagesEl, "Sign in to view your purchases and downloads.", "info");
-    return;
-  }
-
-  emailEl.textContent = "Signed in as " + data.email;
-
-  if (!data.purchases || !data.purchases.length) {
-    addMessage(messagesEl, "No purchases found for this account yet.", "info");
-    return;
-  }
-
-  const cards = data.purchases.map(p => {
-    const date = p.purchasedAt
-      ? new Date(p.purchasedAt).toLocaleDateString()
-      : "Unknown date";
-
-    const hasLicense = !!p.licenseKey;
-    const licensePreview = hasLicense
-      ? (p.licenseKey.replace(/\s+/g, " ").slice(0, 50) + "…")
-      : "—";
-
-    const licenseAttr = hasLicense ? escapeHtml(p.licenseKey) : "";
-    const borderColour = getBorderColourForPurchase(p);
-
-    return `
-      <div class="account-card-wrapper">
-        <article class="account-card" style="border-color: ${borderColour};">
-          <h2 class="account-card-title">${p.productName || "Untitled product"}</h2>
-          <p class="account-card-meta">
-            ORDER #${p.orderNumber || "—"} · ${date}
-          </p>
-
-          <div class="account-card-license">
-            <span>License key:</span>
-            <code class="account-license-key-preview">${licensePreview}</code>
-          </div>
-
-          ${hasLicense ? `
-            <button
-              type="button"
-              class="account-copy-btn account-btn"
-              data-license="${licenseAttr}">
-              COPY KEY
-            </button>
-          ` : ""}
-
-          <a class="account-btn account-btn--primary" href="${p.downloadUrl || "#"}">
-            DOWNLOAD
-          </a>
-
-          <div class="account-card-links">
-            ${p.manualUrl ? `<a class="account-link" href="${p.manualUrl}">Manual</a>` : ""}
-            ${p.receiptUrl ? `<a class="account-link" href="${p.receiptUrl}" target="_blank" rel="noopener">Receipt</a>` : ""}
-          </div>
-        </article>
+  if (!purchases || purchases.length === 0) {
+    container.innerHTML = `
+      <div class="small">
+        <p class="mb-1"><strong>No purchases found for this account.</strong></p>
+        <p class="mb-0">This usually means you signed in with a different email than the one used at checkout.</p>
       </div>
     `;
-  }).join("");
-
-  purchasesEl.innerHTML = cards;
-
-  attachCopyHandlers();
-}
-
-function attachCopyHandlers() {
-  const buttons = document.querySelectorAll(".account-copy-btn");
-  buttons.forEach(btn => {
-    btn.addEventListener("click", async () => {
-      const license = btn.getAttribute("data-license") || "";
-      if (!license) return;
-
-      const originalText = btn.textContent;
-
-      const copyViaClipboardApi = async () => {
-        await navigator.clipboard.writeText(license);
-      };
-
-      const copyViaFallback = () => {
-        const textarea = document.createElement("textarea");
-        textarea.value = license;
-        textarea.style.position = "fixed";
-        textarea.style.left = "-9999px";
-        document.body.appendChild(textarea);
-        textarea.select();
-        try {
-          document.execCommand("copy");
-        } finally {
-          document.body.removeChild(textarea);
-        }
-      };
-
-      try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await copyViaClipboardApi();
-        } else {
-          copyViaFallback();
-        }
-        btn.textContent = "Copied!";
-      } catch (err) {
-        btn.textContent = "Copy failed";
-      }
-
-      setTimeout(() => {
-        btn.textContent = originalText;
-      }, 2000);
-    });
-  });
-}
-
-function addMessage(container, text, type) {
-  const div = document.createElement("div");
-  div.className = "account-message account-message--" + type + " mb-3";
-  div.textContent = text;
-  container.appendChild(div);
-}
-
-async function loadViaFunctionWithoutClerk() {
-  if (!USE_LIVE_FUNCTION) {
-    renderAccount(dummyAccountData);
     return;
   }
 
+  const styles = window.FED_PRODUCT_STYLES || {};
+
+  container.innerHTML = purchases
+    .map((p) => {
+      const productStyle = styles[p.productId] || {};
+      const borderColour = productStyle.borderColour || "#ffffff";
+
+      const purchasedAt = p.purchasedAt
+        ? new Date(p.purchasedAt).toLocaleString()
+        : "";
+
+      const safeKey = (p.licenseKey || "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+      return `
+        <div class="card mb-3" style="border: 1px solid ${borderColour};">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <div class="small text-muted">${purchasedAt}</div>
+                <h5 class="card-title mb-1">${p.productName || p.productId}</h5>
+                ${p.orderNumber ? `<div class="small text-muted">Order #${p.orderNumber}</div>` : ""}
+              </div>
+            </div>
+
+            ${p.licenseKey ? `
+              <div class="mt-3">
+                <div class="small text-muted mb-1">License key</div>
+                <pre class="p-2 mb-0" style="white-space: pre-wrap; word-break: break-word;">${safeKey}</pre>
+              </div>
+            ` : ""}
+
+            <div class="mt-3 d-flex gap-3 flex-wrap">
+              <a class="btn btn-sm btn-outline-light" href="${p.downloadUrl || "/downloads"}">Downloads</a>
+              <a class="btn btn-sm btn-outline-light" href="${p.receiptUrl || "#"}">Receipt</a>
+            </div>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function renderAccount(data, emailPrimary) {
+  const emailEl = el("account-email");
+  if (emailEl) {
+    emailEl.textContent = emailPrimary ? `Signed in as ${emailPrimary}` : "Signed in";
+  }
+  renderPurchases(data.purchases || [], emailPrimary);
+}
+
+async function loadPurchasesWithToken(token, emailPrimary) {
   try {
-    const res = await fetch("/.netlify/functions/account", { credentials: "include" });
-    if (!res.ok) throw new Error("Account function error");
+    clearMessage();
+
+    if (!USE_LIVE_FUNCTION) {
+      renderAccount(dummyAccountData, emailPrimary);
+      return;
+    }
+
+    const res = await fetch("/.netlify/functions/account", {
+      headers: { Authorization: `Bearer ${token}` },
+      credentials: "include",
+    });
+
+    if (res.status === 401) {
+      setMessage("Please sign in to view your licenses.", "warning");
+      renderAccount({ purchases: [] }, emailPrimary);
+      return;
+    }
+
+    if (!res.ok) throw new Error();
+
     const data = await res.json();
-    renderAccount(data);
-  } catch (e) {
-    renderAccount({ email: "", purchases: [] });
+    renderAccount(data, emailPrimary);
+  } catch {
+    setMessage("Couldn’t load your account right now. Please try again.", "warning");
+    renderAccount({ purchases: [] }, emailPrimary);
   }
 }
 
 async function boot() {
-  const emailEl      = document.getElementById("account-email");
-  const userButtonEl = document.getElementById("user-button");
-  const signInEl     = document.getElementById("sign-in");
+  const emailEl = el("account-email");
+  if (emailEl) emailEl.textContent = "Loading your account…";
 
+  // Clerk must exist (loaded by the browser SDK)
   if (!window.Clerk) {
-    await loadViaFunctionWithoutClerk();
+    setMessage("Account system failed to load. Please refresh.", "warning");
+    renderAccount({ purchases: [] }, null);
     return;
   }
 
+  await window.Clerk.load();
+
+  // Mount user button (shows "Manage account" UI)
+  const userButton = el("user-button");
+  if (userButton) {
+    window.Clerk.mountUserButton(userButton);
+  }
+
+  const signInDiv = el("sign-in");
+
+  // Logged out: mount sign-in UI
+  if (!window.Clerk.user || !window.Clerk.session) {
+    if (signInDiv) window.Clerk.mountSignIn(signInDiv);
+    setMessage("Sign in to view your licenses. Use the same email you used at checkout.", "info");
+    renderAccount({ purchases: [] }, null);
+    return;
+  }
+
+  // Logged in: unmount sign-in UI if it exists
   try {
-    await window.Clerk.load();
-  } catch {
-    await loadViaFunctionWithoutClerk();
-    return;
-  }
-
-  if (userButtonEl) {
-    window.Clerk.mountUserButton(userButtonEl, { afterSignOutUrl: "/account" });
-  }
-
-  if (!window.Clerk.user) {
-    if (signInEl) {
-      window.Clerk.mountSignIn(signInEl, { redirectUrl: "/account" });
-    }
-    if (emailEl) {
-      emailEl.textContent = "Please sign in to view your purchases.";
-    }
-    return;
-  }
-
-  const emailPrimary =
-    window.Clerk.user?.primaryEmailAddress?.emailAddress ||
-    window.Clerk.user?.emailAddresses?.[0]?.emailAddress ||
-    "";
-
-  if (emailEl) {
-    emailEl.textContent = "Signed in as " + emailPrimary;
-  }
-
-  if (!USE_LIVE_FUNCTION) {
-    const data = { ...dummyAccountData, email: emailPrimary };
-    renderAccount(data);
-    return;
-  }
-
-  let token = "";
-  try {
-    token = await window.Clerk.session.getToken({ template: "ls" });
+    if (signInDiv) window.Clerk.unmountSignIn(signInDiv);
   } catch {}
 
-  try {
-    const res = await fetch("/.netlify/functions/account", {
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-      credentials: "include"
-    });
-    if (!res.ok) throw new Error();
-    const data = await res.json();
-    if (!data.email && emailPrimary) data.email = emailPrimary;
-    renderAccount(data);
-  } catch {
-    renderAccount({ email: emailPrimary, purchases: [] });
+  const emailPrimary = window.Clerk.user?.primaryEmailAddress?.emailAddress || null;
+
+  // Always request a token; backend now requires it.
+  const token = await window.Clerk.session.getToken({ template: "ls" }).catch(() => null);
+
+  if (!token) {
+    setMessage("Signed in, but couldn’t establish a secure session token. Please refresh.", "warning");
+    renderAccount({ purchases: [] }, emailPrimary);
+    return;
   }
+
+  await loadPurchasesWithToken(token, emailPrimary);
 }
 
 document.addEventListener("DOMContentLoaded", boot);
