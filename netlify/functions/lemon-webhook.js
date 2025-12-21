@@ -250,15 +250,24 @@ export const handler = async (event) => {
     const payloadBytes = Buffer.from(payloadJsonCanon, 'utf8');
 
     // 5) Sign Ed25519 with k1 (from env)
-    const privateKeyEnv = process.env.LIC_ED25519_PRIVATE_KEY;
-    if (!privateKeyEnv) {
-      console.error('Missing LIC_ED25519_PRIVATE_KEY');
+    // Use base64-encoded PEM stored in Netlify as LIC_ED25519_PRIVATE_KEY_B64
+    const keyB64 = process.env.LIC_ED25519_PRIVATE_KEY_B64;
+    if (!keyB64) {
+      console.error('Missing LIC_ED25519_PRIVATE_KEY_B64');
       return { statusCode: 500, body: 'Server misconfigured (missing license signing key)' };
     }
 
-    const privateKeyPem = process.env.LIC_ED25519_PRIVATE_KEY;
-    if (!privateKeyPem || !privateKeyPem.includes('BEGIN')) {
-      throw new Error('LIC_ED25519_PRIVATE_KEY must be raw PEM, not base64');
+    let privateKeyPem;
+    try {
+      privateKeyPem = Buffer.from(keyB64, 'base64').toString('utf8');
+    } catch (e) {
+      console.error('Failed to base64-decode LIC_ED25519_PRIVATE_KEY_B64');
+      return { statusCode: 500, body: 'Server misconfigured (invalid signing key encoding)' };
+    }
+
+    if (!privateKeyPem.includes('BEGIN PRIVATE KEY')) {
+      console.error('Decoded signing key is not valid PEM');
+      return { statusCode: 500, body: 'Server misconfigured (invalid signing key format)' };
     }
 
     const envelope = {
