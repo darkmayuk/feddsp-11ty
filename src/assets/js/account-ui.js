@@ -179,9 +179,7 @@ async function boot() {
 
   const emailPrimary = window.Clerk.user?.primaryEmailAddress?.emailAddress || null;
 
-  const token = await window.Clerk.session
-    .getToken({ template: "ls" })
-    .catch(() => null);
+  const token = await window.Clerk.session.getToken().catch(() => null);
 
   if (!token) {
     setMessage("Signed in, but couldn’t establish a secure session token. Please refresh.", "warning");
