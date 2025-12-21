@@ -27,9 +27,12 @@ exports.handler = async (event) => {
       });
     }
 
-    const { clerkUserId, tokenEmail } = auth;
-    const tokenEmailSet = new Set();
-    if (tokenEmail) tokenEmailSet.add(tokenEmail);
+    const { clerkUserId } = auth;
+
+    // ✅ Fetch verified emails from Clerk API (don’t depend on JWT email claims)
+    const verifiedEmails = await getVerifiedEmailsFromClerkAPI(clerkUserId);
+    // If Clerk API fails, this will be empty, and you’ll see no purchases.
+    // That’s better than guessing.
 
     const licenseStore = getStore(LICENSE_STORE_NAME);
     const identityStore = getStore(IDENTITY_STORE_NAME);
@@ -61,9 +64,9 @@ exports.handler = async (event) => {
         if (mappedLsCustomerIds.size > 0 && recordLsCustomerId) {
           isMine = mappedLsCustomerIds.has(String(recordLsCustomerId));
         } else {
-          // First-time linking / fallback: match by token email only
+          // First-time linking / fallback: match by VERIFIED email(s)
           const recordEmail = (record.user_email || "").trim().toLowerCase();
-          if (recordEmail && tokenEmailSet.has(recordEmail)) {
+          if (recordEmail && verifiedEmails.has(recordEmail)) {
             isMine = true;
           }
         }
@@ -139,7 +142,7 @@ async function getClerkAuth(event) {
 
     let verified;
     try {
-      // ✅ IMPORTANT: verifyToken returns the verified payload (claims) directly
+      // verifyToken returns the verified claims directly
       verified = await verifyToken(token, { secretKey: process.env.CLERK_SECRET_KEY });
     } catch (e) {
       console.error("verifyToken failed", e);
@@ -151,16 +154,45 @@ async function getClerkAuth(event) {
       return { error: "missing_sub_claim" };
     }
 
-    const tokenEmail =
-      (verified?.email && String(verified.email).trim().toLowerCase()) ||
-      (verified?.email_address && String(verified.email_address).trim().toLowerCase()) ||
-      null;
-
-    return { clerkUserId, tokenEmail };
+    return { clerkUserId };
   } catch (err) {
     console.error("getClerkAuth unexpected failure", err);
     return { error: "auth_exception" };
   }
+}
+
+async function getVerifiedEmailsFromClerkAPI(clerkUserId) {
+  const set = new Set();
+
+  try {
+    const res = await fetch(`https://api.clerk.com/v1/users/${encodeURIComponent(clerkUserId)}`, {
+      headers: {
+        Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
+      },
+    });
+
+    if (!res.ok) {
+      console.error("Clerk API user fetch failed", { status: res.status });
+      return set;
+    }
+
+    const user = await res.json();
+    const emails = user.email_addresses || user.emailAddresses || [];
+
+    for (const e of emails) {
+      const addr = e.email_address || e.emailAddress;
+      const verification = e.verification || {};
+      const status = verification.status;
+
+      if (addr && status === "verified") {
+        set.add(String(addr).trim().toLowerCase());
+      }
+    }
+  } catch (err) {
+    console.error("Clerk API fetch exception", err);
+  }
+
+  return set;
 }
 
 async function safeGetJson(store, key) {
