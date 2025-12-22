@@ -908,13 +908,21 @@
     align-items: center;
     justify-content: center;
     font-size: 3rem;
-    padding-left: 10px;
     transition: transform 0.2s ease;
     box-shadow: 0 4px 10px rgba(212, 102, 173, 0.3);
   }
 
   .play-btn-compact:hover {
     transform: scale(1.05);
+  }
+
+  .play-btn-compact .bi-play-fill {
+    margin-left: 5px;
+  }
+
+  /* Add this: Ensure Pause icon stays mathematically centered */
+  .play-btn-compact .bi-pause-fill {
+    margin-left: 0px;
   }
 
   .toggle-ui-wrapper {

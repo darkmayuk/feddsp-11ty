@@ -32,23 +32,62 @@
       },
       "audio": {
         "title": "Experience the Difference",
-        "samples": ["Drums", "Vocals", "Bass", "Gtr", "Synth"]
+        "samples": [
+          {
+            "name": "Bass",
+            "dry": "/assets/audio/PHAT_TEST_BASS_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_BASS_ON.wav"
+          },
+          {
+            "name": "Drums",
+            "dry": "/assets/audio/PHAT_TEST_DRUMS_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_DRUMS_ON.wav"
+          },
+          {
+            "name": "Guitar",
+            "dry": "/assets/audio/PHAT_TEST_GTR_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_GTR_ON.wav"
+          },
+          {
+            "name": "Loops 1",
+            "dry": "/assets/audio/PHAT_TEST_LOOPS_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_LOOPS_ON.wav"
+          },
+          {
+            "name": "Loops 2",
+            "dry": "/assets/audio/PHAT_TEST_LOOPS2_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_LOOPS2_ON.wav"
+          },
+          {
+            "name": "Synth",
+            "dry": "/assets/audio/PHAT_TEST_SYNTH_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_SYNTH_ON.wav"
+          },
+          {
+            "name": "Voice",
+            "dry": "/assets/audio/PHAT_TEST_VOX_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_VOX_ON.wav"
+          }
+        ]
       },
       "testimonials": [
         {
+          "quote": "I really like it ... I used it on a bass that was too spiky sounding, so I stacked up distortions to soften the transient and then used the filter to round it off. Ended up with a really fat, round bass sound.",
+          "author": "Jim Pinder",
+          "role": "PRODUCER",
+          "bands": "Bring Me The Horizon, Sleep Token, Bullet For My Valentine"
+        },
+        {
           "quote": "I think PHAT is gonna be one of those level game changers. I literally can't work without it now! I use it on pretty much every track.",
           "author": "Bob Cooper",
-          "role": "MIX ENGINEER"
+          "role": "MIX ENGINEER",
+          "bands": "Nai Harvest, Self Defense Family, Rob Lynch"
         },
         {
           "quote": "The layout is really intuitive so the learning curve was minimal. I really enjoyed that the finer details were tucked away.",
           "author": "Sam Bloor",
-          "role": "MASTERING"
-        },
-        {
-          "quote": "The depth knob is rad! It instantly pushes elements back or pulls them forward without messing with phase.",
-          "author": "Neil Kennedy",
-          "role": "PRODUCER"
+          "role": "MASTERING",
+          "bands": "Dream State, Blanket, Graphic Nature"
         }
       ],
       "features": {
@@ -99,23 +138,59 @@
       "techSpecs": {
         "title": "Tech that removes fear",
         "items": [
-          { "title": "Zero Latency", "text": "Track through it. Mix with it. Live perform with it. No delay." },
-          { "title": "Lightweight on CPU", "text": "Put it on every channel. We optimized the DSP for maximum instance count." },
-          { "title": "Offline Licensing", "text": "Install. Authorize once (offline supported). Work forever. No internet checks." }
+          {
+            "title": "Zero Latency",
+            "text": "Track through it. Mix with it. Live perform with it. No delay."
+          },
+          {
+            "title": "Lightweight on CPU",
+            "text": "Put it on every channel. We optimized the DSP for maximum instance count."
+          },
+          {
+            "title": "Offline Licensing",
+            "text": "Install. Authorize once (offline supported). Work forever. No internet checks."
+          }
         ]
       },
       "faq": {
         "title": "FAQS",
         "items": [
-          { "q": "What is PHATurator?", "a": "PHATurator is an analogue-modeled multi-stage saturation plugin. Unlike standard saturators that offer just one flavour, PHATurator lets you stack and blend six distinct analogue circuits—from Tube and Tape to FET and Class A Preamp styles—to colour your sound with rich harmonics, depth, and controlled grit. It also features a global Mix knob for instant parallel processing." },
-          { "q": "What are the saturation models?", "a": "PHATurator includes six distinct saturation algorithms:<ul class='mt-2 mb-0 ps-3'><li class='mb-1'><strong class='text-white'>FET:</strong> Detector-driven dynamics (76-style feel) for punch and control.</li><li class='mb-1'><strong class='text-white'>TUBE:</strong> Classic tube saturation to make sources fuller and harmonically rich.</li><li class='mb-1'><strong class='text-white'>TAPE:</strong> Vintage glue, tasty saturation, and subtle stereo width.</li><li class='mb-1'><strong class='text-white'>PUNCH:</strong> Large-format British console saturation with tight low end, snappy transients, and assertive upper mids.</li><li class='mb-1'><strong class='text-white'>PHAT:</strong> Fuller low-mid punch with pleasing compression-like behaviour. Very loudness-friendly.</li><li class='mb-1'><strong class='text-white'>WARMTH:</strong> Thick, transformer-rich 70s British Class A preamp vibe with creamy low mids.</li></ul>" },
-          { "q": "What formats does it come in?", "a": "We provide VST3, AU (Audio Unit), and AAX formats for both Mac and Windows." },
-          { "q": "Does it work on M1/M2/M3 Macs?", "a": "Yes. PHATurator is fully native for Apple Silicon chips (M1, M2, M3 etc) as well as Intel Macs. No Rosetta required." },
-          { "q": "What DAWs does it work on?", "a": "It works in any DAW that supports VST3, AU, or AAX plugins. This includes Logic Pro X, Pro Tools, Ableton Live, Cubase, Studio One, FL Studio, Reaper, and Bitwig." },
-          { "q": "System Requirements", "a": "<strong>Mac:</strong> macOS 10.13 or higher (Intel or Apple Silicon).<br><strong>Windows:</strong> Windows 10 or 11 (64-bit).<br><strong>General:</strong> 4GB RAM required (8GB recommended), 500MB free disk space." },
-          { "q": "How many computers can I install it on?", "a": "Our license allows for 3 simultaneous activations per user (e.g. your studio machine, your laptop, and a travel rig)." },
-          { "q": "Is there a demo?", "a": "Yes, you can download a 14-day fully functional trial from our <a href='/pages/downloads' class='text-white text-decoration-underline'>Downloads page</a>." },
-          { "q": "Is there a manual?", "a": "Yes, you can read the full <a href='#' class='text-white text-decoration-underline'>User Manual here</a>." }
+          {
+            "q": "What is PHATurator?",
+            "a": "PHATurator is an analogue-modeled multi-stage saturation plugin. Unlike standard saturators that offer just one flavour, PHATurator lets you stack and blend six distinct analogue circuits—from Tube and Tape to FET and Class A Preamp styles—to colour your sound with rich harmonics, depth, and controlled grit. It also features a global Mix knob for instant parallel processing."
+          },
+          {
+            "q": "What are the saturation models?",
+            "a": "PHATurator includes six distinct saturation algorithms:<ul class='mt-2 mb-0 ps-3'><li class='mb-1'><strong class='text-white'>FET:</strong> Detector-driven dynamics (76-style feel) for punch and control.</li><li class='mb-1'><strong class='text-white'>TUBE:</strong> Classic tube saturation to make sources fuller and harmonically rich.</li><li class='mb-1'><strong class='text-white'>TAPE:</strong> Vintage glue, tasty saturation, and subtle stereo width.</li><li class='mb-1'><strong class='text-white'>PUNCH:</strong> Large-format British console saturation with tight low end, snappy transients, and assertive upper mids.</li><li class='mb-1'><strong class='text-white'>PHAT:</strong> Fuller low-mid punch with pleasing compression-like behaviour. Very loudness-friendly.</li><li class='mb-1'><strong class='text-white'>WARMTH:</strong> Thick, transformer-rich 70s British Class A preamp vibe with creamy low mids.</li></ul>"
+          },
+          {
+            "q": "What formats does it come in?",
+            "a": "We provide VST3, AU (Audio Unit), and AAX formats for both Mac and Windows."
+          },
+          {
+            "q": "Does it work on M1/M2/M3 Macs?",
+            "a": "Yes. PHATurator is fully native for Apple Silicon chips (M1, M2, M3 etc) as well as Intel Macs. No Rosetta required."
+          },
+          {
+            "q": "What DAWs does it work on?",
+            "a": "It works in any DAW that supports VST3, AU, or AAX plugins. This includes Logic Pro X, Pro Tools, Ableton Live, Cubase, Studio One, FL Studio, Reaper, and Bitwig."
+          },
+          {
+            "q": "System Requirements",
+            "a": "<strong>Mac:</strong> macOS 10.13 or higher (Intel or Apple Silicon).<br><strong>Windows:</strong> Windows 10 or 11 (64-bit).<br><strong>General:</strong> 4GB RAM required (8GB recommended), 500MB free disk space."
+          },
+          {
+            "q": "How many computers can I install it on?",
+            "a": "Our license allows for 3 simultaneous activations per user (e.g. your studio machine, your laptop, and a travel rig)."
+          },
+          {
+            "q": "Is there a demo?",
+            "a": "Yes, you can download a 14-day fully functional trial from our <a href='/pages/downloads' class='text-white text-decoration-underline'>Downloads page</a>."
+          },
+          {
+            "q": "Is there a manual?",
+            "a": "Yes, you can read the full <a href='#' class='text-white text-decoration-underline'>User Manual here</a>."
+          }
         ]
       }
     }
@@ -131,7 +206,7 @@
     "discountText": "Join the waitlist",
     "logo": "/assets/images/products/LeONE-logo.png",
     "image": "/assets/images/products/LeONE.png",
-    "heroVideo": "", 
+    "heroVideo": "",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/LeONE",
     "demoLink": "#",
     "manualLink": "#",
@@ -140,22 +215,34 @@
     "gradient2Start": "#204963",
     "gradient2End": "#d366ac",
     "sections": {
-        "overview": {
-            "title": "Precision Limiting",
-            "card1Title": "Transparent Power",
-            "card1Text": "Crystal clear limiting with zero latency.",
-            "description1": "LeONE is a dual limiter with zero latency, making it very useful for tracking and live work.",
-            "description2": "With a Release envelope that can move from 2 seconds all the way to 0.01 milliseconds, brutal limiting with LeONE is perfectly possible.",
-            "card2Title": "Dual Stage Control",
-            "card2Text": "Advanced options are there at the click of a button when you need them.",
-            "card3Title": "Zero Latency",
-            "card3Text": "Designed for live tracking and performance."
-        },
-        "audio": { "title": "Hear the Limiting", "samples": [] },
-        "testimonials": [],
-        "features": { "title": "Features", "items": [] },
-        "techSpecs": { "title": "Specs", "items": [] },
-        "faq": { "title": "FAQ", "items": [] }
+      "overview": {
+        "title": "Precision Limiting",
+        "card1Title": "Transparent Power",
+        "card1Text": "Crystal clear limiting with zero latency.",
+        "description1": "LeONE is a dual limiter with zero latency, making it very useful for tracking and live work.",
+        "description2": "With a Release envelope that can move from 2 seconds all the way to 0.01 milliseconds, brutal limiting with LeONE is perfectly possible.",
+        "card2Title": "Dual Stage Control",
+        "card2Text": "Advanced options are there at the click of a button when you need them.",
+        "card3Title": "Zero Latency",
+        "card3Text": "Designed for live tracking and performance."
+      },
+      "audio": {
+        "title": "Hear the Limiting",
+        "samples": []
+      },
+      "testimonials": [],
+      "features": {
+        "title": "Features",
+        "items": []
+      },
+      "techSpecs": {
+        "title": "Specs",
+        "items": []
+      },
+      "faq": {
+        "title": "FAQ",
+        "items": []
+      }
     }
   },
   {
@@ -178,22 +265,34 @@
     "gradient2Start": "#000",
     "gradient2End": "#333",
     "sections": {
-        "overview": {
-            "title": "Explosive FET",
-            "card1Title": "Not just a clone",
-            "card1Text": "Explosive FET compression with instant attack.",
-            "description1": "We went back to all the classic FET compressors that we know and love, and created the FIERY from the best unique elements of each.",
-            "description2": "The two transformers - pre and post compression - activate our unique Analogue Drift Recreation (ADR) algorithm.",
-            "card2Title": "Vintage & Modern",
-            "card2Text": "Switch between classic saturated tones and modern punch.",
-            "card3Title": "Drift Technology",
-            "card3Text": "Recreates the analogue movement found in hardware units."
-        },
-        "audio": { "title": "Hear the Fire", "samples": [] },
-        "testimonials": [],
-        "features": { "title": "Features", "items": [] },
-        "techSpecs": { "title": "Specs", "items": [] },
-        "faq": { "title": "FAQ", "items": [] }
+      "overview": {
+        "title": "Explosive FET",
+        "card1Title": "Not just a clone",
+        "card1Text": "Explosive FET compression with instant attack.",
+        "description1": "We went back to all the classic FET compressors that we know and love, and created the FIERY from the best unique elements of each.",
+        "description2": "The two transformers - pre and post compression - activate our unique Analogue Drift Recreation (ADR) algorithm.",
+        "card2Title": "Vintage & Modern",
+        "card2Text": "Switch between classic saturated tones and modern punch.",
+        "card3Title": "Drift Technology",
+        "card3Text": "Recreates the analogue movement found in hardware units."
+      },
+      "audio": {
+        "title": "Hear the Fire",
+        "samples": []
+      },
+      "testimonials": [],
+      "features": {
+        "title": "Features",
+        "items": []
+      },
+      "techSpecs": {
+        "title": "Specs",
+        "items": []
+      },
+      "faq": {
+        "title": "FAQ",
+        "items": []
+      }
     }
   }
 ]
