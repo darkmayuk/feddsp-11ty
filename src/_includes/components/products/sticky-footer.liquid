@@ -1,0 +1,18 @@
+<div id="sticky-product-footer" class="sticky-footer-wrapper">
+  <div class="container d-flex justify-content-center justify-content-md-between align-items-center">
+    
+    <div class="d-none d-md-block">
+      <h5 class="m-0 font-header" style="font-size: 1.5rem;">{{ product.name }}</h5>
+    </div>
+
+    <div class="d-flex gap-3 align-items-center">
+       <a href="{{ product.buyLink }}" class="btn btn-pill btn-brand-solid btn-sm">
+         BUY
+       </a>
+       <a href="{{ product.demoLink | default: '#' }}" class="btn btn-pill btn-grey-solid btn-sm">
+         TRY IT FOR FREE
+       </a>
+    </div>
+
+  </div>
+</div>

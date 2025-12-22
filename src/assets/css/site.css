@@ -832,6 +832,35 @@
 
 /* PRODUCT PAGE (V2 SPECIFIC) */
 
+  @media (max-width: 768px) {
+    
+    .product-page-v2 section {
+      padding-top: 2rem !important;
+      padding-bottom: 2rem !important;
+    }
+
+    .product-page-v2 section > .container {
+      padding-top: 2rem !important;
+      padding-bottom: 2rem !important;
+    }
+
+    .hero-v2 {
+      min-height: 60vh !important;
+    }
+
+    .product-page-v2 .text-start {
+      text-align: center !important;
+    }
+
+    .product-page-v2 h2 {
+      text-align: center;
+    }
+
+    .hero-v2 video {
+      object-position: 30% top; 
+    }
+  }
+
   /* Hero V2 */
   .hero-v2 {
     background-color: var(--dark-grey);
@@ -840,7 +869,7 @@
     overflow: hidden;
     position: relative;
   }
-
+  
   .hero-logo-img {
     max-width: 90%;
     width: 900px;
@@ -988,6 +1017,38 @@
   }
 
   .cursor-pointer { cursor: pointer; }
+
+/* STICKY FOOTER CTA */
+  .sticky-footer-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(26, 26, 26, 0.95); /* Dark Grey with transparency */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 0;
+    z-index: 1000; /* Ensure it floats above everything else */
+    backdrop-filter: blur(10px); /* Nice blur effect behind */
+    
+    /* Hidden state: pushed down below screen */
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .sticky-footer-wrapper.is-visible {
+    /* Visible state: slide up */
+    transform: translateY(0);
+  }
+
+  /* Adjust button spacing for the bar */
+  .sticky-footer-wrapper .btn-pill {
+    padding: 0.5rem 2rem; /* Compact padding */
+    font-size: 0.9rem;
+  }
+
+  .sticky-footer-wrapper.is-visible.footer-reached {
+    transform: translateY(100%); /* Slide it back down */
+  }
 
 /* LEGACY / UTILITY PAGES */
 
