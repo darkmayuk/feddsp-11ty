@@ -14,21 +14,23 @@
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/76718b9d-3cb2-4fd6-9964-12317135a261?checkout[custom][product_code]=fedDSP-PHAT",
     "demoLink": "#",
     "manualLink": "#",
-    "gradientStart": "#be1e2d",
-    "gradientEnd": "#f15a29",
-    "gradient2Start": "#204963",
-    "gradient2End": "#d366ac",
+    "gradientStart": "#d366ac",
+    "gradientEnd": "#be1e2d",
+    "gradient2Start": "#be1e2d",
+    "gradient2End": "#f15a29",
+    "gradient3Start": "#228340",
+    "gradient3End": "#f15a29",
+    "gradient4Start": "#228340",
+    "gradient4End": "#204963",
     "sections": {
       "overview": {
         "title": "Masterclass In<br>Saturation",
         "card1Title": "Stacking saturations has never been this easy.",
-        "card1Text": "Get the weight and character of multi-stage saturation at the click of a button.",
-        "description1": "In top studios, engineers routinely layer analogue saturations across sources to achieve richer harmonics, better depth, and controlled tonal grit without reaching for extreme settings on any one unit.",
-        "description2": "The range of tones available from blending these six analogue-inspired stages takes you from subtle warmth to dirty fuzz. Like all fedDSP units, the controls are so simple that there's nothing to learn, and no distractions - you can use your ears, and your emotions, to mix.",
+        "card1Text": "Get the weight and character of multi-stage saturation at the click of a button.<br><br>Top engineers routinely layer analogue gear to achieve richer harmonics, depth, and controlled grit. We've condensed that complex workflow into one intuitive tool.<br><br>Whether you need subtle harmonic glue or aggressive, textured fuzz, the tone remains musical, defined, and full of character. No complex setup, no learning curve - just use your ears, and mix with instinct and emotion.",
         "card2Title": "Six styles of timeless saturations.",
         "card2Text": "Each saturation model is obsessively engineered to capture the behaviour and character of its analogue original.",
         "card3Title": "Zero Latency.<br>Featherlight.",
-        "card3Text": "We've removed the friction of legacy software. No dongles, no internet requirements, and no barriers to your workflow. Engineered for maximum speed and efficiency, our plugins are light enough to run across your entire session, and fast enough for real-time tracking."
+        "card3Text": "We've removed the friction of legacy software: no dongles, no internet requirements, no barriers to your workflow. Engineered for efficiency, our plugins are light enough for huge sessions, and fast enough for real-time tracking."
       },
       "audio": {
         "title": "Experience the Difference",
@@ -140,7 +142,7 @@
         "items": [
           {
             "title": "Zero Latency",
-            "text": "Track through it. Mix with it. Live perform with it. No delay."
+            "text": "Track through it. Mix with it. Perform live with it. No delay."
           },
           {
             "title": "Lightweight on CPU",
@@ -148,7 +150,7 @@
           },
           {
             "title": "Offline Licensing",
-            "text": "Install. Authorize once (offline supported). Work forever. No internet checks."
+            "text": "Install. Authorize once: offline supported. It works forever. No internet checks."
           }
         ]
       },
@@ -157,7 +159,7 @@
         "items": [
           {
             "q": "What is PHATurator?",
-            "a": "PHATurator is an analogue-modeled multi-stage saturation plugin. Unlike standard saturators that offer just one flavour, PHATurator lets you stack and blend six distinct analogue circuits—from Tube and Tape to FET and Class A Preamp styles—to colour your sound with rich harmonics, depth, and controlled grit. It also features a global Mix knob for instant parallel processing."
+            "a": "PHATurator is an analogue-modeled multi-stage saturation plugin. Unlike standard saturators that offer just one flavour, PHATurator lets you stack and blend six distinct analogue circuits - from Tube and Tape to FET and Class A Preamp styles - to colour your sound with rich harmonics, depth, and controlled grit. It also features a global Mix knob for instant parallel processing."
           },
           {
             "q": "What are the saturation models?",
@@ -173,11 +175,11 @@
           },
           {
             "q": "What DAWs does it work on?",
-            "a": "It works in any DAW that supports VST3, AU, or AAX plugins. This includes Logic Pro X, Pro Tools, Ableton Live, Cubase, Studio One, FL Studio, Reaper, and Bitwig."
+            "a": "It works in any DAW that supports VST3, AU, or AAX plugins. This includes Logic Pro, Pro Tools, Ableton Live, Cubase, Studio One, FL Studio, Reaper, and Bitwig."
           },
           {
             "q": "System Requirements",
-            "a": "<strong>Mac:</strong> macOS 10.13 or higher (Intel or Apple Silicon).<br><strong>Windows:</strong> Windows 10 or 11 (64-bit).<br><strong>General:</strong> 4GB RAM required (8GB recommended), 500MB free disk space."
+            "a": "<strong>Mac:</strong> macOS 10.13 or higher (Intel or Apple Silicon).<br><strong>Windows:</strong> Windows 10 or 11 (64-bit).<br><strong>General:</strong> 4GB RAM required (8GB recommended), 20MB free disk space."
           },
           {
             "q": "How many computers can I install it on?",
@@ -185,11 +187,11 @@
           },
           {
             "q": "Is there a demo?",
-            "a": "Yes, you can download a 14-day fully functional trial from our <a href='/pages/downloads' class='text-white text-decoration-underline'>Downloads page</a>."
+            "a": "Yes, you can download a trial from our <a href='/pages/downloads'>Downloads page</a>. The trial version has all features of the full version, but inserts a short silence every 30 seconds."
           },
           {
             "q": "Is there a manual?",
-            "a": "Yes, you can read the full <a href='#' class='text-white text-decoration-underline'>User Manual here</a>."
+            "a": "Yes, you can read the full <a href='#'>User Manual here</a>."
           }
         ]
       }

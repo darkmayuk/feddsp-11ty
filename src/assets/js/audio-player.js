@@ -10,16 +10,23 @@ document.addEventListener("DOMContentLoaded", function () {
   let isPlaying = false;
   let isWet = false; // false = Dry, true = Wet
   let audioContext = null;
+  
+  // Source Nodes (The actual audio players)
   let drySource = null;
   let wetSource = null;
+  
+  // Gain & Analyzer Nodes
   let dryGain = null;
   let wetGain = null;
   let analyzer = null;
   let animationId = null;
   
-  // Buffers to store loaded audio data
+  // Buffers (The loaded audio data)
   let currentDryBuffer = null;
   let currentWetBuffer = null;
+
+  // RACE CONDITION FIX: Track the latest load request
+  let currentLoadRequestId = 0;
 
   // 1. Initialize Audio Context (must happen on user interaction)
   async function initAudio() {
@@ -34,21 +41,25 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Create Analyzer (Visualizer)
     analyzer = audioContext.createAnalyser();
-    analyzer.fftSize = 64; // Low number for chunkier bars (we have 20 bars)
+    analyzer.fftSize = 64; 
     
     // Connect Gains to Analyzer, then Analyzer to Speakers
     dryGain.connect(analyzer);
     wetGain.connect(analyzer);
-    analyzer.connect(audioContext.destination); // Output to speakers
+    analyzer.connect(audioContext.destination); 
 
     // Set initial volumes
     updateMix();
   }
 
-  // 2. Load Audio Files
+  // 2. Load Audio Files with Guard Clause
   async function loadTrack(dryUrl, wetUrl) {
-    // Stop current if playing
-    if (isPlaying) stopAudio();
+    // Increment ID: This is now the ONLY valid request. 
+    // Any previous requests still loading are now considered "stale".
+    const myRequestId = ++currentLoadRequestId;
+
+    // Stop whatever is currently making noise
+    stopAudio();
 
     try {
       // Fetch both files in parallel
@@ -60,23 +71,40 @@ document.addEventListener("DOMContentLoaded", function () {
       const dryArray = await dryRes.arrayBuffer();
       const wetArray = await wetRes.arrayBuffer();
 
-      // Decode audio data
-      currentDryBuffer = await audioContext.decodeAudioData(dryArray);
-      currentWetBuffer = await audioContext.decodeAudioData(wetArray);
+      // Guard Clause: Before we do the heavy decoding, check if user clicked something else
+      if (myRequestId !== currentLoadRequestId) return;
 
-      // If we were playing, restart immediately
-      if (isPlaying) playAudio();
+      // Decode audio data
+      const decodedDry = await audioContext.decodeAudioData(dryArray);
+      const decodedWet = await audioContext.decodeAudioData(wetArray);
+
+      // Guard Clause 2: Check again after decoding (decoding takes time)
+      if (myRequestId !== currentLoadRequestId) return;
+
+      // Success! Update the buffers
+      currentDryBuffer = decodedDry;
+      currentWetBuffer = decodedWet;
+
+      // Auto-play the new track (standard behavior for sample switchers)
+      playAudio();
       
     } catch (err) {
-      console.error("Error loading audio:", err);
+      // Only log errors if this is still the active request
+      if (myRequestId === currentLoadRequestId) {
+        console.error("Error loading audio:", err);
+      }
     }
   }
 
   // 3. Play Logic
   function playAudio() {
+    // Safety check
     if (!currentDryBuffer || !currentWetBuffer) return;
 
-    // Create Buffer Sources (these are one-time use fire-and-forget)
+    // Double check we stopped everything before creating new sources
+    stopAudioSourceNodes();
+
+    // Create Buffer Sources (these are one-time use)
     drySource = audioContext.createBufferSource();
     drySource.buffer = currentDryBuffer;
     drySource.connect(dryGain);
@@ -88,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
     wetSource.loop = true;
 
     // Start them exactly together
-    const startTime = audioContext.currentTime + 0.1; // tiny buffer
+    const startTime = audioContext.currentTime + 0.05; // tiny buffer
     drySource.start(startTime);
     wetSource.start(startTime);
 
@@ -96,36 +124,55 @@ document.addEventListener("DOMContentLoaded", function () {
     playIcon.classList.remove("bi-play-fill");
     playIcon.classList.add("bi-pause-fill");
     
-    // Start Visualizer Loop
-    drawVisualizer();
+    // Start Visualizer Loop if not already running
+    if (!animationId) drawVisualizer();
   }
 
   function stopAudio() {
-    if (drySource) drySource.stop();
-    if (wetSource) wetSource.stop();
+    stopAudioSourceNodes();
     isPlaying = false;
     playIcon.classList.remove("bi-pause-fill");
     playIcon.classList.add("bi-play-fill");
-    cancelAnimationFrame(animationId);
+    
+    // Stop Visualizer
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
     resetBars();
+  }
+
+  // Helper to strictly kill the source nodes
+  function stopAudioSourceNodes() {
+    if (drySource) {
+      try { drySource.stop(); } catch(e) {} // Ignore errors if already stopped
+      drySource.disconnect();
+      drySource = null;
+    }
+    if (wetSource) {
+      try { wetSource.stop(); } catch(e) {}
+      wetSource.disconnect();
+      wetSource = null;
+    }
   }
 
   // 4. A/B Mixing Logic
   function updateMix() {
     if (!dryGain || !wetGain) return;
+    const now = audioContext.currentTime;
     
     if (isWet) {
       // Wet Mode
-      dryGain.gain.setTargetAtTime(0, audioContext.currentTime, 0.1);
-      wetGain.gain.setTargetAtTime(1, audioContext.currentTime, 0.1);
-      toggleKnob.style.left = "26px"; // Move knob right
+      dryGain.gain.setTargetAtTime(0, now, 0.1);
+      wetGain.gain.setTargetAtTime(1, now, 0.1);
+      toggleKnob.style.left = "26px"; 
       mixToggle.querySelector(".label-dry").style.opacity = "0.5";
       mixToggle.querySelector(".label-wet").style.opacity = "1";
     } else {
       // Dry Mode
-      dryGain.gain.setTargetAtTime(1, audioContext.currentTime, 0.1);
-      wetGain.gain.setTargetAtTime(0, audioContext.currentTime, 0.1);
-      toggleKnob.style.left = "4px"; // Move knob left
+      dryGain.gain.setTargetAtTime(1, now, 0.1);
+      wetGain.gain.setTargetAtTime(0, now, 0.1);
+      toggleKnob.style.left = "4px";
       mixToggle.querySelector(".label-dry").style.opacity = "1";
       mixToggle.querySelector(".label-wet").style.opacity = "0.5";
     }
@@ -135,35 +182,38 @@ document.addEventListener("DOMContentLoaded", function () {
   function drawVisualizer() {
     animationId = requestAnimationFrame(drawVisualizer);
     
+    if (!analyzer) return;
+
     const bufferLength = analyzer.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     analyzer.getByteFrequencyData(dataArray);
 
-    // Update bar heights based on frequency data
-    // We have 20 bars, dataArray has 32 bins (fftSize/2). We step through them.
     bars.forEach((bar, index) => {
-      // Simple mapping: use the first 20 bins
-      const value = dataArray[index]; 
-      // Convert 0-255 to percentage height (min 10% so it doesn't disappear)
+      const value = dataArray[index] || 0; 
+      // Convert 0-255 to percentage height (min 10%)
       const heightPercent = Math.max(10, (value / 255) * 100);
       bar.style.height = `${heightPercent}%`;
     });
   }
 
   function resetBars() {
-    bars.forEach(bar => bar.style.height = "5%");
+    bars.forEach(bar => bar.style.height = "10%"); // Reset to min height
   }
 
   // --- EVENT LISTENERS ---
 
   // Play Button
   playBtn.addEventListener("click", async () => {
-    await initAudio(); // First interaction unlocks AudioContext
+    await initAudio(); 
     
     // If no buffer loaded yet, load the active track
     if (!currentDryBuffer) {
       const activeBtn = document.querySelector(".track-btn.active");
-      await loadTrack(activeBtn.dataset.dry, activeBtn.dataset.wet);
+      if (activeBtn) {
+        // This will load AND play
+        await loadTrack(activeBtn.dataset.dry, activeBtn.dataset.wet);
+        return; 
+      }
     }
 
     if (isPlaying) {
@@ -176,17 +226,21 @@ document.addEventListener("DOMContentLoaded", function () {
   // Track Buttons
   trackBtns.forEach(btn => {
     btn.addEventListener("click", async (e) => {
+      // Avoid reloading if clicking the same active track? 
+      // Optionally uncomment next line:
+      // if (btn.classList.contains('active') && isPlaying) return;
+
       // UI Update
       trackBtns.forEach(b => b.classList.remove("active"));
       e.target.classList.add("active");
 
-      // Initialize if needed
       await initAudio();
 
-      // Load new audio
       const dry = e.target.dataset.dry;
       const wet = e.target.dataset.wet;
-      await loadTrack(dry, wet); // This handles stopping/restarting automatically
+      
+      // Load and auto-play
+      loadTrack(dry, wet);
     });
   });
 

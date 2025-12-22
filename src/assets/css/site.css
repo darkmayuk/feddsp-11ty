@@ -20,7 +20,7 @@
     --footer-block-max: 460px;
     
     /* Filters */
-    --logo-pink-filter: brightness(0) invert(56%);
+    --logo-pink-filter: brightness(0) saturate(100%) invert(60%) sepia(35%) saturate(848%) hue-rotate(282deg) brightness(87%) contrast(92%);
   }
 
   html,
@@ -62,7 +62,7 @@
   p { font-size: 0.9rem; }
 
   /* Gradient Text Utilities */
-  .gradient-text, .gradient-text2 {
+  .gradient-text, .gradient-text2, .gradient-text3, .gradient-text4 {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -75,6 +75,14 @@
 
   .gradient-text2 {
     background-image: linear-gradient(135deg, var(--hero-gradient2-start) 0%, var(--hero-gradient2-end) 100%);
+  }
+
+  .gradient-text3 {
+    background-image: linear-gradient(135deg, var(--hero-gradient3-start) 0%, var(--hero-gradient3-end) 100%);
+  }
+
+  .gradient-text4 {
+    background-image: linear-gradient(135deg, var(--hero-gradient4-start) 0%, var(--hero-gradient4-end) 100%);
   }
 
   .text-brand-pink { color: var(--brand-pink) !important; }
@@ -198,86 +206,100 @@
 
   ul.navbar-nav { margin-bottom: 0 !important; }
 
-  /* Logo */
+  /* --- LOGO --- */
   .nav-logo {
     max-height: 35px;
     position: relative;
     transition: filter 0.25s ease;
-    filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1); /* Pure White */
   }
 
+  /* Navbar Logo Hover */
   .navbar-brand:hover .nav-logo,
   .navbar-brand:focus .nav-logo,
   .navbar-brand:active .nav-logo {
     filter: var(--logo-pink-filter);
   }
 
-  /* Links */
-  .navbar .nav-item { margin: 0 0.2rem; }
+  /* --- TEXT LINKS --- */
+  .navbar .nav-item { margin: 0 0.5rem; }
 
   .navbar .nav-link {
-    color: white !important;
-    transition: color 0.2s, background-color 0.2s;
+    /* Default: Brand Grey (50% opacity white) */
+    color: rgba(255, 255, 255, 0.5) !important; 
+    font-weight: 500;
+    transition: color 0.2s ease;
+    display: flex;       /* Helps with vertical alignment */
+    align-items: center; /* Helps with vertical alignment */
   }
 
+  /* Hover/Active: Bright White */
   .navbar .nav-link:hover,
-  .navbar .nav-link.active {
-    color: var(--brand-pink) !important;
+  .navbar .nav-link.active,
+  .nav-item.dropdown:hover > .nav-link {
+    color: white !important;
   }
 
-  /* Dropdown */
+  /* --- DROPDOWN MENU --- */
   .dropdown-menu {
     position: absolute !important;
     top: 100% !important;
     left: 0 !important;
     margin-top: 0 !important;
     border: none;
+    border-radius: 0 !important; /* Sharp corners */
     background-color: var(--brand-pink);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
+    padding: 0;
   }
 
   .dropdown-menu .dropdown-item {
     color: white;
+    padding: 10px 20px;
     transition: background-color 0.2s, color 0.2s;
-    border-radius: 0.2rem;
+    border-radius: 0 !important; /* Sharp corners */
   }
 
   .dropdown-menu .dropdown-item:hover {
-    background-color: white;
+    background-color: white; 
     color: black;
   }
 
+  /* Disabled items */
+  .dropdown-menu .dropdown-item.disabled, 
+  .dropdown-menu .dropdown-item:disabled {
+    color: rgba(255,255,255, 0.5);
+    background-color: transparent;
+  }
+
+  /* Open dropdown on hover for desktop */
   @media (min-width: 768px) {
     .nav-item.dropdown:hover .dropdown-menu { display: block; }
   }
 
-  .nav-item.dropdown:hover>.nav-link {
-    color: var(--brand-pink) !important;
-  }
-
-  /* Cart Icon */
-  .navbar .nav-link.cart-icon {
-    background-color: var(--brand-pink);
-    border-radius: 0.7rem;
+  /* --- ACCOUNT ICON --- */
+  .navbar .nav-link.account-icon {
+    background-color: white;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;
     height: 40px;
-    margin-left: 1rem;
     transition: background-color 0.2s ease;
   }
 
-  .navbar .nav-link.cart-icon i.bi-cart-fill {
+  .navbar .nav-link.account-icon i {
     color: black;
-    font-size: 1.2rem;
+    font-size: 1.5rem; /* Bigger Icon */
     transition: color 0.2s ease;
   }
 
-  .navbar .nav-link.cart-icon:hover { background-color: white; }
-  .navbar .nav-link.cart-icon:hover i.bi-cart-fill { color: var(--brand-pink); }
+  .navbar .nav-link.account-icon:hover {
+    background-color: var(--brand-pink); 
+  }
 
-  /* Mobile Navbar */
+  /* --- MOBILE TOGGLER --- */
   .navbar-toggler {
     border: none;
     padding: 0.5rem;
@@ -297,19 +319,78 @@
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23d466ad' viewBox='0 0 30 30'%3e%3cpath stroke='%23d466ad' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   }
 
+  /* --- MOBILE SPECIFIC LAYOUT --- */
   @media (max-width: 768px) {
+    
     .navbar-collapse {
-      text-align: right;
-      padding-right: 1rem;
-      flex-direction: column;
-      align-items: flex-end;
+      /* Align container text to right */
+      text-align: right; 
+      padding-right: 0; 
+      
+      /* Increased top padding (Gap between Hamburger and Plugins) */
+      padding-top: 0; 
+      padding-bottom: 1rem;
     }
+
+    /* Force the UL to ignore 'align-items-center' and align right */
+    .navbar-nav {
+      align-items: flex-end !important; 
+      width: 100%;
+    }
+
+    /* Force links to align text to the right */
+    .navbar-nav .nav-link {
+      text-align: right;
+      width: 100%; /* Full width for easier tapping */
+      padding-right: 0; /* Ensure it hits the edge */
+    }
+
+    /* --- FIX FOR JUMPING 'PLUGINS' --- */
+    /* This ensures the text and the arrow stay glued to the right */
+    .navbar-nav .dropdown-toggle {
+      display: flex;
+      justify-content: flex-end; 
+      align-items: center;
+    }
+
+    /* --- DROPDOWN MOBILE RESET --- */
     .dropdown-menu {
       position: static !important;
-      right: 0 !important;
       text-align: right !important;
+      background-color: transparent !important;
+      box-shadow: none;
+      padding-top: 0;
+      padding-bottom: 0.5rem;
+      border: none;
     }
-    .navbar .nav-link.cart-icon { margin: 0.5rem 0; }
+
+    .dropdown-menu .dropdown-item {
+      color: rgba(255, 255, 255, 0.5);
+      padding: 0.5rem 0;
+      background-color: transparent !important;
+      font-size: 0.95rem;
+      text-align: right; /* Explicitly align dropdown items */
+    }
+
+    .dropdown-menu .dropdown-item:hover,
+    .dropdown-menu .dropdown-item:focus {
+      color: white;
+      background-color: transparent !important;
+    }
+
+    /* --- ACCOUNT ICON MOBILE --- */
+    .navbar .nav-link.account-icon { 
+      /* Reduced gap between Downloads and Account */
+      margin-top: 0.5rem !important; 
+      margin-left: auto; /* Push to right */
+      margin-right: 0;   /* Ensure flush right */
+    }
+    
+    /* Remove side margins on mobile nav items */
+    .navbar .nav-item {
+      margin-right: 0;
+      margin-left: 0;
+    }
   }
 
   /* Footer */
@@ -1018,6 +1099,17 @@
 
   .cursor-pointer { cursor: pointer; }
 
+  .faq-v2 a {
+    color: inherit;           /* Inherit the grey (text-white-50) from the parent text */
+    text-decoration: underline;
+    text-underline-offset: 3px; /* Adds a tiny gap for better readability */
+    transition: color 0.2s ease;
+  }
+
+  .faq-v2 a:hover {
+    color: #fff !important;   /* Force bright white on hover */
+  }
+
 /* STICKY FOOTER CTA */
   .sticky-footer-wrapper {
     position: fixed;
@@ -1048,6 +1140,12 @@
 
   .sticky-footer-wrapper.is-visible.footer-reached {
     transform: translateY(100%); /* Slide it back down */
+  }
+
+  .sticky-footer-logo {
+    height: 30px; /* Keep it compact so the bar doesn't get too tall */
+    width: auto;
+    display: block;
   }
 
 /* LEGACY / UTILITY PAGES */
