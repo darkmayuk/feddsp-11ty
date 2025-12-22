@@ -982,6 +982,23 @@
     color: var(--brand-pink) !important;
   }
 
+  /* Overview Section Background */
+  .overview-bg {
+    position: relative;
+    /* Layer 1: Linear Gradient (Top to Bottom). 
+      Starts at 85% opacity black, ends at 95% opacity black.
+      This darkens the image significantly so the white cards pop.
+    */
+    background-image: 
+      linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)),
+      url('/assets/images/products/phat-3d.jpg');
+    
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+
+  }
+
   /* Audio Player */
   .track-btn {
     background: #fff;
