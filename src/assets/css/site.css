@@ -21,6 +21,9 @@
     
     /* Filters */
     --logo-pink-filter: brightness(0) saturate(100%) invert(60%) sepia(35%) saturate(848%) hue-rotate(282deg) brightness(87%) contrast(92%);
+
+    /* Rainbow border */
+    --rainbow-grad: linear-gradient(135deg, #d366ac, #be1e2d, #f15a29, #228340, #f5c042, #204963);
   }
 
   html,
@@ -55,7 +58,7 @@
   }
 
   h1 { font-size: 5rem; }
-  h2 { font-size: 4rem; }
+  h2 { font-size: 5rem; }
   h3 { font-size: 3.5rem; }
   h4 { font-size: 3rem; }
   h5 { font-size: 2.5rem; }
@@ -128,69 +131,69 @@
 /* UI ELEMENTS (BUTTONS & CARDS) */
 
   /* Buttons */
-  .btn-pill {
-    border-radius: 999px;
-    padding: 0.8rem 2.5rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    border: none;
-    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
-  }
+    .btn-pill {
+      border-radius: 999px;
+      padding: 0.8rem 2.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border: none;
+      transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    }
 
-  .btn-brand-solid {
-    background-color: var(--brand-pink) !important;
-    color: white !important;
-    border: 2px solid var(--brand-pink) !important;
-  }
+    .btn-brand-solid {
+      background-color: var(--brand-pink) !important;
+      color: white !important;
+      border: 2px solid var(--brand-pink) !important;
+    }
 
-  .btn-brand-solid:hover {
-    background-color: white !important;
-    color: var(--brand-pink) !important;
-    transform: translateY(-2px);
-  }
+    .btn-brand-solid:hover {
+      background-color: white !important;
+      color: var(--brand-pink) !important;
+      transform: translateY(-2px);
+    }
 
-  .btn-grey-solid {
-    background-color: #e9ecef;
-    color: var(--dark-grey);
-    border: 1px solid #e9ecef;
-  }
+    .btn-grey-solid {
+      background-color: #e9ecef;
+      color: var(--dark-grey);
+      border: 1px solid #e9ecef;
+    }
 
-  .btn-grey-solid:hover {
-    background-color: #dde0e3;
-    color: black;
-    transform: translateY(-2px);
-  }
+    .btn-grey-solid:hover {
+      background-color: #dde0e3;
+      color: black;
+      transform: translateY(-2px);
+    }
 
-  /* Cards (V2) */
-  .card-v2 {
-    padding: 2.5rem 2rem;
-    border-radius: 1.5rem;
-    height: 100%;
-    transition: transform 0.3s ease;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-  }
+  /* Cards */
+    .card-v2 {
+      padding: 2.5rem 2rem;
+      border-radius: 1.5rem;
+      height: 100%;
+      transition: transform 0.3s ease;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+    }
 
-  .card-v2:hover {
-    transform: translateY(-5px);
-  }
+    .card-v2:hover {
+      transform: translateY(-5px);
+    }
 
-  .card-white {
-    background-color: white;
-    color: var(--dark-grey);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-  }
+    .card-white {
+      background-color: white;
+      color: var(--dark-grey);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
 
-  .card-grey {
-    background-color: var(--grey-bg);
-    color: var(--dark-grey);
-  }
+    .card-grey {
+      background-color: var(--grey-bg);
+      color: var(--dark-grey);
+    }
 
-  .card-black {
-    background-color: black;
-    color: white;
-  }
+    .card-black {
+      background-color: black;
+      color: white;
+    }
 
 /* NAVBAR & FOOTER */
 
@@ -911,7 +914,7 @@
     filter: brightness(0.95);
   }
 
-/* PRODUCT PAGE (V2 SPECIFIC) */
+/* PRODUCT PAGE */
 
   @media (max-width: 768px) {
     
@@ -942,190 +945,336 @@
     }
   }
 
-  /* Hero V2 */
-  .hero-v2 {
-    background-color: var(--dark-grey);
-    color: white;
-    padding: 4rem 0;
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .hero-logo-img {
-    max-width: 90%;
-    width: 900px;
-    height: auto;
-  }
+  /* Hero */
+    .hero-v2 {
+      background-color: var(--dark-grey);
+      color: white;
+      padding: 4rem 0;
+      overflow: hidden;
+      position: relative;
+    }
 
-  .hero-product-container {
-    max-width: 550px;
-    margin: 0 auto;
-  }
+    .hero-v2 h2 {
+      font-weight: 600 !important; 
+    }
 
-  .gradient-border-wrap {
-    position: relative;
-    background: linear-gradient(135deg, #d366ac, #be1e2d, #f15a29, #228340, #f5c042, #204963);
-    padding: 3px;
-    border-radius: 1.5rem;
-    display: inline-block;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  }
-
-  .gradient-border-wrap img {
-    display: block;
-    border-radius: 1.3rem;
-    background: var(--dark-grey);
-    width: 100%;
-  }
-
-  .pink-price {
-    color: var(--brand-pink) !important;
-  }
-
-  /* Overview Section Background */
-  .overview-bg {
-    position: relative;
-    /* Layer 1: Linear Gradient (Top to Bottom). 
-      Starts at 85% opacity black, ends at 95% opacity black.
-      This darkens the image significantly so the white cards pop.
-    */
-    background-image: 
-      linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)),
-      url('/assets/images/products/phat-3d.jpg');
+    .hero-thin {
+      font-weight: 200 !important;
+      opacity: 0.9;
+    }
     
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    .hero-logo-img {
+      max-width: 90%;
+      width: 900px;
+      height: auto;
+    }
 
-  }
+    .hero-product-container {
+      max-width: 550px;
+      margin: 0 auto;
+    }
 
-  /* Audio Player */
-  .track-btn {
-    background: #fff;
-    border: 1px solid #ccc;
-    color: #888;
-    border-radius: 999px;
-    padding: 0.5rem 0.8rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
+    .gradient-border-wrap {
+      position: relative;
+      background: var(--rainbow-grad);
+      padding: 3px;
+      border-radius: 1.5rem;
+      display: inline-block;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
 
-  .track-btn:hover {
-    border-color: var(--brand-pink);
-    color: var(--brand-pink);
-  }
+    .gradient-border-wrap img {
+      display: block;
+      border-radius: 1.3rem;
+      background: var(--dark-grey);
+      width: 100%;
+    }
 
-  .track-btn.active {
-    background: var(--brand-pink);
-    border-color: var(--brand-pink);
-    color: white;
-  }
+    .pink-price {
+      color: var(--brand-pink) !important;
+    }
 
-  .play-btn-compact {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: var(--brand-pink);
-    color: white;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    transition: transform 0.2s ease;
-    box-shadow: 0 4px 10px rgba(212, 102, 173, 0.3);
-  }
+    .hero-try-link {
+      transition: color 0.1s ease;
+      text-underline-offset: 3px;
+    }
 
-  .play-btn-compact:hover {
-    transform: scale(1.05);
-  }
+    .hero-try-link:hover,
+    .hero-try-link:active {
+      color: #fff !important;
+      cursor: pointer;
+    }
 
-  .play-btn-compact .bi-play-fill {
-    margin-left: 5px;
-  }
+  /* Features section */
 
-  /* Add this: Ensure Pause icon stays mathematically centered */
-  .play-btn-compact .bi-pause-fill {
-    margin-left: 0px;
-  }
+    @media (min-width: 992px) {
+      .mobile-collapse-body.collapse {
+        display: block !important;
+        height: auto !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+  
+      .feature-toggle-header {
+        pointer-events: none; 
+        cursor: default;
+      }
+    }
 
-  .toggle-ui-wrapper {
-    background: black;
-    border-radius: 999px;
-    padding: 4px;
-    display: inline-flex;
-    align-items: center;
-    width: 50px;
-    height: 28px;
-    position: relative;
-  }
 
-  .toggle-knob {
-    width: 20px;
-    height: 20px;
-    background: white;
-    border-radius: 50%;
-    position: absolute;
-    left: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  }
+    @media (max-width: 991px) {
+      .feature-toggle-header {
+        cursor: pointer;
+        position: relative;
+      }
+      
+      .feature-toggle-header:active {
+        opacity: 0.7;
+      }
 
-  /* FAQ V2 */
-  .faq-v2 details { 
-    border-bottom: 1px solid #ddd; 
-    margin-bottom: 0; 
-  }
+      .feature-toggle-header[aria-expanded="true"] + .mobile-preview {
+        display: none !important;
+      }
 
-  .faq-v2 summary {
-    padding: 1.5rem 0;
-    cursor: pointer;
-    list-style: none;
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center;
-    font-weight: 700; 
-    font-size: 1.1rem;
-  }
+      .mobile-preview {
+        cursor: pointer;
+        pointer-events: none; 
+      }
+    }
 
-  .faq-v2 summary::-webkit-details-marker { display: none; }
 
-  .faq-v2 summary::after { 
-    content: '+'; 
-    font-weight: 300; 
-    font-size: 1.5rem; 
-    color: var(--light-grey); 
-    transition: transform 0.2s ease;
-  }
+   
 
-  .faq-v2 details[open] summary::after { 
-    content: '+'; 
-    transform: rotate(45deg);
-  }
+  /* FAQ */
+    .faq-v2 details { 
+      border-bottom: 1px solid #ddd; 
+      margin-bottom: 0; 
+    }
 
-  .faq-v2 div { 
-    padding-bottom: 1.5rem; 
-    color: #bbb; 
-  }
+    .faq-v2 summary {
+      padding: 1.5rem 0;
+      cursor: pointer;
+      list-style: none;
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      font-weight: 700; 
+      font-size: 1.1rem;
+    }
 
-  .border-secondary {
-    border-color: rgba(255, 255, 255, 0.1) !important;
-  }
+    .faq-v2 summary::-webkit-details-marker { display: none; }
 
-  .cursor-pointer { cursor: pointer; }
+    .faq-v2 summary::after { 
+      content: '+'; 
+      font-weight: 300; 
+      font-size: 1.5rem; 
+      color: var(--light-grey); 
+      transition: transform 0.2s ease;
+    }
 
-  .faq-v2 a {
-    color: inherit;           /* Inherit the grey (text-white-50) from the parent text */
-    text-decoration: underline;
-    text-underline-offset: 3px; /* Adds a tiny gap for better readability */
-    transition: color 0.2s ease;
-  }
+    .faq-v2 details[open] summary::after { 
+      content: '+'; 
+      transform: rotate(45deg);
+    }
 
-  .faq-v2 a:hover {
-    color: #fff !important;   /* Force bright white on hover */
-  }
+    .faq-v2 div { 
+      padding-bottom: 1.5rem; 
+      color: #bbb; 
+    }
+
+    .border-secondary {
+      border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .cursor-pointer { cursor: pointer; }
+
+    .faq-v2 a {
+      color: inherit;           /* Inherit the grey (text-white-50) from the parent text */
+      text-decoration: underline;
+      text-underline-offset: 3px; /* Adds a tiny gap for better readability */
+      transition: color 0.2s ease;
+    }
+
+    .faq-v2 a:hover {
+      color: #fff !important;   /* Force bright white on hover */
+    }
+
+/* AUDIO PLAYER */
+
+  /* --- 1. Background & Sparkles --- */
+    .audio-experience-bg {
+      position: relative;
+      background-color: black;
+      background-image: 
+        linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 40%),
+        url('/assets/images/backgrounds/PLAYER BG.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+    }
+
+    .bokeh-video-overlay {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: screen; 
+      opacity: 1;
+      filter: grayscale(100%) contrast(1.5) brightness(0.8);
+    }
+    
+  /* --- 2. Header Gradient --- */
+    .gradient-text-audio {
+      background: linear-gradient(90deg, var(--hero-gradient-start), var(--hero-gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      /* Fallback color */
+      color: var(--hero-gradient-end); 
+    }
+
+  /* --- 3. The Player Card --- */
+    .player-card-v2 {
+      background: white;
+      border-radius: 2rem;
+      padding: 1rem;
+    }
+
+  /* --- 4. Track Selector Grid --- */
+    .track-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 100%;
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .track-item {
+      flex: 0 0 20%; /* Mobile: 5 items per row */
+      max-width: 20%;
+      text-align: center;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    /* Desktop: 10 items per row = 10% width */
+    @media (min-width: 992px) {
+      .track-item {
+        flex: 0 0 10%;
+        max-width: 10%;
+      }
+      h2.gradient-text-audio {
+        font-size: 8rem !important
+      }
+    }
+
+    .track-btn-text {
+      /* 1. Strip default button styles */
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      
+      /* 2. Force the Font */
+      /* Using standard sans-serif stack to match your "First Pic" target */
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+      font-weight: 700; /* Bold */
+      font-size: 0.75rem; /* Small and tight */
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      
+      /* 3. Inactive State */
+      color: #000;
+      opacity: 0.4; /* Greyed out by default */
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      position: relative; /* Needed for the notch positioning */
+    }
+
+    .track-btn-text:hover {
+      opacity: 0.7;
+    }
+
+    .track-btn-text.active {
+      opacity: 1
+    }
+  
+    .track-btn-text.active::before {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: black;
+      border-radius: 1px;
+    }
+
+  /* --- 5. Play Button --- */
+    .play-btn-large {
+      width: 70px;
+      height: 70px;
+      background: #222;
+      border-radius: 22px; 
+      color: white;
+      border: none;
+      font-size: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.1s ease, background 0.2s ease;
+      cursor: pointer;
+    }
+
+    .play-btn-large:hover {
+      background: #000;
+      transform: scale(1.02);
+    }
+
+    .play-btn-large:active { 
+      transform: scale(0.95); 
+    }
+
+    .play-btn-large .bi-play-fill { margin-left: 4px; }
+    .play-btn-large .bi-pause-fill { margin-left: 0; }
+
+
+  /* --- 6. Visualizer Bars --- */
+
+    .visualizer-bar {
+      width: 6px;
+      height: 10%; /* Default starting height */
+      border-radius: 999px;
+      background: #000; /* Default Dry Color (Black) */
+      transition: height 0.1s ease, background 0.3s ease;
+    }
+
+    /* RAINBOW MODE (triggered by JS adding .is-wet) */
+    .visualizer-container.is-wet .visualizer-bar {
+      background: var(--rainbow-grad); 
+    }
+
+
+  /* --- 7. Toggle Switch UI --- */
+  
+    .toggle-ui-wrapper {
+      background: black; /* Default Dry */
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+
+    .toggle-knob {
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      left: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
 
 /* STICKY FOOTER CTA */
   .sticky-footer-wrapper {
@@ -1133,36 +1282,61 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(26, 26, 26, 0.95); /* Dark Grey with transparency */
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1rem 0;
-    z-index: 1000; /* Ensure it floats above everything else */
-    backdrop-filter: blur(10px); /* Nice blur effect behind */
+    background-color: black;
+    padding: 1.2rem;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
     
-    /* Hidden state: pushed down below screen */
+    /* Hidden state */
     transform: translateY(100%);
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
+  .sticky-footer-wrapper::before,
+  .sticky-footer-wrapper::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--rainbow-grad);
+    z-index: 1001;
+  }
+
+  .sticky-footer-wrapper::before { top: 0; }
+  .sticky-footer-wrapper::after { bottom: 0; }
+
   .sticky-footer-wrapper.is-visible {
-    /* Visible state: slide up */
     transform: translateY(0);
   }
 
-  /* Adjust button spacing for the bar */
   .sticky-footer-wrapper .btn-pill {
-    padding: 0.5rem 2rem; /* Compact padding */
+    padding: 0.5rem 1.5rem;
     font-size: 0.9rem;
   }
 
   .sticky-footer-wrapper.is-visible.footer-reached {
-    transform: translateY(100%); /* Slide it back down */
+    transform: translateY(100%);
   }
 
   .sticky-footer-logo {
-    height: 30px; /* Keep it compact so the bar doesn't get too tall */
+    height: 25px;
     width: auto;
     display: block;
+  }
+
+  @media (max-width: 768px) {
+  
+    .sticky-footer-logo {
+      height: 20px; 
+    }
+
+    .sticky-footer-wrapper .btn-pill {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.7rem;
+      min-width: auto;
+      letter-spacing: 0;
+    }
   }
 
 /* LEGACY / UTILITY PAGES */

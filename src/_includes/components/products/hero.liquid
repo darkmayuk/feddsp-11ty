@@ -8,7 +8,7 @@
   </video>
   {% endif %}
 
-  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%); z-index: 1; pointer-events: none;"></div>
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 100%); z-index: 1; pointer-events: none;"></div>
 
   <div class="container position-relative" style="z-index: 2;">
     <p class="text-uppercase mb-5 text-white-50 lead">{{ product.badge }}</p>
@@ -28,17 +28,29 @@
     </div>
 
     <div class="carousel-actions d-flex justify-content-center align-items-center mt-3 gap-3 flex-wrap">
+      
       <a href="{{ product.buyLink }}" class="btn btn-pill btn-brand-solid btn-lg">BUY</a>
       
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center gap-2">
         {% if product.originalPrice %}
-        <span class="text-decoration-line-through fs-5 me-2 text-white-50">{{ product.originalPrice }}</span>
+        <span class="text-decoration-line-through fs-5 text-white-50">{{ product.originalPrice }}</span>
         {% endif %}
         <span class="text-white fs-4 fw-bold pink-price">{{ product.price }}</span>
       </div>
-      
+
+      {% if product.demoLink %}
+        <a href="{{ product.demoLink }}" class="text-white-50 text-decoration-underline small text-uppercase ms-2 hero-try-link">
+          TRY IT FOR FREE
+        </a>
+      {% endif %}
+
+    </div>
+
+    {% if product.discountText %}
+    <div class="mt-3">
       <p class="small text-white-50 m-0">{{ product.discountText }}</p>
     </div>
+    {% endif %}
 
   </div>
 </section>

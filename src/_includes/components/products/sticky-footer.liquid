@@ -1,17 +1,24 @@
 <div id="sticky-product-footer" class="sticky-footer-wrapper">
-  <div class="container d-flex justify-content-center justify-content-md-between align-items-center">
+  <div class="container-fluid px-1 px-md-5 d-flex justify-content-between align-items-center">
     
-    <div class="d-none d-md-block">
+    <div>
       <img src="{{ product.logo }}" alt="{{ product.name }}" class="sticky-footer-logo">
     </div>
 
-    <div class="d-flex gap-3 align-items-center">
-       <a href="{{ product.buyLink }}" class="btn btn-pill btn-brand-solid btn-sm">
+    <div class="text-white-50 small d-none d-xl-block mx-auto">
+      Founders Month discount valid until 20th February 2026
+    </div>
+
+    <div class="d-flex gap-2 gap-md-3 align-items-center">
+       <a href="{{ product.buyLink }}" class="btn btn-pill btn-brand-solid">
          BUY
        </a>
-       <a href="{{ product.demoLink | default: '#' }}" class="btn btn-pill btn-grey-solid btn-sm">
+       
+       {% if product.demoLink %}
+       <a href="{{ product.demoLink }}" class="btn btn-pill btn-grey-solid ms-sm-3">
          TRY IT FOR FREE
        </a>
+       {% endif %}
     </div>
 
   </div>

@@ -4,71 +4,94 @@
     "name": "PHATurator",
     "comingSoon": false,
     "badge": "New Release",
-    "headline": "Colour Your Sound",
-    "price": "£75",
-    "originalPrice": "£125",
+    "headline": "Colour Your Sound. <span class='hero-thin'>Instantly.</span>",
+    "price": "£50",
+    "originalPrice": "£75",
     "discountText": "Reduced price only applies to Founder's Month, first 1000 customers",
+    "buyLink": "https://feddsp.lemonsqueezy.com/buy/76718b9d-3cb2-4fd6-9964-12317135a261?checkout[custom][product_code]=fedDSP-PHAT",
+    "demoLink": "/downloads",
+    "manualLink": "#",
     "logo": "/assets/images/products/phat-logo.png",
     "image": "/assets/images/products/phat-thin.png",
     "heroVideo": "/assets/videos/test2.mp4",
-    "buyLink": "https://feddsp.lemonsqueezy.com/buy/76718b9d-3cb2-4fd6-9964-12317135a261?checkout[custom][product_code]=fedDSP-PHAT",
-    "demoLink": "#",
-    "manualLink": "#",
     "gradientStart": "#d366ac",
     "gradientEnd": "#be1e2d",
     "gradient2Start": "#be1e2d",
     "gradient2End": "#f15a29",
-    "gradient3Start": "#228340",
-    "gradient3End": "#f15a29",
+    "gradient3Start": "#f15a29",
+    "gradient3End": "#be1e2d",
     "gradient4Start": "#228340",
     "gradient4End": "#204963",
     "sections": {
       "overview": {
         "title": "Masterclass In<br>Saturation",
-        "card1Title": "Stacking saturations has never been this easy.",
-        "card1Text": "Get the weight and character of multi-stage saturation at the click of a button.<br><br>Top engineers routinely layer analogue gear to achieve richer harmonics, depth, and controlled grit. We've condensed that complex workflow into one intuitive tool.<br><br>Whether you need subtle harmonic glue or aggressive, textured fuzz, the tone remains musical, defined, and full of character. No complex setup, no learning curve - just use your ears, and mix with instinct and emotion.",
-        "card2Title": "Six styles of timeless saturations.",
-        "card2Text": "Each saturation model is obsessively engineered to capture the behaviour and character of its analogue original.",
-        "card3Title": "Zero Latency.<br>Featherlight.",
-        "card3Text": "We've removed the friction of legacy software: no dongles, no internet requirements, no barriers to your workflow. Engineered for efficiency, our plugins are light enough for huge sessions, and fast enough for real-time tracking."
+        "items": [
+          {
+            "title": "Zero Latency.<br>Featherlight.<br>Essential.",
+            "text": "We've removed the friction of legacy software: no dongles, no internet requirements, no barriers to your workflow. Engineered for maximum speed and efficiency, our plugins are light enough for huge sessions, and fast enough for real-time tracking.<br><br>It's just you and your sound, exactly as it should be."
+          },
+          {
+            "title": "Stacking saturations has never been this easy.",
+            "text": "Get the weight and character of high-end outboard gear at the click of a button. Top engineers routinely layer analogue gear to achieve richer harmonics, depth, and controlled grit. We've distilled the essence of that analogue signal chain into one intuitive tool.<br><br>No complex setup, no learning curve - just use your ears, and mix with instinct and emotion."
+          },
+          {
+            "title": "Six styles of timeless saturations.",
+            "text": "We didn't just emulate the tone, we captured the real analogue behavior.<br><br>From the snappy punch of British consoles to the creamy warmth of 70s preamps and vintage tape glue, these six algorithms are indistinguishable from the hardware. They breathe, break up, and react to your dynamics with the same musicality and emotion as the original units."
+          }
+        ]
       },
       "audio": {
-        "title": "Experience the Difference",
+        "title": "Experience The Difference",
         "samples": [
-          {
-            "name": "Bass",
-            "dry": "/assets/audio/PHAT_TEST_BASS_OFF.wav",
-            "wet": "/assets/audio/PHAT_TEST_BASS_ON.wav"
-          },
           {
             "name": "Drums",
             "dry": "/assets/audio/PHAT_TEST_DRUMS_OFF.wav",
             "wet": "/assets/audio/PHAT_TEST_DRUMS_ON.wav"
           },
           {
-            "name": "Guitar",
-            "dry": "/assets/audio/PHAT_TEST_GTR_OFF.wav",
-            "wet": "/assets/audio/PHAT_TEST_GTR_ON.wav"
-          },
-          {
-            "name": "Loops 1",
-            "dry": "/assets/audio/PHAT_TEST_LOOPS_OFF.wav",
-            "wet": "/assets/audio/PHAT_TEST_LOOPS_ON.wav"
-          },
-          {
-            "name": "Loops 2",
-            "dry": "/assets/audio/PHAT_TEST_LOOPS2_OFF.wav",
-            "wet": "/assets/audio/PHAT_TEST_LOOPS2_ON.wav"
-          },
-          {
-            "name": "Synth",
-            "dry": "/assets/audio/PHAT_TEST_SYNTH_OFF.wav",
-            "wet": "/assets/audio/PHAT_TEST_SYNTH_ON.wav"
+            "name": "Bass",
+            "dry": "/assets/audio/PHAT_TEST_BASS_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_BASS_ON.wav"
           },
           {
             "name": "Voice",
             "dry": "/assets/audio/PHAT_TEST_VOX_OFF.wav",
             "wet": "/assets/audio/PHAT_TEST_VOX_ON.wav"
+          },
+          {
+            "name": "Rock Mix",
+            "dry": "/assets/audio/PHAT_TEST_GTR_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_GTR_ON.wav"
+          },
+          {
+            "name": "Metal Mix",
+            "dry": null,
+            "wet": null
+          },
+          {
+            "name": "Beats",
+            "dry": "/assets/audio/PHAT_TEST_LOOPS_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_LOOPS_ON.wav"
+          },
+          {
+            "name": "808",
+            "dry": null,
+            "wet": null
+          },
+          {
+            "name": "Keys",
+            "dry": "/assets/audio/PHAT_TEST_SYNTH_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_SYNTH_ON.wav"
+          },
+          {
+            "name": "Trap Mix",
+            "dry": "/assets/audio/PHAT_TEST_LOOPS2_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_LOOPS2_ON.wav"
+          },
+          {
+            "name": "EDM Mix",
+            "dry": null,
+            "wet": null
           }
         ]
       },

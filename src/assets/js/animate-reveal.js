@@ -2,19 +2,15 @@ document.addEventListener("DOMContentLoaded", function() {
   
   /* --- 1. GLOBAL AUTOMATION --- */
   // Find standard elements that should always animate, and tag them.
-  // This saves you from having to manually add the class to every single paragraph.
   const selectors = "section h2:not(.no-reveal), section p:not(.no-reveal), section img:not(.no-reveal), section .btn:not(.no-reveal), section video:not(.no-reveal)";
   const autoTargets = document.querySelectorAll(selectors);
   
   autoTargets.forEach((el) => {
-    // Only add the class if it's not already there
     el.classList.add("reveal-on-scroll");
   });
 
 
   /* --- 2. THE OBSERVER ENGINE --- */
-  // Now we look for EVERYTHING with the class '.reveal-on-scroll'
-  // This catches the auto-tagged elements above AND the manual ones you put in the HTML.
   const elementsToReveal = document.querySelectorAll(".reveal-on-scroll");
 
   const observer = new IntersectionObserver((entries) => {
@@ -26,35 +22,33 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }, {
     threshold: 0.1,      // Trigger when 10% is visible
-    rootMargin: "0px 0px -30px 0px" // Offset slightly so it doesn't trigger too early
+    rootMargin: "0px 0px -30px 0px" // Offset slightly
   });
 
-  // Start watching
   elementsToReveal.forEach((el) => {
     observer.observe(el);
   });
 
+
   /* --- 3. STICKY FOOTER LOGIC --- */
-  const heroSection = document.querySelector('.hero-v2');
-  const siteFooter = document.querySelector('.site-footer'); // Find the main footer
   const stickyFooter = document.getElementById('sticky-product-footer');
+  const siteFooter = document.querySelector('.site-footer'); // Main footer at bottom
 
-  if (heroSection && stickyFooter) {
+  if (stickyFooter) {
     
-    // Observer 1: Watch the Hero (Show bar when Hero is gone)
-    const heroObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          stickyFooter.classList.add('is-visible');
-        } else {
-          stickyFooter.classList.remove('is-visible');
-        }
-      });
-    }, { root: null, threshold: 0 });
-    
-    heroObserver.observe(heroSection);
+    // A. SHOW ON SCROLL
+    // Instead of watching the hero, we just check if the user has scrolled down at all.
+    window.addEventListener('scroll', () => {
+      // 10px buffer prevents jitter on tiny movements
+      if (window.scrollY > 10) {
+        stickyFooter.classList.add('is-visible');
+      } else {
+        stickyFooter.classList.remove('is-visible');
+      }
+    });
 
-    // Observer 2: Watch the Footer (Hide bar when Footer appears)
+    // B. HIDE WHEN REACHING BOTTOM FOOTER
+    // This prevents the sticky bar from overlapping your actual footer content.
     if (siteFooter) {
       const footerObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
