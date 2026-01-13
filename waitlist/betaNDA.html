@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>fedDSP — Beta NDA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="/FedDSPCustomFont.otf" as="font" type="font/otf" crossorigin>
+
+  <script async src="https://plausible.io/js/pa-J3F9V_aWzkP06lWawfHxV.js"></script>
+  <script>
+    window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments) };
+    plausible.init = plausible.init || function (i) { plausible.o = i || {} };
+    plausible.init();
+  </script>
+
+  <style>
+    :root {
+      --accent-pink: #de54af;
+      --error-red: #E53024;
+      --panel-radius: 28px;
+    }
+
+    @font-face {
+      font-family: 'FedDSPHeader';
+      src: url('/FedDSPCustomFont.otf') format('opentype');
+      font-display: swap;
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      min-height: 100svh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      background: #000;
+      color: #fff;
+      font-family: 'Montserrat', Arial, sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Headings */
+    h1, h2 {
+      font-family: 'FedDSPHeader', sans-serif;
+      line-height: .9;
+      letter-spacing: .04em;
+    }
+
+    /* Background layers */
+    #background-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      display: block;
+    }
+
+    #aurora {
+      position: fixed;
+      inset: -25%;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .18;
+      background:
+        radial-gradient(1200px 900px at 25% 40%, rgba(222, 84, 175, .45), rgba(222, 84, 175, 0) 60%),
+        radial-gradient(1000px 800px at 70% 65%, rgba(255, 180, 230, .25), rgba(255, 180, 230, 0) 65%);
+      transform: translate3d(0, 0, 0);
+      animation: auroraDrift 200s linear infinite alternate;
+      will-change: transform;
+    }
+
+    @keyframes auroraDrift {
+      from { transform: translate3d(0, 0, 0) }
+      to { transform: translate3d(200px, -200px, 0) }
+    }
+
+    /* Main wrap */
+    .wrap {
+      flex: 1 0 auto;
+      display: flex;
+      align-items: center; /* Vertically center if short, scrolls if long */
+      justify-content: center;
+      padding: 3rem 1rem;
+      position: relative;
+      z-index: 0;
+    }
+
+    /* NDA SPECIFIC STYLES 
+       White document panel overrides
+    */
+    .nda-panel {
+      background: #fff;
+      color: #1a1a1a;
+      border-radius: var(--panel-radius);
+      box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+      padding: 3rem;
+      position: relative;
+    }
+
+    @media(max-width: 768px) {
+      .nda-panel { padding: 2rem 1.5rem; }
+    }
+
+    /* Typography within the white panel */
+    .nda-panel h1 {
+      color: #000;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+    
+    .nda-panel .meta-date {
+      color: #666;
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-bottom: 2.5rem;
+      display: block;
+    }
+
+    .nda-panel h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nda-panel p, .nda-panel li {
+      line-height: 1.6;
+      font-size: 0.95rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .nda-panel ul, .nda-panel ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .nda-panel li {
+      margin-bottom: 0.5rem;
+    }
+
+    .nda-panel strong {
+      font-weight: 700;
+      color: #000;
+    }
+
+    .logo-header {
+        max-height: 50px;
+        margin-bottom: 1.5rem;
+        /* Invert logo for white background if needed, or use black version. 
+           Assuming current logo works or using filters */
+        filter: invert(1); 
+    }
+
+    /* Footer */
+    footer.site-footer {
+      margin-top: auto;
+      flex-shrink: 0;
+      text-align: center;
+      padding: 1rem 0 1.25rem;
+      font-size: .72rem;
+      color: rgba(255, 255, 255, .55);
+    }
+
+    footer.site-footer p {
+      margin: 0;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="background-canvas" aria-hidden="true"></canvas>
+  <div id="aurora" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-9">
+          
+          <div class="nda-panel">
+            <img src="/fedDSP_logo_text_small_WonB.png" alt="fedDSP" class="logo-header">
+            
+            <h1>fedDSP Ltd Beta Programme Non-Disclosure Agreement (NDA)</h1>
+            <span class="meta-date">Last updated: 13th January 2026</span>
+
+            <p>This Non-Disclosure Agreement (the “Agreement”) is made between <strong>fedDSP Ltd</strong> (a company incorporated in England and Wales) (“fedDSP”, the “Company”, “we”, “us”, “our”) and the individual or entity participating in the fedDSP beta programme (“you”, the “Tester”).</p>
+
+            <p>This Agreement applies to your access to and use of any pre-release fedDSP software and related materials provided as part of the beta programme (the “Software”).</p>
+
+            <h3>1. Purpose</h3>
+            <p>You are invited to participate in a private beta test of the Software. The purpose of this Agreement is to protect the confidentiality of the Software and any related non-public information, and to set clear rules for use and feedback during the beta.</p>
+
+            <h3>2. Confidential Information</h3>
+            <p>In this Agreement, “Confidential Information” means any non-public information relating to the Software or fedDSP, including (without limitation):</p>
+            <ul>
+                <li>The Software (including builds, installers, authorisation methods, features, functionality, UI/UX, audio behaviour, presets, settings, and performance characteristics);</li>
+                <li>Documentation, instructions, release notes, communications, support materials, and beta access details;</li>
+                <li>Any non-public information about fedDSP products, pricing, release timing, or business plans; and</li>
+                <li>Any feedback, bug reports, test results, and discussions relating to the Software.</li>
+            </ul>
+            <p>Confidential Information does not include information that you can demonstrate: (a) is or becomes public through no breach of this Agreement; (b) you lawfully possessed before receiving it from us; or (c) you lawfully receive from a third party without confidentiality obligations.</p>
+
+            <h3>3. Confidentiality Obligations</h3>
+            <p>You agree that you will:</p>
+            <ol type="a">
+                <li>Keep all Confidential Information strictly confidential;</li>
+                <li>Not share, copy, reproduce, distribute, sell, transfer, publish, or disclose any Confidential Information (in whole or in part) to any person, company, or third party;</li>
+                <li>Not post, discuss, display, or demonstrate the Software or any Confidential Information in public or semi-public spaces, including forums, Discord servers, social media, livestreams, videos, screenshots, screen recordings, demos, or public comparisons; and</li>
+                <li>Provide feedback and discuss the Software only directly with fedDSP through the channels we provide.</li>
+            </ol>
+            <p>You may disclose Confidential Information only if required by law or court order, and (where legally permitted) you must give us prompt written notice so we can seek appropriate protection.</p>
+
+            <h3>4. No Public Reviews Until Official Release</h3>
+            <p>To protect the integrity of the beta and the public launch, you agree that you will not publish or share any public review, rating, “first look”, walkthrough, shootout, benchmark, or public opinion about the Software until the plugin has been officially released by fedDSP.</p>
+            <p>This includes (without limitation) public posts, articles, videos, livestreams, podcasts, forum threads, or social media commentary that evaluates or describes the Software’s sound, features, performance, stability, CPU usage, or suitability for use.</p>
+            <p>Private feedback to fedDSP is always welcome and encouraged.</p>
+
+            <h3>5. Licence for Testing</h3>
+            <p>Subject to your compliance with this Agreement, fedDSP grants you a limited, non-exclusive, non-transferable, revocable licence to install and use the Software solely for testing and evaluation purposes.</p>
+            <p>You may install the Software on up to three (3) computers that you own or control.</p>
+            <p>The Software remains the exclusive property of fedDSP. All intellectual property rights in the Software are owned by fedDSP and/or its licensors.</p>
+            <p>You must not modify, adapt, translate, reverse engineer, decompile, disassemble, or attempt to derive source code from the Software, except to the extent such restrictions are prohibited by applicable law.</p>
+            <p>This testing licence will expire automatically upon the official public release of the Software (or the relevant product), or earlier upon our written notice. After release, you may request a separate perpetual licence for the released product by emailing support@feddsp.com from the email address used for the beta. If approved, we will provide instructions to activate it via your fedDSP account.</p>
+            <p>We reserve the right to suspend or revoke beta access at any time, including (without limitation) if feedback is not provided within a reasonable timeframe, or if we believe this Agreement has been breached.</p>
+            <p>On termination or revocation, you must stop using the Software immediately and (if requested by us) delete/uninstall it from all devices under your control.</p>
+
+            <h3>6. Licence Following Release (Goodwill / Discretionary)</h3>
+            <p>Separately from any licence you may request under Section 5, fedDSP’s intention is to provide a full lifetime licence for the released product to Testers who meaningfully participate in the beta by providing timely, useful, and honest feedback.</p>
+            <p>You acknowledge and agree that:</p>
+            <ul>
+                <li>Any lifetime licence is provided as a goodwill gesture;</li>
+                <li>The decision whether to grant a lifetime licence (and on what terms) is entirely at fedDSP’s discretion; and</li>
+                <li>Any lifetime licence (if granted) is separate from the testing licence in Section 5 and does not extend or replace that testing licence.</li>
+            </ul>
+
+            <h3>7. Feedback</h3>
+            <p>You may provide feedback voluntarily (including bug reports, suggestions, ideas, and test results) (“Feedback”). You grant fedDSP a worldwide, perpetual, irrevocable, royalty-free licence to use, reproduce, modify, incorporate, and otherwise exploit your Feedback for any purpose, including improving, developing, publicising, and marketing fedDSP products, without compensation or obligation to you.</p>
+            <p><strong>Use of your name / public quoting:</strong> Unless you notify us otherwise, you agree that fedDSP may quote or publish Feedback (including your name and/or public-facing handle) in promotional materials. If you do not want your name or comments used publicly, you may opt out at any time by notifying fedDSP, and we will honour that request.</p>
+
+            <h3>8. Liability, “As Is” Software, and Enforcement</h3>
+            <p>You acknowledge that unauthorised disclosure or misuse of Confidential Information may cause harm to fedDSP and that you may be legally responsible for any breach of this Agreement.</p>
+            <p>The Software is provided “as is” and “as available”, without warranty of any kind (express or implied). You acknowledge that beta software may be unstable and may cause crashes, incompatibilities, or data loss, and you are responsible for backing up your sessions and data.</p>
+            <p>To the fullest extent permitted by law, fedDSP shall not be liable for any loss or damage arising from your use of the Software, including any indirect or consequential losses.</p>
+            <p>You agree that fedDSP may seek injunctive relief (including interim relief) and any other remedies available in law or equity for actual or threatened breach of this Agreement.</p>
+
+            <h3>9. Governing Law and Jurisdiction</h3>
+            <p>This Agreement and any dispute or claim arising out of or in connection with it shall be governed by and construed in accordance with the laws of England and Wales, and the courts of England and Wales shall have exclusive jurisdiction.</p>
+
+            <h3>10. General</h3>
+            <p><strong>Entire agreement:</strong> This Agreement constitutes the entire agreement between you and fedDSP regarding the beta Software and supersedes any prior understandings on the subject.</p>
+            <p><strong>Severability:</strong> If any provision is held invalid or unenforceable, the remaining provisions remain in full force and effect.</p>
+            <p><strong>No waiver:</strong> A failure to enforce any provision is not a waiver of that provision.</p>
+            <p><strong>Assignment:</strong> You may not assign or transfer this Agreement or your rights under it. fedDSP may assign this Agreement in connection with a merger, acquisition, or sale of assets.</p>
+
+            <h3>How You Accept This Agreement</h3>
+            <p>This Agreement is accepted as part of the fedDSP Beta Onboarding Form. Please refer to the onboarding form for the required confirmation and signing process.</p>
+          
+          </div> </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer ms-5 me-5">
+    <p>© Copyright fedDSP 2026<br>
+      fedDSP is a trading name of fedDSP Ltd, Registered in England &amp; Wales, Company Number 16604307.
+      Registered Office: Ward Court, 203 Ecclesall Road, Sheffield S11 8HW, United Kingdom.</p>
+  </footer>
+
+  <script>
+    /* Sparkles background: wrap edges, no drift, tiny zero-mean jitter */
+    (() => {
+      const canvas = document.getElementById('background-canvas');
+      const ctx = canvas.getContext('2d', { alpha: true });
+
+      const DPR = Math.max(1, Math.min(1.5, window.devicePixelRatio || 1));
+      let W = 0, H = 0;
+
+      const mouse = { x: 0, y: 0, active: false, radius: 110 };
+      let particles = [];
+      const LINK_DIST = 170;
+      const LINK_DIST2 = LINK_DIST * LINK_DIST;
+      const EDGE_WRAP_MARGIN = 24;
+
+      function resize() {
+        W = Math.floor(window.innerWidth);
+        H = Math.floor(window.innerHeight);
+        canvas.width = Math.floor(W * DPR);
+        canvas.height = Math.floor(H * DPR);
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+        initParticles();
+      }
+
+      function initParticles() {
+        const area = W * H;
+        const N = Math.min(140, Math.max(80, Math.round(area / 17000)));
+        particles = [];
+        for (let i = 0; i < N; i++) {
+          particles.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            size: 1 + Math.random() * 1.1,
+            seed: Math.random() * 1000
+          });
+        }
+      }
+
+      function flow(x, y, t) {
+        const a = Math.sin(0.0023 * x + 0.0017 * y + 0.7 * t);
+        const b = Math.cos(0.0019 * x - 0.0021 * y - 0.6 * t);
+        const c = Math.sin(0.0011 * y - 0.0013 * x + 0.5 * t);
+        return [a + c * 0.6, b - c * 0.6];
+      }
+
+      let last = performance.now();
+      function loop(now) {
+        const dt = Math.min(0.04, (now - last) / 1000);
+        last = now;
+        const t = now * 0.0012;
+
+        ctx.clearRect(0, 0, W, H);
+
+        for (let p of particles) {
+          const [fx, fy] = flow(p.x + p.seed, p.y - p.seed, t);
+          p.vx += fx * 0.02 * dt * 60;
+          p.vy += fy * 0.02 * dt * 60;
+
+          if (mouse.active) {
+            const dx = p.x - mouse.x, dy = p.y - mouse.y;
+            const dist = Math.hypot(dx, dy), R = mouse.radius * 1.1;
+            if (dist < R && dist > 0.01) {
+              const f = (1 - dist / R) * 0.06;
+              p.vx += (dx / dist) * f;
+              p.vy += (dy / dist) * f;
+            }
+          }
+
+          p.vx += (Math.random() - 0.5) * 0.006 * dt * 60;
+          p.vy += (Math.random() - 0.5) * 0.006 * dt * 60;
+
+          p.vx *= 0.988; p.vy *= 0.988;
+          const sp = Math.hypot(p.vx, p.vy), maxSp = 1.0;
+          if (sp > maxSp) { const s = maxSp / sp; p.vx *= s; p.vy *= s; }
+
+          p.x += p.vx; p.y += p.vy;
+
+          if (p.x < -EDGE_WRAP_MARGIN) p.x += W + EDGE_WRAP_MARGIN * 2;
+          else if (p.x > W + EDGE_WRAP_MARGIN) p.x -= W + EDGE_WRAP_MARGIN * 2;
+          if (p.y < -EDGE_WRAP_MARGIN) p.y += H + EDGE_WRAP_MARGIN * 2;
+          else if (p.y > H + EDGE_WRAP_MARGIN) p.y -= H + EDGE_WRAP_MARGIN * 2;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255,255,255,0.35)';
+          ctx.fill();
+        }
+
+        if (mouse.active) { drawLines(t); }
+
+        requestAnimationFrame(loop);
+      }
+
+      function drawLines(t) {
+        const mx = mouse.x, my = mouse.y, R = mouse.radius;
+        const subset = [];
+        const bound = R + LINK_DIST;
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          if (Math.abs(p.x - mx) <= bound && Math.abs(p.y - my) <= bound) {
+            subset.push(i);
+          }
+        }
+        if (!subset.length) return;
+
+        const g = ctx.createRadialGradient(mx, my, 0, mx, my, R * 1.2);
+        g.addColorStop(0.00, 'rgba(255,225,242,0.95)');
+        g.addColorStop(0.35, 'rgba(245,140,205,0.95)');
+        g.addColorStop(0.70, 'rgba(222,84,175,0.93)');
+        g.addColorStop(1.00, 'rgba(222,84,175,0.00)');
+
+        ctx.globalCompositeOperation = 'screen';
+
+        let edges = 0, EDGE_LIMIT = 700;
+        for (let ai = 0; ai < subset.length; ai++) {
+          const i = subset[ai], a = particles[i];
+          for (let bi = ai + 1; bi < subset.length; bi++) {
+            const j = subset[bi], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const d2 = dx * dx + dy * dy;
+            if (d2 > LINK_DIST2) continue;
+
+            const dLine = segDist(mx, my, a.x, a.y, b.x, b.y);
+            if (dLine >= R) continue;
+
+            const intensity = 1 - (dLine / R);
+            const dist = Math.sqrt(d2);
+            const opacity = Math.min(1, (1 - dist / LINK_DIST) * (0.35 + intensity * 0.65));
+            const swell = 1 + intensity * 2.0;
+
+            ctx.lineWidth = swell * 1.7;
+            ctx.strokeStyle = g;
+            ctx.globalAlpha = Math.min(1, 0.10 + opacity * 0.55);
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+
+            ctx.lineWidth = swell * 0.85;
+            ctx.globalAlpha = Math.min(1, 0.20 + opacity * 0.85);
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+
+            if (++edges > EDGE_LIMIT) break;
+          }
+          if (edges > EDGE_LIMIT) break;
+        }
+
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-over';
+      }
+
+      function segDist(px, py, x1, y1, x2, y2) {
+        const dx = x2 - x1, dy = y2 - y1;
+        const len2 = dx * dx + dy * dy || 1;
+        let t = ((px - x1) * dx + (py - y1) * dy) / len2;
+        t = Math.max(0, Math.min(1, t));
+        const nx = x1 + t * dx, ny = y1 + t * dy;
+        const ddx = px - nx, ddy = py - ny;
+        return Math.hypot(ddx, ddy);
+      }
+
+      function enablePointer() {
+        const move = (x, y) => { mouse.x = x; mouse.y = y; mouse.active = true; };
+        window.addEventListener('pointermove', e => move(e.clientX, e.clientY));
+        window.addEventListener('pointerenter', e => move(e.clientX, e.clientY));
+        window.addEventListener('pointerdown', e => move(e.clientX, e.clientY));
+        window.addEventListener('pointerleave', () => { mouse.active = false; });
+
+        window.addEventListener('touchstart', e => {
+          const t = e.touches[0]; if (t) move(t.clientX, t.clientY);
+        }, { passive: true });
+        window.addEventListener('touchmove', e => {
+          const t = e.touches[0]; if (t) move(t.clientX, t.clientY);
+        }, { passive: true });
+        window.addEventListener('touchend', () => { mouse.active = false; });
+      }
+
+      resize(); enablePointer();
+      window.addEventListener('resize', resize);
+      requestAnimationFrame(loop);
+    })();
+  </script>
+</body>
+
+</html>

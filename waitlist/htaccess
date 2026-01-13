@@ -1,0 +1,20 @@
+RewriteEngine On
+
+# Let existing files and folders work as normal
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Route these product URLs to the homepage (case-insensitive, with or without trailing slash)
+RewriteRule ^(fiery|phaturator|vca|opto|leone)/?$ /index.html [L,NC]
+
+# Serve HTML files without the extension
+# Condition: If the request is NOT a directory...
+RewriteCond %{REQUEST_FILENAME} !-d
+# Condition: ...but the filename + .html DOES exist...
+RewriteCond %{REQUEST_FILENAME}.html -f
+# Action: Rewrite the request to append .html internally
+RewriteRule ^(.*)$ $1.html [L]
+
+ErrorDocument 404 /404.html
+
