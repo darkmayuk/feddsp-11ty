@@ -4,10 +4,10 @@
     "name": "PHATurator",
     "comingSoon": false,
     "badge": "New Release",
-    "headline": "Make tracks feel expensive in 10 seconds. <span class='hero-thin'>Bigger, louder, richer saturation you can <i>track through</i> - with offline-ready licensing, fast A/B shortcuts, and a lightweight CPU footprint.</span>",
-    "price": "£50",
-    "originalPrice": "£75",
-    "discountText": "No iLok. No always-online checks. Full-feature trial with a brief audio watermark.<br><i>Reduced price only applies to Founder's Month, 1-28 February 2026</i>",
+    "headline": "Make tracks feel expensive in 10 seconds. <span class='hero-thin'>Bigger, louder, richer saturation you can <i>track through</i> - with offline-ready licensing, no iLok, and a lightweight CPU footprint.</span>",
+    "price": "£65",
+    "originalPrice": "£95",
+    "discountText": "Reduced price only applies to Founder's Month, 1-28 February 2026",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/76718b9d-3cb2-4fd6-9964-12317135a261?checkout[custom][product_code]=fedDSP-PHAT",
     "demoLink": "/downloads",
     "manualLink": "#",
@@ -27,22 +27,22 @@
         "title": "Masterclass In<br>Saturation",
         "items": [
           {
-            "title": "Stacking saturations has never been this easy.",
-            "text": "Get the weight and character of high-end outboard gear at the click of a button. Top engineers routinely layer analogue gear to achieve richer harmonics, depth, and controlled grit. We've distilled the essence of that analogue signal chain into one intuitive tool.<br><br>No complex setup, no learning curve - just use your ears, and mix with instinct and emotion."
+            "title": "Why stack saturations?",
+            "text": "Because great tone is built in stages. In a real studio, sound is shaped by multiple pieces of gear, each adding a small amount of colour and harmonic detail. Stacking saturations lets you work the same way in the box. Instead of pushing one stage too hard, you spread the work across several, keeping the result controlled, musical, and natural.<br><br>This is how your favourite records were made. Now it's one click away."
           },
           {
             "title": "Six styles of timeless saturations.",
             "text": "We didn't just emulate the tone, we captured the real analogue behavior.<br><br>From the snappy punch of British consoles to the creamy warmth of 70s preamps and vintage tape glue, these six algorithms are indistinguishable from the hardware. They breathe, break up, and react to your dynamics with the same musicality and emotion as the original units."
           },
           {
-            "title": "Zero Latency.<br>Featherlight.<br>Essential.",
+            "title": "Zero Latency.<br>Featherlight.<br>No iLok.",
             "text": "We've removed the friction of legacy software: no dongles, no internet requirements, no barriers to your workflow. Engineered for maximum speed and efficiency, our plugins are light enough for huge sessions, and fast enough for real-time tracking.<br><br>It's just you and your sound, exactly as it should be."
           }
         ]
       },
       "audio": {
         "title": "Experience The Difference",
-        "subheader": "Need weight, thickness and presence? Listen to it for yourself.",
+        "subheader": "What can PHATurator do for your sound? Listen to it for yourself.",
         "samples": [
           {
             "name": "Drums",
@@ -61,13 +61,13 @@
           },
           {
             "name": "Rock Mix",
-            "dry": null,
-            "wet": null
+            "dry": "/assets/audio/PHAT_ROCKMIX_OFF.wav",
+            "wet": "/assets/audio/PHAT_ROCKMIX_ON.wav"
           },
           {
             "name": "Metal Mix",
-            "dry": null,
-            "wet": null
+            "dry": "/assets/audio/PHAT_METAL_MIX_OFF.wav",
+            "wet": "/assets/audio/PHAT_METAL_MIX_ON.wav"
           },
           {
             "name": "Beats",
@@ -81,8 +81,8 @@
           },
           {
             "name": "Keys",
-            "dry": "/assets/audio/PHAT_TRAP_KEYS_OFF.wav",
-            "wet": "/assets/audio/PHAT_TRAP_KEYS_ON.wav"
+            "dry": "/assets/audio/PHAT_KEYS_OFF.wav",
+            "wet": "/assets/audio/PHAT_KEYS_ON.wav"
           },
           {
             "name": "Trap Mix",
@@ -101,19 +101,22 @@
           "quote": "It looks fantastic and is really easy to navigate. The layout is really intuitive so the learning curve was very minimal. I really enjoyed that the finer details were more tucked away so you have the option of getting more nerdy if you want to but the initial instance is quite simple.",
           "author": "Sam Bloor",
           "role": "MIX ENGINEER",
-          "bands": "Dream State, Blanket, Graphic Nature"
+          "bands": "Dream State, Blanket, Graphic Nature",
+          "image": "/assets/images/reviewers/SamBloor.jpg"
         },
         {
           "quote": "I think PHATurator is gonna be one of those level game changers for a lot of people. I literally can't work without it now! I use it on pretty much every track - I think it creates so much more depth and definition between instruments and being able to dial in different flavours at the same time is so useful.",
           "author": "Bob Cooper",
           "role": "PRODUCER",
-          "bands": "Nai Harvest, Self Defense Family, Rob Lynch"
+          "bands": "Nai Harvest, Self Defense Family, Rob Lynch",
+          "image": "/assets/images/reviewers/BobCooper.jpg"
         },
         {
           "quote": "I used it on a bass that was too spiky sounding, so I stacked up distortions to soften the transient and then used the filter to round it off. Ended up with a really fat, round bass sound.",
           "author": "Jim Pinder",
           "role": "MIX ENGINEER",
-          "bands": "Sleep Token, Bring Me The Horizon, Bullet For My Valentine"
+          "bands": "Sleep Token, Bring Me The Horizon, Bullet For My Valentine",
+          "image": "/assets/images/reviewers/JimPinder.jpg"
         }
       ],
       "features": {
@@ -122,7 +125,7 @@
           {
             "type": "text",
             "title": "Dynamic guitars",
-            "text": "Put your guitars back in the spotlight. Whether you're needing to add life, energy, or character, PHATurator offers the spank you're looking for."
+            "text": "Put your guitars back in the spotlight. Whether you're needing to add life, energy, or character, PHATurator offers the spark you're looking for."
           },
           {
             "type": "image",
@@ -134,13 +137,13 @@
           {
             "type": "text",
             "title": "All your saturation needs in one plug-in",
-            "text": "From injecting a sprinkle of energy to a lifeless source with subtle studio-grade saturation, to completely warping its character into something entirely new, the flexibility within PHATurator's Clean, PHAT & PHATTER modes can take you from 0 to 90% with just a couple of simple moves."
+            "text": "From injecting a sprinkle of energy to a lifeless source with subtle studio-grade saturation, to warping its character into something entirely new, the flexibility within PHATurator's Clean, PHAT & PHATTER modes can take you from 0 to 90% in a couple of clicks."
           },
           {
             "type": "image",
             "image": "/assets/images/products/phat-feat-2.png",
             "imagePosition": "bottom",
-            "title": "Bloomy basses",
+            "title": "Big basses",
             "text": "No more small, sterile lows. Give your mix a solid anchor with in-depth, finely tuned low-end control."
           },
           {
@@ -161,16 +164,34 @@
         "title": "Tech that removes fear",
         "items": [
           {
-            "title": "Zero Latency",
-            "text": "Track through it. Mix with it. Perform live with it. No delay."
+            "title": "Zero latency.",
+            "text": "Track through it. Mix with it. Perform live with it. No lag, no compromise.",
+            "background": "/assets/images/backgrounds/tech-bg-1.png"
           },
           {
-            "title": "Lightweight on CPU",
-            "text": "Put it on every channel. We optimized the DSP for maximum instance count."
+            "title": "Big sound, small footprint.",
+            "text": "PHATurator is efficient by design: high impact but low overhead. Big sessions stay fast and smooth, so you can finally bid those 'System Overload' playback errors farewell.",
+            "background": "/assets/images/backgrounds/tech-bg-2.png"
           },
           {
-            "title": "Offline Licensing",
-            "text": "Install. Authorize once: offline supported. It works forever. No internet checks."
+            "title": "Offline-ready licensing.",
+            "text": "Install. Authorise offline. Done. Keep working with no interruption, no gimmicks and no internet checks. Once it's yours, it's yours.",
+            "background": "/assets/images/backgrounds/tech-bg-3.png"
+          },
+          {
+            "title": "Don't take our word for it. Try it now.",
+            "text": "Full features are available in Trial Mode (with infrequent silences), so you can decide with confidence before you buy.",
+            "background": "/assets/images/backgrounds/tech-bg-4.png"
+          },
+          {
+            "title": "Shortcuts? Finally.",
+            "text": "Put your mouse on notice and keep your hands where it matters, on the keys. Full shortcut support, so your workflow doesn't lose its flow.",
+            "background": "/assets/images/backgrounds/tech-bg-5.png"
+          },
+          {
+            "title": "Phat / Phatter / Clean.",
+            "text": "Three distinct attitudes in one switch. Keep it transparent with CLEAN, engage PHAT for subtle transformer saturation and low-end warmth, or go all-out with PHATTER for dual-transformer drive and aggressive resonance.",
+            "background": "/assets/images/backgrounds/tech-bg-6.png"
           }
         ]
       },
@@ -186,31 +207,31 @@
             "a": "PHATurator includes six distinct saturation algorithms:<ul class='mt-2 mb-0 ps-3'><li class='mb-1'><strong class='text-white'>FET:</strong> Detector-driven dynamics (76-style feel) for punch and control.</li><li class='mb-1'><strong class='text-white'>TUBE:</strong> Classic tube saturation to make sources fuller and harmonically rich.</li><li class='mb-1'><strong class='text-white'>TAPE:</strong> Vintage glue, tasty saturation, and subtle stereo width.</li><li class='mb-1'><strong class='text-white'>PUNCH:</strong> Large-format British console saturation with tight low end, snappy transients, and assertive upper mids.</li><li class='mb-1'><strong class='text-white'>PHAT:</strong> Fuller low-mid punch with pleasing compression-like behaviour. Very loudness-friendly.</li><li class='mb-1'><strong class='text-white'>WARMTH:</strong> Thick, transformer-rich 70s British Class A preamp vibe with creamy low mids.</li></ul>"
           },
           {
-            "q": "What formats does it come in?",
-            "a": "We provide VST3, AU (Audio Unit), and AAX formats for both Mac and Windows."
+            "q": "What formats does it come in and what DAW does it work with?",
+            "a": "We provide VST3, Audio Unit, and AAX formats for MacOS, VST3 and AAX for Windows. Any DAW that supports these format will work with them, for example: Logic Pro, Pro Tools, Ableton Live, Cubase, Studio One, FL Studio, Reaper."
           },
           {
-            "q": "Does it work on M1/M2/M3 Macs?",
-            "a": "Yes. PHATurator is fully native for Apple Silicon chips (M1, M2, M3 etc) as well as Intel Macs. No Rosetta required."
-          },
-          {
-            "q": "What DAWs does it work on?",
-            "a": "It works in any DAW that supports VST3, AU, or AAX plugins. This includes Logic Pro, Pro Tools, Ableton Live, Cubase, Studio One, FL Studio, Reaper, and Bitwig."
+            "q": "Does it work on Apple Silicon (M1 to M5) Macs? What about old Intel Macs?",
+            "a": "PHATurator is fully native for Apple Silicon chips (M1, M2, M3 etc) as well as Intel Macs. No Rosetta required, but it's also compatible with Rosetta."
           },
           {
             "q": "System Requirements",
-            "a": "<strong>Mac:</strong> macOS 10.13 or higher (Intel or Apple Silicon).<br><strong>Windows:</strong> Windows 10 or 11 (64-bit).<br><strong>General:</strong> 4GB RAM required (8GB recommended), 20MB free disk space."
+            "a": "<strong class='text-white'>Mac:</strong> macOS 10.13 or higher (Intel or Apple Silicon).<br><strong class='text-white'>Windows:</strong> Windows 10 or 11 (64-bit).<br><strong class='text-white'>General:</strong> 2GB RAM required, 30MB free disk space."
           },
           {
             "q": "How many computers can I install it on?",
-            "a": "Our license allows for 3 simultaneous activations per user (e.g. your studio machine, your laptop, and a travel rig)."
+            "a": "Each license includes up to <strong class='text-white'>three simultaneous activations</strong> per user. This could be your main studio machine, a laptop, and a third rig. We understand that modern production often means working across multiple machines, so we're doing our bit to have your tools available wherever you need them."
           },
           {
-            "q": "Is there a demo?",
-            "a": "Yes, you can download a trial from our <a href='/pages/downloads'>Downloads page</a>. The trial version has all features of the full version, but inserts a short silence every 30 seconds."
+            "q": "Can I try it before purchasing it?",
+            "a": "Yes, you can download a trial from our <a href='/pages/downloads'>Downloads page</a>. The trial version has all features of the full version, but inserts a short infrequent silence so you can decide with confidence before you buy."
           },
           {
-            "q": "Is there a manual?",
+            "q": "Do I need to pay for updates?",
+            "a": "NEVER. We believe in perpetual license and we like to work uninterrupted. So as long as fedDSP will be a company, your perpetual license will receive unlimited free updates."
+          },
+          {
+            "q": "Where can I find the manual?",
             "a": "Yes, you can read the full <a href='#'>User Manual here</a>."
           }
         ]
