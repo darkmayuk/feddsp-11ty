@@ -1,29 +1,53 @@
-<section class="py-5 bg-light-grey text-dark">
-  <div class="container py-5 reveal-on-scroll">
+<section class="py-5 features-section text-dark position-relative">
+  
+  <div class="container-fluid">
     
-    <div class="text-center text-md-start">
-      <h2 class="text-uppercase mb-5 font-header gradient-text3" style="font-size: 3.5rem; line-height: 0.9;">
+    <div class="text-center mb-3 reveal-on-scroll">
+      <h2 class="text-uppercase font-header gradient-text-features" style="font-size: 5rem;">
         {{ product.sections.features.title }}
       </h2>
     </div>
-    
-    <div class="row g-4">
-        
-        {% for feature in product.sections.features.items %}
-        <div class="{{ feature.colSize }}">
-          <div class="card-v2 {{ feature.cardStyle }} h-100 d-flex flex-column justify-content-center">
-            <h4 class="h5 fw-bold mb-3 font-body">
-              {% if feature.icon != blank %}
-              <i class="bi {{ feature.icon }} {{ feature.iconColor }} me-2"></i>
-              {% endif %}
-              {{ feature.title }}
-            </h4>
-            <p class="small {% if feature.cardStyle == 'card-black' %}text-white-50{% else %}text-muted{% endif %} mb-0">{{ feature.text }}</p>
-          </div>
+
+    <div class="features-scroll-container restrict-width" id="featuresScroll">
+      
+      {% for item in product.sections.features.items %}
+      <div class="feature-card-wrapper">
+
+        {% if item.type == 'text' %}
+        <div class="feature-card-white">
+          <h3 class="fw-bold mb-3 font-body">{{ item.title }}</h3>
+          <p class="mb-0">
+            {{ item.text }}
+          </p>
         </div>
-        {% endfor %}
-        
+
+        {% elsif item.type == 'image' %}
+        <div class="feature-card-image">
+          
+          {% if item.imagePosition == 'top' %}
+            <img src="{{ item.image }}" alt="{{ item.title }}" class="feature-img-display mb-4">
+            <div>
+              <h3 class="fw-bold mb-3 font-body">{{ item.title }}</h3>
+              <p class="mb-0">{{ item.text }}</p>
+            </div>
+
+          {% else %}
+            <div class="mb-4">
+              <h3 class="fw-bold mb- font-body">{{ item.title }}</h3>
+              <p class="mb-0">{{ item.text }}</p>
+            </div>
+            <img src="{{ item.image }}" alt="{{ item.title }}" class="feature-img-display">
+          {% endif %}
+
+        </div>
+        {% endif %}
+
+      </div>
+      {% endfor %}
+
     </div>
 
   </div>
 </section>
+
+<script src="/assets/js/features.js"></script>

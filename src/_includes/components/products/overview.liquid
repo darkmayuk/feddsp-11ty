@@ -1,29 +1,33 @@
 <section class="bg-black text-white">
   <div class="container py-5 reveal-on-scroll">
-    
+
     <div class="text-start mb-5">
       <h2 class="text-uppercase font-header gradient-text3">
         {{ product.sections.overview.title }}
       </h2>
     </div>
-    
+
     <div class="row row-cols-1 row-cols-lg-3 g-5 g-lg-5">
-      
+
       {% for item in product.sections.overview.items %}
       <div class="col">
         <div class="feature-item h-100">
-          
-          <h4 class="h4 fw-bold mb-4 font-body feature-toggle-header text-white" 
-              data-bs-toggle="collapse" 
-              data-bs-target="#overview-item-{{ forloop.index }}" 
-              aria-expanded="false" 
-              aria-controls="overview-item-{{ forloop.index }}">
-            
+
+          <h4 class="h4 fw-bold mb-4 font-body feature-toggle-header text-white" data-bs-toggle="collapse"
+            data-bs-target="#overview-item-{{ forloop.index }}" aria-expanded="false"
+            aria-controls="overview-item-{{ forloop.index }}">
+
             {{ item.title }}
           </h4>
 
-          <div class="mobile-preview d-lg-none mb-2 text-truncate" style="opacity: 0.5; font-size: 1rem; margin-right: 5rem;">
-            {{ item.text | strip_html }}
+          <div class="mobile-preview d-lg-none mb-2" 
+              style="opacity: 0.5; font-size: 1rem;"
+              data-bs-toggle="collapse" 
+              data-bs-target="#overview-item-{{ forloop.index }}"
+              role="button">
+            
+            {{ item.text | strip_html | truncatewords: 11 }}
+
           </div>
 
           <div class="collapse mobile-collapse-body" id="overview-item-{{ forloop.index }}">
@@ -35,7 +39,7 @@
         </div>
       </div>
       {% endfor %}
-      
+
     </div>
 
   </div>

@@ -4,10 +4,10 @@
     "name": "PHATurator",
     "comingSoon": false,
     "badge": "New Release",
-    "headline": "Colour Your Sound. <span class='hero-thin'>Instantly.</span>",
+    "headline": "Make tracks feel expensive in 10 seconds. <span class='hero-thin'>Bigger, louder, richer saturation you can <i>track through</i> - with offline-ready licensing, fast A/B shortcuts, and a lightweight CPU footprint.</span>",
     "price": "£50",
     "originalPrice": "£75",
-    "discountText": "Reduced price only applies to Founder's Month, first 1000 customers",
+    "discountText": "No iLok. No always-online checks. Full-feature trial with a brief audio watermark.<br><i>Reduced price only applies to Founder's Month, 1-28 February 2026</i>",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/76718b9d-3cb2-4fd6-9964-12317135a261?checkout[custom][product_code]=fedDSP-PHAT",
     "demoLink": "/downloads",
     "manualLink": "#",
@@ -27,21 +27,22 @@
         "title": "Masterclass In<br>Saturation",
         "items": [
           {
-            "title": "Zero Latency.<br>Featherlight.<br>Essential.",
-            "text": "We've removed the friction of legacy software: no dongles, no internet requirements, no barriers to your workflow. Engineered for maximum speed and efficiency, our plugins are light enough for huge sessions, and fast enough for real-time tracking.<br><br>It's just you and your sound, exactly as it should be."
-          },
-          {
             "title": "Stacking saturations has never been this easy.",
             "text": "Get the weight and character of high-end outboard gear at the click of a button. Top engineers routinely layer analogue gear to achieve richer harmonics, depth, and controlled grit. We've distilled the essence of that analogue signal chain into one intuitive tool.<br><br>No complex setup, no learning curve - just use your ears, and mix with instinct and emotion."
           },
           {
             "title": "Six styles of timeless saturations.",
             "text": "We didn't just emulate the tone, we captured the real analogue behavior.<br><br>From the snappy punch of British consoles to the creamy warmth of 70s preamps and vintage tape glue, these six algorithms are indistinguishable from the hardware. They breathe, break up, and react to your dynamics with the same musicality and emotion as the original units."
+          },
+          {
+            "title": "Zero Latency.<br>Featherlight.<br>Essential.",
+            "text": "We've removed the friction of legacy software: no dongles, no internet requirements, no barriers to your workflow. Engineered for maximum speed and efficiency, our plugins are light enough for huge sessions, and fast enough for real-time tracking.<br><br>It's just you and your sound, exactly as it should be."
           }
         ]
       },
       "audio": {
         "title": "Experience The Difference",
+        "subheader": "Need weight, thickness and presence? Listen to it for yourself.",
         "samples": [
           {
             "name": "Drums",
@@ -60,8 +61,8 @@
           },
           {
             "name": "Rock Mix",
-            "dry": "/assets/audio/PHAT_TEST_GTR_OFF.wav",
-            "wet": "/assets/audio/PHAT_TEST_GTR_ON.wav"
+            "dry": null,
+            "wet": null
           },
           {
             "name": "Metal Mix",
@@ -70,93 +71,89 @@
           },
           {
             "name": "Beats",
-            "dry": "/assets/audio/PHAT_TEST_LOOPS_OFF.wav",
-            "wet": "/assets/audio/PHAT_TEST_LOOPS_ON.wav"
+            "dry": "/assets/audio/PHAT_TRAP_BEAT_OFF.wav",
+            "wet": "/assets/audio/PHAT_TRAP_BEAT_ON.wav"
           },
           {
             "name": "808",
-            "dry": null,
-            "wet": null
+            "dry": "/assets/audio/PHAT_TRAP_808_OFF.wav",
+            "wet": "/assets/audio/PHAT_TRAP_808_ON.wav"
           },
           {
             "name": "Keys",
-            "dry": "/assets/audio/PHAT_TEST_SYNTH_OFF.wav",
-            "wet": "/assets/audio/PHAT_TEST_SYNTH_ON.wav"
+            "dry": "/assets/audio/PHAT_TRAP_KEYS_OFF.wav",
+            "wet": "/assets/audio/PHAT_TRAP_KEYS_ON.wav"
           },
           {
             "name": "Trap Mix",
-            "dry": "/assets/audio/PHAT_TEST_LOOPS2_OFF.wav",
-            "wet": "/assets/audio/PHAT_TEST_LOOPS2_ON.wav"
+            "dry": "/assets/audio/PHAT_TRAP_TRAPMIX_OFF.wav",
+            "wet": "/assets/audio/PHAT_TRAP_TRAPMIX_ON.wav"
           },
           {
             "name": "EDM Mix",
-            "dry": null,
-            "wet": null
+            "dry": "/assets/audio/PHAT_EDM_MIX_OFF.wav",
+            "wet": "/assets/audio/PHAT_EDM_MIX_ON.wav"
           }
         ]
       },
       "testimonials": [
         {
-          "quote": "I really like it ... I used it on a bass that was too spiky sounding, so I stacked up distortions to soften the transient and then used the filter to round it off. Ended up with a really fat, round bass sound.",
-          "author": "Jim Pinder",
-          "role": "PRODUCER",
-          "bands": "Bring Me The Horizon, Sleep Token, Bullet For My Valentine"
+          "quote": "It looks fantastic and is really easy to navigate. The layout is really intuitive so the learning curve was very minimal. I really enjoyed that the finer details were more tucked away so you have the option of getting more nerdy if you want to but the initial instance is quite simple.",
+          "author": "Sam Bloor",
+          "role": "MIX ENGINEER",
+          "bands": "Dream State, Blanket, Graphic Nature"
         },
         {
-          "quote": "I think PHAT is gonna be one of those level game changers. I literally can't work without it now! I use it on pretty much every track.",
+          "quote": "I think PHATurator is gonna be one of those level game changers for a lot of people. I literally can't work without it now! I use it on pretty much every track - I think it creates so much more depth and definition between instruments and being able to dial in different flavours at the same time is so useful.",
           "author": "Bob Cooper",
-          "role": "MIX ENGINEER",
+          "role": "PRODUCER",
           "bands": "Nai Harvest, Self Defense Family, Rob Lynch"
         },
         {
-          "quote": "The layout is really intuitive so the learning curve was minimal. I really enjoyed that the finer details were tucked away.",
-          "author": "Sam Bloor",
-          "role": "MASTERING",
-          "bands": "Dream State, Blanket, Graphic Nature"
+          "quote": "I used it on a bass that was too spiky sounding, so I stacked up distortions to soften the transient and then used the filter to round it off. Ended up with a really fat, round bass sound.",
+          "author": "Jim Pinder",
+          "role": "MIX ENGINEER",
+          "bands": "Sleep Token, Bring Me The Horizon, Bullet For My Valentine"
         }
       ],
       "features": {
-        "title": "What It Fixes",
+        "title": "Level Up Your Mixes",
         "items": [
           {
-            "title": "Thin Drums",
-            "icon": "bi-speaker-fill",
-            "text": "Adds weight and punch without turning harsh. Get analog density instantly.",
-            "colSize": "col-md-4",
-            "cardStyle": "card-white",
-            "iconColor": "text-brand-pink"
+            "type": "text",
+            "title": "Dynamic guitars",
+            "text": "Put your guitars back in the spotlight. Whether you're needing to add life, energy, or character, PHATurator offers the spank you're looking for."
           },
           {
-            "title": "Sterile Guitars",
-            "icon": "bi-music-note-beamed",
-            "text": "Adds density and bite without digital fizz. Makes them sit in the midrange.",
-            "colSize": "col-md-4",
-            "cardStyle": "card-white",
-            "iconColor": "text-brand-pink"
+            "type": "image",
+            "image": "/assets/images/products/phat-feat-1.png",
+            "imagePosition": "top",
+            "title": "Thicker, punchier drums",
+            "text": "Adds weight and analogue density, with no digital harshness."
           },
           {
-            "title": "Spiky Vocals",
-            "icon": "bi-mic-fill",
-            "text": "Makes them forward and present without getting harsh. Smooths transients naturally.",
-            "colSize": "col-md-4",
-            "cardStyle": "card-white",
-            "iconColor": "text-brand-pink"
+            "type": "text",
+            "title": "All your saturation needs in one plug-in",
+            "text": "From injecting a sprinkle of energy to a lifeless source with subtle studio-grade saturation, to completely warping its character into something entirely new, the flexibility within PHATurator's Clean, PHAT & PHATTER modes can take you from 0 to 90% with just a couple of simple moves."
           },
           {
-            "title": "Plugin Hopping? Stop.",
-            "icon": "",
-            "text": "When you're not sure what to use, PHAT will get you 90% there with just a couple of moves. It's the \"make it better\" button for professional mixing.",
-            "colSize": "col-md-8",
-            "cardStyle": "card-white",
-            "iconColor": ""
+            "type": "image",
+            "image": "/assets/images/products/phat-feat-2.png",
+            "imagePosition": "bottom",
+            "title": "Bloomy basses",
+            "text": "No more small, sterile lows. Give your mix a solid anchor with in-depth, finely tuned low-end control."
           },
           {
-            "title": "Boring Loops?",
-            "icon": "",
-            "text": "Inject life and energy into static samples immediately.",
-            "colSize": "col-md-4",
-            "cardStyle": "card-black",
-            "iconColor": ""
+            "type": "text",
+            "title": "Own your loops",
+            "text": "Whether they're vibey or hard hitting, stamp your personality on your loops with PHATurator's endless unique possibilities and combinations. Your own style is just a twist of a knob away."
+          },
+          {
+            "type": "image",
+            "image": "/assets/images/products/phat-feat-3.png",
+            "imagePosition": "top",
+            "title": "Lush vocals",
+            "text": "Push your vocals forward in the mix, giving them presence and naturally smoothing any transients or spikeness."
           }
         ]
       },

@@ -6,17 +6,17 @@
     </div>
 
     <div class="text-white-50 small d-none d-xl-block mx-auto">
-      Founders Month discount valid until 20th February 2026
+      Intro pricing applies only 1st to 20th February 2026
     </div>
 
     <div class="d-flex gap-2 gap-md-3 align-items-center">
        <a href="{{ product.buyLink }}" class="btn btn-pill btn-brand-solid">
-         BUY
+         BUY {{product.price}}
        </a>
        
        {% if product.demoLink %}
        <a href="{{ product.demoLink }}" class="btn btn-pill btn-grey-solid ms-sm-3">
-         TRY IT FOR FREE
+         Download Trial
        </a>
        {% endif %}
     </div>

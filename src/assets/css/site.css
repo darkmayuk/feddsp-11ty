@@ -8,7 +8,7 @@
     /* Neutrals */
     --dark-grey: #1a1a1a;
     --light-grey: #aaaaaa;
-    --grey-bg: #f4f4f4;
+    --grey-bg: #f5f5f7;
     
     /* Layout */
     --container-x-margin-xs: 2rem;
@@ -86,6 +86,14 @@
 
   .gradient-text4 {
     background-image: linear-gradient(135deg, var(--hero-gradient4-start) 0%, var(--hero-gradient4-end) 100%);
+  }
+
+  .gradient-text-features {
+    background-image: linear-gradient(90deg, var(--hero-gradient3-start) 0%, var(--hero-gradient4-start) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
   }
 
   .text-brand-pink { color: var(--brand-pink) !important; }
@@ -949,13 +957,15 @@
     .hero-v2 {
       background-color: var(--dark-grey);
       color: white;
-      padding: 4rem 0;
+      padding: 3rem 9rem;
       overflow: hidden;
       position: relative;
     }
 
     .hero-v2 h2 {
-      font-weight: 600 !important; 
+      font-size: 1.1rem;
+      font-weight: 600 !important;
+      line-height: 1.8rem;
     }
 
     .hero-thin {
@@ -1005,7 +1015,7 @@
       cursor: pointer;
     }
 
-  /* Features section */
+  /* Overview */
 
     @media (min-width: 992px) {
       .mobile-collapse-body.collapse {
@@ -1038,12 +1048,212 @@
 
       .mobile-preview {
         cursor: pointer;
-        pointer-events: none; 
+        transition: opacity 0.2s ease; 
       }
     }
 
+  /* Features */
 
-   
+    .features-section {
+      background-color: var(--grey-bg);
+      overflow: hidden;
+    }
+
+    .features-scroll-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 1.5rem;
+      padding: 0 1.5rem;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+      user-select: none;
+      align-items: stretch;
+    }
+
+    .features-scroll-container.active {
+      cursor: grabbing;
+      cursor: -webkit-grabbing;
+      scroll-snap-type: none;
+      scroll-behavior: auto;
+    }
+
+    .features-scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .features-scroll-container {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .features-scroll-container h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .features-scroll-container p {
+      font-size: 0.8rem;
+    }
+
+    .feature-card-wrapper {
+      flex: 0 0 220px;
+      scroll-snap-align: center;
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      min-height: 240px;
+    }
+
+    @media (min-width: 768px) {
+      .feature-card-wrapper {
+        flex: 0 0 250px;
+      }
+    }
+
+    .feature-card-white {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: none;
+      transition: transform 0.3s ease;
+      width: 100%;
+    }
+
+    .feature-card-white h3,
+    .feature-card-white p {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .feature-card-white:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-card-image {
+      background: transparent;
+      padding: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: none;
+      width: 100%;
+    }
+
+    .feature-card-image h3 {
+      margin-bottom: 0.5rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .feature-card-image p {
+      margin-bottom: 0;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .feature-img-display {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .feature-card-image .mb-4 {
+      margin-bottom: 1.5rem !important;
+    }
+
+    .feature-card-image img.mb-4 {
+      margin-bottom: 1.5rem !important;
+    }
+
+  /* Testimonials */
+
+    .testimonials-section {
+      background-color: var(--grey-bg);
+      position: relative;
+    }
+
+    .testimonial-card-bg {
+      background-color: var(--dark-grey);
+      background-image: 
+        linear-gradient(to bottom, #000000 0%, rgba(0,0,0,0.5) 100%),
+        url('/assets/images/products/phat-testimonial-bg.png');
+      background-size: cover;
+      background-position: center;
+      border-radius: 2rem;
+      padding: 6rem 2rem 6rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .testimonial-card-bg {
+        padding: 6rem 2rem;
+      }
+    }
+
+    .testimonial-item {
+      display: flex;
+      gap: 1rem; /* Space between Avatar and Text */
+      height: 100%;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 768px) {
+      .testimonial-item {
+        flex-direction: column; /* Stack on mobile */
+        align-items: center;
+        text-align: center;
+      }
+    }
+
+    .testimonial-avatar {
+      flex: 0 0 120px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      z-index: 5;
+    }
+
+    .col-lg-4:first-child .testimonial-avatar {
+      margin-left: -2rem; /* Pull first avatar left */
+    }
+
+    @media (max-width: 991px) {
+      .col-lg-4:first-child .testimonial-avatar {
+        margin-left: 0; /* No overlap on mobile */
+      }
+    }
+
+    .testimonial-quote, .testimonial-bands {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    .testimonial-author {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0;
+    }
+
+    .testimonial-role {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--light-grey);
+      margin-bottom: 2rem;
+    }
 
   /* FAQ */
     .faq-v2 details { 
@@ -1089,9 +1299,9 @@
     .cursor-pointer { cursor: pointer; }
 
     .faq-v2 a {
-      color: inherit;           /* Inherit the grey (text-white-50) from the parent text */
+      color: inherit; /* Inherit the grey (text-white-50) from the parent text */
       text-decoration: underline;
-      text-underline-offset: 3px; /* Adds a tiny gap for better readability */
+      text-underline-offset: 3px;
       transition: color 0.2s ease;
     }
 
@@ -1101,7 +1311,7 @@
 
 /* AUDIO PLAYER */
 
-  /* --- 1. Background & Sparkles --- */
+  /* --- 1. Layout & Backgrounds --- */
     .audio-experience-bg {
       position: relative;
       background-color: black;
@@ -1110,10 +1320,21 @@
         url('/assets/images/backgrounds/PLAYER BG.png');
       background-position: center;
       background-repeat: no-repeat;
+      background-size: cover;
+      overflow: hidden;
+      padding: 3rem 0;
+    }
+
+    .audio-bg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
     }
 
-    .bokeh-video-overlay {
+    .audio-player-video-overlay {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -1121,159 +1342,197 @@
       opacity: 1;
       filter: grayscale(100%) contrast(1.5) brightness(0.8);
     }
-    
-  /* --- 2. Header Gradient --- */
+
+    .audio-content-layer {
+      position: relative;
+      z-index: 1;
+    }
+
+  /* --- 2. Typography --- */
     .gradient-text-audio {
       background: linear-gradient(90deg, var(--hero-gradient-start), var(--hero-gradient-end));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      /* Fallback color */
       color: var(--hero-gradient-end); 
     }
 
-  /* --- 3. The Player Card --- */
+    @media (min-width: 992px) {
+      h2.gradient-text-audio {
+        font-size: 8rem !important;
+      }
+    }
+
+  /* --- 3. Player Card --- */
     .player-card-v2 {
       background: white;
       border-radius: 2rem;
-      padding: 1rem;
+      padding: 0 2rem 1rem 2rem;
+      max-width: 1000px;
     }
 
-  /* --- 4. Track Selector Grid --- */
+    .player-controls-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+  /* --- 4. Track Grid --- */
     .track-grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       width: 100%;
       padding-bottom: 1rem;
-      margin-bottom: 2rem;
     }
 
     .track-item {
-      flex: 0 0 20%; /* Mobile: 5 items per row */
+      flex: 0 0 20%;
       max-width: 20%;
       text-align: center;
-      padding: 0.5rem 0;
+      padding: 1rem 0.2rem 0 0.2rem;
       position: relative;
     }
 
-    /* Desktop: 10 items per row = 10% width */
     @media (min-width: 992px) {
       .track-item {
         flex: 0 0 10%;
         max-width: 10%;
       }
-      h2.gradient-text-audio {
-        font-size: 8rem !important
-      }
     }
 
     .track-btn-text {
-      /* 1. Strip default button styles */
       background: transparent;
       border: none;
       padding: 0;
       margin: 0;
-      
-      /* 2. Force the Font */
-      /* Using standard sans-serif stack to match your "First Pic" target */
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-      font-weight: 700; /* Bold */
-      font-size: 0.75rem; /* Small and tight */
-      letter-spacing: 0.05em;
+      font-weight: 700;
+      font-size: 0.8rem;
       text-transform: uppercase;
-      
-      /* 3. Inactive State */
-      color: #000;
-      opacity: 0.4; /* Greyed out by default */
       cursor: pointer;
-      transition: opacity 0.2s ease;
-      position: relative; /* Needed for the notch positioning */
     }
 
-    .track-btn-text:hover {
-      opacity: 0.7;
-    }
-
-    .track-btn-text.active {
-      opacity: 1
-    }
-  
     .track-btn-text.active::before {
       content: '';
       position: absolute;
-      top: -15px;
+      top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 6px;
-      height: 6px;
+      width: 20px;
+      height: 20px;
       background: black;
       border-radius: 1px;
     }
 
   /* --- 5. Play Button --- */
     .play-btn-large {
-      width: 70px;
-      height: 70px;
-      background: #222;
-      border-radius: 22px; 
+      width: 50px;
+      height: 50px;
+      background: black;
+      border-radius: 15px; 
       color: white;
-      border: none;
       font-size: 2.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.1s ease, background 0.2s ease;
+      transition: transform 0.1s ease;
       cursor: pointer;
+      border: none;
+      flex-shrink: 0;
+    }
+
+    .play-btn-large i {
+      color: white;
+      font-size: 2.5rem;
+      margin-left: 4px;
     }
 
     .play-btn-large:hover {
-      background: #000;
       transform: scale(1.02);
-    }
-
-    .play-btn-large:active { 
-      transform: scale(0.95); 
     }
 
     .play-btn-large .bi-play-fill { margin-left: 4px; }
     .play-btn-large .bi-pause-fill { margin-left: 0; }
 
-
-  /* --- 6. Visualizer Bars --- */
+  /* --- 6. Visualizer --- */
+    .visualizer-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 80px;
+      position: relative;
+      padding: 0 1rem;
+    }
 
     .visualizer-bar {
-      width: 6px;
-      height: 10%; /* Default starting height */
+      width: 4px;
+      min-height: 4px; 
+      height: 4px;
       border-radius: 999px;
-      background: #000; /* Default Dry Color (Black) */
-      transition: height 0.1s ease, background 0.3s ease;
+      background: #000; 
+      transition: height 0.05s linear;
     }
 
-    /* RAINBOW MODE (triggered by JS adding .is-wet) */
-    .visualizer-container.is-wet .visualizer-bar {
+    @media (max-width: 768px) {
+      /* On small screens, hide every even bar (2, 4, 6...) */
+      /* This reduces 64 bars -> 32 bars instantly, preventing cramping. */
+      .visualizer-bar:nth-child(even) {
+        display: none;
+      }
+    }
+
+    /* Rainbow Overlay */
+    .visualizer-container::before {
+      content: '';
+      position: absolute;
+      inset: 0;
       background: var(--rainbow-grad); 
+      mix-blend-mode: screen; 
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 10;
     }
 
+    .visualizer-container.is-wet::before {
+      opacity: 1;
+    }
 
-  /* --- 7. Toggle Switch UI --- */
-  
+  /* --- 7. Toggle Switch --- */
+    .mix-toggle-container {
+      margin-top: 1.5rem;
+      margin-bottom: 3rem;
+      display: flex;
+      justify-content: center;
+    }
+
     .toggle-ui-wrapper {
-      background: black; /* Default Dry */
+      width: 60px;
+      height: 34px;
+      padding: 4px;
+      background: white;
       border-radius: 999px;
       display: inline-flex;
       align-items: center;
       position: relative;
-      transition: background 0.3s ease;
+      margin: 0 1rem;
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
     .toggle-knob {
-      background: white;
+      width: 26px; 
+      height: 26px;
+      background: black;
       border-radius: 50%;
       position: absolute;
       left: 4px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .label-dry, .label-wet {
+      font-size: 1.25rem;
     }
 
 /* STICKY FOOTER CTA */

@@ -1,23 +1,43 @@
 {% if product.sections.testimonials.size > 0 %}
-<section class="py-5 bg-dark-grey text-white">
-  <div class="container py-5 reveal-on-scroll">
-    <h2 class="text-center mb-5 font-header">USED BY THE PROS</h2>
-    <div class="row g-4">
-      
-      {% for testimonial in product.sections.testimonials %}
-      <div class="col-md-4">
-          <div class="card-v2 card-grey h-100 d-flex flex-column">
-            <p class="mb-4">"{{ testimonial.quote }}"</p>
-            <footer class="mt-auto">
-              <div class="fw-bold font-body text-dark">{{ testimonial.author }}</div>
-              <div class="text-muted small text-uppercase mb-2">{{ testimonial.role }}</div>
-              <div class="fst-italic">({{ testimonial.bands }})</div>
-            </footer>
-          </div>
-      </div>
-      {% endfor %}
+<section class="py-5 testimonials-section">
+  
+  <div class="container reveal-on-scroll text-center">
+    <h2 class="text-uppercase font-header gradient-text3 mb-4" style="font-size: 6rem;">
+      USED BY PROS
+    </h2>
+  </div>
 
+  <div class="container reveal-on-scroll">
+    <div class="testimonial-card-bg">
+      <div class="row g-5">
+        
+        {% for testimonial in product.sections.testimonials %}
+        <div class="col-lg-4">
+          <div class="testimonial-item">
+            
+            <img src="{{ testimonial.image | default: '/assets/images/reviewers/default-avatar.jpg' }}" 
+                 alt="{{ testimonial.author }}" 
+                 class="testimonial-avatar">
+
+            <div class="text-content">
+              <div class="testimonial-quote">
+                "{{ testimonial.quote }}"
+              </div>
+              
+              <div class="mt-auto">
+                <div class="testimonial-author">{{ testimonial.author }}</div>
+                <div class="testimonial-role">{{ testimonial.role }}</div>
+                <div class="testimonial-bands">{{ testimonial.bands }}</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
     </div>
   </div>
+
 </section>
 {% endif %}

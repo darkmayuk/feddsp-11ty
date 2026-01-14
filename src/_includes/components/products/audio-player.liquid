@@ -1,68 +1,62 @@
-<section class="py-5 audio-experience-bg text-center position-relative">
-  
-  <div class="position-absolute top-0 start-0 w-100 h-100 overflow-hidden">
-    <video autoplay muted loop playsinline class="bokeh-video-overlay">
-      <source src="/assets/videos/bokeh-overlay.mp4" type="video/mp4">
+<section class="audio-experience-bg text-center">
+
+  <div class="audio-bg-layer">
+    <video autoplay muted loop playsinline class="audio-player-video-overlay">
+      <source src="/assets/videos/dust-particles.mp4" type="video/mp4">
     </video>
   </div>
 
-  <div class="position-absolute top-0 start-0 w-100" 
-       style="height: 150px; background: linear-gradient(to bottom, #000 0%, transparent 100%); z-index: 1;">
-  </div>
+  <div class="container reveal-on-scroll audio-content-layer">
 
-  <div class="container reveal-on-scroll position-relative" style="z-index: 1;">
-
-    <h2 class="text-uppercase mb-3 font-header gradient-text-audio">
+    <h2 class="text-uppercase mb-2 font-header gradient-text-audio">
       {{ product.sections.audio.title }}
     </h2>
-    
-    <div class="player-card-v2 mx-auto" style="max-width: 1000px;">
-      
-      <div class="track-grid mb-5" id="audio-track-controls">
+
+    <p class="mb-4 fst-italic">{{ product.sections.audio.subheader }}</p>
+
+    <div class="player-card-v2 mx-auto">
+
+      <div class="track-grid" id="audio-track-controls">
         {% for sample in product.sections.audio.samples %}
         <div class="track-item">
-          <button 
-            class="track-btn-text {% if forloop.first %}active{% endif %}" 
-            data-dry="{{ sample.dry }}" 
-            data-wet="{{ sample.wet }}">
+          <button class="track-btn-text {% if forloop.first %}active{% endif %}" 
+                  data-dry="{{ sample.dry }}"
+                  data-wet="{{ sample.wet }}">
             {{ sample.name }}
           </button>
         </div>
         {% endfor %}
       </div>
 
-      <div class="d-flex align-items-center gap-4 mb-4">
-        
-        <button class="play-btn-large flex-shrink-0 shadow" id="audio-play-toggle">
+      <div class="player-controls-row">
+
+        <button class="play-btn-large" id="audio-play-toggle">
           <i class="bi bi-play-fill"></i>
         </button>
 
-        <div class="d-flex align-items-center gap-1 w-100 justify-content-center visualizer-container" 
-             id="visualizer-wrapper" 
-             style="height: 80px;">
-          
-          {% for i in (1..35) %}
-            <div class="visualizer-bar"></div>
+        <div class="visualizer-container" id="visualizer-wrapper">
+          {% for i in (1..64) %}
+          <div class="visualizer-bar"></div>
           {% endfor %}
-          
         </div>
 
       </div>
 
-      <div class="d-flex justify-content-center">
-        <div class="d-flex align-items-center text-dark font-body fw-bold cursor-pointer" id="audio-mix-toggle">
-           <span class="me-3 fs-5 label-dry">DRY</span>
-           
-           <div class="toggle-ui-wrapper" style="width: 60px; height: 34px; padding: 4px;">
-             <div class="toggle-knob" style="width: 26px; height: 26px;"></div>
-           </div>
-           
-           <span class="ms-3 fs-5 label-wet text-black-50">WET</span>
-        </div>
-      </div>
-
-    </div> 
+    </div>
   </div>
+
+  <div class="mix-toggle-container">
+    <div class="d-flex align-items-center text-white font-body fw-bold cursor-pointer" id="audio-mix-toggle">
+      <span class="label-dry">DRY</span>
+      
+      <div class="toggle-ui-wrapper">
+        <div class="toggle-knob"></div>
+      </div>
+
+      <span class="label-wet">WET</span>
+    </div>
+  </div>
+
 </section>
 
 <script src="/assets/js/audio-player.js"></script>
