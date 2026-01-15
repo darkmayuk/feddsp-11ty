@@ -971,7 +971,7 @@
     }
 
     .hero-v2 h2 {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       font-weight: 600 !important;
       line-height: 1.8rem;
       max-width: 600px;
@@ -983,6 +983,7 @@
 
     .hero-thin {
       font-weight: 200 !important;
+      font-size: 1rem;
       opacity: 0.9;
     }
     
@@ -1026,6 +1027,15 @@
     .hero-try-link:active {
       color: #fff !important;
       cursor: pointer;
+    }
+
+    .hero-v2 a {
+      color: inherit;
+    }
+
+    .hero-v2 a:active,
+    .hero-v2 a:hover {
+      color: white;
     }
 
   /* Overview */
