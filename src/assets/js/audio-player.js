@@ -1,230 +1,287 @@
 document.addEventListener("DOMContentLoaded", function () {
-  
-  const playBtn = document.getElementById("audio-play-toggle");
-  const playIcon = playBtn ? playBtn.querySelector("i") : null;
-  const mixToggle = document.getElementById("audio-mix-toggle");
-  const toggleKnob = mixToggle ? mixToggle.querySelector(".toggle-knob") : null;
-  
-  const trackBtns = document.querySelectorAll(".track-btn-text");
-  const bars = document.querySelectorAll(".visualizer-bar");
-  const visualizerWrapper = document.getElementById("visualizer-wrapper");
-
-  let isPlaying = false;
-  let isWet = false; 
-  let audioContext = null;
-  
-  let drySource = null;
-  let wetSource = null;
-  let dryGain = null;
-  let wetGain = null;
-  let analyzer = null;
-  let animationId = null;
-  
-  let currentDryBuffer = null;
-  let currentWetBuffer = null;
-  let currentLoadRequestId = 0;
-
-  async function initAudio() {
-    if (audioContext) return;
     
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    audioContext = new AudioContext();
-    
-    dryGain = audioContext.createGain();
-    wetGain = audioContext.createGain();
-    
-    analyzer = audioContext.createAnalyser();
-    analyzer.fftSize = 256; 
-    
-    dryGain.connect(analyzer);
-    wetGain.connect(analyzer);
-    analyzer.connect(audioContext.destination); 
+    // --- CONFIGURATION ---
+    const CONFIG = {
+        gravity: 0.6,      
+        frameSkip: 2,      // 2 = 30fps
+    };
 
-    updateMix(); 
-  }
+    // --- STATE ---
+    const state = {
+        isPlaying: false,
+        currentMix: 0, 
+        loadedBuffers: {}, 
+        activeSourceNodes: [],
+        currentSampleName: null,
+        ctx: null,
+        analyser: null,
+        gainDry: null,
+        gainWet: null,
+    };
 
-  async function loadTrack(dryUrl, wetUrl) {
-    if (!dryUrl || !wetUrl) return; 
+    // --- DOM ELEMENTS ---
+    const ui = {
+        playBtn: document.getElementById("audio-play-toggle"),
+        playIcon: document.getElementById("audio-play-toggle")?.querySelector("i"),
+        mixToggle: document.getElementById("audio-mix-toggle"),
+        toggleKnob: document.querySelector(".toggle-knob"),
+        visualizerWrapper: document.getElementById("visualizer-wrapper"),
+        bars: document.querySelectorAll(".visualizer-bar"),
+        trackBtns: document.querySelectorAll(".track-btn-text"),
+    };
 
-    const myRequestId = ++currentLoadRequestId;
-    stopAudio(); 
+    // --- 1. INITIALIZATION ---
+    function initAudioContext() {
+        if (state.ctx) return;
 
-    try {
-      const [dryRes, wetRes] = await Promise.all([
-        fetch(dryUrl),
-        fetch(wetUrl)
-      ]);
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        state.ctx = new AudioContext();
 
-      const dryArray = await dryRes.arrayBuffer();
-      const wetArray = await wetRes.arrayBuffer();
+        state.gainDry = state.ctx.createGain();
+        state.gainWet = state.ctx.createGain();
+        state.analyser = state.ctx.createAnalyser();
+        
+        state.analyser.fftSize = 128; 
+        state.analyser.smoothingTimeConstant = 0.35; 
 
-      if (myRequestId !== currentLoadRequestId) return;
+        state.gainDry.connect(state.analyser);
+        state.gainWet.connect(state.analyser);
+        state.analyser.connect(state.ctx.destination);
 
-      const decodedDry = await audioContext.decodeAudioData(dryArray);
-      const decodedWet = await audioContext.decodeAudioData(wetArray);
-
-      if (myRequestId !== currentLoadRequestId) return;
-
-      currentDryBuffer = decodedDry;
-      currentWetBuffer = decodedWet;
-
-      playAudio();
-      
-    } catch (err) {
-      if (myRequestId === currentLoadRequestId) {
-        console.error("Error loading audio:", err);
-      }
+        // Start preloading in the background
+        preloadAllTracks();
+        
+        // Start the visualizer loop
+        drawVisualizer();
     }
-  }
 
-  function playAudio() {
-    if (!currentDryBuffer || !currentWetBuffer) return;
+    async function preloadAllTracks() {
+        // Map over buttons to fire off all requests
+        const promises = Array.from(ui.trackBtns).map(async (btn) => {
+            const name = btn.innerText.trim();
+            const dryUrl = btn.dataset.dry;
+            const wetUrl = btn.dataset.wet;
+            if (!dryUrl || !wetUrl) return;
+            
+            // If already loaded, skip
+            if (state.loadedBuffers[name]) return;
 
-    stopAudioSourceNodes();
-
-    drySource = audioContext.createBufferSource();
-    drySource.buffer = currentDryBuffer;
-    drySource.connect(dryGain);
-    drySource.loop = true;
-
-    wetSource = audioContext.createBufferSource();
-    wetSource.buffer = currentWetBuffer;
-    wetSource.connect(wetGain);
-    wetSource.loop = true;
-
-    const startTime = audioContext.currentTime + 0.05;
-    drySource.start(startTime);
-    wetSource.start(startTime);
-
-    isPlaying = true;
-    if (playIcon) {
-      playIcon.classList.remove("bi-play-fill");
-      playIcon.classList.add("bi-pause-fill");
+            try {
+                const [dryBuf, wetBuf] = await Promise.all([
+                    fetchAndDecode(dryUrl),
+                    fetchAndDecode(wetUrl)
+                ]);
+                state.loadedBuffers[name] = { dry: dryBuf, wet: wetBuf };
+            } catch (e) {
+                console.warn(`Failed to preload ${name}`, e);
+            }
+        });
+        await Promise.all(promises);
     }
-    
-    if (!animationId) drawVisualizer();
-  }
 
-  function stopAudio() {
-    stopAudioSourceNodes();
-    isPlaying = false;
-    
-    if (playIcon) {
-      playIcon.classList.remove("bi-pause-fill");
-      playIcon.classList.add("bi-play-fill");
+    async function fetchAndDecode(url) {
+        const response = await fetch(url);
+        const arrayBuffer = await response.arrayBuffer();
+        return await state.ctx.decodeAudioData(arrayBuffer);
     }
-    
-    if (animationId) {
-      cancelAnimationFrame(animationId);
-      animationId = null;
-    }
-    resetBars();
-  }
 
-  function stopAudioSourceNodes() {
-    if (drySource) {
-      try { drySource.stop(); } catch(e) {}
-      drySource.disconnect();
-      drySource = null;
-    }
-    if (wetSource) {
-      try { wetSource.stop(); } catch(e) {}
-      wetSource.disconnect();
-      wetSource = null;
-    }
-  }
+    // --- 2. PLAYBACK CONTROL ---
 
-  function updateMix() {
-    if (!dryGain || !wetGain) return;
-    const now = audioContext.currentTime;
+    async function playSample(name) {
+        if (!state.ctx) initAudioContext();
+        if (state.ctx.state === 'suspended') state.ctx.resume();
 
-    if (isWet) {
-      dryGain.gain.setTargetAtTime(0, now, 0.1);
-      wetGain.gain.setTargetAtTime(1, now, 0.1);
-      
-      if(toggleKnob) toggleKnob.style.transform = "translateX(26px)"; 
-      if(visualizerWrapper) visualizerWrapper.classList.add('is-wet');
+        stopAudioSources();
 
-    } else {
-      dryGain.gain.setTargetAtTime(1, now, 0.1);
-      wetGain.gain.setTargetAtTime(0, now, 0.1);
-      
-      if(toggleKnob) toggleKnob.style.transform = "translateX(0px)";
-      if(visualizerWrapper) visualizerWrapper.classList.remove('is-wet');
-    }
-  }
-
-  function drawVisualizer() {
-    animationId = requestAnimationFrame(drawVisualizer);
-    if (!analyzer) return;
-
-    const bufferLength = analyzer.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-    analyzer.getByteFrequencyData(dataArray);
-
-    const barCount = bars.length;
-    const step = Math.ceil(bufferLength / barCount); 
-
-    bars.forEach((bar, index) => {
-      const dataIndex = Math.floor(index * step * 0.3);   
-      const safeIndex = Math.min(dataIndex, bufferLength - 1);
-      const value = dataArray[safeIndex] || 0; 
-      const heightPercent = Math.max(2, (value / 255) * 100); 
-      bar.style.height = `${heightPercent}%`;
-    });
-  }
-
-  function resetBars() {
-    bars.forEach(bar => bar.style.height = "1%");
-  }
-
-  if (playBtn) {
-    playBtn.addEventListener("click", async () => {
-      await initAudio(); 
-      
-      if (!currentDryBuffer) {
-        const activeBtn = document.querySelector(".track-btn-text.active");
-        if (activeBtn) {
-          const dry = activeBtn.dataset.dry;
-          const wet = activeBtn.dataset.wet;
-          if(dry && wet) {
-             await loadTrack(dry, wet);
-          }
-          return; 
+        // FIX: If buffers aren't ready (First Click), load them NOW.
+        if (!state.loadedBuffers[name]) {
+            // Find the button to get URLs
+            const btn = Array.from(ui.trackBtns).find(b => b.innerText.trim() === name);
+            if (btn) {
+                const dryUrl = btn.dataset.dry;
+                const wetUrl = btn.dataset.wet;
+                try {
+                    const [dryBuf, wetBuf] = await Promise.all([
+                        fetchAndDecode(dryUrl),
+                        fetchAndDecode(wetUrl)
+                    ]);
+                    state.loadedBuffers[name] = { dry: dryBuf, wet: wetBuf };
+                } catch (e) {
+                    console.error("Playback failed load:", e);
+                    return;
+                }
+            }
         }
-      }
 
-      if (isPlaying) {
-        stopAudio();
-      } else {
-        playAudio();
-      }
+        const buffers = state.loadedBuffers[name];
+        if (!buffers) return; 
+
+        const sourceDry = state.ctx.createBufferSource();
+        const sourceWet = state.ctx.createBufferSource();
+
+        sourceDry.buffer = buffers.dry;
+        sourceWet.buffer = buffers.wet;
+
+        sourceDry.loop = true;
+        sourceWet.loop = true;
+
+        sourceDry.connect(state.gainDry);
+        sourceWet.connect(state.gainWet);
+
+        sourceDry.start(0);
+        sourceWet.start(0);
+
+        state.activeSourceNodes = [sourceDry, sourceWet];
+        state.isPlaying = true;
+        state.currentSampleName = name;
+        
+        updatePlayButtonUI();
+    }
+
+    function stopAudio() {
+        stopAudioSources();
+        state.isPlaying = false;
+        updatePlayButtonUI();
+    }
+
+    function stopAudioSources() {
+        state.activeSourceNodes.forEach(node => {
+            try { node.stop(); } catch(e){}
+        });
+        state.activeSourceNodes = [];
+    }
+
+    function togglePlay() {
+        if (state.isPlaying) {
+            stopAudio();
+        } else {
+            const activeBtn = document.querySelector(".track-btn-text.active");
+            if (activeBtn) {
+                playSample(activeBtn.innerText.trim());
+            } else {
+                if(ui.trackBtns.length > 0) ui.trackBtns[0].click();
+            }
+        }
+    }
+
+    function updatePlayButtonUI() {
+        if (!ui.playIcon) return;
+        if (state.isPlaying) {
+            ui.playIcon.classList.remove("bi-play-fill");
+            ui.playIcon.classList.add("bi-pause-fill");
+        } else {
+            ui.playIcon.classList.add("bi-play-fill");
+            ui.playIcon.classList.remove("bi-pause-fill");
+        }
+    }
+
+    // --- 3. MIX CONTROL ---
+
+    function setMix(value) { // 0 = DRY, 1 = WET
+        state.currentMix = value;
+        const isWet = value === 1;
+
+        if (state.ctx) {
+            const t = state.ctx.currentTime;
+            state.gainDry.gain.setTargetAtTime(1 - value, t, 0.1);
+            state.gainWet.gain.setTargetAtTime(value, t, 0.1);
+        }
+
+        if (ui.toggleKnob) {
+            ui.toggleKnob.style.transform = isWet ? "translateX(26px)" : "translateX(0px)";
+        }
+        
+        updateVisualizerState();
+    }
+
+    function updateVisualizerState() {
+        if (state.isPlaying && state.currentMix === 1) {
+            ui.visualizerWrapper.classList.add('is-wet');
+        } else {
+            ui.visualizerWrapper.classList.remove('is-wet');
+        }
+    }
+
+    // --- 4. VISUALIZER LOOP ---
+    
+    let frameCount = 0;
+    const dataArray = new Uint8Array(64); 
+
+    function drawVisualizer() {
+        requestAnimationFrame(drawVisualizer);
+
+        frameCount++;
+        if (frameCount % CONFIG.frameSkip !== 0) return;
+
+        // CASE 1: STOPPED STATE
+        if (!state.isPlaying) {
+            ui.visualizerWrapper.classList.remove('is-wet');
+            
+            ui.bars.forEach((bar, i) => {
+                if (i >= 30 && i <= 32) {
+                    bar.style.height = '10px'; 
+                    bar.style.opacity = '1'; 
+                    bar.style.display = 'block'; 
+                } else {
+                    bar.style.height = '4px';
+                    bar.style.opacity = '0';
+                    bar.style.display = ''; 
+                }
+            });
+            return;
+        }
+
+        // CASE 2: PLAYING STATE
+        updateVisualizerState();
+        if(state.analyser) state.analyser.getByteFrequencyData(dataArray);
+
+        ui.bars.forEach((bar, i) => {
+            bar.style.display = ''; 
+            bar.style.opacity = '1';
+
+            let val = dataArray[i] || 0;
+
+            // POWER CURVE EQUALIZATION
+            const percent = i / ui.bars.length;
+            const multiplier = 0.5 + Math.pow(percent, 2) * 5.0;
+            
+            val = val * multiplier;
+            val = Math.min(255, val);
+
+            const targetHeight = Math.max(4, (val / 255) * 80); 
+            bar.style.height = `${targetHeight}px`;
+        });
+    }
+
+    // --- EVENT LISTENERS ---
+
+    if (ui.playBtn) {
+        ui.playBtn.addEventListener("click", () => {
+            if (!state.ctx) initAudioContext();
+            togglePlay();
+        });
+    }
+
+    ui.trackBtns.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            ui.trackBtns.forEach(b => b.classList.remove("active"));
+            e.target.classList.add("active");
+
+            // Reset to DRY on change
+            setMix(0);
+
+            playSample(e.target.innerText.trim());
+        });
     });
-  }
 
-  trackBtns.forEach(btn => {
-    btn.addEventListener("click", async (e) => {
-      const dry = e.target.dataset.dry;
-      const wet = e.target.dataset.wet;
+    if (ui.mixToggle) {
+        ui.mixToggle.addEventListener("click", () => {
+            if (!state.ctx) initAudioContext();
+            const target = state.currentMix === 0 ? 1 : 0;
+            setMix(target);
+        });
+    }
 
-      if (!dry || !wet || dry === "null" || wet === "null") {
-        console.warn("Track audio missing");
-        return; 
-      }
-
-      trackBtns.forEach(b => b.classList.remove("active"));
-      e.target.classList.add("active");
-
-      await initAudio();
-      loadTrack(dry, wet);
-    });
-  });
-
-  if (mixToggle) {
-    mixToggle.addEventListener("click", () => {
-      isWet = !isWet;
-      updateMix();
-    });
-  }
-
+    // Optional: Pre-init on first document interaction to speed things up
+    document.body.addEventListener('click', initAudioContext, { once: true });
 });

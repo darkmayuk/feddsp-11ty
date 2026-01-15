@@ -145,7 +145,7 @@
       font-weight: 700;
       text-transform: uppercase;
       border: none;
-      transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+      transition: transform 0.1s ease, background-color 0.1s ease, color 0.1s ease;
     }
 
     .btn-brand-solid {
@@ -1562,6 +1562,7 @@
       justify-content: space-between;
       width: 100%;
       padding-bottom: 1rem;
+      row-gap: 0.5rem;
     }
 
     .track-item {
@@ -1597,7 +1598,7 @@
       left: 50%;
       transform: translateX(-50%);
       width: 20px;
-      height: 20px;
+      height: 12px;
       background: black;
       border-radius: 1px;
     }
@@ -1650,6 +1651,8 @@
       border-radius: 999px;
       background: #000; 
       transition: height 0.05s linear;
+      will-change: height;
+      transform: translateZ(0);
     }
 
     @media (max-width: 768px) {
@@ -1762,12 +1765,12 @@
     display: block;
   }
 
-  #sticky-product-footer a {
+  .sticky-footer-center a {
     color: inherit;
   }
 
-  #sticky-product-footer a:active,
-  #sticky-product-footer a:hover {
+  .sticky-footer-center a:active,
+  .sticky-footer-center a:hover {
     color: white;
   }
 
@@ -1783,6 +1786,7 @@
       min-width: auto;
       letter-spacing: 0;
     }
+
   }
 
 /* LEGACY / UTILITY PAGES */
