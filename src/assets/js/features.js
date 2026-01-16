@@ -11,32 +11,42 @@ document.addEventListener("DOMContentLoaded", function () {
     const viewWidth = window.innerWidth;
     const scrollDist = trackWidth - viewWidth;
 
+    // 2. CHECK: Does the content fit on the screen? (Big Monitor logic)
     if (scrollDist <= 0) {
+      // It fits! Disable scrolling and CENTER the content
       section.style.height = "auto";
+      track.style.transform = "none";
+      track.style.margin = "0 auto"; // <--- This centers it
       return;
     }
 
-    // 2. THE FIX: Acceleration Factor
-    // Higher number = Faster scroll = Less vertical margin/height
-    const scrollSpeed = 1; 
+    // 3. It doesn't fit (Standard Scroll logic)
+    // Force left alignment so we can scroll through it
+    track.style.margin = "0"; 
 
-    // We divide the distance by the speed to require less vertical scrolling
+    // Acceleration Factor (Higher = shorter page height)
+    const scrollSpeed = 3; 
     const targetHeight = (scrollDist / scrollSpeed) + window.innerHeight;
     section.style.height = `${targetHeight}px`;
     
-    // 3. The Scroll Listener
-    window.addEventListener("scroll", () => {
-      const sectionTop = section.getBoundingClientRect().top;
-      
-      // Calculate progress based on our accelerated height
-      // We multiply by scrollSpeed to map the shorter vertical scroll to the longer horizontal track
-      let progress = -sectionTop * scrollSpeed;
-      
-      // Clamp the values so we don't overshoot
-      progress = Math.max(0, Math.min(progress, scrollDist));
-      
-      track.style.transform = `translateX(-${progress}px)`;
-    });
+    // 4. The Scroll Listener
+    // Note: We define this here to capture the current math variables
+    const handleScroll = () => {
+       const sectionTop = section.getBoundingClientRect().top;
+       
+       // Only animate if we are somewhat near/in the section to save resources
+       if (sectionTop > window.innerHeight || -sectionTop > targetHeight) return;
+
+       let progress = -sectionTop * scrollSpeed;
+       progress = Math.max(0, Math.min(progress, scrollDist));
+       
+       track.style.transform = `translateX(-${progress}px)`;
+    };
+
+    // Remove old listener if exists (cleaner) and add new one
+    window.removeEventListener("scroll", window.featuresScrollListener);
+    window.featuresScrollListener = handleScroll;
+    window.addEventListener("scroll", handleScroll);
   }
 
   initScroll();

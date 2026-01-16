@@ -2,22 +2,24 @@
 <section class="py-5 testimonials-section">
   
   <div class="container reveal-on-scroll text-center">
-    <h2 class="text-uppercase font-header gradient-text3 mb-4" style="font-size: 6rem;">
+    <h2 class="text-uppercase font-header gradient-text3 mb-5" style="font-size: 5rem;">
       USED BY PROS
     </h2>
   </div>
 
   <div class="container reveal-on-scroll">
     <div class="testimonial-card-bg">
-      <div class="row gy-4 gx-5 g-lg-5">
+      <div class="row gy-5 gx-lg-5">
         
         {% for testimonial in product.sections.testimonials %}
         <div class="col-lg-4">
           <div class="testimonial-item">
             
-            <img src="{{ testimonial.image | default: '/assets/images/reviewers/default-avatar.jpg' }}" 
-                 alt="{{ testimonial.author }}" 
-                 class="testimonial-avatar">
+            <div class="avatar-wrapper">
+              <img src="{{ testimonial.image | default: '/assets/images/reviewers/default-avatar.jpg' }}" 
+                   alt="{{ testimonial.author }}" 
+                   class="testimonial-avatar">
+            </div>
 
             <div class="text-content">
               <div class="testimonial-quote">
@@ -27,7 +29,9 @@
               <div class="mt-auto">
                 <div class="testimonial-author">{{ testimonial.author }}</div>
                 <div class="testimonial-role">{{ testimonial.role }}</div>
+                {% if testimonial.bands %}
                 <div class="testimonial-bands">{{ testimonial.bands }}</div>
+                {% endif %}
               </div>
             </div>
 

@@ -1,17 +1,24 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const techItems = document.querySelectorAll('.tech-item-title');
+    techItems.forEach(item => {
+        const bgUrl = item.getAttribute('data-bg');
+        if (bgUrl) {
+            const img = new Image();
+            img.src = bgUrl;
+        }
+    });
+});
+
 function updateTechSpec(element) {
-    // 1. Trigger the "Interacted" State
-    // This tells the CSS: "User has started exploring, dim the non-active items"
     const wrapper = element.closest('.tech-titles-wrapper');
     if (wrapper) {
         wrapper.classList.add('interacted');
     }
 
-    // 2. Handle Active State (Colors)
     const allTitles = document.querySelectorAll('.tech-item-title');
     allTitles.forEach(el => el.classList.remove('active'));
     element.classList.add('active');
 
-    // 3. Update Text
     const textTarget = document.getElementById('tech-text-target');
     const newText = element.getAttribute('data-text');
 
@@ -26,7 +33,6 @@ function updateTechSpec(element) {
         }, 150);
     }
 
-    // 4. Update Background Image
     const bgLayer = document.getElementById('tech-bg-layer');
     const newBg = element.getAttribute('data-bg');
 

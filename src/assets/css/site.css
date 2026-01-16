@@ -7,6 +7,7 @@
 
     /* Neutrals */
     --dark-grey: #1a1a1a;
+    --mid-grey: #6b6b6b;
     --light-grey: #aaaaaa;
     --grey-bg: #f5f5f7;
     
@@ -208,6 +209,7 @@
   .navbar-wrapper {
     width: 100%;
     background-color: black;
+    border-bottom: 1px solid var(--mid-grey);
   }
 
   .navbar {
@@ -217,22 +219,53 @@
 
   ul.navbar-nav { margin-bottom: 0 !important; }
 
-  /* --- LOGO --- */
+  .navbar-brand {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
   .nav-logo {
     max-height: 35px;
     position: relative;
-    transition: filter 0.25s ease;
-    filter: brightness(0) invert(1); /* Pure White */
+    transition: opacity 0.25s ease;
+    filter: brightness(0) invert(1);
   }
 
-  /* Navbar Logo Hover */
+  .navbar-brand::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--rainbow-grad);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+
+    /* MASKING: Cuts the rainbow into the shape of your logo */
+    -webkit-mask-image: url('/assets/images/icons/fedDSP_logo_text_small_WonB.png'); 
+    mask-image: url('/assets/images/icons/fedDSP_logo_text_small_WonB.png');
+    
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+  }
+
   .navbar-brand:hover .nav-logo,
   .navbar-brand:focus .nav-logo,
   .navbar-brand:active .nav-logo {
-    filter: var(--logo-pink-filter);
+    opacity: 0;
   }
 
-  /* --- TEXT LINKS --- */
+  .navbar-brand:hover::after,
+  .navbar-brand:focus::after,
+  .navbar-brand:active::after {
+    opacity: 1;
+  }
+
   .navbar .nav-item { margin: 0 0.5rem; }
 
   .navbar .nav-link {
@@ -244,7 +277,6 @@
     align-items: center; /* Helps with vertical alignment */
   }
 
-  /* Hover/Active: Bright White */
   .navbar .nav-link:hover,
   .navbar .nav-link.active,
   .nav-item.dropdown:hover > .nav-link {
@@ -257,38 +289,36 @@
     top: 100% !important;
     left: 0 !important;
     margin-top: 0 !important;
-    border: none;
-    border-radius: 0 !important; /* Sharp corners */
-    background-color: var(--brand-pink);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
+    min-width: auto !important;
+    width: max-content !important;
+    border-radius: 0 !important;
+    background-color: var(--light-grey);
     padding: 0;
   }
 
   .dropdown-menu .dropdown-item {
-    color: white;
+    color: black;
     padding: 10px 20px;
     transition: background-color 0.2s, color 0.2s;
-    border-radius: 0 !important; /* Sharp corners */
+    border-radius: 0 !important;
   }
 
-  .dropdown-menu .dropdown-item:hover {
-    background-color: white; 
-    color: black;
+  .dropdown-menu .dropdown-item:hover,
+  .dropdown-menu .dropdown-item:focus {
+    background-color: var(--brand-pink);
+    color: white;
   }
 
-  /* Disabled items */
   .dropdown-menu .dropdown-item.disabled, 
   .dropdown-menu .dropdown-item:disabled {
     color: rgba(255,255,255, 0.5);
     background-color: transparent;
   }
 
-  /* Open dropdown on hover for desktop */
   @media (min-width: 768px) {
     .nav-item.dropdown:hover .dropdown-menu { display: block; }
   }
 
-  /* --- ACCOUNT ICON --- */
   .navbar .nav-link.account-icon {
     background-color: white;
     border-radius: 50%;
@@ -302,7 +332,7 @@
 
   .navbar .nav-link.account-icon i {
     color: black;
-    font-size: 1.5rem; /* Bigger Icon */
+    font-size: 1.5rem;
     transition: color 0.2s ease;
   }
 
@@ -310,7 +340,6 @@
     background-color: var(--brand-pink); 
   }
 
-  /* --- MOBILE TOGGLER --- */
   .navbar-toggler {
     border: none;
     padding: 0.5rem;
@@ -325,12 +354,10 @@
     background-repeat: no-repeat;
   }
 
-  .navbar-toggler:hover .navbar-toggler-icon,
-  .navbar-toggler:focus .navbar-toggler-icon {
+  .navbar-toggler:hover .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23d466ad' viewBox='0 0 30 30'%3e%3cpath stroke='%23d466ad' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   }
 
-  /* --- MOBILE SPECIFIC LAYOUT --- */
   @media (max-width: 768px) {
     
     .navbar-collapse {
@@ -343,28 +370,23 @@
       padding-bottom: 1rem;
     }
 
-    /* Force the UL to ignore 'align-items-center' and align right */
     .navbar-nav {
       align-items: flex-end !important; 
       width: 100%;
     }
 
-    /* Force links to align text to the right */
     .navbar-nav .nav-link {
       text-align: right;
       width: 100%; /* Full width for easier tapping */
       padding-right: 0; /* Ensure it hits the edge */
     }
 
-    /* --- FIX FOR JUMPING 'PLUGINS' --- */
-    /* This ensures the text and the arrow stay glued to the right */
     .navbar-nav .dropdown-toggle {
       display: flex;
       justify-content: flex-end; 
       align-items: center;
     }
 
-    /* --- DROPDOWN MOBILE RESET --- */
     .dropdown-menu {
       position: static !important;
       text-align: right !important;
@@ -389,7 +411,6 @@
       background-color: transparent !important;
     }
 
-    /* --- ACCOUNT ICON MOBILE --- */
     .navbar .nav-link.account-icon { 
       /* Reduced gap between Downloads and Account */
       margin-top: 0.5rem !important; 
@@ -397,7 +418,6 @@
       margin-right: 0;   /* Ensure flush right */
     }
     
-    /* Remove side margins on mobile nav items */
     .navbar .nav-item {
       margin-right: 0;
       margin-left: 0;
@@ -405,75 +425,103 @@
   }
 
   /* Footer */
-  .footer-block {
-    text-align: left;
-    display: inline-block;
-    max-width: var(--footer-block-max);
-  }
+    .footer-block {
+      text-align: left;
+      display: inline-block;
+      max-width: var(--footer-block-max);
+    }
 
-  .site-footer .col-lg-6,
-  .site-footer .col-lg-3 {
-    text-align: center;
-  }
+    .site-footer .col-lg-6,
+    .site-footer .col-lg-3 {
+      text-align: center;
+    }
 
-  .site-footer h6 {
-    margin-bottom: 0.75rem;
-    font-size: 1.4rem;
-  }
+    .site-footer h6 {
+      margin-bottom: 0.75rem;
+      font-size: 1.4rem;
+    }
 
-  .footer-logo {
-    max-height: 50px;
-    transition: filter 0.25s ease;
-    filter: brightness(0) invert(1);
-  }
+    .footer-logo-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
 
-  .footer-logo-wrap:hover .footer-logo,
-  .footer-logo-wrap:focus .footer-logo,
-  .footer-logo-wrap:active .footer-logo {
-    filter: var(--logo-pink-filter);
-  }
+    .footer-logo {
+      max-height: 50px;
+      transition: opacity 0.25s ease;
+      filter: brightness(0) invert(1);
+    }
 
-  .footer-blurb {
-    font-size: 0.8rem;
-    line-height: 1.4;
-    color: var(--light-grey);
-  }
+    .footer-logo-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--rainbow-grad);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+      -webkit-mask-image: url('/assets/images/icons/fedDSP_logo_text_small_WonB.png'); 
+      mask-image: url('/assets/images/icons/fedDSP_logo_text_small_WonB.png');     
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: center;
+    }
 
-  .footer-socials a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: white;
-    color: black;
-    font-size: 1.2rem;
-    transition: transform 0.2s ease, background 0.2s ease;
-  }
+    .footer-logo-wrap:hover .footer-logo,
+    .footer-logo-wrap:focus .footer-logo {
+      opacity: 0;
+    }
 
-  .footer-socials a:hover {
-    background: var(--brand-pink);
-    color: black;
-    transform: scale(1.1);
-  }
+    .footer-logo-wrap:hover::after,
+    .footer-logo-wrap:focus::after {
+      opacity: 1;
+    }
 
-  .footer-links a {
-    color: white;
-    font-size: 1.2rem;
-    text-decoration: none;
-    display: inline-block;
-    padding: 0.25rem 0;
-  }
+    .footer-blurb {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: var(--light-grey);
+    }
 
-  .footer-links a:hover {
-    color: var(--brand-pink);
-  }
+    .footer-socials a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: white;
+      color: black;
+      font-size: 1.2rem;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
 
-  p.footer-bottom {
-    font-size: 0.7rem;
-    color: var(--light-grey);
-  }
+    .footer-socials a:hover {
+      background: var(--brand-pink);
+      color: black;
+      transform: scale(1.1);
+    }
+
+    .footer-links a {
+      color: white;
+      font-size: 1.2rem;
+      text-decoration: none;
+      display: inline-block;
+      padding: 0.25rem 0;
+    }
+
+    .footer-links a:hover {
+      color: var(--brand-pink);
+    }
+
+    p.footer-bottom {
+      font-size: 0.7rem;
+      color: var(--light-grey);
+    }
 
 /* HOMEPAGE SECTIONS (INDEX) */
 
@@ -924,25 +972,6 @@
 
 /* PRODUCT PAGE */
 
-  @media (max-width: 768px) {
-
-    .hero-v2 {
-      min-height: 60vh !important;
-    }
-
-    .product-page-v2 .text-start {
-      text-align: center !important;
-    }
-
-    .product-page-v2 h2 {
-      text-align: center;
-    }
-
-    .hero-v2 video {
-      object-position: 30% top; 
-    }
-  }
-
   /* Hero */
     .hero-v2 {
       background-color: var(--dark-grey);
@@ -966,7 +995,12 @@
 
     @media (max-width: 767px) {
       .hero-v2 {
+        min-height: 60vh !important;
         padding: 2rem 1rem;
+      }
+
+      .hero-v2 video {
+        object-position: 30% top; 
       }
     }
 
@@ -1078,7 +1112,7 @@
   /* Features */
 
     .features-section {
-      background-color: var(--grey-bg);
+      background-color: transparent;
       height: auto;
       position: relative;
     }
@@ -1092,6 +1126,13 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      background-color: var(--grey-bg);
+      background-image: 
+        linear-gradient(to bottom, rgba(255,255,255,0.5) 0%, var(--grey-bg) 100%),
+        url('/assets/images/backgrounds/fedDSP BGs-05.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .features-scroll-container {
@@ -1173,18 +1214,6 @@
       z-index: 20;
     }
 
-    @media (min-width: 992px) and (max-width: 1399px) {
-      .testimonials-section .container {
-        max-width: 95%;
-      }
-    }
-
-    @media (min-width: 992px) and (max-width: 1199px) {
-      .testimonial-card-bg .row {
-        --bs-gutter-x: 2rem; 
-      }
-    }
-
     .testimonial-card-bg {
       background-color: var(--dark-grey);
       background-image: 
@@ -1193,33 +1222,38 @@
       background-size: cover;
       background-position: center;
       border-radius: 2rem;
-      padding: 6rem 2rem 6rem 0;
+      padding: 6rem 4rem; 
       z-index: 5;
+    }
+
+    @media (max-width: 1399px) {
+      .testimonial-card-bg {
+        padding: 5rem 1rem;
+      }
     }
 
     @media (max-width: 991px) {
       .testimonial-card-bg {
-        padding: 2rem 1.5rem;
+        padding: 3rem 4rem;
       }
     }
 
-    @media (min-width: 768px) and (max-width: 991px) {
+    @media (max-width: 767px) {
       .testimonial-card-bg {
-        padding-left: 5rem;
-        padding-right: 5rem;
+        padding: 3rem 2rem;
       }
     }
 
     .testimonial-item {
       display: flex;
-      gap: 1rem; /* Space between Avatar and Text */
+      gap: 1rem;
       height: 100%;
       align-items: flex-start;
     }
 
     @media (max-width: 991px) {
       .testimonial-item {
-        flex-direction: column; /* Stack on mobile/tablet */
+        flex-direction: column; 
         align-items: center;
         text-align: center;
       }
@@ -1233,16 +1267,6 @@
       object-fit: cover;
       position: relative;
       z-index: 5;
-    }
-
-    .col-lg-4:first-child .testimonial-avatar {
-      margin-left: -2rem; /* Pull first avatar left */
-    }
-
-    @media (max-width: 991px) {
-      .col-lg-4:first-child .testimonial-avatar {
-        margin-left: 0; /* No overlap on mobile/tablet */
-      }
     }
 
     .testimonial-quote, .testimonial-bands {
@@ -1276,36 +1300,46 @@
   /* Tech Features */
 
     .tech-specs-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       position: relative;
       background-color: black;
       min-height: 80vh; 
-      padding-top: 14rem; 
+      padding-top: 22rem; 
       padding-bottom: 4rem;
       overflow: hidden;
       z-index: 1; 
-      clip-path: polygon(0 8vw, 100% 0, 100% 100%, 0 100%);
-      margin-top: -10vw; 
+      clip-path: polygon(0 12vw, 100% 0, 100% 100%, 0 100%);
+      margin-top: -12vw; 
     }
+
+      @media (max-width: 1499px) {
+        .tech-specs-section {
+          padding-top: 18rem;
+        }
+      }
+
 
       @media (max-width: 1199px) {
         .tech-specs-section {
-          padding-top: 10rem;
+          padding-top: 14rem;
         }
       }
 
       @media (max-width: 991px) {
         .tech-specs-section {
-          padding-top: 8rem;
-          clip-path: polygon(0 5rem, 100% 0, 100% 100%, 0 100%);
-          margin-top: -5rem;
+          padding-top: 12rem;
+          clip-path: polygon(0 8rem, 100% 0, 100% 100%, 0 100%);
+          margin-top: -8rem;
         }
       }
 
       @media (max-width: 767px) {
         .tech-specs-section {
-          padding-top: 6rem; 
-          clip-path: polygon(0 4rem, 100% 0, 100% 100%, 0 100%);
-          margin-top: -4rem;
+          padding-top: 10rem; 
+          clip-path: polygon(0 6rem, 100% 0, 100% 100%, 0 100%);
+          margin-top: -6rem;
         }
       }
 
@@ -1371,7 +1405,7 @@
     }
 
     .tech-description-box {
-      padding: 1rem 1rem 0 0;
+      margin: 0 3rem;
     }
 
     .tech-desc-text {
@@ -1379,6 +1413,7 @@
       line-height: 1.4;
       color: white;
       transition: opacity 0.2s ease;
+      margin: 0;
     }
 
     @media (max-width: 991px) {
@@ -1393,7 +1428,7 @@
       
       .tech-description-box {
         min-height: 150px;
-        margin-top: 1rem;
+        margin: 1rem 0 0 0;
       }
     }
 
