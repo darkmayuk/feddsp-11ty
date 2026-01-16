@@ -1,53 +1,51 @@
-<section class="py-5 features-section text-dark position-relative">
+<section class="features-section text-dark">
   
-  <div class="container-fluid">
+  <div class="features-sticky-viewport">
     
-    <div class="text-center mb-3 reveal-on-scroll">
-      <h2 class="text-uppercase font-header gradient-text-features" style="font-size: 5rem;">
-        {{ product.sections.features.title }}
-      </h2>
-    </div>
-
-    <div class="features-scroll-container restrict-width" id="featuresScroll">
+    <div class="container-fluid">
       
-      {% for item in product.sections.features.items %}
-      <div class="feature-card-wrapper">
+      <div class="text-center mb-5 reveal-on-scroll">
+        <h2 class="text-uppercase font-header gradient-text-features">
+          {{ product.sections.features.title }}
+        </h2>
+      </div>
 
-        {% if item.type == 'text' %}
-        <div class="feature-card-white">
-          <h3 class="fw-bold mb-3 font-body">{{ item.title }}</h3>
-          <p class="mb-0">
-            {{ item.text }}
-          </p>
-        </div>
+      <div class="features-scroll-container" id="featuresScrollTrack">
+        
+        {% for item in product.sections.features.items %}
+        <div class="feature-card-wrapper">
 
-        {% elsif item.type == 'image' %}
-        <div class="feature-card-image">
-          
-          {% if item.imagePosition == 'top' %}
-            <img src="{{ item.image }}" alt="{{ item.title }}" class="feature-img-display mb-4">
-            <div>
-              <h3 class="fw-bold mb-3 font-body">{{ item.title }}</h3>
-              <p class="mb-0">{{ item.text }}</p>
-            </div>
+          {% if item.type == 'text' %}
+          <div class="feature-card-white">
+            <h3 class="fw-bold mb-3 font-body">{{ item.title }}</h3>
+            <p class="mb-0">{{ item.text }}</p>
+          </div>
 
-          {% else %}
-            <div class="mb-4">
-              <h3 class="fw-bold mb- font-body">{{ item.title }}</h3>
-              <p class="mb-0">{{ item.text }}</p>
-            </div>
-            <img src="{{ item.image }}" alt="{{ item.title }}" class="feature-img-display">
+          {% elsif item.type == 'image' %}
+          <div class="feature-card-image">
+            
+            {% if item.imagePosition == 'top' %}
+              <img src="{{ item.image }}" alt="{{ item.title }}" class="feature-img-display">
+              <div class="mt-3 text-dark"> 
+                <h3 class="fw-bold mb-3 font-body">{{ item.title }}</h3>
+                <p class="mb-0">{{ item.text }}</p>
+              </div>
+
+            {% else %}
+              <div class="mb-3 text-dark">
+                 <h3 class="fw-bold mb-3 font-body">{{ item.title }}</h3>
+                 <p class="mb-0">{{ item.text }}</p>
+              </div>
+              <img src="{{ item.image }}" alt="{{ item.title }}" class="feature-img-display">
+            {% endif %}
+
+          </div>
           {% endif %}
 
         </div>
-        {% endif %}
+        {% endfor %}
 
-      </div>
-      {% endfor %}
-
-    </div>
-
-  </div>
-</section>
+      </div> </div>
+  </div> </section>
 
 <script src="/assets/js/features.js"></script>

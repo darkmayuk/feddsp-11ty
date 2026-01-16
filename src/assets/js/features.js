@@ -1,75 +1,44 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const slider = document.getElementById('featuresScroll');
+document.addEventListener("DOMContentLoaded", function () {
   
-  // STATE VARIABLES
-  let isDown = false;
-  let startX;
-  let scrollLeft;
-  let autoScrollId;
-  let isAutoScrolling = true; // Start true, stop once user interacts
+  const section = document.querySelector(".features-section");
+  const track = document.getElementById("featuresScrollTrack");
   
-  // SETTINGS
-  const autoScrollSpeed = 0.5; // Lower is slower
+  if (!section || !track) return;
 
-  // --- 1. MOUSE DRAG LOGIC ---
-  
-  slider.addEventListener('mousedown', (e) => {
-    isDown = true;
-    isAutoScrolling = false; // Stop auto-scroll permanently if user grabs it
-    cancelAnimationFrame(autoScrollId);
-    
-    slider.classList.add('active'); // CSS class for 'grabbing' cursor
-    
-    // Calculate anchor point
-    startX = e.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-  });
+  function initScroll() {
+    // 1. Calculate dimensions
+    const trackWidth = track.scrollWidth;
+    const viewWidth = window.innerWidth;
+    const scrollDist = trackWidth - viewWidth;
 
-  slider.addEventListener('mouseleave', () => {
-    isDown = false;
-    slider.classList.remove('active');
-  });
-
-  slider.addEventListener('mouseup', () => {
-    isDown = false;
-    slider.classList.remove('active');
-  });
-
-  slider.addEventListener('mousemove', (e) => {
-    if (!isDown) return; // Stop if mouse isn't clicked
-    e.preventDefault();  // Prevent text selection
-    
-    const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 2; // *2 is the scroll speed multiplier
-    slider.scrollLeft = scrollLeft - walk;
-  });
-  
-  // --- 2. TOUCH LOGIC (Pause Auto-scroll) ---
-  // Mobile natively handles scrolling, we just need to stop the auto-player
-  slider.addEventListener('touchstart', () => {
-    isAutoScrolling = false;
-    cancelAnimationFrame(autoScrollId);
-  });
-
-
-  // --- 3. AUTO SCROLL ENGINE ---
-  function autoScrollLoop() {
-    if (isAutoScrolling) {
-      slider.scrollLeft += autoScrollSpeed;
-      
-      // Infinite Loop Logic (Optional: Reset to 0 if at end)
-      // Note: For true infinite scroll, we'd need to duplicate DOM elements.
-      // This simple version just stops or lets you scroll back when it hits the end.
-      if (slider.scrollLeft >= (slider.scrollWidth - slider.clientWidth)) {
-         // Optional: Reset to start? 
-         // slider.scrollLeft = 0; 
-         isAutoScrolling = false; // Or just stop when done
-      }
-      
-      autoScrollId = requestAnimationFrame(autoScrollLoop);
+    if (scrollDist <= 0) {
+      section.style.height = "auto";
+      return;
     }
+
+    // 2. THE FIX: Acceleration Factor
+    // Higher number = Faster scroll = Less vertical margin/height
+    const scrollSpeed = 1; 
+
+    // We divide the distance by the speed to require less vertical scrolling
+    const targetHeight = (scrollDist / scrollSpeed) + window.innerHeight;
+    section.style.height = `${targetHeight}px`;
+    
+    // 3. The Scroll Listener
+    window.addEventListener("scroll", () => {
+      const sectionTop = section.getBoundingClientRect().top;
+      
+      // Calculate progress based on our accelerated height
+      // We multiply by scrollSpeed to map the shorter vertical scroll to the longer horizontal track
+      let progress = -sectionTop * scrollSpeed;
+      
+      // Clamp the values so we don't overshoot
+      progress = Math.max(0, Math.min(progress, scrollDist));
+      
+      track.style.transform = `translateX(-${progress}px)`;
+    });
   }
 
-  // Start the engine
-  requestAnimationFrame(autoScrollLoop);
+  initScroll();
+  window.addEventListener("resize", initScroll);
 });
