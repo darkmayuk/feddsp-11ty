@@ -7,21 +7,23 @@
     "headline": "Colour Your Sound<br><br><span class='hero-thin'>Make tracks feel expensive in 10 seconds. Bigger, louder, richer saturation you can <i>track through</i> - with offline-ready licensing, no iLok, and a lightweight CPU footprint.</span>",
     "price": "£65",
     "originalPrice": "£95",
-    "discountText": "Reduced price only applies to <a href=\"/founders\">Founder's Month</a>, 1-28 February 2026",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/76718b9d-3cb2-4fd6-9964-12317135a261?checkout[custom][product_code]=fedDSP-PHAT",
+    "discountText": "Reduced price only applies to <a href=\"/founders\">Founder's Month</a>, 1-28 February 2026",
     "demoLink": "/downloads",
     "manualLink": "#",
     "logo": "/assets/images/products/phat-logo.png",
     "image": "/assets/images/products/phat-thin.png",
     "heroVideo": "/assets/videos/test2.mp4",
-    "gradientStart": "#d366ac",
-    "gradientEnd": "#be1e2d",
-    "gradient2Start": "#be1e2d",
-    "gradient2End": "#f15a29",
-    "gradient3Start": "#f15a29",
-    "gradient3End": "#be1e2d",
-    "gradient4Start": "#228340",
-    "gradient4End": "#204963",
+    "gradients": {
+      "gradientStart": "#d366ac",
+      "gradientEnd": "#be1e2d",
+      "gradient2Start": "#be1e2d",
+      "gradient2End": "#f15a29",
+      "gradient3Start": "#f15a29",
+      "gradient3End": "#be1e2d",
+      "gradient4Start": "#228340",
+      "gradient4End": "#204963"
+    },    
     "sections": {
       "overview": {
         "title": "Masterclass In<br>Saturation",
@@ -186,12 +188,12 @@
           {
             "title": "Shortcuts? Finally.",
             "text": "Put your mouse on notice and keep your hands where it matters, on the keys. Full shortcut support, so your workflow doesn't lose its flow.",
-            "background": "/assets/images/backgrounds/tech-bg-5.png"
+            "background": "/assets/images/backgrounds/tech-bg-6.png"
           },
           {
             "title": "Phat / Phatter / Clean.",
             "text": "Three distinct attitudes in one switch. Keep it transparent with CLEAN, engage PHAT for subtle transformer saturation and low-end warmth, or go all-out with PHATTER for dual-transformer drive and aggressive resonance.",
-            "background": "/assets/images/backgrounds/tech-bg-6.png"
+            "background": "/assets/images/backgrounds/tech-bg-5.png"
           }
         ]
       },
@@ -232,7 +234,7 @@
           },
           {
             "q": "Where can I find the manual?",
-            "a": "Yes, you can read the full <a href='#'>User Manual here</a>."
+            "a": "You can read the full <a href='#'>User Manual here</a>."
           }
         ]
       }
