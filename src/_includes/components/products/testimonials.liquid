@@ -16,9 +16,8 @@
           <div class="testimonial-item">
             
             <div class="avatar-wrapper">
-              <img src="{{ testimonial.image | default: '/assets/images/reviewers/default-avatar.jpg' }}" 
-                   alt="{{ testimonial.author }}" 
-                   class="testimonial-avatar">
+              {% assign avatar_img = testimonial.image | default: '/assets/images/reviewers/default-avatar.jpg' %}
+              {% image avatar_img, testimonial.author, "300px", "testimonial-avatar" %}
             </div>
 
             <div class="text-content">

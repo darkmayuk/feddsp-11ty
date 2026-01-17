@@ -12,10 +12,8 @@
       </div>
 
       <div class="col-lg-6 mb-5">
-        <img 
-          src="{{ product.image }}" 
-          alt="{{ product.name }} main image" 
-          class="img-fluid rounded-4 product-feature-image mx-lg-auto">
+        {% assign alt_text = product.name | append: " main image" %}
+        {% image product.image, alt_text, "(min-width: 1024px) 50vw, 100vw", "img-fluid rounded-4 product-feature-image mx-lg-auto" %}
       </div>
 
       <div class="col-lg-3 text-start">

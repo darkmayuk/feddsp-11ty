@@ -13,7 +13,7 @@
   <div class="container position-relative" style="z-index: 2;">
     <p class="text-uppercase mb-5 text-white-75 lead">{{ product.badge }}</p>
     
-    <img src="{{ product.logo }}" alt="{{ product.name }}" class="hero-logo-img mb-4">
+    {% image product.logo, product.name, "(min-width: 768px) 400px, 80vw", "hero-logo-img mb-4" %}
     
     <h2 class="h3 mb-3 mb-md-5 font-body">
       {{ product.headline }}
@@ -22,7 +22,7 @@
     <div class="hero-product-container mb-5">
       <div class="gradient-border-wrap">
         {% if product.image %}
-          <img src="{{ product.image }}" alt="{{ product.name }} Interface" class="img-fluid">
+          {% image product.image, product.name, "(min-width: 1024px) 60vw, 100vw", "img-fluid" %}
         {% endif %}
       </div>
     </div>

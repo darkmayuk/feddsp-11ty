@@ -20,7 +20,7 @@
 
           <!-- centre -->
           <div class="team-member center">
-            <img src="{{ fed.avatar }}" alt="{{ fed.name }}">
+            {% image fed.avatar, fed.name, "300px" %}
             <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center text-white">
               <h6 class="mb-1">{{ fed.name }}</h6>
               <div class="small">{{ fed.role }}</div>
@@ -30,7 +30,7 @@
           <!-- 6 around -->
           {% for member in others %}
           <div class="team-member ring ring-{{ forloop.index }}">
-            <img src="{{ member.avatar }}" alt="{{ member.name }}">
+            {% image member.avatar, member.name, "300px" %}
             <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center text-white">
               <h6 class="mb-1">{{ member.name }}</h6>
               <div class="small">{{ member.role }}</div>

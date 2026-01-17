@@ -21,7 +21,7 @@
           </div>
 
           <div class="product-img-wrap my-4 rounded-4">
-            <img src="{{ product.image }}" alt="{{ product.name }}" class="product-main-img">
+            {% image product.image, product.name, "(min-width: 1024px) 50vw, 100vw", "product-main-img" %}
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ description: Access all of fedDSP's products. Try demo versions, or buy and unlo
       <article class="download-card{% if product.comingSoon %} is-coming-soon{% endif %}">
         {% if product.image %}
           <div class="download-card-image">
-            <img src="{{ product.image }}" alt="{{ product.name }}">
+            {% image product.image, product.name, "(min-width: 768px) 50vw, 100vw" %}
           </div>
         {% endif %}
 
