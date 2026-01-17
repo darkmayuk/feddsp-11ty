@@ -4,11 +4,11 @@
     "name": "PHATurator",
     "comingSoon": false,
     "badge": "New Release",
-    "headline": "Colour Your Sound<br><br><span class='hero-thin'>Make tracks feel expensive in 10 seconds. Bigger, louder, richer saturation you can <i>track through</i> - with offline-ready licensing, no iLok, and a lightweight CPU footprint.</span>",
+    "headline": "Colour Your Sound<br><br><span class='hero-thin'>Make tracks feel expensive in 10 seconds. Bigger, louder, richer saturation you can <i>track through</i>.</span>",
     "price": "£65",
     "originalPrice": "£95",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/76718b9d-3cb2-4fd6-9964-12317135a261?checkout[custom][product_code]=fedDSP-PHAT",
-    "discountText": "Reduced price only applies to <a href=\"/founders\">Founder's Month</a>, 1-28 February 2026",
+    "discountText": "Reduced price only applies to <a href=\"/founders\">Founder's Month</a>, until 1st March 2026",
     "demoLink": "/downloads",
     "manualLink": "#",
     "logo": "/assets/images/products/phat-logo.png",
@@ -30,11 +30,11 @@
         "items": [
           {
             "title": "Why stack saturations?",
-            "text": "Because great tone is built in stages. In a real studio, sound is shaped by multiple pieces of gear, each adding a small amount of colour and harmonic detail. Stacking saturations lets you work the same way in the box. Instead of pushing one stage too hard, you spread the work across several, keeping the result controlled, musical, and natural. <br><br>This is how your favourite records were made. Now it's one click away."
+            "text": "Because great tone is built in stages. In a real studio, sound is shaped by multiple pieces of gear, each adding a small amount of colour and harmonic detail. Stacking saturations lets you work the same way in the box. Instead of pushing one stage too hard, you spread the work across several, keeping the result controlled, musical, and natural. <br><br>This is how your favourite records were made. Now it's just one click away."
           },
           {
             "title": "Six styles of timeless saturations.",
-            "text": "The modelling goes beyond surface tone to real analogue behaviour. <br><br>From the snappy punch of British consoles to the creamy warmth of 70s preamps and vintage tape glue, these six algorithms are indistinguishable from the hardware. They breathe, break up, and react to your dynamics with the same musicality and emotion as the original units."
+            "text": "The modelling goes beyond surface tone to real analogue behaviour. <br><br>From the snappy punch of British consoles to the creamy warmth of 70s preamps and vintage tape glue, these six algorithms deliver the feel and response of the hardware. They breathe, break up, and react to your dynamics with the same musicality and emotion as the original units."
           },
           {
             "title": "Zero Latency.<br>Featherlight.<br>No iLok.",

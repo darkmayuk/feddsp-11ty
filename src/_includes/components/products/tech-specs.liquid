@@ -1,7 +1,10 @@
 {% if product.sections.techSpecs.items.size > 0 %}
 <section class="tech-specs-section">
   
-  <div id="tech-bg-layer" class="tech-specs-bg" style="background-color: #000;">
+  <div class="tech-bg-wrapper">
+    <div id="tech-bg-1" class="tech-specs-bg active" style="background-color: #000;"></div>
+    <div id="tech-bg-2" class="tech-specs-bg" style="background-color: #000;"></div>
+    
     <div class="tech-bg-overlay"></div>
   </div>
 
@@ -34,6 +37,6 @@
     </div>
   </div>
 </section>
-
 {% endif %}
+
 <script src="/assets/js/product-tech.js"></script>

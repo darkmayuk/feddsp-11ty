@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Keep the preloader - it helps speed things up in the background
     const techItems = document.querySelectorAll('.tech-item-title');
     techItems.forEach(item => {
         const bgUrl = item.getAttribute('data-bg');
@@ -10,10 +11,9 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function updateTechSpec(element) {
+    // 1. Text & UI Updates (Immediate)
     const wrapper = element.closest('.tech-titles-wrapper');
-    if (wrapper) {
-        wrapper.classList.add('interacted');
-    }
+    if (wrapper) wrapper.classList.add('interacted');
 
     const allTitles = document.querySelectorAll('.tech-item-title');
     allTitles.forEach(el => el.classList.remove('active'));
@@ -22,6 +22,7 @@ function updateTechSpec(element) {
     const textTarget = document.getElementById('tech-text-target');
     const newText = element.getAttribute('data-text');
 
+    // Text Fade Logic
     if (textTarget.style.opacity === '0') {
         textTarget.innerText = newText;
         textTarget.style.opacity = 1;
@@ -33,10 +34,33 @@ function updateTechSpec(element) {
         }, 150);
     }
 
-    const bgLayer = document.getElementById('tech-bg-layer');
-    const newBg = element.getAttribute('data-bg');
+    // 2. Background Cross-Fade Logic (The Glitch Fix)
+    const bg1 = document.getElementById('tech-bg-1');
+    const bg2 = document.getElementById('tech-bg-2');
+    const newBgUrl = element.getAttribute('data-bg');
 
-    if (newBg) {
-        bgLayer.style.backgroundImage = `url('${newBg}')`;
+    if (!newBgUrl) return;
+
+    // Identify which layer is visible, and which is hidden
+    const activeLayer = bg1.classList.contains('active') ? bg1 : bg2;
+    const nextLayer = activeLayer === bg1 ? bg2 : bg1;
+
+    // Optimization: If the next layer already has this image, just swap
+    if (nextLayer.style.backgroundImage.includes(newBgUrl)) {
+        nextLayer.classList.add('active');
+        activeLayer.classList.remove('active');
+        return;
     }
+
+    // CRITICAL FIX: Load image in memory first
+    const imgLoader = new Image();
+    imgLoader.src = newBgUrl;
+
+    imgLoader.onload = function() {
+        // Only swap AFTER the image is fully loaded
+        nextLayer.style.backgroundImage = `url('${newBgUrl}')`;
+        
+        nextLayer.classList.add('active');
+        activeLayer.classList.remove('active');
+    };
 }

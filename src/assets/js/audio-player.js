@@ -57,6 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         state.gainDry = state.ctx.createGain();
         state.gainWet = state.ctx.createGain();
+        state.gainDry.gain.value = 1 - state.currentMix;
+        state.gainWet.gain.value = state.currentMix;
         state.analyser = state.ctx.createAnalyser();
         
         state.analyser.fftSize = 128; 
