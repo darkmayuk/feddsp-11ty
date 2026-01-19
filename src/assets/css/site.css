@@ -1236,6 +1236,7 @@
 
     .feature-img-display {
       width: 100%;
+      height: auto;
       border-radius: 12px;
       overflow: hidden;
       aspect-ratio: 1 / 1;
@@ -1279,7 +1280,7 @@
       background-color: var(--dark-grey);
       background-image: 
         linear-gradient(to bottom, #000000 0%, rgba(0,0,0,0.8) 100%),
-        url('/assets/images/products/phat-testimonial-bg.webp');
+        url('/assets/images/backgrounds/phat-testimonial-bg.webp');
       background-size: cover;
       background-position: center;
       border-radius: 2rem;
