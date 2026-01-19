@@ -866,7 +866,7 @@
   /* About Panel */
   .about-wrapper {
     background-color: var(--brand-pink);
-    background-image: url('/assets/images/backgrounds/about.png');
+    background-image: url('/assets/images/backgrounds/about.webp');
     background-repeat: repeat;
     background-size: auto;
     background-position: top left;
@@ -1171,7 +1171,7 @@
       background-color: var(--grey-bg);
       background-image: 
         linear-gradient(to bottom, rgba(255,255,255,0.5) 0%, var(--grey-bg) 100%),
-        url('/assets/images/backgrounds/fedDSP BGs-05.png');
+        url('/assets/images/backgrounds/fedDSP BGs-05.webp');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -1279,7 +1279,7 @@
       background-color: var(--dark-grey);
       background-image: 
         linear-gradient(to bottom, #000000 0%, rgba(0,0,0,0.8) 100%),
-        url('/assets/images/products/phat-testimonial-bg.png');
+        url('/assets/images/products/phat-testimonial-bg.webp');
       background-size: cover;
       background-position: center;
       border-radius: 2rem;
@@ -1576,7 +1576,7 @@
       background-color: black;
       background-image: 
         linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 40%),
-        url('/assets/images/backgrounds/PLAYER BG.png');
+        url('/assets/images/backgrounds/PLAYER BG.webp');
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;

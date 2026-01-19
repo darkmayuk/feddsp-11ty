@@ -6,8 +6,8 @@
     "comingSoon": false,
     "badge": "New Release",
     "headline": "Colour Your Sound<br><br><span class='hero-thin'>Make tracks feel expensive in 10 seconds. Bigger, louder, richer saturation you can <i>track through</i>.</span>",
-    "price": "£65",
-    "originalPrice": "£95",
+    "price": "£70",
+    "originalPrice": "£100",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/76718b9d-3cb2-4fd6-9964-12317135a261?checkout[custom][product_code]=fedDSP-PHAT",
     "discountText": "Reduced price only applies to <a href=\"/founders\">Founders' Month</a>, until 1st March 2026",
     "demoLink": "/downloads",
@@ -74,13 +74,13 @@
           },
           {
             "name": "Beats",
-            "dry": "/assets/audio/PHAT_TRAP_BEAT_OFF.wav",
-            "wet": "/assets/audio/PHAT_TRAP_BEAT_ON.wav"
+            "dry": "/assets/audio/PHAT_BEATNEW_OFF.wav",
+            "wet": "/assets/audio/PHAT_BEATNEW_ON.wav"
           },
           {
             "name": "808",
-            "dry": "/assets/audio/PHAT_TRAP_808_OFF.wav",
-            "wet": "/assets/audio/PHAT_TRAP_808_ON.wav"
+            "dry": "/assets/audio/PHAT_808NEW_OFF.wav",
+            "wet": "/assets/audio/PHAT_808NEW_ON.wav"
           },
           {
             "name": "Keys",
@@ -101,13 +101,6 @@
       },
       "testimonials": [
         {
-          "quote": "It looks fantastic and is really easy to navigate. The layout is really intuitive so the learning curve was very minimal. I really enjoyed that the finer details were more tucked away so you have the option of getting more nerdy if you want to but the initial instance is quite simple.",
-          "author": "Sam Bloor",
-          "role": "MIX ENGINEER",
-          "bands": "Dream State, Blanket, Graphic Nature",
-          "image": "/assets/images/reviewers/SamBloor.jpg"
-        },
-        {
           "quote": "I think PHATurator is gonna be one of those level game changers for a lot of people. I literally can't work without it now! I use it on pretty much every track - I think it creates so much more depth and definition between instruments and being able to dial in different flavours at the same time is so useful.",
           "author": "Bob Cooper",
           "role": "PRODUCER",
@@ -115,11 +108,18 @@
           "image": "/assets/images/reviewers/BobCooper.jpg"
         },
         {
-          "quote": "I used it on a bass that was too spiky sounding, so I stacked up distortions to soften the transient and then used the filter to round it off. Ended up with a really fat, round bass sound.",
+          "quote": "I really like the PHATurator. Used it on a bass that had been sent for mixing, it was too spiky sounding so I stacked up bits of distortion to soften the transient and then used the filter to round it off. Ended up with a really fat, round bass sound.",
           "author": "Jim Pinder",
           "role": "MIX ENGINEER",
           "bands": "Sleep Token, Bring Me The Horizon, Bullet For My Valentine",
           "image": "/assets/images/reviewers/JimPinder.jpg"
+        },
+        {
+          "quote": "It looks fantastic and is really easy to navigate. The layout is really intuitive so the learning curve was very minimal. I really enjoyed that the finer details were more tucked away so you have the option of getting more nerdy if you want to but the initial instance is quite simple.",
+          "author": "Sam Bloor",
+          "role": "MIX ENGINEER",
+          "bands": "Dream State, Blanket, Graphic Nature",
+          "image": "/assets/images/reviewers/SamBloor.jpg"
         }
       ],
       "features": {
@@ -169,27 +169,27 @@
           {
             "title": "Zero latency.",
             "text": "Track through it. Mix with it. Perform live with it. No lag, no compromise.",
-            "background": "/assets/images/backgrounds/tech-bg-1.png"
+            "background": "/assets/images/backgrounds/tech-bg-1.webp"
           },
           {
             "title": "Big sound, small footprint.",
             "text": "PHATurator is efficient by design: high impact but low overhead. Big sessions stay fast and smooth, so you can finally bid those 'System Overload' playback errors farewell.",
-            "background": "/assets/images/backgrounds/tech-bg-2.png"
+            "background": "/assets/images/backgrounds/tech-bg-2.webp"
           },
           {
             "title": "Offline-ready licensing.",
             "text": "Install. Authorise offline. Done. Keep working with no interruption, no gimmicks and no internet checks. Once it's yours, it's yours.",
-            "background": "/assets/images/backgrounds/tech-bg-3.png"
+            "background": "/assets/images/backgrounds/tech-bg-3.webp"
           },
           {
             "title": "Don't take our word for it. Try it now.",
             "text": "Full features are available in Trial Mode (with infrequent silences), so you can decide with confidence before you buy.",
-            "background": "/assets/images/backgrounds/tech-bg-4.png"
+            "background": "/assets/images/backgrounds/tech-bg-4.webp"
           },
           {
             "title": "Shortcuts? Finally.",
             "text": "Put your mouse on notice and keep your hands where it matters, on the keys. Full shortcut support, so your workflow doesn't lose its flow.",
-            "background": "/assets/images/backgrounds/tech-bg-6.png"
+            "background": "/assets/images/backgrounds/tech-bg-6.webp"
           },
           {
             "title": "Phat / Phatter / Clean.",
@@ -238,106 +238,6 @@
             "a": "You can read the full <a href='#'>User Manual here</a>."
           }
         ]
-      }
-    }
-  },
-  {
-    "id": "leone",
-    "name": "LeONE",
-    "comingSoon": true,
-    "badge": "Coming Soon",
-    "headline": "Push Your Limits",
-    "price": "£49",
-    "originalPrice": "",
-    "discountText": "Join the waitlist",
-    "logo": "/assets/images/products/LeONE-logo.png",
-    "image": "/assets/images/products/LeONE.png",
-    "heroVideo": "",
-    "buyLink": "https://feddsp.lemonsqueezy.com/buy/LeONE",
-    "demoLink": "#",
-    "manualLink": "#",
-    "gradientStart": "#fff",
-    "gradientEnd": "#F38EB0",
-    "gradient2Start": "#204963",
-    "gradient2End": "#d366ac",
-    "sections": {
-      "overview": {
-        "title": "Precision Limiting",
-        "card1Title": "Transparent Power",
-        "card1Text": "Crystal clear limiting with zero latency.",
-        "description1": "LeONE is a dual limiter with zero latency, making it very useful for tracking and live work.",
-        "description2": "With a Release envelope that can move from 2 seconds all the way to 0.01 milliseconds, brutal limiting with LeONE is perfectly possible.",
-        "card2Title": "Dual Stage Control",
-        "card2Text": "Advanced options are there at the click of a button when you need them.",
-        "card3Title": "Zero Latency",
-        "card3Text": "Designed for live tracking and performance."
-      },
-      "audio": {
-        "title": "Hear the Limiting",
-        "samples": []
-      },
-      "testimonials": [],
-      "features": {
-        "title": "Features",
-        "items": []
-      },
-      "techSpecs": {
-        "title": "Specs",
-        "items": []
-      },
-      "faq": {
-        "title": "FAQ",
-        "items": []
-      }
-    }
-  },
-  {
-    "id": "fiery",
-    "name": "FIERY",
-    "comingSoon": true,
-    "badge": "In Development",
-    "headline": "Ignite Your Mix",
-    "price": "£49",
-    "originalPrice": "",
-    "discountText": "Coming Soon",
-    "logo": "/assets/images/products/fiery-logo.png",
-    "image": "/assets/images/products/fiery.png",
-    "heroVideo": "",
-    "buyLink": "https://yourshop.lemonsqueezy.com/buy/fiery",
-    "demoLink": "#",
-    "manualLink": "#",
-    "gradientStart": "#E26D2C",
-    "gradientEnd": "#911D1D",
-    "gradient2Start": "#000",
-    "gradient2End": "#333",
-    "sections": {
-      "overview": {
-        "title": "Explosive FET",
-        "card1Title": "Not just a clone",
-        "card1Text": "Explosive FET compression with instant attack.",
-        "description1": "We went back to all the classic FET compressors that we know and love, and created the FIERY from the best unique elements of each.",
-        "description2": "The two transformers - pre and post compression - activate our unique Analogue Drift Recreation (ADR) algorithm.",
-        "card2Title": "Vintage & Modern",
-        "card2Text": "Switch between classic saturated tones and modern punch.",
-        "card3Title": "Drift Technology",
-        "card3Text": "Recreates the analogue movement found in hardware units."
-      },
-      "audio": {
-        "title": "Hear the Fire",
-        "samples": []
-      },
-      "testimonials": [],
-      "features": {
-        "title": "Features",
-        "items": []
-      },
-      "techSpecs": {
-        "title": "Specs",
-        "items": []
-      },
-      "faq": {
-        "title": "FAQ",
-        "items": []
       }
     }
   }
