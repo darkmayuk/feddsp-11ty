@@ -1,6 +1,7 @@
 const Image = require("@11ty/eleventy-img");
 const path = require("path");
 const fs = require("fs");
+const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
@@ -33,7 +34,14 @@ module.exports = function(eleventyConfig) {
     };
 
     return Image.generateHTML(metadata, imageAttributes);
-  });
+
+    eleventyConfig.addPlugin(sitemap, {
+        sitemap: {
+          hostname: siteData.url,
+        },
+      });
+
+  })
 
   return {
     dir: {
