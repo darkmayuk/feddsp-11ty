@@ -1,5 +1,6 @@
 const Image = require("@11ty/eleventy-img");
 const path = require("path");
+const fs = require("fs");
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
@@ -10,11 +11,16 @@ module.exports = function(eleventyConfig) {
         fullSrc = "src" + src; 
     }
 
+    if (!fs.existsSync(fullSrc)) {
+        console.warn(`⚠️  [Missing Image] Could not find: ${fullSrc}`);
+        return ""; // Return empty string so the build keeps going
+    }
+
     let metadata = await Image(fullSrc, {
-      widths: [600, 900, 1500, "auto"], // "auto" keeps original width
-      formats: ["webp", "jpeg"],        // webp for modern, jpeg for fallback
-      outputDir: "./dist/assets/img-opt/", // Write optimized files here
-      urlPath: "/assets/img-opt/",         // The path in the HTML
+      widths: [600, 900, 1500, "auto"],
+      formats: ["webp", "jpeg"],
+      outputDir: "./dist/assets/img-opt/",
+      urlPath: "/assets/img-opt/",
       
     });
 
