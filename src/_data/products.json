@@ -1,20 +1,26 @@
 [
   {
     "id": "phaturator",
+    "type": "plugin",
+    "active": true,
     "name": "PHATurator",
-    "type": "product",
-    "comingSoon": false,
     "badge": "New Release",
     "headline": "Colour Your Sound<br><br><span class='hero-thin'>Make tracks feel expensive in 10 seconds. Bigger, louder, richer saturation you can <i>track through</i>.</span>",
+    "description": "Stacking saturations has never been this easy. Great tone is built in stages. In a real studio, sound is shaped by multiple pieces of gear, each adding a small amount of colour and harmonic detail.",
     "price": "£70",
     "originalPrice": "£100",
     "buyLink": "https://feddsp.lemonsqueezy.com/buy/76718b9d-3cb2-4fd6-9964-12317135a261?checkout[custom][product_code]=fedDSP-PHAT",
     "discountText": "Reduced price only applies to <a href=\"/founders\">Founders' Month</a>, until 1st March 2026",
     "demoLink": "/downloads",
-    "manualLink": "#",
-    "logo": "/assets/images/products/phat-logo.png",
-    "image": "/assets/images/products/phat-thin.png",
-    "heroVideo": "/assets/videos/phat-guitar-video.mp4",
+    "manualLink": "/manuals",
+    "assets": {
+      "logo": "/assets/images/products/phat-logo.png",
+      "heroImage": "/assets/images/products/phat-thin.png",
+      "heroVideo": "/assets/videos/phat-guitar-video.mp4",
+      "heroPoster": "/assets/videos/phaturator-screenshot.webp",
+      "audioBg": "/assets/videos/Dust-Particles.mp4",
+      "audioBgPoster": "/assets/videos/dust-screenshot.webp"
+    },
     "gradients": {
       "gradientStart": "#d366ac",
       "gradientEnd": "#be1e2d",
@@ -24,7 +30,7 @@
       "gradient3End": "#be1e2d",
       "gradient4Start": "#228340",
       "gradient4End": "#204963"
-    },    
+    },
     "sections": {
       "overview": {
         "title": "Masterclass In<br>Saturation",
@@ -47,56 +53,16 @@
         "title": "Experience The Difference",
         "subheader": "What can PHATurator do for your sound? Listen to it for yourself.",
         "samples": [
-          {
-            "name": "Drums",
-            "dry": "/assets/audio/PHAT_TEST_DRUMS_OFF.wav",
-            "wet": "/assets/audio/PHAT_TEST_DRUMS_ON.wav"
-          },
-          {
-            "name": "Bass",
-            "dry": "/assets/audio/PHAT_TEST_BASS_OFF.wav",
-            "wet": "/assets/audio/PHAT_TEST_BASS_ON.wav"
-          },
-          {
-            "name": "Voice",
-            "dry": "/assets/audio/PHAT_TEST_VOX_OFF.wav",
-            "wet": "/assets/audio/PHAT_TEST_VOX_ON.wav"
-          },
-          {
-            "name": "Rock Mix",
-            "dry": "/assets/audio/PHAT_ROCKMIX_OFF.wav",
-            "wet": "/assets/audio/PHAT_ROCKMIX_ON.wav"
-          },
-          {
-            "name": "Metal Mix",
-            "dry": "/assets/audio/PHAT_METAL_MIX_OFF.wav",
-            "wet": "/assets/audio/PHAT_METAL_MIX_ON.wav"
-          },
-          {
-            "name": "Beats",
-            "dry": "/assets/audio/PHAT_BEATNEW_OFF.wav",
-            "wet": "/assets/audio/PHAT_BEATNEW_ON.wav"
-          },
-          {
-            "name": "808",
-            "dry": "/assets/audio/PHAT_808NEW_OFF.wav",
-            "wet": "/assets/audio/PHAT_808NEW_ON.wav"
-          },
-          {
-            "name": "Keys",
-            "dry": "/assets/audio/PHAT_KEYS_OFF.wav",
-            "wet": "/assets/audio/PHAT_KEYS_ON.wav"
-          },
-          {
-            "name": "Trap Mix",
-            "dry": "/assets/audio/PHAT_TRAP_TRAPMIX_OFF.wav",
-            "wet": "/assets/audio/PHAT_TRAP_TRAPMIX_ON.wav"
-          },
-          {
-            "name": "EDM Mix",
-            "dry": "/assets/audio/PHAT_EDM_MIX_OFF.wav",
-            "wet": "/assets/audio/PHAT_EDM_MIX_ON.wav"
-          }
+          { "name": "Drums", "dry": "/assets/audio/PHAT_TEST_DRUMS_OFF.wav", "wet": "/assets/audio/PHAT_TEST_DRUMS_ON.wav" },
+          { "name": "Bass", "dry": "/assets/audio/PHAT_TEST_BASS_OFF.wav", "wet": "/assets/audio/PHAT_TEST_BASS_ON.wav" },
+          { "name": "Voice", "dry": "/assets/audio/PHAT_TEST_VOX_OFF.wav", "wet": "/assets/audio/PHAT_TEST_VOX_ON.wav" },
+          { "name": "Rock Mix", "dry": "/assets/audio/PHAT_ROCKMIX_OFF.wav", "wet": "/assets/audio/PHAT_ROCKMIX_ON.wav" },
+          { "name": "Metal Mix", "dry": "/assets/audio/PHAT_METAL_MIX_OFF.wav", "wet": "/assets/audio/PHAT_METAL_MIX_ON.wav" },
+          { "name": "Beats", "dry": "/assets/audio/PHAT_BEATNEW_OFF.wav", "wet": "/assets/audio/PHAT_BEATNEW_ON.wav" },
+          { "name": "808", "dry": "/assets/audio/PHAT_808NEW_OFF.wav", "wet": "/assets/audio/PHAT_808NEW_ON.wav" },
+          { "name": "Keys", "dry": "/assets/audio/PHAT_KEYS_OFF.wav", "wet": "/assets/audio/PHAT_KEYS_ON.wav" },
+          { "name": "Trap Mix", "dry": "/assets/audio/PHAT_TRAP_TRAPMIX_OFF.wav", "wet": "/assets/audio/PHAT_TRAP_TRAPMIX_ON.wav" },
+          { "name": "EDM Mix", "dry": "/assets/audio/PHAT_EDM_MIX_OFF.wav", "wet": "/assets/audio/PHAT_EDM_MIX_ON.wav" }
         ]
       },
       "testimonials": [
@@ -239,6 +205,198 @@
           }
         ]
       }
+    }
+  },
+ {
+    "id": "etna",
+    "type": "sample",
+    "active": true,
+    "name": "ETNA",
+    "badge": "Kick & Snare One Shot Samples",
+    "headline": "VOLCANIC IMPACT.<br><br><span class='hero-thin'>One-Shot samples to make your drums hit hard.</span>",
+    "description": "ETNA delivers volcanic impact for your rhythm section. These one-shot kick and snare samples are engineered to punch through dense mixes.",
+    "price": "£15",
+    "originalPrice": "£25",
+    "buyLink": "#",
+    "assets": {
+      "logo": "/assets/images/products/etna-logo.png",
+      "heroImage": "/assets/images/products/ETNA.png"
+    },
+    "gradients": {},
+    "sections": {
+      "overview": { "title": "Overview", "items": [] },
+      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
+      "features": { "title": "Features", "items": [] },
+      "techSpecs": { "title": "Specs", "items": [] },
+      "faq": { "title": "FAQ", "items": [] }
+    }
+  },
+  {
+    "id": "cronos",
+    "type": "sample",
+    "active": true,
+    "name": "CRONOS",
+    "badge": "Kick & Snare One Shot Samples",
+    "headline": "NO TIME TO HOLD BACK.<br><br><span class='hero-thin'>One-Shot samples to make your drums hit hard.</span>",
+    "description": "CRONOS is about immediate power. Aggressive kicks and snapping snares designed for high-tempo and heavy genres.",
+    "price": "£15",
+    "originalPrice": "£25",
+    "buyLink": "#",
+    "assets": {
+      "logo": "/assets/images/products/cronos-logo.png",
+      "heroImage": "/assets/images/products/CRONOS.png"
+    },
+    "gradients": {},
+    "sections": {
+      "overview": { "title": "Overview", "items": [] },
+      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
+      "features": { "title": "Features", "items": [] },
+      "techSpecs": { "title": "Specs", "items": [] },
+      "faq": { "title": "FAQ", "items": [] }
+    }
+  },
+  {
+    "id": "typhon",
+    "type": "sample",
+    "active": true,
+    "name": "TYPHON",
+    "badge": "Kick & Snare One Shot Samples",
+    "headline": "CONTROLLED CHAOS.<br><br><span class='hero-thin'>One-Shot samples to make your drums hit hard.</span>",
+    "description": "TYPHON brings the storm. Massive, distorted textures mixed with punchy transients for industrial and experimental beats.",
+    "price": "£15",
+    "originalPrice": "£25",
+    "buyLink": "#",
+    "assets": {
+      "logo": "/assets/images/products/typhon-logo.png",
+      "heroImage": "/assets/images/products/TYPHON.png"
+    },
+    "gradients": {},
+    "sections": {
+      "overview": { "title": "Overview", "items": [] },
+      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
+      "features": { "title": "Features", "items": [] },
+      "techSpecs": { "title": "Specs", "items": [] },
+      "faq": { "title": "FAQ", "items": [] }
+    }
+  },
+  {
+    "id": "theia",
+    "type": "sample",
+    "active": true,
+    "name": "THEIA",
+    "badge": "Kick & Snare One Shot Samples",
+    "headline": "WHERE HITS COLLIDE.<br><br><span class='hero-thin'>One-Shot samples to make your drums hit hard.</span>",
+    "description": "THEIA offers cosmic impact. Deep, resonant kicks and crisp, detailed snares perfect for modern pop and electronic production.",
+    "price": "£15",
+    "originalPrice": "£25",
+    "buyLink": "#",
+    "assets": {
+      "logo": "/assets/images/products/theia-logo.png",
+      "heroImage": "/assets/images/products/THEIA.png"
+    },
+    "gradients": {},
+    "sections": {
+      "overview": { "title": "Overview", "items": [] },
+      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
+      "features": { "title": "Features", "items": [] },
+      "techSpecs": { "title": "Specs", "items": [] },
+      "faq": { "title": "FAQ", "items": [] }
+    }
+  },
+  {
+    "id": "atlas",
+    "type": "ir",
+    "active": true,
+    "name": "ATLAS",
+    "badge": "High Quality Impulse Response Pack",
+    "headline": "NO SUCH THING AS TOO MUCH WEIGHT.<br><br><span class='hero-thin'>Premium IRs for massive tone.</span>",
+    "description": "ATLAS holds up the sky. Impulse responses captured from oversized cabinets to give your guitars unparalleled low-end support.",
+    "price": "£15",
+    "originalPrice": "£25",
+    "buyLink": "#",
+    "assets": {
+      "logo": "/assets/images/products/atlas-logo.png",
+      "heroImage": "/assets/images/products/ATLAS.png"
+    },
+    "gradients": {},
+    "sections": {
+      "overview": { "title": "Overview", "items": [] },
+      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
+      "features": { "title": "Features", "items": [] },
+      "techSpecs": { "title": "Specs", "items": [] },
+      "faq": { "title": "FAQ", "items": [] }
+    }
+  },
+  {
+    "id": "gaia",
+    "type": "ir",
+    "active": true,
+    "name": "GAIA",
+    "badge": "High Quality Impulse Response Pack",
+    "headline": "THE MOTHER OF ALL TONES.<br><br><span class='hero-thin'>Premium IRs for massive tone.</span>",
+    "description": "GAIA is the root of your sound. Earthy, organic, and rich mid-range tones captured from vintage 4x12s.",
+    "price": "£15",
+    "originalPrice": "£25",
+    "buyLink": "#",
+    "assets": {
+      "logo": "/assets/images/products/gaia-logo.png",
+      "heroImage": "/assets/images/products/GAIA.png"
+    },
+    "gradients": {},
+    "sections": {
+      "overview": { "title": "Overview", "items": [] },
+      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
+      "features": { "title": "Features", "items": [] },
+      "techSpecs": { "title": "Specs", "items": [] },
+      "faq": { "title": "FAQ", "items": [] }
+    }
+  },
+  {
+    "id": "hyperion",
+    "type": "ir",
+    "active": true,
+    "name": "HYPERION",
+    "badge": "High Quality Impulse Response Pack",
+    "headline": "DEPTH THAT SHINES THROUGH.<br><br><span class='hero-thin'>Premium IRs for massive tone.</span>",
+    "description": "HYPERION brings light and definition. Modern, scoopy, and precise IRs designed for technical playing and clarity.",
+    "price": "£15",
+    "originalPrice": "£25",
+    "buyLink": "#",
+    "assets": {
+      "logo": "/assets/images/products/hyperion-logo.png",
+      "heroImage": "/assets/images/products/HYPERION.png"
+    },
+    "gradients": {},
+    "sections": {
+      "overview": { "title": "Overview", "items": [] },
+      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
+      "features": { "title": "Features", "items": [] },
+      "techSpecs": { "title": "Specs", "items": [] },
+      "faq": { "title": "FAQ", "items": [] }
+    }
+  },
+  {
+    "id": "bloodmoon",
+    "type": "ir",
+    "active": true,
+    "name": "BLOODMOON",
+    "badge": "High Quality Impulse Response Pack",
+    "headline": "SACRIFICE YOUR DOUBTS.<br><br><span class='hero-thin'>Premium IRs for massive tone.</span>",
+    "description": "BLOODMOON is dark and ominous. Captured from detuned cabs for sludge, doom, and extreme metal genres.",
+    "price": "£15",
+    "originalPrice": "£25",
+    "buyLink": "#",
+    "assets": {
+      "logo": "/assets/images/products/bloodmoon-logo.png",
+      "heroImage": "/assets/images/products/BLOODMOON.png"
+    },
+    "gradients": {},
+    "sections": {
+      "overview": { "title": "Overview", "items": [] },
+      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
+      "features": { "title": "Features", "items": [] },
+      "techSpecs": { "title": "Specs", "items": [] },
+      "faq": { "title": "FAQ", "items": [] }
     }
   }
 ]

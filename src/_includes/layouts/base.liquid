@@ -4,8 +4,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="generator" content="{{ eleventy.generator }}">
   <meta name="theme-color" content="#d466ad">
+
+  {% comment %} 
+    SEO LOGIC: If description is missing in Front Matter, 
+    look it up in products.json using the product_id 
+  {% endcomment %}
+  {% if description == nil and product_id %}
+    {% assign seo_product = products | where: "id", product_id | first %}
+    {% if seo_product %}
+      {% assign description = seo_product.description %}
+    {% endif %}
+  {% endif %}
 
   <title>fedDSP &gt; {{ title }}</title>
   <meta name="description" content="{{ description | escape }}">

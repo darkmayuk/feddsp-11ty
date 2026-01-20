@@ -3,619 +3,320 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>fedDSP — join the waitlist</title>
+  <title>fedDSP > Join the Waitlist</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Premium audio plugins for the modern producer. Sign up for early access.">
 
-  <!-- Favicons -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-  <!-- Bootstrap + Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="preload" href="/FedDSPCustomFont.otf" as="font" type="font/otf" crossorigin>
-
-  <!-- Plausible -->
-  <script async src="https://plausible.io/js/pa-J3F9V_aWzkP06lWawfHxV.js"></script>
-  <script>
-    window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments) };
-    plausible.init = plausible.init || function (i) { plausible.o = i || {} };
-    plausible.init();
-  </script>
+  
+  <script defer data-domain="feddsp.com" src="https://plausible.io/js/script.js"></script>
 
   <style>
+    /* --- CORE VARIABLES --- */
     :root {
-      --accent-pink: #de54af;
-      --error-red: #E53024;
-      --panel-radius: 28px;
-      --glow-x: 50%;
-      --glow-y: 50%;
-      --fdsp-white-30: rgba(255, 255, 255, .3);
-      --fdsp-white-40: rgba(255, 255, 255, .4);
+      --accent-pink: #d466ad;
+      --bg-black: #050505;
+      --text-white: #ffffff;
+      --text-muted: #a0a0a0;
+      --glass-bg: rgba(20, 20, 20, 0.75);
+      --glass-border: rgba(255, 255, 255, 0.15);
     }
 
-    @font-face {
-      font-family: 'FedDSPHeader';
-      src: url('/FedDSPCustomFont.otf') format('opentype');
-      font-display: swap;
-    }
-
-    html,
-    body {
-      height: 100%
-    }
-
-    body {
-      min-height: 100svh;
+    body, html {
+      height: 100%;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      background: #000;
-      color: #fff;
-      font-family: 'Montserrat', Arial, sans-serif;
+      background-color: var(--bg-black);
+      color: var(--text-white);
+      font-family: 'Montserrat', sans-serif;
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
     }
 
-    h1,
-    h2 {
-      font-family: 'FedDSPHeader', sans-serif;
-      line-height: .9;
-      letter-spacing: .04em;
-      font-size: 2.5rem;
-    }
-
-    /* Background layers */
-    #background-canvas {
+    /* --- BACKGROUND VIDEO LAYER --- */
+    .hero-background {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      z-index: -2;
-      display: block;
+      z-index: 0; /* Behind content, in front of body bg */
+      overflow: hidden;
     }
 
-    #aurora {
-      position: fixed;
-      inset: -25%;
-      z-index: -1;
-      pointer-events: none;
-      opacity: .18;
-      background:
-        radial-gradient(1200px 900px at 25% 40%, rgba(222, 84, 175, .45), rgba(222, 84, 175, 0) 60%),
-        radial-gradient(1000px 800px at 70% 65%, rgba(255, 180, 230, .25), rgba(255, 180, 230, 0) 65%);
-      transform: translate3d(0, 0, 0);
-      animation: auroraDrift 200s linear infinite alternate;
-      will-change: transform;
+    .hero-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      opacity: 0.6;
     }
 
-    @keyframes auroraDrift {
-      from {
-        transform: translate3d(0, 0, 0)
-      }
-
-      to {
-        transform: translate3d(200px, -200px, 0)
-      }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, var(--bg-black) 90%);
+      z-index: 1;
     }
 
-    /* Main wrap centers the card and grows to push footer down */
-    .wrap {
-      flex: 1 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
+    /* --- MAIN CONTENT LAYOUT --- */
+    .main-wrapper {
       position: relative;
-      z-index: 0;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
     }
 
-    .card-hold {
-      border-radius: var(--panel-radius);
-      background:
-        radial-gradient(600px 600px at var(--glow-x) var(--glow-y),
-          color-mix(in oklab, #fff 12%, transparent) 0%, transparent 65%),
-        rgba(20, 20, 20, .92);
-      border: 1px solid rgba(255, 255, 255, .08);
-      box-shadow: 0 0 40px rgba(255, 255, 255, .14), 0 30px 90px rgba(0, 0, 0, .6);
-      transition: transform .2s ease, box-shadow .2s ease, background-position .1s;
-    }
-
-    .card-hold:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 52px rgba(255, 255, 255, .16), 0 42px 120px rgba(0, 0, 0, .65);
+    /* --- GLASS CARD --- */
+    .signup-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      max-width: 540px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      position: relative;
+      overflow: hidden;
     }
 
     .logo {
-      max-height: 72px;
+      max-width: 180px;
+      margin-bottom: 1.5rem;
     }
 
-    .lead-muted {
-      color: #bbb;
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      color: #fff;
     }
 
-    .form-row {
-      max-width: 980px;
-      margin-inline: auto;
-      --bs-gutter-x: .6rem;
-      --bs-gutter-y: .6rem;
+    p.lead {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-weight: 300;
     }
 
-    /* Inputs with “pink bloom” focus */
-    .waitlist-input {
-      background: rgba(255, 255, 255, .02);
-      color: #fff !important;
-      border: 2px solid var(--fdsp-white-30);
-      padding: .9rem 1.1rem;
-      border-radius: 999px;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06);
-      transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
+    /* --- FORM STYLING --- */
+    .form-group {
+      margin-bottom: 1rem;
+      text-align: left;
     }
 
-    .waitlist-input::placeholder {
-      color: var(--fdsp-white-40) !important;
+    .form-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #ccc;
+      margin-left: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-control {
+      background: rgba(255, 255, 255, 0.1); 
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+    }
+
+    .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.6);
       opacity: 1;
     }
 
-    .waitlist-input:focus,
-    .waitlist-input:focus-visible {
-      outline: none;
+    .form-control:focus {
+      background: rgba(255, 255, 255, 0.15);
       border-color: var(--accent-pink);
-      background: rgba(255, 255, 255, .03);
-      box-shadow:
-        0 0 28px 6px rgba(222, 84, 175, .42),
-        0 0 10px 2px rgba(222, 84, 175, .55),
-        0 0 1px 0 var(--accent-pink) inset,
-        inset 0 0 0 1px rgba(255, 255, 255, .08);
+      color: #fff;
+      box-shadow: 0 0 0 4px rgba(212, 102, 173, 0.2);
     }
 
-    /* Submit button */
-    .waitlist-btn {
-      position: relative;
-      overflow: hidden;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .25rem;
-      border: 1px solid var(--accent-pink);
-      background: var(--accent-pink);
-      color: #000;
+    /* Button */
+    .btn-submit {
+      background-color: var(--accent-pink);
+      border: none;
+      color: white;
       font-weight: 700;
-      border-radius: 24px;
-      padding: .9rem 1.4rem;
-      line-height: 1;
-      box-shadow: none;
-      transition: background .2s, color .2s, filter .15s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 1rem;
+      border-radius: 12px;
+      width: 100%;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
 
-    .waitlist-btn:hover,
-    .waitlist-btn:focus {
-      background: #fff;
-      color: #000;
+    .btn-submit:hover {
+      background-color: #fff;
+      color: var(--accent-pink);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(212, 102, 173, 0.3);
+    }
+    
+    .btn-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
     }
 
-    .waitlist-btn .shine {
-      position: absolute;
-      inset: -40% -10%;
-      background: radial-gradient(120px 80px at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .55), transparent 60%);
-      mix-blend-mode: soft-light;
-      pointer-events: none;
-      opacity: .9;
-      transition: opacity .2s;
+    /* GDPR Text */
+    .gdpr-text {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: #aaa;
+      line-height: 1.4;
     }
 
-    /* Validation visuals */
-    .waitlist-input.is-invalid {
-      box-shadow:
-        inset 0 0 0 2px color-mix(in oklab, var(--error-red) 65%, transparent),
-        0 0 0 0 rgba(0, 0, 0, 0);
-      border-color: var(--error-red);
+    /* Success State */
+    .success-message {
+      display: none;
+      padding: 2rem 0;
+    }
+    .success-message h2 {
+      color: var(--accent-pink);
+      margin-bottom: 1rem;
+    }
+    
+    /* Error State */
+    .error-message {
+      display: none;
+      color: #ff6b6b;
+      margin-top: 1rem;
+      font-size: 0.9rem;
     }
 
-    .waitlist-input.is-valid {
-      box-shadow: none;
-    }
-
-    /* Keep columns aligned: reserve one-line height for tooltip */
-    .form-row .form-field {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .form-field .invalid-tooltip {
-      position: static;
-      transform: none;
-      display: block;
-      visibility: hidden;
-      min-height: 1.1rem;
-      margin-top: .375rem;
-      margin-bottom: 0;
-      background: transparent;
-      color: var(--error-red);
-      box-shadow: none;
-      padding: 0;
-      white-space: normal;
+    .mini-footer {
+      margin-top: 3rem;
+      font-size: 0.7rem;
+      color: #555;
       text-align: center;
-      font-size: .95rem;
-    }
-
-    .waitlist-input.is-invalid+.invalid-tooltip {
-      visibility: visible;
-    }
-
-    /* Footer */
-    footer.site-footer {
-      margin-top: auto;
-      flex-shrink: 0;
-      text-align: center;
-      padding: 1rem 0 1.25rem;
-      font-size: .72rem;
-      color: rgba(255, 255, 255, .55);
-    }
-
-    footer.site-footer p {
-      margin: 0;
-      line-height: 1.35;
     }
   </style>
 </head>
 
 <body>
-  <!-- Background sparkles + aurora -->
-  <canvas id="background-canvas" aria-hidden="true"></canvas>
-  <div id="aurora" aria-hidden="true"></div>
 
-  <main class="wrap">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-12 col-md-12 col-lg-10 col-xl-9 col-xxl-8">
-          <div class="card-hold p-4 p-md-5 text-center" id="hoverCard">
-            <img class="logo mb-3" src="/fedDSP_logo_text_small_WonB.png" alt="fedDSP">
-            <p class="lead-muted mb-4">join the waiting list:</p>
+  <div class="hero-background">
+    <video class="hero-video" autoplay loop muted playsinline poster="dust-screenshot.webp">
+      <source src="dust-particles.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+  </div>
 
-            <!-- Waitlist form -->
-            <form id="waitlistForm" action="https://formspree.io/f/mpwyejge" method="POST" novalidate>
-              <div class="row form-row gx-2 gy-2 justify-content-center align-items-start">
-                <div class="col-12 col-md-6 position-relative form-field">
-                  <input type="email" name="email" id="email" class="form-control waitlist-input"
-                    placeholder="your@email.com" required autocomplete="email" inputmode="email">
-                  <div class="invalid-tooltip">Enter a valid email address.</div>
-                </div>
+  <main class="main-wrapper">
+    
+    <div class="signup-card">
+      <div id="form-container">
+        <img src="fedDSP_logo_text_small_WonB.png" alt="fedDSP" class="logo">
+        
+        <h1>A new way to approach audio production.</h1>
+        <p class="lead">Be the first to hear about our new audio tools.</p>
 
-                <div class="col-12 col-md-4 position-relative form-field">
-                  <input type="text" name="name" class="form-control waitlist-input" placeholder="your name" required>
-                  <div class="invalid-tooltip">Please tell us your name.</div>
-                </div>
-
-                <div class="col-12 col-md-2">
-                  <button type="submit" class="btn btn-lg waitlist-btn w-100">
-                    JOIN
-                    <span class="shine" aria-hidden="true"></span>
-                  </button>
-                </div>
-              </div>
-
-              <input type="text" name="_gotcha" style="display:none">
-            </form>
-
-            <!-- Inline thank-you (no redirect) -->
-            <div class="success-msg mt-4" id="successMsg" hidden>
-              <h2 class="mb-2">Thanks - you're on the list.</h2>
-              <p class="lead-muted mb-0">We'll email only for launch updates. Unsubscribe anytime.</p>
-            </div>
-            <div class="error-msg mt-3" id="errorMsg" hidden>Something went wrong. Please try again.</div>
+        <form id="custom-signup-form"
+              action="https://assets.mailerlite.com/jsonp/1569199/forms/176786857998157023/subscribe" 
+              method="post">
+          
+          <div class="form-group">
+            <label for="fields[name]" class="form-label">First Name</label>
+            <input type="text" class="form-control" name="fields[name]" id="fields[name]" placeholder="Your name" required autocomplete="given-name">
           </div>
-        </div>
+
+          <div class="form-group">
+            <label for="fields[email]" class="form-label">Email Address</label>
+            <input type="email" class="form-control" name="fields[email]" id="fields[email]" placeholder="producer@studio.com" required autocomplete="email">
+          </div>
+
+          <input type="hidden" name="ml-submit" value="1">
+          <input type="hidden" name="anticsrf" value="true">
+
+          <button type="submit" class="btn-submit" id="submit-btn">Join the Waitlist</button>
+
+          <div class="error-message" id="error-message">
+            Something went wrong. Please try again.
+          </div>
+
+          <div class="gdpr-text">
+            By clicking above, you agree to receive product announcements and updates from fedDSP. 
+            We respect your inbox - no spam, ever. Unsubscribe at any time.
+          </div>
+        </form>
       </div>
+
+      <div class="success-message" id="success-message">
+        <img src="fedDSP_logo_text_small_WonB.png" alt="fedDSP" class="logo" style="opacity:0.8; margin-bottom:2rem;">
+        <h2>You're on the list!</h2>
+        <p>Thanks for signing up. We'll be in touch soon.</p>
+      </div>
+
     </div>
+
+    <div class="mini-footer">
+      &copy; 2026 fedDSP Ltd. Registered in England & Wales (16604307).<br>
+      Sheffield S11 8HW, United Kingdom.
+    </div>
+
   </main>
 
-  <footer class="site-footer ms-5 me-5">
-    <p>© Copyright fedDSP 2026<br>
-      fedDSP is a trading name of fedDSP Ltd, Registered in England &amp; Wales, Company Number 16604307.
-      Registered Office: Ward Court, 203 Ecclesall Road, Sheffield S11 8HW, United Kingdom.</p>
-  </footer>
-
   <script>
-    /* Validation: blur-based, with stricter email rule; Formspree submit */
-    (() => {
-      const form = document.getElementById('waitlistForm');
-      const ok = document.getElementById('successMsg');
-      const err = document.getElementById('errorMsg');
-      if (!form) return;
+    document.getElementById('custom-signup-form').addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent the default browser redirection
 
-      const email = document.getElementById('email');
-      const emailTip = email?.nextElementSibling;
+      const form = e.target;
+      const btn = document.getElementById('submit-btn');
+      const errorMsg = document.getElementById('error-message');
+      
+      // 1. Change Button State
+      btn.innerHTML = 'Signing up...';
+      btn.disabled = true;
+      errorMsg.style.display = 'none';
 
-      // Stricter email (e.g. "a@b" fails)
-      const emailRe = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-
-      ok.hidden = true; err.hidden = true;
-
-      form.querySelectorAll('input').forEach(el => {
-        el.addEventListener('input', () => {
-          // Clear custom validity while typing; don't nag
-          el.setCustomValidity('');
-          el.classList.remove('is-invalid');
-          err.hidden = true;
-        }, { passive: true });
-
-        el.addEventListener('blur', () => {
-          // Custom check for email field
-          if (el === email) {
-            const valid = emailRe.test(el.value.trim());
-            if (!valid) {
-              el.setCustomValidity('invalid');
-              if (emailTip) emailTip.textContent = 'Enter a valid email address.';
-              el.classList.add('is-invalid');
-              return;
-            }
-          }
-          el.setCustomValidity('');
-          el.classList.toggle('is-invalid', !el.checkValidity());
-        }, { passive: true });
+      // 2. Prepare Data for JSONP (MailerLite uses JSONP for cross-origin forms)
+      const formData = new FormData(form);
+      const params = new URLSearchParams(formData);
+      
+      // 3. Send Request
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors' // Crucial: prevents browser from blocking the response
+      })
+      .then(() => {
+        // Success!
+        document.getElementById('form-container').style.display = 'none';
+        document.getElementById('success-message').style.display = 'block';
+      })
+      .catch((err) => {
+        console.error('Signup Error:', err);
+        btn.innerHTML = 'Try Again';
+        btn.disabled = false;
+        errorMsg.style.display = 'block';
       });
-
-      form.addEventListener('submit', async (e) => {
-        // Final gate with custom email rule
-        const emailValid = emailRe.test(email.value.trim());
-        if (!emailValid) {
-          email.setCustomValidity('invalid');
-          if (emailTip) emailTip.textContent = 'Enter a valid email address.';
-        } else {
-          email.setCustomValidity('');
-        }
-
-        if (!form.checkValidity()) {
-          e.preventDefault();
-          form.querySelectorAll('input').forEach(el => {
-            el.classList.toggle('is-invalid', !el.checkValidity());
-          });
-          const firstBad = form.querySelector('input.is-invalid');
-          if (firstBad) firstBad.focus();
-          return;
-        }
-
-        e.preventDefault();
-        ok.hidden = true; err.hidden = true;
-
-        const data = new FormData(form);
-        try {
-          const res = await fetch(form.action, {
-            method: 'POST',
-            body: data,
-            headers: { 'Accept': 'application/json' }
-          });
-
-          if (res.ok) {
-            form.style.display = 'none';
-            ok.hidden = false;
-          } else {
-            let msg = 'Something went wrong. Please try again.';
-            try {
-              const json = await res.json();
-              if (json?.errors?.length) msg = json.errors.map(e => e.message).join(' ');
-            } catch { }
-            err.textContent = msg;
-            err.hidden = false;
-          }
-        } catch {
-          err.textContent = 'Network error. Please try again.';
-          err.hidden = false;
-        }
-      });
-    })();
-
-    /* Panel glow follows cursor */
-    (() => {
-      const card = document.getElementById('hoverCard');
-      addEventListener('pointermove', e => {
-        const r = card.getBoundingClientRect();
-        const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
-        const gx = clamp(((e.clientX - r.left) / r.width) * 100, 0, 100);
-        const gy = clamp(((e.clientY - r.top) / r.height) * 100, 0, 100);
-        card.style.setProperty('--glow-x', gx + '%');
-        card.style.setProperty('--glow-y', gy + '%');
-      }, { passive: true });
-    })();
-
-    /* Button shine hotspot */
-    (() => {
-      const btn = document.querySelector('.waitlist-btn');
-      if (!btn) return;
-      btn.addEventListener('pointermove', e => {
-        const r = btn.getBoundingClientRect();
-        btn.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(2) + '%');
-        btn.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(2) + '%');
-      }, { passive: true });
-    })();
-
-    /* Sparkles background: wrap edges, no drift, tiny zero-mean jitter */
-    (() => {
-      const canvas = document.getElementById('background-canvas');
-      const ctx = canvas.getContext('2d', { alpha: true });
-
-      const DPR = Math.max(1, Math.min(1.5, window.devicePixelRatio || 1));
-      let W = 0, H = 0;
-
-      const mouse = { x: 0, y: 0, active: false, radius: 110 };
-      let particles = [];
-      const LINK_DIST = 170;
-      const LINK_DIST2 = LINK_DIST * LINK_DIST;
-      const EDGE_WRAP_MARGIN = 24;
-
-      function resize() {
-        W = Math.floor(window.innerWidth);
-        H = Math.floor(window.innerHeight);
-        canvas.width = Math.floor(W * DPR);
-        canvas.height = Math.floor(H * DPR);
-        canvas.style.width = W + 'px';
-        canvas.style.height = H + 'px';
-        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-        initParticles();
-      }
-
-      function initParticles() {
-        const area = W * H;
-        const N = Math.min(140, Math.max(80, Math.round(area / 17000)));
-        particles = [];
-        for (let i = 0; i < N; i++) {
-          particles.push({
-            x: Math.random() * W,
-            y: Math.random() * H,
-            vx: (Math.random() - 0.5) * 0.4,
-            vy: (Math.random() - 0.5) * 0.4,
-            size: 1 + Math.random() * 1.1,
-            seed: Math.random() * 1000
-          });
-        }
-      }
-
-      function flow(x, y, t) {
-        const a = Math.sin(0.0023 * x + 0.0017 * y + 0.7 * t);
-        const b = Math.cos(0.0019 * x - 0.0021 * y - 0.6 * t);
-        const c = Math.sin(0.0011 * y - 0.0013 * x + 0.5 * t);
-        return [a + c * 0.6, b - c * 0.6];
-      }
-
-      let last = performance.now();
-      function loop(now) {
-        const dt = Math.min(0.04, (now - last) / 1000);
-        last = now;
-        const t = now * 0.0012;
-
-        ctx.clearRect(0, 0, W, H);
-
-        for (let p of particles) {
-          const [fx, fy] = flow(p.x + p.seed, p.y - p.seed, t);
-          p.vx += fx * 0.02 * dt * 60;
-          p.vy += fy * 0.02 * dt * 60;
-
-          if (mouse.active) {
-            const dx = p.x - mouse.x, dy = p.y - mouse.y;
-            const dist = Math.hypot(dx, dy), R = mouse.radius * 1.1;
-            if (dist < R && dist > 0.01) {
-              const f = (1 - dist / R) * 0.06;
-              p.vx += (dx / dist) * f;
-              p.vy += (dy / dist) * f;
-            }
-          }
-
-          // tiny zero-mean jitter to avoid lock-in; no net drift
-          p.vx += (Math.random() - 0.5) * 0.006 * dt * 60;
-          p.vy += (Math.random() - 0.5) * 0.006 * dt * 60;
-
-          p.vx *= 0.988; p.vy *= 0.988;
-          const sp = Math.hypot(p.vx, p.vy), maxSp = 1.0;
-          if (sp > maxSp) { const s = maxSp / sp; p.vx *= s; p.vy *= s; }
-
-          p.x += p.vx; p.y += p.vy;
-
-          // toroidal wrap (no edge accumulation)
-          if (p.x < -EDGE_WRAP_MARGIN) p.x += W + EDGE_WRAP_MARGIN * 2;
-          else if (p.x > W + EDGE_WRAP_MARGIN) p.x -= W + EDGE_WRAP_MARGIN * 2;
-          if (p.y < -EDGE_WRAP_MARGIN) p.y += H + EDGE_WRAP_MARGIN * 2;
-          else if (p.y > H + EDGE_WRAP_MARGIN) p.y -= H + EDGE_WRAP_MARGIN * 2;
-
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255,255,255,0.35)';
-          ctx.fill();
-        }
-
-        if (mouse.active) { drawLines(t); }
-
-        requestAnimationFrame(loop);
-      }
-
-      function drawLines(t) {
-        const mx = mouse.x, my = mouse.y, R = mouse.radius;
-        const subset = [];
-        const bound = R + LINK_DIST;
-        for (let i = 0; i < particles.length; i++) {
-          const p = particles[i];
-          if (Math.abs(p.x - mx) <= bound && Math.abs(p.y - my) <= bound) {
-            subset.push(i);
-          }
-        }
-        if (!subset.length) return;
-
-        const g = ctx.createRadialGradient(mx, my, 0, mx, my, R * 1.2);
-        g.addColorStop(0.00, 'rgba(255,225,242,0.95)');
-        g.addColorStop(0.35, 'rgba(245,140,205,0.95)');
-        g.addColorStop(0.70, 'rgba(222,84,175,0.93)');
-        g.addColorStop(1.00, 'rgba(222,84,175,0.00)');
-
-        ctx.globalCompositeOperation = 'screen';
-
-        let edges = 0, EDGE_LIMIT = 700;
-        for (let ai = 0; ai < subset.length; ai++) {
-          const i = subset[ai], a = particles[i];
-          for (let bi = ai + 1; bi < subset.length; bi++) {
-            const j = subset[bi], b = particles[j];
-            const dx = a.x - b.x, dy = a.y - b.y;
-            const d2 = dx * dx + dy * dy;
-            if (d2 > LINK_DIST2) continue;
-
-            const dLine = segDist(mx, my, a.x, a.y, b.x, b.y);
-            if (dLine >= R) continue;
-
-            const intensity = 1 - (dLine / R);
-            const dist = Math.sqrt(d2);
-            const opacity = Math.min(1, (1 - dist / LINK_DIST) * (0.35 + intensity * 0.65));
-            const swell = 1 + intensity * 2.0;
-
-            ctx.lineWidth = swell * 1.7;
-            ctx.strokeStyle = g;
-            ctx.globalAlpha = Math.min(1, 0.10 + opacity * 0.55);
-            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-
-            ctx.lineWidth = swell * 0.85;
-            ctx.globalAlpha = Math.min(1, 0.20 + opacity * 0.85);
-            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-
-            if (++edges > EDGE_LIMIT) break;
-          }
-          if (edges > EDGE_LIMIT) break;
-        }
-
-        ctx.globalAlpha = 1;
-        ctx.globalCompositeOperation = 'source-over';
-      }
-
-      function segDist(px, py, x1, y1, x2, y2) {
-        const dx = x2 - x1, dy = y2 - y1;
-        const len2 = dx * dx + dy * dy || 1;
-        let t = ((px - x1) * dx + (py - y1) * dy) / len2;
-        t = Math.max(0, Math.min(1, t));
-        const nx = x1 + t * dx, ny = y1 + t * dy;
-        const ddx = px - nx, ddy = py - ny;
-        return Math.hypot(ddx, ddy);
-      }
-
-      function enablePointer() {
-        const move = (x, y) => { mouse.x = x; mouse.y = y; mouse.active = true; };
-        window.addEventListener('pointermove', e => move(e.clientX, e.clientY));
-        window.addEventListener('pointerenter', e => move(e.clientX, e.clientY));
-        window.addEventListener('pointerdown', e => move(e.clientX, e.clientY));
-        window.addEventListener('pointerleave', () => { mouse.active = false; });
-
-        window.addEventListener('touchstart', e => {
-          const t = e.touches[0]; if (t) move(t.clientX, t.clientY);
-        }, { passive: true });
-        window.addEventListener('touchmove', e => {
-          const t = e.touches[0]; if (t) move(t.clientX, t.clientY);
-        }, { passive: true });
-        window.addEventListener('touchend', () => { mouse.active = false; });
-      }
-
-      resize(); enablePointer();
-      window.addEventListener('resize', resize);
-      requestAnimationFrame(loop);
-    })();
+    });
   </script>
-</body>
 
+</body>
 </html>

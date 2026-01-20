@@ -2,45 +2,61 @@
 layout: layouts/base.liquid
 ---
 
-{% assign _id = page.fileSlug %}
-{% assign product = null %}
-{% for p in products %}
-  {% if p.id == _id %}
-    {% assign product = p %}
-    {% break %}
-  {% endif %}
-{% endfor %}
+{% comment %} 
+  1. Determine the Product ID 
+  Prioritize 'product_id' from Front Matter. Fallback to filename (slug).
+{% endcomment %}
+{% assign target_id = product_id | default: page.fileSlug %}
+
+{% comment %} 
+  2. Find the product in the JSON data 
+  This replaces the old loop with a cleaner 'where' filter.
+{% endcomment %}
+{% assign product = products | where: "id", target_id | first %}
 
 {% if product == null %}
   <section class="container py-5 text-center">
-    <h1>Product not found</h1>
+    <h1>Product not found: {{ target_id }}</h1>
+    <p>Check that your .md file 'product_id' matches an 'id' in products.json</p>
   </section>
 {% else %}
 
 <div class="product-page-v2" 
-    style="--hero-gradient-start: {{ product.gradients.gradientStart }}; 
-          --hero-gradient-end: {{ product.gradients.gradientEnd }};
-          --hero-gradient2-start: {{ product.gradients.gradient2Start }};
-          --hero-gradient2-end: {{ product.gradients.gradient2End }};
-          --hero-gradient3-start: {{ product.gradients.gradient3Start }}; 
-          --hero-gradient3-end: {{ product.gradients.gradient3End }};
-          --hero-gradient4-start: {{ product.gradients.gradient4Start }};
-          --hero-gradient4-end: {{ product.gradients.gradient4End }};
+     style="--hero-gradient-start: {{ product.gradients.gradientStart }}; 
+           --hero-gradient-end: {{ product.gradients.gradientEnd }};
+           --hero-gradient2-start: {{ product.gradients.gradient2Start }};
+           --hero-gradient2-end: {{ product.gradients.gradient2End }};
+           --hero-gradient3-start: {{ product.gradients.gradient3Start }}; 
+           --hero-gradient3-end: {{ product.gradients.gradient3End }};
+           --hero-gradient4-start: {{ product.gradients.gradient4Start }};
+           --hero-gradient4-end: {{ product.gradients.gradient4End }};
     ">
 
   {% include "components/products/hero.liquid" %}
   
-  {% include "components/products/overview.liquid" %}
+  {% if product.sections.overview.items.size > 0 %}
+    {% include "components/products/overview.liquid" %}
+  {% endif %}
   
-  {% include "components/products/audio-player.liquid" %}
+  {% if product.sections.audio.samples.size > 0 %}
+    {% include "components/products/audio-player.liquid" %}
+  {% endif %}
 
-  {% include "components/products/features.liquid" %}
+  {% if product.sections.features.items.size > 0 %}
+    {% include "components/products/features.liquid" %}
+  {% endif %}
   
-  {% include "components/products/testimonials.liquid" %}
+  {% if product.sections.testimonials.size > 0 %}
+    {% include "components/products/testimonials.liquid" %}
+  {% endif %}
   
-  {% include "components/products/tech-specs.liquid" %}
+  {% if product.sections.techSpecs.items.size > 0 %}
+    {% include "components/products/tech-specs.liquid" %}
+  {% endif %}
   
-  {% include "components/products/faq.liquid" %}
+  {% if product.sections.faq.items.size > 0 %}
+    {% include "components/products/faq.liquid" %}
+  {% endif %}
 
   {% include "components/products/sticky-footer.liquid" %}
 
