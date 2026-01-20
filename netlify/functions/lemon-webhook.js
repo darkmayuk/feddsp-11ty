@@ -11,6 +11,104 @@ const PRODUCT_MAP = {
   '738772': 'fedDSP-PHAT'
 };
 
+const ML_GROUPS = {
+  customers_soft_optin: '176785955520251725',
+  newsletter_full: '176786902392767543',
+
+  cat_effects: '177124360852603976',
+  cat_amps: '177124366747699123',
+  cat_samples: '177124373232092415',
+  cat_irs: '177125712410445457',
+
+  prod_phaturator: '176785785000822298',
+};
+
+const ML_HERO_PRODUCTS = {
+  'fedDSP-PHAT': 'prod_phaturator',
+  // only for big products, not samples + IRs
+};
+
+// Map internal product codes -> category group key
+// (Fill this out as you add products)
+const ML_PRODUCT_CATEGORY = {
+  'fedDSP-PHAT': 'cat_effects',
+  // examples for later:
+  // 'fedDSP-AMP1': 'cat_amps',
+  // 'fedDSP-SAMP1': 'cat_samples',
+  // 'fedDSP-IR1': 'cat_irs',
+};
+
+// ==============================
+// MailerLite (soft opt-in on purchase) - best effort
+// Env var required:
+// - MAILERLITE_API_TOKEN
+// ==============================
+const MAILERLITE_API_BASE = 'https://connect.mailerlite.com/api';
+
+function dateOnlyUTCFromAny(input) {
+  const d = input ? new Date(input) : new Date();
+  const iso = d.toISOString(); // UTC
+  return iso.slice(0, 10); // YYYY-MM-DD
+}
+
+function mailerliteGroupsForProduct(mappedProductId) {
+  const out = [];
+
+  // Always add soft opt-in group on purchase
+  if (ML_GROUPS.customers_soft_optin) out.push(ML_GROUPS.customers_soft_optin);
+
+  // Category group (optional but recommended)
+  const catKey = ML_PRODUCT_CATEGORY[mappedProductId];
+  if (catKey && ML_GROUPS[catKey]) out.push(ML_GROUPS[catKey]);
+
+  // Hero product group (only if configured)
+  const heroKey = ML_HERO_PRODUCTS[mappedProductId];
+  if (heroKey && ML_GROUPS[heroKey]) out.push(ML_GROUPS[heroKey]);
+
+  return out.filter(Boolean);
+}
+
+async function mailerliteUpsertSubscriberBestEffort({ email, name, groupIds, fields }) {
+  const token = process.env.MAILERLITE_API_TOKEN;
+  if (!token) {
+    console.log('MailerLite: MAILERLITE_API_TOKEN not set; skipping ML sync');
+    return;
+  }
+
+  if (!email) return;
+
+  const body = {
+    email: String(email),
+    fields: {
+      name: String(name || ''),
+      ...fields,
+    },
+    groups: Array.isArray(groupIds) ? groupIds.filter(Boolean) : [],
+  };
+
+  try {
+    const resp = await fetch(`${MAILERLITE_API_BASE}/subscribers`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!resp.ok) {
+      const t = await resp.text().catch(() => '');
+      console.log('MailerLite upsert failed (continuing):', resp.status, t);
+      return;
+    }
+
+    console.log('MailerLite sync ok for', email);
+  } catch (err) {
+    console.log('MailerLite sync error (continuing):', err?.message || err);
+  }
+}
+
 // Name of the Netlify Blobs store we'll use
 const LICENSE_STORE_NAME = 'licenses';
 
@@ -348,6 +446,28 @@ export const handler = async (event) => {
 
     await store.setJSON(blobKey, blobObj);
     console.log('Saved license to Netlify Blobs with key:', blobKey);
+
+    // ==============================
+    // NEW: MailerLite soft opt-in sync on purchase (best-effort)
+    // ==============================
+    {
+      const mlGroupIds = mailerliteGroupsForProduct(mappedProductId);
+
+      // Use LS created_at if present; otherwise fall back to issued_at we generated
+      const purchaseDate = dateOnlyUTCFromAny(attributes.created_at || licensePayload.issued_at);
+
+      await mailerliteUpsertSubscriberBestEffort({
+        email: String(userEmail),
+        name: String(userName),
+        groupIds: mlGroupIds,
+        fields: {
+          ls_customer_id: lsCustomerId != null ? String(lsCustomerId) : null,
+          first_purchase_at: purchaseDate,
+          last_purchase_at: purchaseDate,
+          // clerk_user_id isn't available here; leave unset.
+        },
+      });
+    }
 
     // 7) Send license email via Postmark (if configured)
     // (This keeps your existing behaviour; if you have POSTMARK_* env vars this will work.)

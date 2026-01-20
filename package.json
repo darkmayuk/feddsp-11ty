@@ -10,8 +10,5 @@
     "@11ty/eleventy-img": "^6.0.4",
     "@clerk/backend": "^2.22.0",
     "@netlify/blobs": "^10.4.1"
-  },
-  "devDependencies": {
-    "@quasibit/eleventy-plugin-sitemap": "^2.2.0"
   }
 }
