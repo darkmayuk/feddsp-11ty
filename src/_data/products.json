@@ -53,16 +53,56 @@
         "title": "Experience The Difference",
         "subheader": "What can PHATurator do for your sound? Listen to it for yourself.",
         "samples": [
-          { "name": "Drums", "dry": "/assets/audio/PHAT_TEST_DRUMS_OFF.wav", "wet": "/assets/audio/PHAT_TEST_DRUMS_ON.wav" },
-          { "name": "Bass", "dry": "/assets/audio/PHAT_TEST_BASS_OFF.wav", "wet": "/assets/audio/PHAT_TEST_BASS_ON.wav" },
-          { "name": "Voice", "dry": "/assets/audio/PHAT_TEST_VOX_OFF.wav", "wet": "/assets/audio/PHAT_TEST_VOX_ON.wav" },
-          { "name": "Rock Mix", "dry": "/assets/audio/PHAT_ROCKMIX_OFF.wav", "wet": "/assets/audio/PHAT_ROCKMIX_ON.wav" },
-          { "name": "Metal Mix", "dry": "/assets/audio/PHAT_METAL_MIX_OFF.wav", "wet": "/assets/audio/PHAT_METAL_MIX_ON.wav" },
-          { "name": "Beats", "dry": "/assets/audio/PHAT_BEATNEW_OFF.wav", "wet": "/assets/audio/PHAT_BEATNEW_ON.wav" },
-          { "name": "808", "dry": "/assets/audio/PHAT_808NEW_OFF.wav", "wet": "/assets/audio/PHAT_808NEW_ON.wav" },
-          { "name": "Keys", "dry": "/assets/audio/PHAT_KEYS_OFF.wav", "wet": "/assets/audio/PHAT_KEYS_ON.wav" },
-          { "name": "Trap Mix", "dry": "/assets/audio/PHAT_TRAP_TRAPMIX_OFF.wav", "wet": "/assets/audio/PHAT_TRAP_TRAPMIX_ON.wav" },
-          { "name": "EDM Mix", "dry": "/assets/audio/PHAT_EDM_MIX_OFF.wav", "wet": "/assets/audio/PHAT_EDM_MIX_ON.wav" }
+          {
+            "name": "Drums",
+            "dry": "/assets/audio/PHAT_TEST_DRUMS_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_DRUMS_ON.wav"
+          },
+          {
+            "name": "Bass",
+            "dry": "/assets/audio/PHAT_TEST_BASS_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_BASS_ON.wav"
+          },
+          {
+            "name": "Voice",
+            "dry": "/assets/audio/PHAT_TEST_VOX_OFF.wav",
+            "wet": "/assets/audio/PHAT_TEST_VOX_ON.wav"
+          },
+          {
+            "name": "Rock Mix",
+            "dry": "/assets/audio/PHAT_ROCKMIX_OFF.wav",
+            "wet": "/assets/audio/PHAT_ROCKMIX_ON.wav"
+          },
+          {
+            "name": "Metal Mix",
+            "dry": "/assets/audio/PHAT_METAL_MIX_OFF.wav",
+            "wet": "/assets/audio/PHAT_METAL_MIX_ON.wav"
+          },
+          {
+            "name": "Beats",
+            "dry": "/assets/audio/PHAT_BEATNEW_OFF.wav",
+            "wet": "/assets/audio/PHAT_BEATNEW_ON.wav"
+          },
+          {
+            "name": "808",
+            "dry": "/assets/audio/PHAT_808NEW_OFF.wav",
+            "wet": "/assets/audio/PHAT_808NEW_ON.wav"
+          },
+          {
+            "name": "Keys",
+            "dry": "/assets/audio/PHAT_KEYS_OFF.wav",
+            "wet": "/assets/audio/PHAT_KEYS_ON.wav"
+          },
+          {
+            "name": "Trap Mix",
+            "dry": "/assets/audio/PHAT_TRAP_TRAPMIX_OFF.wav",
+            "wet": "/assets/audio/PHAT_TRAP_TRAPMIX_ON.wav"
+          },
+          {
+            "name": "EDM Mix",
+            "dry": "/assets/audio/PHAT_EDM_MIX_OFF.wav",
+            "wet": "/assets/audio/PHAT_EDM_MIX_ON.wav"
+          }
         ]
       },
       "testimonials": [
@@ -207,28 +247,95 @@
       }
     }
   },
- {
+  {
     "id": "etna",
     "type": "sample",
     "active": true,
     "name": "ETNA",
     "badge": "Kick & Snare One Shot Samples",
-    "headline": "VOLCANIC IMPACT.<br><br><span class='hero-thin'>One-Shot samples to make your drums hit hard.</span>",
-    "description": "ETNA delivers volcanic impact for your rhythm section. These one-shot kick and snare samples are engineered to punch through dense mixes.",
+    "headline": "ETNA: VOLCANIC IMPACT.",
+    "heroSubText": "HIGH QUALITY WAV FILES • COMPATIBLE WITH ALL DAWS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
+    "description": "ETNA delivers volcanic impact. One-shot kick and snare samples engineered to punch through dense mixes. Control aggression while preserving definition.",
     "price": "£15",
     "originalPrice": "£25",
     "buyLink": "#",
+    "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
-      "logo": "/assets/images/products/etna-logo.png",
-      "heroImage": "/assets/images/products/ETNA.png"
+      "heroImage": "/assets/images/products/ETNA.png",
+      "heroVideo": "/assets/videos/Charlie-Bg.mp4",
+      "heroPoster": "/assets/videos/Charlie-poster.webp",
+      "audioBg": "/assets/videos/Ric-Bg.mp4",
+      "audioBgPoster": "/assets/videos/Ric-poster.webp"
     },
-    "gradients": {},
+    "gradients": {
+      "gradient3Start": "#f15a29",
+      "gradient3End": "#be1e2d",
+      "gradientStart": "#d366ac",
+      "gradientEnd": "#be1e2d"
+    },
     "sections": {
-      "overview": { "title": "Overview", "items": [] },
-      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
-      "features": { "title": "Features", "items": [] },
-      "techSpecs": { "title": "Specs", "items": [] },
-      "faq": { "title": "FAQ", "items": [] }
+      "overview": {
+        "title": "Heavier. Hotter. Explosive.",
+        "items": [
+          {
+            "title": "Control aggression while preserving definition.",
+            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>ETNA is pressure made audible. A focused collection of drum one-shots designed to hit hard while staying defined. Built to reinforce, layer, or completely reshape aggressive drum sounds without losing clarity.<br><br>The processed versions are shaped using Fed's extensive collection of vintage hardware, adding weight, heat, and controlled saturation.<br><br>Open ETNA. Drop it in. Let it erupt.<br><br><strong>30 unique one-shots presented in 60 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
+          }
+        ]
+      },
+      "audio": {
+        "title": "Hear the Difference",
+        "subheader": "",
+        "samples": [
+          {
+            "name": "Metal Mix",
+            "dry": "/assets/audio/SAMPLES_ETNA_METAL_OFF.wav",
+            "wet": "/assets/audio/SAMPLES_ETNA_METAL_ON.wav"
+          },
+          {
+            "name": "Rock Mix",
+            "dry": "/assets/audio/SAMPLES_ETNA_ROCK_OFF.wav",
+            "wet": "/assets/audio/SAMPLES_ETNA_ROCK_ON.wav"
+          }
+        ]
+      },
+      "faq": {
+        "title": "FAQ",
+        "items": [
+          {
+            "q": "Are these samples raw or mix-ready?",
+            "a": "Both. Each sound comes in two versions: a raw version for maximum flexibility, and a processed version ready to drop straight into your mix."
+          },
+          {
+            "q": "What genres are these samples best suited for?",
+            "a": "Built for rock and metal at heart, but they work anywhere you want live drums that hit hard and hold their ground even in the densest mix."
+          },
+          {
+            "q": "Are these samples compatible with drum triggering plugins?",
+            "a": "Yes, they work with all major drum triggering and drum replacement plugins. Anything that can load WAV files will work with these."
+          },
+          {
+            "q": "Can I layer these samples with my own recordings?",
+            "a": "Of course, they're designed to blend naturally with acoustic recordings, but they work just as well on their own."
+          },
+          {
+            "q": "How many samples are included in the pack?",
+            "a": "30 unique one-shots, delivered as 60 WAVs. You get 15 kicks and 15 snares, each in natural and processed versions."
+          },
+          {
+            "q": "What sample rate and bit depth are the files?",
+            "a": "All files are provided in 44.1kHz, 24-bit WAV format."
+          },
+          {
+            "q": "Do I need to credit FedDSP?",
+            "a": "No credit is required, but if you feel like sharing what you make with these please do!"
+          },
+          {
+            "q": "How will my pack be delivered?",
+            "a": "You'll receive a download link via email after purchase. If, for any reasons, you don't please get in touch at support@feddsp.com"
+          }
+        ]
+      }
     }
   },
   {
@@ -237,22 +344,89 @@
     "active": true,
     "name": "CRONOS",
     "badge": "Kick & Snare One Shot Samples",
-    "headline": "NO TIME TO HOLD BACK.<br><br><span class='hero-thin'>One-Shot samples to make your drums hit hard.</span>",
-    "description": "CRONOS is about immediate power. Aggressive kicks and snapping snares designed for high-tempo and heavy genres.",
+    "headline": "CRONOS: NO TIME TO HOLD BACK.",
+    "heroSubText": "HIGH QUALITY WAV FILES • COMPATIBLE WITH ALL DAWS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
+    "description": "CRONOS is about immediate power. Aggressive kicks and snapping snares designed for high-tempo and heavy genres. Unleash consistent drum control.",
     "price": "£15",
     "originalPrice": "£25",
     "buyLink": "#",
+    "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
-      "logo": "/assets/images/products/cronos-logo.png",
-      "heroImage": "/assets/images/products/CRONOS.png"
+      "heroImage": "/assets/images/products/CRONOS.png",
+      "heroVideo": "/assets/videos/Charlie-Bg.mp4",
+      "heroPoster": "/assets/videos/Charlie-poster.webp",
+      "audioBg": "/assets/videos/Ric2-Bg.mp4",
+      "audioBgPoster": "/assets/videos/Ric2-poster.webp"
     },
-    "gradients": {},
+    "gradients": {
+      "gradient3Start": "#be1e2d",
+      "gradient3End": "#d366ac",
+      "gradientStart": "#d366ac",
+      "gradientEnd": "#be1e2d"
+    },
     "sections": {
-      "overview": { "title": "Overview", "items": [] },
-      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
-      "features": { "title": "Features", "items": [] },
-      "techSpecs": { "title": "Specs", "items": [] },
-      "faq": { "title": "FAQ", "items": [] }
+      "overview": {
+        "title": "Fast. Relentless. Unforgiving.",
+        "items": [
+          {
+            "title": "Unleash consistent drum control.",
+            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>CRONOS is about control under speed. A disciplined set of drum one-shots built for consistency, timing, and impact across every mix. Designed to lock drums in place, tighten performances, and remove guesswork.<br><br>The processed versions are refined through Fed's vast vintage hardware chain, delivering stability, punch, and reliable tone.<br><br>Open CRONOS. Drop it. Hear the polish.<br><br><strong>30 unique one-shots presented in 60 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
+          }
+        ]
+      },
+      "audio": {
+        "title": "Hear the Difference",
+        "subheader": "",
+        "samples": [
+          {
+            "name": "Metal Mix",
+            "dry": "/assets/audio/SAMPLES_CRONOS_METAL_OFF.wav",
+            "wet": "/assets/audio/SAMPLES_CRONOS_METAL_ON.wav"
+          },
+          {
+            "name": "Rock Mix",
+            "dry": "/assets/audio/SAMPLES_CRONOS_ROCK_OFF.wav",
+            "wet": "/assets/audio/SAMPLES_CRONOS_ROCK_ON.wav"
+          }
+        ]
+      },
+      "faq": {
+        "title": "FAQ",
+        "items": [
+          {
+            "q": "Are these samples raw or mix-ready?",
+            "a": "Both. Each sound comes in two versions: a raw version for maximum flexibility, and a processed version ready to drop straight into your mix."
+          },
+          {
+            "q": "What genres are these samples best suited for?",
+            "a": "Built for rock and metal at heart, but they work anywhere you want live drums that hit hard and hold their ground even in the densest mix."
+          },
+          {
+            "q": "Are these samples compatible with drum triggering plugins?",
+            "a": "Yes, they work with all major drum triggering and drum replacement plugins. Anything that can load WAV files will work with these."
+          },
+          {
+            "q": "Can I layer these samples with my own recordings?",
+            "a": "Of course, they're designed to blend naturally with acoustic recordings, but they work just as well on their own."
+          },
+          {
+            "q": "How many samples are included in the pack?",
+            "a": "30 unique one-shots, delivered as 60 WAVs. You get 15 kicks and 15 snares, each in natural and processed versions."
+          },
+          {
+            "q": "What sample rate and bit depth are the files?",
+            "a": "All files are provided in 44.1kHz, 24-bit WAV format."
+          },
+          {
+            "q": "Do I need to credit FedDSP?",
+            "a": "No credit is required, but if you feel like sharing what you make with these please do!"
+          },
+          {
+            "q": "How will my pack be delivered?",
+            "a": "You'll receive a download link via email after purchase. If, for any reasons, you don't please get in touch at support@feddsp.com"
+          }
+        ]
+      }
     }
   },
   {
@@ -261,22 +435,89 @@
     "active": true,
     "name": "TYPHON",
     "badge": "Kick & Snare One Shot Samples",
-    "headline": "CONTROLLED CHAOS.<br><br><span class='hero-thin'>One-Shot samples to make your drums hit hard.</span>",
-    "description": "TYPHON brings the storm. Massive, distorted textures mixed with punchy transients for industrial and experimental beats.",
+    "headline": "TYPHON: CONTROLLED CHAOS.",
+    "heroSubText": "HIGH QUALITY WAV FILES • COMPATIBLE WITH ALL DAWS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
+    "description": "TYPHON brings the storm. Massive, distorted textures mixed with punchy transients for industrial and experimental beats. Achieve powerful drums that translate everywhere.",
     "price": "£15",
     "originalPrice": "£25",
     "buyLink": "#",
+    "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
-      "logo": "/assets/images/products/typhon-logo.png",
-      "heroImage": "/assets/images/products/TYPHON.png"
+      "heroImage": "/assets/images/products/TYPHON.png",
+      "heroVideo": "/assets/videos/Charlie-Bg.mp4",
+      "heroPoster": "/assets/videos/Charlie-poster.webp",
+      "audioBg": "/assets/videos/Ric2-Bg.mp4",
+      "audioBgPoster": "/assets/videos/Ric2-poster.webp"
     },
-    "gradients": {},
+    "gradients": {
+      "gradient3Start": "#204963",
+      "gradient3End": "#228340",
+      "gradientStart": "#d366ac",
+      "gradientEnd": "#be1e2d"
+    },
     "sections": {
-      "overview": { "title": "Overview", "items": [] },
-      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
-      "features": { "title": "Features", "items": [] },
-      "techSpecs": { "title": "Specs", "items": [] },
-      "faq": { "title": "FAQ", "items": [] }
+      "overview": {
+        "title": "Wild. Focused. Aggressive.",
+        "items": [
+          {
+            "title": "Achieve powerful drums that translate everywhere.",
+            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>TYPHON is controlled aggression. A curated collection of drum one-shots designed to drive energy forward while keeping transients sharp and low-end tight. Built for modern, dense productions that demand impact without collapse.<br><br>The processed versions are refined through Fed's vast catalogue of vintage hardware, delivering bite, weight, and control.<br><br>Open TYPHON. Drop it. Sense the pressure.<br><br><strong>30 unique one-shots presented in 60 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
+          }
+        ]
+      },
+      "audio": {
+        "title": "Hear the Difference",
+        "subheader": "",
+        "samples": [
+          {
+            "name": "Metal Mix",
+            "dry": "/assets/audio/SAMPLES_TYPHON_METAL_OFF.wav",
+            "wet": "/assets/audio/SAMPLES_TYPHON_METAL_ON.wav"
+          },
+          {
+            "name": "Rock Mix",
+            "dry": "/assets/audio/SAMPLES_TYPHON_ROCK_OFF.wav",
+            "wet": "/assets/audio/SAMPLES_TYPHON_ROCK_ON.wav"
+          }
+        ]
+      },
+      "faq": {
+        "title": "FAQ",
+        "items": [
+          {
+            "q": "Are these samples raw or mix-ready?",
+            "a": "Both. Each sound comes in two versions: a raw version for maximum flexibility, and a processed version ready to drop straight into your mix."
+          },
+          {
+            "q": "What genres are these samples best suited for?",
+            "a": "Built for rock and metal at heart, but they work anywhere you want live drums that hit hard and hold their ground even in the densest mix."
+          },
+          {
+            "q": "Are these samples compatible with drum triggering plugins?",
+            "a": "Yes, they work with all major drum triggering and drum replacement plugins. Anything that can load WAV files will work with these."
+          },
+          {
+            "q": "Can I layer these samples with my own recordings?",
+            "a": "Of course, they're designed to blend naturally with acoustic recordings, but they work just as well on their own."
+          },
+          {
+            "q": "How many samples are included in the pack?",
+            "a": "30 unique one-shots, delivered as 60 WAVs. You get 15 kicks and 15 snares, each in natural and processed versions."
+          },
+          {
+            "q": "What sample rate and bit depth are the files?",
+            "a": "All files are provided in 44.1kHz, 24-bit WAV format."
+          },
+          {
+            "q": "Do I need to credit FedDSP?",
+            "a": "No credit is required, but if you feel like sharing what you make with these please do!"
+          },
+          {
+            "q": "How will my pack be delivered?",
+            "a": "You'll receive a download link via email after purchase. If, for any reasons, you don't please get in touch at support@feddsp.com"
+          }
+        ]
+      }
     }
   },
   {
@@ -285,22 +526,89 @@
     "active": true,
     "name": "THEIA",
     "badge": "Kick & Snare One Shot Samples",
-    "headline": "WHERE HITS COLLIDE.<br><br><span class='hero-thin'>One-Shot samples to make your drums hit hard.</span>",
-    "description": "THEIA offers cosmic impact. Deep, resonant kicks and crisp, detailed snares perfect for modern pop and electronic production.",
+    "headline": "THEIA: WHERE HITS COLLIDE.",
+    "heroSubText": "HIGH QUALITY WAV FILES • COMPATIBLE WITH ALL DAWS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
+    "description": "THEIA offers cosmic impact. Deep, resonant kicks and crisp, detailed snares perfect for modern pop and electronic production. Bring chart level drum power to every mix.",
     "price": "£15",
     "originalPrice": "£25",
     "buyLink": "#",
+    "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
-      "logo": "/assets/images/products/theia-logo.png",
-      "heroImage": "/assets/images/products/THEIA.png"
+      "heroImage": "/assets/images/products/THEIA.png",
+      "heroVideo": "/assets/videos/Charlie-Bg.mp4",
+      "heroPoster": "/assets/videos/Charlie-poster.webp",
+      "audioBg": "/assets/videos/Ric-Bg.mp4",
+      "audioBgPoster": "/assets/videos/Ric-poster.webp"
     },
-    "gradients": {},
+    "gradients": {
+      "gradient3Start": "#d366ac",
+      "gradient3End": "#204963",
+      "gradientStart": "#d366ac",
+      "gradientEnd": "#be1e2d"
+    },
     "sections": {
-      "overview": { "title": "Overview", "items": [] },
-      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
-      "features": { "title": "Features", "items": [] },
-      "techSpecs": { "title": "Specs", "items": [] },
-      "faq": { "title": "FAQ", "items": [] }
+      "overview": {
+        "title": "Punchier. Cleaner. Bigger.",
+        "items": [
+          {
+            "title": "Bring chart level drum power to every mix.",
+            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>THEIA is that collection. A curated series of sought-after drum samples from industry-leading mixers. Built to enhance, layer, or completely reshape your drum sound.<br><br>The processed versions are shaped with Fed's vast catalogue of vintage hardware, delivering polish, size, and definition.<br><br>Open THEIA. Drop it in. Feel the impact.<br><br><strong>30 unique one-shots presented in 60 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
+          }
+        ]
+      },
+      "audio": {
+        "title": "Hear the Difference",
+        "subheader": "",
+        "samples": [
+          {
+            "name": "Metal Mix",
+            "dry": "/assets/audio/SAMPLES_THEIA_METAL_OFF.wav",
+            "wet": "/assets/audio/SAMPLES_THEIA_METAL_ON.wav"
+          },
+          {
+            "name": "Rock Mix",
+            "dry": "/assets/audio/SAMPLES_THEIA_ROCK_OFF.wav",
+            "wet": "/assets/audio/SAMPLES_THEIA_ROCK_ON.wav"
+          }
+        ]
+      },
+      "faq": {
+        "title": "FAQ",
+        "items": [
+          {
+            "q": "Are these samples raw or mix-ready?",
+            "a": "Both. Each sound comes in two versions: a raw version for maximum flexibility, and a processed version ready to drop straight into your mix."
+          },
+          {
+            "q": "What genres are these samples best suited for?",
+            "a": "Built for rock and metal at heart, but they work anywhere you want live drums that hit hard and hold their ground even in the densest mix."
+          },
+          {
+            "q": "Are these samples compatible with drum triggering plugins?",
+            "a": "Yes, they work with all major drum triggering and drum replacement plugins. Anything that can load WAV files will work with these."
+          },
+          {
+            "q": "Can I layer these samples with my own recordings?",
+            "a": "Of course, they're designed to blend naturally with acoustic recordings, but they work just as well on their own."
+          },
+          {
+            "q": "How many samples are included in the pack?",
+            "a": "30 unique one-shots, delivered as 60 WAVs. You get 15 kicks and 15 snares, each in natural and processed versions."
+          },
+          {
+            "q": "What sample rate and bit depth are the files?",
+            "a": "All files are provided in 44.1kHz, 24-bit WAV format."
+          },
+          {
+            "q": "Do I need to credit FedDSP?",
+            "a": "No credit is required, but if you feel like sharing what you make with these please do!"
+          },
+          {
+            "q": "How will my pack be delivered?",
+            "a": "You'll receive a download link via email after purchase. If, for any reasons, you don't please get in touch at support@feddsp.com"
+          }
+        ]
+      }
     }
   },
   {
@@ -309,22 +617,72 @@
     "active": true,
     "name": "ATLAS",
     "badge": "High Quality Impulse Response Pack",
-    "headline": "NO SUCH THING AS TOO MUCH WEIGHT.<br><br><span class='hero-thin'>Premium IRs for massive tone.</span>",
-    "description": "ATLAS holds up the sky. Impulse responses captured from oversized cabinets to give your guitars unparalleled low-end support.",
+    "headline": "ATLAS: NO SUCH THING AS TOO MUCH WEIGHT.",
+    "heroSubText": "HIGH-RESOLUTION IRs • COMPATIBLE WITH ALL IR LOADERS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
+    "description": "ATLAS holds up the sky. Impulse responses captured from oversized cabinets to give your guitars unparalleled low-end support. Build weighty tones.",
     "price": "£15",
     "originalPrice": "£25",
     "buyLink": "#",
+    "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
-      "logo": "/assets/images/products/atlas-logo.png",
       "heroImage": "/assets/images/products/ATLAS.png"
     },
-    "gradients": {},
+    "gradients": {
+      "gradient3Start": "#204963",
+      "gradient3End": "#be1e2d"
+    },
     "sections": {
-      "overview": { "title": "Overview", "items": [] },
-      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
-      "features": { "title": "Features", "items": [] },
-      "techSpecs": { "title": "Specs", "items": [] },
-      "faq": { "title": "FAQ", "items": [] }
+      "overview": {
+        "title": "Thicker. Wider. Heavier.",
+        "items": [
+          {
+            "title": "Build weighty tones.",
+            "text": "Impulse Responses are one of the most direct ways to define the weight, focus, and placement of your guitar tone. They shape how your amp interacts with the mix, helping your sound feel grounded, consistent, and ready to translate across systems.<br><br>Engineers rely on trusted IRs to lock tones in place, reduce guesswork, and build reliable results from session to session.<br><br>ATLAS is built to carry weight. A focused collection of IRs designed to deliver mass, width, and low-end authority without sacrificing clarity. Ideal for anchoring guitars in dense mixes and giving tones a solid foundation.<br><br>Each IR is carefully captured, selected, and refined through Fed's extensive experience with vintage cabinets and signal chains, prioritizing balance and real-world usability.<br><br>Open ATLAS. Load it in. Set the foundation.<br><br><strong>25 carefully curated impulse responses delivered as 44.1kHz, 24-bit WAV files. Normalised and compatible with all major DAWs and IR loader software.</strong>"
+          }
+        ]
+      },
+      "audio": {
+        "title": "Audio",
+        "subheader": "Listen",
+        "samples": []
+      },
+      "faq": {
+        "title": "FAQ",
+        "items": [
+          {
+            "q": "What are Impulse Responses (IRs)?",
+            "a": "Impulse Responses capture the sound and behavior of a speaker cabinet, microphone, and signal chain. They're used with amp simulators or hardware units to shape the final tone of your guitar."
+          },
+          {
+            "q": "How do I use an IR pack?",
+            "a": "You can use these IRs with any software that supports WAV-based impulse responses."
+          },
+          {
+            "q": "Will this work in my DAW?",
+            "a": "Yes. Our IRs work in all major DAWs and IR loaders. For best results, start with default settings and avoid additional EQ or resonance so you can hear the IRs as intended."
+          },
+          {
+            "q": "Are these IRs suitable for both recording and re-amping?",
+            "a": "Yes. They're designed to work reliably in both recording and re-amping scenarios."
+          },
+          {
+            "q": "How many IRs are included in the pack?",
+            "a": "25 impulse responses."
+          },
+          {
+            "q": "What file format and resolution are the IRs provided in?",
+            "a": "All IRs are provided as 44.1kHz, 24-bit WAV files. All IRs are normalised for consistent and predictable levels."
+          },
+          {
+            "q": "Are the IRs royalty-free?",
+            "a": "Yes. You can use them freely in both commercial and non-commercial productions."
+          },
+          {
+            "q": "How will my pack be delivered?",
+            "a": "You'll receive a download link via email after purchase. If, for any reasons, you don't please get in touch at support@feddsp.com"
+          }
+        ]
+      }
     }
   },
   {
@@ -333,22 +691,72 @@
     "active": true,
     "name": "GAIA",
     "badge": "High Quality Impulse Response Pack",
-    "headline": "THE MOTHER OF ALL TONES.<br><br><span class='hero-thin'>Premium IRs for massive tone.</span>",
-    "description": "GAIA is the root of your sound. Earthy, organic, and rich mid-range tones captured from vintage 4x12s.",
+    "headline": "GAIA: THE MOTHER OF ALL TONES.",
+    "heroSubText": "HIGH-RESOLUTION IRs • COMPATIBLE WITH ALL IR LOADERS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
+    "description": "GAIA is the root of your sound. Earthy, organic, and rich mid-range tones captured from vintage 4x12s. Reach tonal dimension.",
     "price": "£15",
     "originalPrice": "£25",
     "buyLink": "#",
+    "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
-      "logo": "/assets/images/products/gaia-logo.png",
       "heroImage": "/assets/images/products/GAIA.png"
     },
-    "gradients": {},
+    "gradients": {
+      "gradient3Start": "#228340",
+      "gradient3End": "#f15a29"
+    },
     "sections": {
-      "overview": { "title": "Overview", "items": [] },
-      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
-      "features": { "title": "Features", "items": [] },
-      "techSpecs": { "title": "Specs", "items": [] },
-      "faq": { "title": "FAQ", "items": [] }
+      "overview": {
+        "title": "Fuller. Warmer. Denser.",
+        "items": [
+          {
+            "title": "Reach tonal dimension.",
+            "text": "Impulse Responses are one of the most direct ways to define the weight, focus, and placement of your guitar tone. They shape how your amp interacts with the mix, helping your sound feel grounded, consistent, and ready to translate across systems.<br><br>Engineers rely on trusted IRs to lock tones in place, reduce guesswork, and build reliable results from session to session.<br><br>GAIA is about balance and body. A curated set of IRs designed to deliver fullness, warmth, and density without sounding congested or dull. Built for musical, mix-ready tones that feel complete and natural from the first note.<br><br>Each IR is captured and refined using Fed's deep knowledge of vintage gear and classic signal paths, ensuring warmth and cohesion without exaggeration.<br><br>Open GAIA Load it in. Fill the void.<br><br><strong>25 carefully curated impulse responses delivered as 44.1kHz, 24-bit WAV files. Normalised and compatible with all major DAWs and IR loader software.</strong>"
+          }
+        ]
+      },
+      "audio": {
+        "title": "Audio",
+        "subheader": "Listen",
+        "samples": []
+      },
+      "faq": {
+        "title": "FAQ",
+        "items": [
+          {
+            "q": "What are Impulse Responses (IRs)?",
+            "a": "Impulse Responses capture the sound and behavior of a speaker cabinet, microphone, and signal chain. They're used with amp simulators or hardware units to shape the final tone of your guitar."
+          },
+          {
+            "q": "How do I use an IR pack?",
+            "a": "You can use these IRs with any software that supports WAV-based impulse responses."
+          },
+          {
+            "q": "Will this work in my DAW?",
+            "a": "Yes. Our IRs work in all major DAWs and IR loaders. For best results, start with default settings and avoid additional EQ or resonance so you can hear the IRs as intended."
+          },
+          {
+            "q": "Are these IRs suitable for both recording and re-amping?",
+            "a": "Yes. They're designed to work reliably in both recording and re-amping scenarios."
+          },
+          {
+            "q": "How many IRs are included in the pack?",
+            "a": "25 impulse responses."
+          },
+          {
+            "q": "What file format and resolution are the IRs provided in?",
+            "a": "All IRs are provided as 44.1kHz, 24-bit WAV files. All IRs are normalised for consistent and predictable levels."
+          },
+          {
+            "q": "Are the IRs royalty-free?",
+            "a": "Yes. You can use them freely in both commercial and non-commercial productions."
+          },
+          {
+            "q": "How will my pack be delivered?",
+            "a": "You'll receive a download link via email after purchase. If, for any reasons, you don't please get in touch at support@feddsp.com"
+          }
+        ]
+      }
     }
   },
   {
@@ -357,22 +765,72 @@
     "active": true,
     "name": "HYPERION",
     "badge": "High Quality Impulse Response Pack",
-    "headline": "DEPTH THAT SHINES THROUGH.<br><br><span class='hero-thin'>Premium IRs for massive tone.</span>",
-    "description": "HYPERION brings light and definition. Modern, scoopy, and precise IRs designed for technical playing and clarity.",
+    "headline": "HYPERION: DEPTH THAT SHINES THROUGH.",
+    "heroSubText": "HIGH-RESOLUTION IRs • COMPATIBLE WITH ALL IR LOADERS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
+    "description": "HYPERION brings light and definition. Modern, scoopy, and precise IRs designed for technical playing and clarity. Deliver sonic control.",
     "price": "£15",
     "originalPrice": "£25",
     "buyLink": "#",
+    "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
-      "logo": "/assets/images/products/hyperion-logo.png",
       "heroImage": "/assets/images/products/HYPERION.png"
     },
-    "gradients": {},
+    "gradients": {
+      "gradient3Start": "#d366ac",
+      "gradient3End": "#f15a29"
+    },
     "sections": {
-      "overview": { "title": "Overview", "items": [] },
-      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
-      "features": { "title": "Features", "items": [] },
-      "techSpecs": { "title": "Specs", "items": [] },
-      "faq": { "title": "FAQ", "items": [] }
+      "overview": {
+        "title": "Deeper. Clearer. Brighter.",
+        "items": [
+          {
+            "title": "Deliver sonic control.",
+            "text": "Impulse Responses are one of the most direct ways to define the weight, focus, and placement of your guitar tone. They shape how your amp interacts with the mix, helping your sound feel grounded, consistent, and ready to translate across systems.<br><br>Engineers rely on trusted IRs to lock tones in place, reduce guesswork, and build reliable results from session to session.<br><br>HYPERION focuses on clarity through depth. A refined collection of IRs designed to enhance presence, brightness, and spatial definition without thinning the sound. Ideal for layered guitars and modern productions that demand separation and detail.<br><br>Each IR is carefully captured and evaluated using Fed's trusted cabinets and vintage-informed workflows, prioritizing translation and tonal precision.<br><br>Open HYPERION. Load it in. Ground the tone.<br><br><strong>25 carefully curated impulse responses delivered as 44.1kHz, 24-bit WAV files. Normalised and compatible with all major DAWs and IR loader software.</strong>"
+          }
+        ]
+      },
+      "audio": {
+        "title": "Audio",
+        "subheader": "Listen",
+        "samples": []
+      },
+      "faq": {
+        "title": "FAQ",
+        "items": [
+          {
+            "q": "What are Impulse Responses (IRs)?",
+            "a": "Impulse Responses capture the sound and behavior of a speaker cabinet, microphone, and signal chain. They're used with amp simulators or hardware units to shape the final tone of your guitar."
+          },
+          {
+            "q": "How do I use an IR pack?",
+            "a": "You can use these IRs with any software that supports WAV-based impulse responses."
+          },
+          {
+            "q": "Will this work in my DAW?",
+            "a": "Yes. Our IRs work in all major DAWs and IR loaders. For best results, start with default settings and avoid additional EQ or resonance so you can hear the IRs as intended."
+          },
+          {
+            "q": "Are these IRs suitable for both recording and re-amping?",
+            "a": "Yes. They're designed to work reliably in both recording and re-amping scenarios."
+          },
+          {
+            "q": "How many IRs are included in the pack?",
+            "a": "25 impulse responses."
+          },
+          {
+            "q": "What file format and resolution are the IRs provided in?",
+            "a": "All IRs are provided as 44.1kHz, 24-bit WAV files. All IRs are normalised for consistent and predictable levels."
+          },
+          {
+            "q": "Are the IRs royalty-free?",
+            "a": "Yes. You can use them freely in both commercial and non-commercial productions."
+          },
+          {
+            "q": "How will my pack be delivered?",
+            "a": "You'll receive a download link via email after purchase. If, for any reasons, you don't please get in touch at support@feddsp.com"
+          }
+        ]
+      }
     }
   },
   {
@@ -381,22 +839,72 @@
     "active": true,
     "name": "BLOODMOON",
     "badge": "High Quality Impulse Response Pack",
-    "headline": "SACRIFICE YOUR DOUBTS.<br><br><span class='hero-thin'>Premium IRs for massive tone.</span>",
-    "description": "BLOODMOON is dark and ominous. Captured from detuned cabs for sludge, doom, and extreme metal genres.",
+    "headline": "BLOODMOON: SACRIFICE YOUR DOUBTS.",
+    "heroSubText": "HIGH-RESOLUTION IRs • COMPATIBLE WITH ALL IR LOADERS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
+    "description": "BLOODMOON is dark and ominous. Captured from detuned cabs for sludge, doom, and extreme metal genres. Ensure complete balance.",
     "price": "£15",
     "originalPrice": "£25",
     "buyLink": "#",
+    "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
-      "logo": "/assets/images/products/bloodmoon-logo.png",
       "heroImage": "/assets/images/products/BLOODMOON.png"
     },
-    "gradients": {},
+    "gradients": {
+      "gradient3Start": "#be1e2d",
+      "gradient3End": "#204963"
+    },
     "sections": {
-      "overview": { "title": "Overview", "items": [] },
-      "audio": { "title": "Audio", "subheader": "Listen", "samples": [] },
-      "features": { "title": "Features", "items": [] },
-      "techSpecs": { "title": "Specs", "items": [] },
-      "faq": { "title": "FAQ", "items": [] }
+      "overview": {
+        "title": "Certain. Focused. Decisive.",
+        "items": [
+          {
+            "title": "Ensure complete balance.",
+            "text": "Impulse Responses are one of the most direct ways to define the weight, focus, and placement of your guitar tone. They shape how your amp interacts with the mix, helping your sound feel grounded, consistent, and ready to translate across systems.<br><br>Engineers rely on trusted IRs to lock tones in place, reduce guesswork, and build reliable results from session to session.<br><br>BLOODMOON is about commitment. A deliberate collection of IRs designed to lock your tone in place with focus and intent. No excess, no distraction: just clear direction and fast commitment.<br><br>Each IR is captured, selected, and refined with Fed's vintage-informed approach, ensuring consistency, balance, and confidence in real-world sessions.<br><br>Open BLOODMOON. Load it in. Lock in place.<br><br><strong>25 carefully curated impulse responses delivered as 44.1kHz, 24-bit WAV files. Normalised and compatible with all major DAWs and IR loader software.</strong>"
+          }
+        ]
+      },
+      "audio": {
+        "title": "Audio",
+        "subheader": "Listen",
+        "samples": []
+      },
+      "faq": {
+        "title": "FAQ",
+        "items": [
+          {
+            "q": "What are Impulse Responses (IRs)?",
+            "a": "Impulse Responses capture the sound and behavior of a speaker cabinet, microphone, and signal chain. They're used with amp simulators or hardware units to shape the final tone of your guitar."
+          },
+          {
+            "q": "How do I use an IR pack?",
+            "a": "You can use these IRs with any software that supports WAV-based impulse responses."
+          },
+          {
+            "q": "Will this work in my DAW?",
+            "a": "Yes. Our IRs work in all major DAWs and IR loaders. For best results, start with default settings and avoid additional EQ or resonance so you can hear the IRs as intended."
+          },
+          {
+            "q": "Are these IRs suitable for both recording and re-amping?",
+            "a": "Yes. They're designed to work reliably in both recording and re-amping scenarios."
+          },
+          {
+            "q": "How many IRs are included in the pack?",
+            "a": "25 impulse responses."
+          },
+          {
+            "q": "What file format and resolution are the IRs provided in?",
+            "a": "All IRs are provided as 44.1kHz, 24-bit WAV files. All IRs are normalised for consistent and predictable levels."
+          },
+          {
+            "q": "Are the IRs royalty-free?",
+            "a": "Yes. You can use them freely in both commercial and non-commercial productions."
+          },
+          {
+            "q": "How will my pack be delivered?",
+            "a": "You'll receive a download link via email after purchase. If, for any reasons, you don't please get in touch at support@feddsp.com"
+          }
+        ]
+      }
     }
   }
 ]

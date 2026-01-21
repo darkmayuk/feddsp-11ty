@@ -144,7 +144,7 @@
   /* Buttons */
     .btn-pill {
       border-radius: 999px;
-      padding: 0.8rem 2.5rem;
+      padding: 0.5rem 2rem;
       font-weight: 700;
       text-transform: uppercase;
       border: none;
@@ -1011,18 +1011,25 @@
 /* PRODUCT PAGE */
 
   /* Hero */
+    
+    .product-badge {
+      font-size: 1rem;
+      color: var(--light-grey);
+    }
+  
     .hero-v2 {
       background-color: var(--dark-grey);
       color: white;
       padding: 3rem 9rem;
       overflow: hidden;
       position: relative;
+      min-height: 100vh;
     }
 
     .hero-v2 h2 {
-      font-size: 1.5rem;
-      font-weight: 600 !important;
-      line-height: 1.8rem;
+      font-size: 2rem;
+      font-weight: 500;
+      line-height: 2.5rem;
       max-width: 600px;
       width: 100%;
       margin-left: auto;
@@ -1033,7 +1040,39 @@
     .hero-thin {
       font-weight: 200 !important;
       font-size: 1rem;
+      line-height: 0.1rem;
       opacity: 0.9;
+    }
+
+    .hero-v2 video {
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      z-index: 0; 
+      opacity: 0.5; 
+      background-color: var(--dark-grey);
+    }
+
+    .video-overlay {
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 100%); 
+      z-index: 1; 
+      pointer-events: none;
+    }
+
+    .hero-gradient-bg {
+      background: radial-gradient(circle at center, #424242 0%, #111111 100%) !important;
+    }
+
+    .hero-gradient-bg .video-overlay {
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 90%);
     }
 
     @media (max-width: 1199px) {
@@ -1052,6 +1091,11 @@
       .hero-v2 {
         min-height: 60vh !important;
         padding: 2rem 1rem;
+      }
+
+      .hero-v2 h2 {
+        font-size: 1.6rem;
+        line-height: 1.5rem;
       }
 
       .hero-v2 video {
@@ -1090,6 +1134,20 @@
       width: 100%;
     }
 
+    .hero-box-art {
+      max-height: 400px;
+      width: auto;
+      max-width: 100%;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+      border-radius: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-box-art {
+        max-height: 300px;
+      }
+    }
+
     .pink-price {
       color: var(--brand-pink) !important;
     }
@@ -1116,40 +1174,78 @@
 
   /* Overview */
 
-    @media (min-width: 992px) {
-      .mobile-collapse-body.collapse {
-        display: block !important;
-        height: auto !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-      }
-  
-      .feature-toggle-header {
-        pointer-events: none; 
-        cursor: default;
-      }
-    }
+    /* --- Layout A: Plugin (Accordion/Grid) --- */
 
-
-    @media (max-width: 991px) {
-      .feature-toggle-header {
-        cursor: pointer;
-        position: relative;
-      }
-      
-      .feature-toggle-header:active {
-        opacity: 0.7;
+      @media (min-width: 992px) {
+        /* Force expand content on desktop */
+        .mobile-collapse-body.collapse {
+          display: block !important;
+          height: auto !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+        }
+        
+        /* Disable click interaction on desktop headers */
+        .feature-toggle-header {
+          pointer-events: none; 
+          cursor: default;
+        }
       }
 
-      .feature-toggle-header[aria-expanded="true"] + .mobile-preview {
-        display: none !important;
+      @media (max-width: 991px) {
+        /* Mobile toggle behavior */
+        .feature-toggle-header {
+          cursor: pointer;
+          position: relative;
+        }
+        
+        .feature-toggle-header:active {
+          opacity: 0.7;
+        }
+
+        /* Hide preview text when expanded */
+        .feature-toggle-header[aria-expanded="true"] + .mobile-preview {
+          display: none !important;
+        }
+
+        .mobile-preview {
+          cursor: pointer;
+          transition: opacity 0.2s ease; 
+        }
       }
 
-      .mobile-preview {
-        cursor: pointer;
-        transition: opacity 0.2s ease; 
-      }
-    }
+      /* --- Layout B: Editorial (Samples & IRs) --- */
+
+        h2.sample-ir-overview {
+          font-size: 6rem;
+        }
+
+        .overview-editorial-title {
+          font-family: var(--font-body);
+          font-size: 1.4rem;
+          line-height: 1.9rem;
+          font-weight: 700;
+          margin-bottom: 1.4rem;
+        }
+
+        .overview-text-columns {
+          column-count: 1;
+          column-gap: 4rem;
+          font-size: 0.9rem;
+          line-height: 1.5;
+          color: var(--dark-grey);
+        }
+
+        .overview-text-columns p {
+          break-inside: avoid;
+          margin-bottom: 1.4rem;
+        }
+
+        @media (min-width: 992px) {
+          .overview-text-columns {
+            column-count: 2;
+          }
+        }
 
   /* Features */
 
@@ -1585,15 +1681,6 @@
       padding: 3rem 0;
     }
 
-    .audio-bg-layer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-
     .audio-player-video-overlay {
       width: 100%;
       height: 100%;
@@ -1601,6 +1688,38 @@
       mix-blend-mode: screen; 
       opacity: 1;
       filter: grayscale(100%) contrast(1.5) brightness(0.8);
+    }
+
+    .audio-dark-filter {
+      position: relative;
+      background-color: black;
+      overflow: hidden;
+      padding: 3rem 0;
+    }
+
+    .audio-dark-filter::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
+    }
+
+    .audio-bg-video-normal {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+    }
+
+    .audio-bg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
     }
 
     .audio-content-layer {
@@ -1641,7 +1760,7 @@
     .track-grid {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: center;
       width: 100%;
       padding-bottom: 1rem;
       row-gap: 0.5rem;
@@ -1768,6 +1887,8 @@
       margin-bottom: 3rem;
       display: flex;
       justify-content: center;
+      position: relative;
+      z-index: 5;
     }
 
     .toggle-ui-wrapper {
@@ -1845,6 +1966,11 @@
     height: 25px;
     width: auto;
     display: block;
+  }
+
+  #sticky-product-footer h2 {
+    font-size: 3rem;
+    margin: 0;
   }
 
   .sticky-footer-center a {

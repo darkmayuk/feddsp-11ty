@@ -1,46 +1,71 @@
-<section class="bg-black text-white">
+<section class="{% if product.type == 'plugin' %}bg-black text-white{% else %}bg-white text-dark py-5{% endif %}">
+
   <div class="container py-5 reveal-on-scroll">
 
-    <div class="mb-5">
-      <h2 class="text-uppercase font-header gradient-text3">
-        {{ product.sections.overview.title }}
-      </h2>
-    </div>
-
-    <div class="row row-cols-1 row-cols-lg-3 g-5 g-lg-5">
-
-      {% for item in product.sections.overview.items %}
-      <div class="col">
-        <div class="feature-item h-100">
-
-          <h4 class="h4 fw-bold mb-4 font-body feature-toggle-header text-white" data-bs-toggle="collapse"
-            data-bs-target="#overview-item-{{ forloop.index }}" aria-expanded="false"
-            aria-controls="overview-item-{{ forloop.index }}">
-
-            {{ item.title }}
-          </h4>
-
-          <div class="mobile-preview d-lg-none mb-2" 
-              style="opacity: 0.5; font-size: 1rem;"
-              data-bs-toggle="collapse" 
-              data-bs-target="#overview-item-{{ forloop.index }}"
-              role="button">
-            
-            {{ item.text | strip_html | truncatewords: 20 }}
-
-          </div>
-
-          <div class="collapse mobile-collapse-body" id="overview-item-{{ forloop.index }}">
-            <p class="mb-4" style="font-size: 1rem; ">
-              {{ item.text }}
-            </p>
-          </div>
-
-        </div>
+    {% if product.type == 'plugin' %}
+    
+      <div class="mb-5">
+        <h2 class="text-uppercase font-header gradient-text3">
+          {{ product.sections.overview.title }}
+        </h2>
       </div>
-      {% endfor %}
 
-    </div>
+      <div class="row row-cols-1 row-cols-lg-3 g-5 g-lg-5">
+        {% for item in product.sections.overview.items %}
+        <div class="col">
+          <div class="feature-item h-100">
+            
+            <h4 class="h4 fw-bold mb-4 font-body feature-toggle-header text-white" 
+                data-bs-toggle="collapse"
+                data-bs-target="#overview-item-{{ forloop.index }}" 
+                aria-expanded="false"
+                aria-controls="overview-item-{{ forloop.index }}">
+              {{ item.title }}
+            </h4>
+
+            <div class="mobile-preview d-lg-none mb-2" 
+                 style="opacity: 0.5; font-size: 1rem;"
+                 data-bs-toggle="collapse" 
+                 data-bs-target="#overview-item-{{ forloop.index }}"
+                 role="button">
+              {{ item.text | strip_html | truncatewords: 20 }}
+            </div>
+
+            <div class="collapse mobile-collapse-body" id="overview-item-{{ forloop.index }}">
+              <p class="mb-4" style="font-size: 1rem;">
+                {{ item.text }}
+              </p>
+            </div>
+
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    {% else %}
+
+      {% assign overviewItem = product.sections.overview.items | first %}
+
+      <div class="row gx-lg-5 gy-4">
+        
+        <div class="col-lg-4">
+          <div>
+            <h2 class="text-uppercase font-header gradient-text3 sample-ir-overview">
+              {{ product.sections.overview.title | replace: ' ', '<br>' }}
+            </h2> 
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="overview-text-columns">
+            <h3 class="overview-editorial-title">{{ overviewItem.title }}</h3>
+            {{ overviewItem.text | replace: '<br><br>', '</p><p>' | prepend: '<p>' | append: '</p>' }}
+          </div>
+        </div>
+
+      </div>
+
+    {% endif %}
 
   </div>
 </section>

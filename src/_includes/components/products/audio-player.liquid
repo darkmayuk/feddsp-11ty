@@ -1,15 +1,14 @@
-<section class="audio-experience-bg text-center">
+<section class="text-center {% if product.type == 'plugin' %}audio-experience-bg{% else %}audio-dark-filter{% endif %}">
 
   <div class="audio-bg-layer">
     <video autoplay muted loop playsinline 
-           class="audio-player-video-overlay"
-           poster="{{ product.assets.audioBgPoster }}"
-    >
+           class="{% if product.type == 'plugin' %}audio-player-video-overlay{% else %}audio-bg-video-normal{% endif %}"
+           poster="{{ product.assets.audioBgPoster }}">
       <source src="{{ product.assets.audioBg }}" type="video/mp4">
     </video>
   </div>
 
-  <div class="container reveal-on-scroll audio-content-layer">
+  <div class="audio-content-layer container">
 
     <h2 class="text-uppercase mb-2 font-header gradient-text-audio">
       {{ product.sections.audio.title }}
