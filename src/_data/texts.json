@@ -1,51 +1,54 @@
 {
-  "heroHeadline": "Shaped by experience.\nTuned by instinct.\nProven in studios.",
-  "heroSub": "We build musical tools that should exist, but dont.\nOur tools are made to be used in the real world: made to be played, made to be enjoyed, made to inspire the emotions. We do this by making them easy to use, but revealing astonishing audio depth and detail.\nAlways zero latency. Always super lightweight CPU overhead. Easy, offline-ready licensing, with no iLok or dongles.",
-  "footerSub": "We build musical tools that should exist, but don't. Plugins to be played, to be enjoyed, to inspire the emotions. Always zero latency. Always super lightweight CPU overhead. Easy, offline-ready licensing, with no iLok or dongles.",
-  "about": "We are proudly independent, passionate about making music, and we imagine and create the audio tools that we want to use in our own musical work.\nFed Telesca is the instigator and heart of fedDSP. It is from Fed's 15 year experience as an industry leading producer and mastering engineer that he knows what musical tools should exist, but don't. Fed has the imagination to dream up new tools, and the exacting standards to build them into finished products that exceed the quality of anything else that is already out there.\nFed is joined by a six man dream team, built around decades of experience in the music business: from performing, mixing, engineering, videography, promotion, and touring. Every one of the team is an active, passionate, and highly regarded musician in their own right.",
+  "index": {
+    "heroHeadline": "Shaped by hardware.\nTuned by experience.\nCreated to inspire.",
+    "heroSub": "We build musical tools for the real world, from the stage to the studio. Easy to use, but revealing the depth and detail of hardware. Built with ultra-low CPU overhead and zero latency, so you can track through them and perform with them. \nWhile others push AI to do the work for you, we want to put you in charge, to empower your own creativity as a musician or producer.",
+    "metaDescription": "We build musical tools to be used in real musical environments: in the studio, on the stage. Super lightweight CPU overhead and zero latency.",
+    "footerSub": "We build musical tools that should exist, but don't. Plugins to be played, to be enjoyed, to inspire the emotions. Always zero latency. Always super lightweight CPU overhead. Easy, offline-ready licensing, with no iLok or dongles.",
+    "about": "We are proudly independent, passionate about making music, and we imagine and create the audio tools that we want to use in our own musical work.\nFed Telesca is the instigator and heart of fedDSP. It is from Fed's 15 year experience as an industry leading producer and mastering engineer that he knows what musical tools should exist, but don't. Fed has the imagination to dream up new tools, and the exacting standards to build them into finished products that exceed the quality of anything else that is already out there.\nFed is joined by a six man dream team, built around decades of experience in the music business: from performing, mixing, engineering, videography, promotion, and touring. Every one of the team is an active, passionate, and highly regarded musician in their own right.",
+    "support": "At fedDSP it all starts with our community. We have an active Discord server and Facebook page, where users suggest features, report bugs, and ask questions directly to fedDSP. We pride ourselves on our customer support and satisfaction: we reply to issues within hours, not days."
+  },
   "team": [
-  { 
-    "name": "Federico Telesca",
-    "role": "Founder & Chief Engineer",
-    "blurb": "DSP design and development, Partnerships.",
-    "avatar": "/assets/images/team/fed.png"
-  },
-  { 
-    "name": "Mark Day",
-    "role": "Co-Founder & Business Director",
-    "blurb": "Operations, CS, Sales.",
-    "avatar": "/assets/images/team/mark.jpg"
-  },
-  { 
-    "name": "Fausto Idini",
-    "role": "Graphic Design",
-    "blurb": "UI engineering, brand design.",
-    "avatar": "/assets/images/team/fausto.png"
-  },
-  { 
-    "name": "Riccardo Cenci",
-    "role": "Videographer",
-    "blurb": "Product videos",
-    "avatar": "/assets/images/team/riccardo.jpg"
-  },
-  { 
-    "name": "Matty Fuge",
-    "role": "Marketing",
-    "blurb": "Social media, emails, advertising",
-    "avatar": "/assets/images/team/matty.jpg"
-  },
-  { 
-    "name": "Marco Telesca",
-    "role": "3D Graphics",
-    "blurb": "3D product renders",
-    "avatar": "/assets/images/team/marco.png"
-  },
-  { 
-    "name": "Tommaso Cappaneera",
-    "role": "Samples & IRs",
-    "blurb": "Sample packs, IR packs",
-    "avatar": "/assets/images/team/tommaso.jpg"
-  }
-],
-"support": "At fedDSP it all starts with our community. We have an active Discord server and Facebook page, where users suggest features, report bugs, and ask questions directly to fedDSP. We pride ourselves on our customer support and satisfaction: we reply to issues within hours, not days."
+    { 
+      "name": "Federico Telesca",
+      "role": "Founder & Chief Engineer",
+      "blurb": "DSP design and development, Partnerships.",
+      "avatar": "/assets/images/team/fed.png"
+    },
+    { 
+      "name": "Mark Day",
+      "role": "Co-Founder & Business Director",
+      "blurb": "Operations, CS, Sales.",
+      "avatar": "/assets/images/team/mark.jpg"
+    },
+    { 
+      "name": "Fausto Idini",
+      "role": "Graphic Design",
+      "blurb": "UI engineering, brand design.",
+      "avatar": "/assets/images/team/fausto.png"
+    },
+    { 
+      "name": "Riccardo Cenci",
+      "role": "Videographer",
+      "blurb": "Product videos",
+      "avatar": "/assets/images/team/riccardo.jpg"
+    },
+    { 
+      "name": "Matty Fuge",
+      "role": "Marketing",
+      "blurb": "Social media, emails, advertising",
+      "avatar": "/assets/images/team/matty.jpg"
+    },
+    { 
+      "name": "Marco Telesca",
+      "role": "3D Graphics",
+      "blurb": "3D product renders",
+      "avatar": "/assets/images/team/marco.png"
+    },
+    { 
+      "name": "Tommaso Cappaneera",
+      "role": "Samples & IRs",
+      "blurb": "Sample packs, IR packs",
+      "avatar": "/assets/images/team/tommaso.jpg"
+    }
+  ]
 }

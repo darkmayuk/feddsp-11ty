@@ -1,8 +1,7 @@
 ---
 layout: layouts/base.liquid
-title: home
+title: Home
 featuredProductId: phaturator
-description: We build musical tools that should exist, but dont. Our tools are made to be used in the real world. Made to be played, to be enjoyed, to inspire the emotions. 
 ---
 
 {% assign featured = null %}
@@ -13,36 +12,27 @@ description: We build musical tools that should exist, but dont. Our tools are m
   {% endif %}
 {% endfor %}
 
-{% if featured %}
-  <div
-    class="product-page"
-    style="
-      --hero-gradient-start: {{ featured.gradientStart | default: '#ff00ff' }};
-      --hero-gradient-end:   {{ featured.gradientEnd   | default: '#00ffff' }};
-    "
-  >
-    {% assign product = featured %}
-    <div class="product-hero-wrapper">
-      {% include "components/products/hero.liquid" %}
-      <a class="hero-full-link" href="/products/{{ featured.id }}/"></a>
-    </div>
-  </div>
-{% endif %}
-
 {% include "components/index/hero.liquid" %}
 
-{% include "components/index/product-carousel.liquid" %}
-
-<div class="product-panel-wrapper">
-  {% include "components/index/product-panel.liquid" %}
-  <a class="hero-full-link" href="/products/{{ featured.id }}/"></a>
+<div style="
+  --hero-gradient-start: {{ featured.gradients.gradientStart | default: '#ff00ff' }}; 
+  --hero-gradient-end: {{ featured.gradients.gradientEnd | default: '#00ffff' }};
+">
+  {% include "components/index/product-showcase.liquid", product: featured %}
 </div>
+
+{% include "components/index/sample-carousel.liquid" %}
+
+{% include "components/index/free-carousel.liquid" %}
+
+{% include "components/index/ir-carousel.liquid" %}
 
 {% include "components/index/about.liquid" %}
 
 {% include "components/index/contact.liquid" %}
 
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="/assets/js/product-hero-parallax.js"></script>
-<script src="/assets/js/product-carousel.js"></script>
+
+<script src="/assets/js/index.js"></script>

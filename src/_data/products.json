@@ -20,7 +20,8 @@
       "heroVideo": "/assets/videos/phat-guitar-video.mp4",
       "heroPoster": "/assets/videos/phaturator-screenshot.webp",
       "audioBg": "/assets/videos/Dust-Particles.mp4",
-      "audioBgPoster": "/assets/videos/dust-screenshot.webp"
+      "audioBgPoster": "/assets/videos/dust-screenshot.webp",
+      "imageShowcase": "/assets/images/products/phat-3d.jpg"
     },
     "gradients": {
       "gradientStart": "#d366ac",

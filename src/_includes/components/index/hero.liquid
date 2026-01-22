@@ -1,21 +1,26 @@
-<div class="hero-wrapper">
-  <section id="hero" class="restrict-width">
-    <div class="hero-container d-flex flex-column flex-md-row align-items-center">
+<section class="index-hero-section position-relative d-flex align-items-center">
 
-      <!-- Text -->
-      <div class="text-content me-md-5 mb-4 mb-md-0">
-        <h1 class="text-uppercase mb-4">{{ texts.heroHeadline | newline_to_br }}</h1>
-        {% assign lines = texts.heroSub | split: "\n" %}
+  <div class="hero-bg-layer">
+    {% image "/assets/images/backgrounds/fedDSP_analogue1.jpg", "Analogue hardware knobs", "(min-width: 1024px) 100vw, 100vw", "hero-bg-img" %}
+  </div>
+
+  <div class="hero-overlay-layer"></div>
+
+  <div class="position-relative w-100 restrict-width" style="z-index: 2;">
+    <div class="hero-content-block">
+      
+      <h1 class="hero-headline text-uppercase text-white mb-4">
+        {{ texts.index.heroHeadline | newline_to_br }}
+      </h1>
+
+      <div class="hero-subtext text-white">
+        {% assign lines = texts.index.heroSub | split: "\n" %}
         {% for line in lines %}
-        <p>{{ line }}</p>
+          <p class="mb-2">{{ line }}</p>
         {% endfor %}
       </div>
 
-      <!-- Image -->
-      <div class="hero-image-wrapper">
-        {% image "/assets/images/team/fedSquare.jpg", "Federico Telesca", "(min-width: 768px) 50vw, 100vw", "img-fluid rounded-4" %}
-      </div>
-
     </div>
-  </section>
-</div>
+  </div>
+
+</section>
