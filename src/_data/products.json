@@ -5,7 +5,8 @@
     "active": true,
     "name": "PHATurator",
     "badge": "New Release",
-    "headline": "Colour Your Sound<br><br><span class='hero-thin'>Make tracks feel expensive in 10 seconds. Bigger, louder, richer saturation you can <i>track through</i>.</span>",
+    "headline": "Colour Your Sound",
+    "subHeadLine": "Make tracks feel expensive in 10 seconds. Bigger, louder, richer saturation you can <i>track through</i>.", 
     "description": "Stacking saturations has never been this easy. Great tone is built in stages. In a real studio, sound is shaped by multiple pieces of gear, each adding a small amount of colour and harmonic detail.",
     "price": "£70",
     "originalPrice": "£100",
@@ -242,97 +243,6 @@
           {
             "q": "Where can I find the manual?",
             "a": "You can read the full <a href='#'>User Manual here</a>."
-          }
-        ]
-      }
-    }
-  },
-  {
-    "id": "etna",
-    "type": "sample",
-    "active": true,
-    "name": "ETNA",
-    "badge": "Kick & Snare One Shot Samples",
-    "headline": "ETNA: VOLCANIC IMPACT.",
-    "heroSubText": "HIGH QUALITY WAV FILES • COMPATIBLE WITH ALL DAWS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
-    "description": "ETNA delivers volcanic impact. One-shot kick and snare samples engineered to punch through dense mixes. Control aggression while preserving definition.",
-    "price": "£15",
-    "originalPrice": "£25",
-    "buyLink": "#",
-    "discountText": "Reduced price only applies until 1 March 2026",
-    "assets": {
-      "heroImage": "/assets/images/products/ETNA.png",
-      "heroVideo": "/assets/videos/Charlie-Bg.mp4",
-      "heroPoster": "/assets/videos/Charlie-poster.webp",
-      "audioBg": "/assets/videos/Ric-Bg.mp4",
-      "audioBgPoster": "/assets/videos/Ric-poster.webp"
-    },
-    "gradients": {
-      "gradient3Start": "#f15a29",
-      "gradient3End": "#be1e2d",
-      "gradientStart": "#d366ac",
-      "gradientEnd": "#be1e2d"
-    },
-    "sections": {
-      "overview": {
-        "title": "Heavier. Hotter. Explosive.",
-        "items": [
-          {
-            "title": "Control aggression while preserving definition.",
-            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>ETNA is pressure made audible. A focused collection of drum one-shots designed to hit hard while staying defined. Built to reinforce, layer, or completely reshape aggressive drum sounds without losing clarity.<br><br>The processed versions are shaped using Fed's extensive collection of vintage hardware, adding weight, heat, and controlled saturation.<br><br>Open ETNA. Drop it in. Let it erupt.<br><br><strong>30 unique one-shots presented in 60 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
-          }
-        ]
-      },
-      "audio": {
-        "title": "Hear the Difference",
-        "subheader": "",
-        "samples": [
-          {
-            "name": "Metal Mix",
-            "dry": "/assets/audio/SAMPLES_ETNA_METAL_OFF.wav",
-            "wet": "/assets/audio/SAMPLES_ETNA_METAL_ON.wav"
-          },
-          {
-            "name": "Rock Mix",
-            "dry": "/assets/audio/SAMPLES_ETNA_ROCK_OFF.wav",
-            "wet": "/assets/audio/SAMPLES_ETNA_ROCK_ON.wav"
-          }
-        ]
-      },
-      "faq": {
-        "title": "FAQ",
-        "items": [
-          {
-            "q": "Are these samples raw or mix-ready?",
-            "a": "Both. Each sound comes in two versions: a raw version for maximum flexibility, and a processed version ready to drop straight into your mix."
-          },
-          {
-            "q": "What genres are these samples best suited for?",
-            "a": "Built for rock and metal at heart, but they work anywhere you want live drums that hit hard and hold their ground even in the densest mix."
-          },
-          {
-            "q": "Are these samples compatible with drum triggering plugins?",
-            "a": "Yes, they work with all major drum triggering and drum replacement plugins. Anything that can load WAV files will work with these."
-          },
-          {
-            "q": "Can I layer these samples with my own recordings?",
-            "a": "Of course, they're designed to blend naturally with acoustic recordings, but they work just as well on their own."
-          },
-          {
-            "q": "How many samples are included in the pack?",
-            "a": "30 unique one-shots, delivered as 60 WAVs. You get 15 kicks and 15 snares, each in natural and processed versions."
-          },
-          {
-            "q": "What sample rate and bit depth are the files?",
-            "a": "All files are provided in 44.1kHz, 24-bit WAV format."
-          },
-          {
-            "q": "Do I need to credit FedDSP?",
-            "a": "No credit is required, but if you feel like sharing what you make with these please do!"
-          },
-          {
-            "q": "How will my pack be delivered?",
-            "a": "You'll receive a download link via email after purchase. If, for any reasons, you don't please get in touch at support@feddsp.com"
           }
         ]
       }
@@ -612,6 +522,97 @@
     }
   },
   {
+    "id": "etna",
+    "type": "sample",
+    "active": true,
+    "name": "ETNA",
+    "badge": "Kick & Snare One Shot Samples",
+    "headline": "ETNA: VOLCANIC IMPACT.",
+    "heroSubText": "HIGH QUALITY WAV FILES • COMPATIBLE WITH ALL DAWS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
+    "description": "ETNA delivers volcanic impact. One-shot kick and snare samples engineered to punch through dense mixes. Control aggression while preserving definition.",
+    "price": "FREE",
+    "originalPrice": "£15",
+    "buyLink": "#",
+    "discountText": "",
+    "assets": {
+      "heroImage": "/assets/images/products/ETNA.png",
+      "heroVideo": "/assets/videos/Charlie-Bg.mp4",
+      "heroPoster": "/assets/videos/Charlie-poster.webp",
+      "audioBg": "/assets/videos/Ric-Bg.mp4",
+      "audioBgPoster": "/assets/videos/Ric-poster.webp"
+    },
+    "gradients": {
+      "gradient3Start": "#f15a29",
+      "gradient3End": "#be1e2d",
+      "gradientStart": "#d366ac",
+      "gradientEnd": "#be1e2d"
+    },
+    "sections": {
+      "overview": {
+        "title": "Heavier. Hotter. Explosive.",
+        "items": [
+          {
+            "title": "Control aggression while preserving definition.",
+            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>ETNA is pressure made audible. A focused collection of drum one-shots designed to hit hard while staying defined. Built to reinforce, layer, or completely reshape aggressive drum sounds without losing clarity.<br><br>The processed versions are shaped using Fed's extensive collection of vintage hardware, adding weight, heat, and controlled saturation.<br><br>Open ETNA. Drop it in. Let it erupt.<br><br><strong>30 unique one-shots presented in 60 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
+          }
+        ]
+      },
+      "audio": {
+        "title": "Hear the Difference",
+        "subheader": "",
+        "samples": [
+          {
+            "name": "Metal Mix",
+            "dry": "/assets/audio/SAMPLES_ETNA_METAL_OFF.wav",
+            "wet": "/assets/audio/SAMPLES_ETNA_METAL_ON.wav"
+          },
+          {
+            "name": "Rock Mix",
+            "dry": "/assets/audio/SAMPLES_ETNA_ROCK_OFF.wav",
+            "wet": "/assets/audio/SAMPLES_ETNA_ROCK_ON.wav"
+          }
+        ]
+      },
+      "faq": {
+        "title": "FAQ",
+        "items": [
+          {
+            "q": "Are these samples raw or mix-ready?",
+            "a": "Both. Each sound comes in two versions: a raw version for maximum flexibility, and a processed version ready to drop straight into your mix."
+          },
+          {
+            "q": "What genres are these samples best suited for?",
+            "a": "Built for rock and metal at heart, but they work anywhere you want live drums that hit hard and hold their ground even in the densest mix."
+          },
+          {
+            "q": "Are these samples compatible with drum triggering plugins?",
+            "a": "Yes, they work with all major drum triggering and drum replacement plugins. Anything that can load WAV files will work with these."
+          },
+          {
+            "q": "Can I layer these samples with my own recordings?",
+            "a": "Of course, they're designed to blend naturally with acoustic recordings, but they work just as well on their own."
+          },
+          {
+            "q": "How many samples are included in the pack?",
+            "a": "30 unique one-shots, delivered as 60 WAVs. You get 15 kicks and 15 snares, each in natural and processed versions."
+          },
+          {
+            "q": "What sample rate and bit depth are the files?",
+            "a": "All files are provided in 44.1kHz, 24-bit WAV format."
+          },
+          {
+            "q": "Do I need to credit FedDSP?",
+            "a": "No credit is required, but if you feel like sharing what you make with these please do!"
+          },
+          {
+            "q": "How will my pack be delivered?",
+            "a": "You'll receive a download link via email after purchase. If, for any reasons, you don't please get in touch at support@feddsp.com"
+          }
+        ]
+      }
+    }
+  },
+  {
     "id": "atlas",
     "type": "ir",
     "active": true,
@@ -842,10 +843,10 @@
     "headline": "BLOODMOON: SACRIFICE YOUR DOUBTS.",
     "heroSubText": "HIGH-RESOLUTION IRs • COMPATIBLE WITH ALL IR LOADERS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
     "description": "BLOODMOON is dark and ominous. Captured from detuned cabs for sludge, doom, and extreme metal genres. Ensure complete balance.",
-    "price": "£15",
-    "originalPrice": "£25",
+    "price": "FREE",
+    "originalPrice": "£15",
     "buyLink": "#",
-    "discountText": "Reduced price only applies until 1 March 2026",
+    "discountText": "",
     "assets": {
       "heroImage": "/assets/images/products/BLOODMOON.png"
     },

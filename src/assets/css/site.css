@@ -1026,10 +1026,7 @@
       min-height: 100vh;
     }
 
-    .hero-v2 h2 {
-      font-size: 2rem;
-      font-weight: 500;
-      line-height: 2.5rem;
+    .hero-v2 h2, .hero-sub-head {
       max-width: 600px;
       width: 100%;
       margin-left: auto;
@@ -1037,10 +1034,15 @@
       text-align: center;
     }
 
-    .hero-thin {
-      font-weight: 200 !important;
+    .hero-v2 h2 {
+      font-size: 1.7rem;
+      font-weight: 500;
+      line-height: 2.2rem;
+    }
+
+    .hero-sub-head {
+      font-weight: 200;
       font-size: 1rem;
-      line-height: 0.1rem;
       opacity: 0.9;
     }
 

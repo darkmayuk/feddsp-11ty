@@ -13,9 +13,13 @@
     
     {% image product.assets.logo, product.name, "(min-width: 768px) 400px, 80vw", "hero-logo-img mb-4" %}
     
-    <h2 class="h3 mb-5 font-body">
+    <h2 class="h3 mb-3 font-body">
       {{ product.headline }}
     </h2>
+
+    <p class="hero-sub-head mb-5">
+      {{ product.subHeadLine }}
+    </p>
 
     <div class="hero-product-container mb-5">
       
