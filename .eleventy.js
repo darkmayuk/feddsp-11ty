@@ -9,8 +9,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addAsyncShortcode("image", async function(src, alt, sizes = "100vw", className = "") {
     
     if (!src) {
-      console.warn(`[Image Shortcode] Skipped: No source provided.`);  
-      return "";  
+      console.warn(`[Image Shortcode] Warning: No source provided. (Alt text: "${alt}")`);
+      return "";
     }
 
     let fullSrc = src;
