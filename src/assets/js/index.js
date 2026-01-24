@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // --- Shared Helper Function ---
+  // Shared Helper to update buttons
   function updateBuyButton(swiper, buttonId) {
+    if (!buttonId) return; // Exit if no button (e.g. Free section)
+    
     const buyBtn = document.getElementById(buttonId);
     if (!buyBtn) return;
 
@@ -13,9 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // --- 1. SAMPLE CAROUSEL ---
-  if (document.querySelector('.sample-swiper')) {
-    const sampleSwiper = new Swiper('.sample-swiper', {
+  // REUSABLE INITIALIZER
+  // Accepts: selector, pagination selector, button ID, and # of desktop slides
+  function initProductCarousel(swiperSel, paginationSel, buttonId, desktopSlides) {
+    if (!document.querySelector(swiperSel)) return;
+
+    const swiper = new Swiper(swiperSel, {
       loop: true,
       speed: 600,
       slidesPerView: 1,
@@ -23,59 +28,58 @@ document.addEventListener("DOMContentLoaded", () => {
       centeredSlides: true,
       
       pagination: {
-        // FIX: Look inside the SECTION, not the swiper div
-        el: '.sample-carousel-section .swiper-pagination', 
+        el: paginationSel,
         clickable: true,
       },
       
       breakpoints: {
         1024: {
-          slidesPerView: 3,
+          slidesPerView: desktopSlides,
           centeredSlides: false,
           spaceBetween: 100
         }
       },
 
       on: {
-        init: function (swiper) {
-          updateBuyButton(swiper, 'sample-buy-btn');
-        },
-        slideChange: function (swiper) {
-          updateBuyButton(swiper, 'sample-buy-btn');
-        }
+        init: function (s) { updateBuyButton(s, buttonId); },
+        slideChange: function (s) { updateBuyButton(s, buttonId); }
       }
     });
   }
 
-  // --- 2. IR CAROUSEL ---
-  if (document.querySelector('.ir-swiper')) {
-    const irSwiper = new Swiper('.ir-swiper', {
-      loop: true,
+  // --- INITIALIZE CAROUSELS ---
+
+  // 1. Samples (3 Slides)
+  initProductCarousel(
+    '.sample-swiper', 
+    '.sample-carousel-section .swiper-pagination', 
+    'sample-buy-btn', 
+    3
+  );
+
+  // 2. IRs (3 Slides)
+  initProductCarousel(
+    '.ir-swiper', 
+    '.ir-carousel-section .swiper-pagination', 
+    'ir-buy-btn', 
+    3
+  );
+
+  // 3. Free Swag (Custom Init: 2 slides always)
+  if (document.querySelector('.free-swiper')) {
+    new Swiper('.free-swiper', {
+      loop: true, // Optional: if you only have 2 items, you might want loop: false
       speed: 600,
-      slidesPerView: 1,
-      spaceBetween: 100,
-      centeredSlides: true,
       
-      pagination: {
-        // FIX: Look inside the SECTION, not the swiper div
-        el: '.ir-carousel-section .swiper-pagination', 
-        clickable: true,
-      },
+      // FORCE 2 SLIDES ON MOBILE
+      slidesPerView: 2, 
+      centeredSlides: false, 
+      spaceBetween: 20, // Tighter spacing on mobile so they fit
       
       breakpoints: {
-        1024: {
-          slidesPerView: 3,
-          centeredSlides: false,
-          spaceBetween: 100
-        }
-      },
-
-      on: {
-        init: function (swiper) {
-          updateBuyButton(swiper, 'ir-buy-btn');
-        },
-        slideChange: function (swiper) {
-          updateBuyButton(swiper, 'ir-buy-btn');
+        768: {
+          slidesPerView: 2, // Keep 2 on desktop too
+          spaceBetween: 60  // Wider spacing on desktop
         }
       }
     });

@@ -1,0 +1,46 @@
+{% assign free_items = products | where: "isFree", true %}
+
+<section class="free-carousel-section text-center">
+  <div class="container restrict-width">
+
+    <div class="swiper free-swiper mb-5">
+      <div class="swiper-wrapper">
+
+        {% for item in free_items %}
+        <div class="swiper-slide">
+          {% if item.type == 'ir' %}
+          {% assign product_url = "/irs/" | append: item.id | append: "/" %}
+          {% else %}
+          {% assign product_url = "/samples/" | append: item.id | append: "/" %}
+          {% endif %}
+
+          <a href="{{ product_url }}" class="sample-card d-block position-relative text-decoration-none text-white">
+
+            <div class="sample-card-img-wrap rounded-4 overflow-hidden">
+              {% image item.assets.heroImage, item.name, "(min-width: 768px) 33vw, 90vw", "img-fluid w-100" %}
+            </div>
+
+          </a>
+        </div>
+        {% endfor %}
+
+      </div>
+
+      <div class="swiper-pagination custom-indicators position-relative mt-4 z-2"></div>
+    </div>
+
+
+    <div class="mx-auto" style="max-width: 600px">
+      <h2 class="font-header text-uppercase text-white mb-4">
+        Want some <span class="brand-green">Free</span> Swag? We've got you.
+      </h2>
+
+      <div>
+        <p class="mb-3">Everyone loves free stuff. So do we. That's why these packs are on us.</p>
+        <p class="mb-3">Free doesn't mean lower quality. Every IR and sample pack is built to the same standard as everything we make.</p>
+        <p>Enjoy. And if you like what you hear, there's plenty more waiting for you.</p>
+      </div>
+    </div>
+
+  </div>
+</section>

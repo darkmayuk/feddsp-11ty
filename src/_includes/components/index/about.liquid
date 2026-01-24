@@ -1,24 +1,30 @@
 <div class="about-wrapper">
+  
+  <div class="about-bg-layer">
+    <video autoplay muted loop playsinline class="about-bg-video"
+           poster="/assets/videos/dust-screenshot.webp">
+      <source src="/assets/videos/Dust-Particles.mp4" type="video/mp4">
+    </video>
+  </div>
+
   <section class="about-section text-white py-5 restrict-width">
     <div class="row w-100 g-0 align-items-center">
-      <!-- Left: About copy -->
+      
       <div class="col-lg-6">
         <div class="about-copy">
           <h2 class="mb-4 text-uppercase">About</h2>
-          {% assign lines = texts.about | split: "\n" %}
+          {% assign lines = texts.index.about | split: "\n" %}
           {% for line in lines %}
-          <p>{{ line }}</p>
+            <p>{{ line }}</p>
           {% endfor %}
         </div>
       </div>
 
-      <!-- Right: Team grid -->
       <div class="col-lg-6 mt-5">
         <div class="team-grid hex-layout ms-lg-5">
           {% assign fed = texts.team | first %}
           {% assign others = texts.team | slice: 1, 6 %}
 
-          <!-- centre -->
           <div class="team-member center">
             {% image fed.avatar, fed.name, "300px" %}
             <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center text-white">
@@ -27,18 +33,18 @@
             </div>
           </div>
 
-          <!-- 6 around -->
           {% for member in others %}
-          <div class="team-member ring ring-{{ forloop.index }}">
-            {% image member.avatar, member.name, "300px" %}
-            <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center text-white">
-              <h6 class="mb-1">{{ member.name }}</h6>
-              <div class="small">{{ member.role }}</div>
+            <div class="team-member ring ring-{{ forloop.index }}">
+              {% image member.avatar, member.name, "300px" %}
+              <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center text-white">
+                <h6 class="mb-1">{{ member.name }}</h6>
+                <div class="small">{{ member.role }}</div>
+              </div>
             </div>
-          </div>
           {% endfor %}
         </div>
       </div>
 
+    </div>
   </section>
 </div>
