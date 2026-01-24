@@ -10,7 +10,7 @@
 
         <!-- Right form -->
         <div class="col-lg-7">
-          <form class="contact-form" name="support" method="POST" data-netlify="true">
+          <form class="contact-form" name="support" method="POST" data-netlify="true" action="/success/">
             <input type="hidden" name="form-name" value="support">
 
             <div class="mb-3">
@@ -34,11 +34,9 @@
                         placeholder="Message" required></textarea>
             </div>
 
-            <input type="hidden" name="form-name" value="support">
-
-              <p class="d-none">
-                <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-              </p>
+            <p class="d-none">
+              <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+            </p>
 
             <div class="text-end">
               <button type="submit" class="btn btn-pill btn-brand-solid">SEND</button>

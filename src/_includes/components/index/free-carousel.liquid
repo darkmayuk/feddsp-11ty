@@ -8,16 +8,18 @@
 
         {% for item in free_items %}
         <div class="swiper-slide">
-          {% if item.type == 'ir' %}
-          {% assign product_url = "/irs/" | append: item.id | append: "/" %}
-          {% else %}
-          {% assign product_url = "/samples/" | append: item.id | append: "/" %}
-          {% endif %}
-
-          <a href="{{ product_url }}" class="sample-card d-block position-relative text-decoration-none text-white">
+          
+          <a href="#" 
+             class="sample-card d-block position-relative text-decoration-none text-white"
+             data-bs-toggle="modal" 
+             data-bs-target="#newsletterModal">
 
             <div class="sample-card-img-wrap rounded-4 overflow-hidden">
               {% image item.assets.heroImage, item.name, "(min-width: 768px) 33vw, 90vw", "img-fluid w-100" %}
+              
+              <div class="position-absolute top-50 start-50 translate-middle opacity-0 hover-opacity-100 transition-opacity">
+                 <span class="btn btn-primary btn-sm text-uppercase">Get Free Pack</span>
+              </div>
             </div>
 
           </a>
