@@ -402,7 +402,7 @@
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23d466ad' viewBox='0 0 30 30'%3e%3cpath stroke='%23d466ad' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
       .navbar-collapse {
         text-align: right;
         padding-right: 0;
@@ -435,6 +435,8 @@
         padding-top: 0;
         padding-bottom: 0.5rem;
         border: none;
+        transform: none !important;
+        width: 100% !important;
       }
 
       .dropdown-menu .dropdown-item {

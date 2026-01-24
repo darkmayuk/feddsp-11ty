@@ -3,7 +3,7 @@
     <div class="contact-card mx-auto bg-white text-black shadow-sm p-4 p-md-5">
       <div class="row g-4 align-items-start">
         <!-- Left copy -->
-        <div class="col-lg-5">
+        <div class="col-lg-5 pe-lg-5">
           <h2 class="mb-3">SUPPORT</h2>
           <p class="mb-3">{{ texts.index.support | newline_to_br }}</p>
         </div>
@@ -40,6 +40,12 @@
                         class="form-control form-control-lg contact-input contact-textarea"
                         placeholder="Message" required></textarea>
             </div>
+
+            <input type="hidden" name="form-name" value="support">
+
+              <p class="d-none">
+                <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+              </p>
 
             <div class="text-end">
               <button type="submit" class="btn btn-pill btn-brand-solid">SEND</button>
