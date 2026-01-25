@@ -1,0 +1,118 @@
+{
+  "pageTitle": "Support",
+  "pageDescription": "Find answers to common questions about installation, licensing, updates, and troubleshooting.",
+  "quickLinks": [
+    {
+      "text": "Product Manuals",
+      "url": "/manuals.html",
+      "btnClass": "btn-outline-light"
+    },
+    {
+      "text": "Product Downloads",
+      "url": "/downloads.html",
+      "btnClass": "btn-brand-solid"
+    }
+  ],
+  "categories": [
+    {
+      "id": "payment-account",
+      "title": "Payment & Account",
+      "items": [
+        {
+          "question": "How do I set up an account?",
+          "answer": "You do not need to create an account manually. A user account is automatically created for you by Lemon Squeezy after your first purchase. You can access it via the link in your email receipt to manage your orders."
+        },
+        {
+          "question": "I logged into my account, but my licenses are missing.",
+          "answer": "This usually happens if you used a different email address at checkout (e.g., Apple Pay private relay or a different Google account). Please check your other email inboxes. If you cannot find them, email support@feddsp.com and we will merge them for you."
+        },
+        {
+          "question": "How do I fix a wrong Google/Apple sign-in account?",
+          "answer": "If you signed in with the wrong account, go to 'Manage Account' → 'Email Addresses' → 'Add Email'. Add the email address you used for checkout, verify it, and then reload the account page. Your orders should now appear."
+        },
+        {
+          "question": "Why does my bank statement say “LEMSQZY*”?",
+          "answer": "We use Lemon Squeezy as our secure payment processor. Charges may appear as LEMSQZY* on your statement. This is perfectly normal."
+        },
+        {
+          "question": "Do you offer educational discounts?",
+          "answer": "Not at this time, although we are looking into it for the future."
+        }
+      ]
+    },
+    {
+      "id": "installation",
+      "title": "Installation & Compatibility",
+      "items": [
+        {
+          "question": "How do I install the plugins?",
+          "answer": "Download the installer for your operating system (macOS or Windows) from our Downloads page. Run the installer and follow the on-screen instructions. Once finished, restart your DAW so it can scan for the new plugins."
+        },
+        {
+          "question": "What are the limitations of the demo versions?",
+          "answer": "The demo versions are fully functional but will output a brief moment of silence every minute. You do not need an account to use the demos."
+        },
+        {
+          "question": "Can I get a demo version of Sample or IR packs?",
+          "answer": "No. Due to the nature of unencrypted audio files, we cannot offer trial versions for Sample or Impulse Response packs. Please check the audio demos on the product page before purchasing."
+        },
+        {
+          "question": "How do I completely uninstall plug-ins?",
+          "answer": "To uninstall, simply delete the plugin files from your system's plugin folders (e.g., /Library/Audio/Plug-Ins on macOS or C:\\Program Files\\Common Files\\VST3 on Windows)."
+        }
+      ]
+    },
+    {
+      "id": "licensing",
+      "title": "Licensing & Activation",
+      "items": [
+        {
+          "question": "How do I activate my license?",
+          "answer": "1) Open the plugin in your DAW. 2) Click the fedDSP logo to open the license popup. 3) Press the 'Paste License' button (ensure you have copied the full key including the 'BEGIN' and 'END' lines from your email)."
+        },
+        {
+          "question": "Can I activate without an internet connection?",
+          "answer": "Yes. Our license activation is entirely offline. You can copy your license key from your email (on a phone or different computer) and paste it directly into the plugin."
+        },
+        {
+          "question": "How do I transfer my plugins to a new computer?",
+          "answer": "Simply download the latest installer on your new machine and use your existing license key to activate it. You can retrieve your license key anytime from your user account."
+        },
+        {
+          "question": "Can I use my license on multiple computers?",
+          "answer": "Yes. You can activate your license on up to 3 computers that you personally own. If you sell or give away a computer, please deactivate the license first."
+        },
+        {
+          "question": "How do I deactivate a license?",
+          "answer": "Open the plugin, click the fedDSP logo to open the license popup, and select 'Deactivate'. This will free up one of your 3 activations."
+        },
+        {
+          "question": "I want to sell or transfer my license.",
+          "answer": "License transfers are handled manually. Please send an email to support@feddsp.com with your order details and the email address of the new owner."
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "title": "Troubleshooting",
+      "items": [
+        {
+          "question": "I found a bug. How do I report it?",
+          "answer": "We appreciate the help! Please send an email to support@feddsp.com with your OS version, DAW version, and a description of what happened."
+        },
+        {
+          "question": "The plugin isn't showing up in my DAW.",
+          "answer": "First, ensure you have restarted your DAW after installation. If it still doesn't appear, check your DAW's plugin manager and perform a 'Rescan'. Ensure your DAW is looking in the correct system folders."
+        },
+        {
+          "question": "I'm experiencing CPU spikes or glitches.",
+          "answer": "Ensure your audio buffer size is set reasonably (usually 128 samples or higher for mixing). Check that you are running the latest version of the plugin from our Downloads page."
+        }
+      ]
+    }
+  ],
+  "contact": {
+    "text": "Can't find what you're looking for? Get in touch with our support team.",
+    "email": "support@feddsp.com"
+  }
+}

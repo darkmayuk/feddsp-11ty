@@ -1,149 +1,72 @@
 ---
 permalink: /support/index.html
 layout: layouts/base.liquid
-title: support
-description: Find answers to common questions about installation, licensing, updates, and troubleshooting. If you need to, contact the fedDSP support team.
+title: Support
+description: Find answers to common questions about installation, licensing, updates, and troubleshooting.
 ---
-<section class="support container my-5 restrict-width">
-  <h1 class="text-uppercase mb-4">Support</h1>
-  <p class="mb-4">
-    Find answers to common questions about installation, licensing, updates, and troubleshooting.
-  </p>
 
-  <nav class="support-nav mb-5">
-    <a href="#getting-started" class="support-nav-link">Getting Started</a>
-    <a href="#licensing" class="support-nav-link">Licensing</a>
-    <a href="#installation" class="support-nav-link">Installation</a>
-    <a href="#troubleshooting" class="support-nav-link">Troubleshooting</a>
-    <a href="#contact" class="support-nav-link">Contact</a>
-  </nav>
+<section class="support-section py-5">
+  <div class="container restrict-width">
+    
+    <div class="mb-4">
+      <h1 class="text-uppercase mb-3">{{ support.pageTitle }}</h1>
+      <p class="text-white-50">{{ support.pageDescription }}</p>
+    </div>
 
-  <section id="getting-started" class="faq-section mb-5">
-    <h2 class="mb-3">Getting Started</h2>
-
-    <details class="faq-item">
-      <summary class="faq-summary">
-        How do I download and install PHATurator?
-      </summary>
-      <div class="faq-body">
-        <p>
-          Download the latest installer for your platform from the Downloads page.
-          Run the installer and follow the on-screen instructions. Once installation
-          is complete, restart your DAW and rescan your plugins list.
-        </p>
+    <div class="row g-3 mb-5">
+      {% for link in support.quickLinks %}
+      <div class="col-auto me-5">
+        <a href="{{ link.url }}" class="btn btn-pill btn-brand-solid">
+          {{ link.text }}
+        </a>
       </div>
-    </details>
+      {% endfor %}
+    </div>
 
-    <details class="faq-item">
-      <summary class="faq-summary">
-        Which plugin formats are supported?
-      </summary>
-      <div class="faq-body">
-        <p>
-          Our plugins are available in common formats such as VST3, AU, and AAX on supported
-          operating systems. Check each product page for specific format and OS compatibility.
-        </p>
+    <div class="mb-5">
+      <div class="input-group input-group-lg fed-search-bar">
+        <span class="input-group-text bg-dark border-0 text-white-50">
+          <i class="bi bi-search"></i>
+        </span>
+        <input type="text" 
+               id="faqSearch" 
+               class="form-control bg-dark border-secondary text-white" 
+               placeholder="Search for answers (e.g., 'install', 'payment', 'license')..."
+               aria-label="Search Support">
       </div>
-    </details>
-  </section>
+    </div>
 
-  <section id="licensing" class="faq-section mb-5">
-    <h2 class="mb-3">Licensing &amp; Activation</h2>
+    <div id="faqContainer">
+      {% for category in support.categories %}
+        <div class="faq-category mb-5">
+          <h2 class="h4 text-uppercase mb-4 brand-green">{{ category.title }}</h2>
+          
+          {% for item in category.items %}
+            <details class="faq-item mb-3 p-3 bg-black border border-secondary rounded-3">
+              <summary class="faq-question fw-bold text-white cursor-pointer" style="list-style: none;">
+                {{ item.question }}
+              </summary>
+              <div class="faq-answer mt-3 text-white-50">
+                {{ item.answer }}
+              </div>
+            </details>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
 
-    <details class="faq-item">
-      <summary class="faq-summary">
-        How do I activate my license?
-      </summary>
-      <div class="faq-body">
-        <p>
-          After purchase you will receive an email with your license details. Open the plugin in
-          your DAW, click the activation button, and enter your license information when prompted.
-        </p>
-      </div>
-    </details>
+    <div id="noResults" class="text-center py-5 d-none">
+      <p class="text-white-50">No results found. Please try a different keyword or contact support below.</p>
+    </div>
 
-    <details class="faq-item">
-      <summary class="faq-summary">
-        Can I use my license on multiple computers?
-      </summary>
-      <div class="faq-body">
-        <p>
-          Licenses can typically be activated on a limited number of personal machines. If you need
-          to move a license, you can deactivate it from one system and activate it on another.
-        </p>
-      </div>
-    </details>
-  </section>
+    <div class="text-center mt-5 pt-4 border-top border-secondary">
+      <p class="mb-3">{{ support.contact.text }}</p>
+      <a href="mailto:{{ support.contact.email }}" class="fs-5 text-brand text-decoration-none fw-bold">
+        {{ support.contact.email }}
+      </a>
+    </div>
 
-  <section id="installation" class="faq-section mb-5">
-    <h2 class="mb-3">Installation &amp; Updates</h2>
-
-    <details class="faq-item">
-      <summary class="faq-summary">
-        Where are the plugin files installed?
-      </summary>
-      <div class="faq-body">
-        <p>
-          Plugin files are installed to standard plugin folders for your OS. You can usually see or
-          adjust these paths during installation. Your DAW should detect them automatically on rescan.
-        </p>
-      </div>
-    </details>
-
-    <details class="faq-item">
-      <summary class="faq-summary">
-        How do I update to the latest version?
-      </summary>
-      <div class="faq-body">
-        <p>
-          When a new version is available, download the latest installer from the Downloads page and
-          run it over your existing installation. Your presets and license information will remain intact.
-        </p>
-      </div>
-    </details>
-  </section>
-
-  <section id="troubleshooting" class="faq-section mb-5">
-    <h2 class="mb-3">Troubleshooting</h2>
-
-    <details class="faq-item">
-      <summary class="faq-summary">
-        The plugin does not appear in my DAW.
-      </summary>
-      <div class="faq-body">
-        <p>
-          Make sure you are running a supported OS and plugin format, then rescan your plugins within
-          your DAW. If it still doesn’t appear, confirm that your plugin paths match the install
-          location shown in the installer.
-        </p>
-      </div>
-    </details>
-
-    <details class="faq-item">
-      <summary class="faq-summary">
-        I experience audio dropouts or glitches.
-      </summary>
-      <div class="faq-body">
-        <p>
-          Try increasing your audio buffer size in your DAW settings and closing any unnecessary
-          background applications. If the issue persists, test the plugin in a new empty session and
-          check your audio interface driver settings.
-        </p>
-      </div>
-    </details>
-  </section>
-
-  <section id="contact" class="faq-section mb-5">
-    <h2 class="mb-3">Contact Support</h2>
-
-    <p class="mb-3">
-      Can’t find what you’re looking for? Get in touch with our support team.
-    </p>
-
-    <ul class="list-unstyled mb-0 support-contact-list">
-      <li>Email: <a href="#">support@feddsp.com</a></li>
-      <li>Documentation: <a href="#">View full user guides</a></li>
-      <li>Downloads: <a href="/downloads/">Go to downloads</a></li>
-    </ul>
-  </section>
+  </div>
 </section>
+
+<script src="/assets/js/support.js"></script>

@@ -2096,6 +2096,51 @@
     transform: translateY(-2px);
   }
 
+/* SUPPORT */
+
+  .fed-search-bar .input-group-text {
+    border-top-left-radius: 2rem !important;
+    border-bottom-left-radius: 2rem !important;
+    padding-left: 1.5rem;
+  }
+
+  .fed-search-bar .form-control {
+    border-top-right-radius: 2rem !important;
+    border-bottom-right-radius: 2rem !important;
+  }
+
+  .fed-search-bar .form-control:focus {
+    box-shadow: 0 0 20px rgba(212, 102, 173, 0.2) !important;
+    border-color: rgba(212, 102, 173, 0.3) !important;
+    z-index: 3;
+  }
+
+  .fed-search-bar .form-control:focus + .input-group-text,
+  .fed-search-bar:focus-within .input-group-text {
+    border-color: var(--brand-pink) !important;
+    transition: border-color 0.15s ease-in-out;
+  }
+
+  details > summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details > summary::after {
+    content: '+';
+    float: right;
+    font-weight: bold;
+    color: var(--brand-green);
+  }
+
+  details[open] > summary::after {
+    content: '-';
+  }
+
 /* LEGACY */
 
   /* Legacy Hero Styles (Used on Index) 
