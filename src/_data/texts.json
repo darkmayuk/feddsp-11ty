@@ -53,7 +53,7 @@
   "stickyFooter": {
     "indexText": "Buy <a href='/products/phaturator/' class='text-white text-decoration-underline'>PHATurator</a> by 1st March to join the <a href='/founders' class='text-white text-decoration-underline'>Founders' Club</a>",
     "indexButton": "Get Free Sample + IR Packs", 
-    "indexButtonMobile": "Get Free Sample + IR Packs", 
+    "indexButtonMobile": "Get Free Packs",
     "productButtonBuy": "BUY",
     "productButtonTry": "Try for Free",
     "productButtonTryMobile": "Try"

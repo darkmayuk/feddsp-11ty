@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 3. Free Swag (Custom Init: 2 slides always)
   if (document.querySelector('.free-swiper')) {
     new Swiper('.free-swiper', {
-      loop: true, // Optional: if you only have 2 items, you might want loop: false
+      loop: false, // if you only have 2 items, have loop: false
       speed: 600,
       
       // FORCE 2 SLIDES ON MOBILE
