@@ -4,8 +4,14 @@
     "heroSub": "We build audio tools for the real world. Easy to use, but revealing the depth and detail of hardware. Built with ultra-low CPU overhead and zero latency, so you can track through them and perform with them. \nWhile others push AI to do the work for you, we want to put you in charge, to empower your own creativity as a musician or producer.",
     "metaDescription": "We build musical tools to be used in real musical environments: in the studio, on the stage. Super lightweight CPU overhead and zero latency.",
     "about": "We are proudly independent, passionate about making music, and dedicated to creating the audio tools we want to use in our own work.\nFederico Telesca is the founder and heart of fedDSP. Drawing on 15 years of experience as an industry-leading producer and mastering engineer, Fed knows exactly which tools should exist, but don't. He has the imagination to dream up new concepts, and the exacting standards to build them into finished products that exceed the quality of anything else that already exists.\nFed is joined by a six-man dream team, built around decades of experience in the music business: from performing, mixing, and engineering to videography, promotion, and touring. Every one of the team is an active, passionate, and highly regarded musician in their own right.",
-    "support": "At fedDSP it all starts with our community. We have an active Discord server and Facebook page, where users suggest features, report bugs, and ask questions directly to fedDSP. We pride ourselves on our customer support and satisfaction: we reply to issues within hours, not days."
-  },
+    "support": "At fedDSP it all starts with our community. We have an active Discord server and Facebook page, where users suggest features, report bugs, and ask questions directly to fedDSP. We pride ourselves on our customer support and satisfaction: we reply to issues within hours, not days.",
+    "assets": {
+      "sampleBg": "/assets/videos/bg-video-Ric-2.mp4",
+      "sampleBgPoster": "/assets/videos/bg-video-Ric-2-poster.webp",
+      "irBg": "/assets/videos/bg-video-Fed-1.mp4",
+      "irBgPoster": "/assets/videos/bg-video-Fed-1-poster.webp"
+    }
+  },  
   "team": [
     { 
       "name": "Federico Telesca",

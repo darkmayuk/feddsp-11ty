@@ -17,10 +17,10 @@
     "assets": {
       "logo": "/assets/images/products/phat-logo.png",
       "heroImage": "/assets/images/products/phat-thin.png",
-      "heroVideo": "/assets/videos/phat-guitar-video.mp4",
-      "heroPoster": "/assets/videos/phaturator-screenshot.webp",
-      "audioBg": "/assets/videos/Dust-Particles.mp4",
-      "audioBgPoster": "/assets/videos/dust-screenshot.webp",
+      "heroVideo": "/assets/videos/bg-video-Fed-1.mp4",
+      "heroPoster": "/assets/videos/bg-video-Fed-1-poster.webp",
+      "audioBg": "/assets/videos/bg-video-Dust-1.mp4",
+      "audioBgPoster": "/assets/videos/bg-video-Dust-1-poster.webp",
       "imageShowcase": "/assets/images/products/phat-3d.jpg"
     },
     "gradients": {
@@ -258,16 +258,17 @@
     "headline": "CRONOS: NO TIME TO HOLD BACK.",
     "heroSubText": "HIGH QUALITY WAV FILES • COMPATIBLE WITH ALL DAWS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
     "description": "CRONOS is about immediate power. Aggressive kicks and snapping snares designed for high-tempo and heavy genres. Unleash consistent drum control.",
-    "price": "£15",
-    "originalPrice": "£25",
+    "price": "£25",
+    "originalPrice": "",
     "buyLink": "#",
+    "buyBundleLink": "#",
     "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
       "heroImage": "/assets/images/products/CRONOS.png",
-      "heroVideo": "/assets/videos/Charlie-Bg.mp4",
-      "heroPoster": "/assets/videos/Charlie-poster.webp",
-      "audioBg": "/assets/videos/Ric2-Bg.mp4",
-      "audioBgPoster": "/assets/videos/Ric2-poster.webp"
+      "heroVideo": "/assets/videos/bg-video-Charlie-1.mp4",
+      "heroPoster": "/assets/videos/bg-video-Charlie-1-poster.webp",
+      "audioBg": "/assets/videos/bg-video-Ric-1.mp4",
+      "audioBgPoster": "/assets/videos/bg-video-Ric-1-poster.webp"
     },
     "gradients": {
       "gradient3Start": "#be1e2d",
@@ -281,13 +282,13 @@
         "items": [
           {
             "title": "Unleash consistent drum control.",
-            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>CRONOS is about control under speed. A disciplined set of drum one-shots built for consistency, timing, and impact across every mix. Designed to lock drums in place, tighten performances, and remove guesswork.<br><br>The processed versions are refined through Fed's vast vintage hardware chain, delivering stability, punch, and reliable tone.<br><br>Open CRONOS. Drop it. Hear the polish.<br><br><strong>30 unique one-shots presented in 60 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
+            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>CRONOS is about control under speed. A disciplined set of drum one-shots built for consistency, timing, and impact across every mix. Designed to lock drums in place, tighten performances, and remove guesswork.<br><br>The processed versions are refined through Fed's vast vintage hardware chain, delivering stability, punch, and reliable tone.<br><br>Open CRONOS. Drop it in. Hear your drums locked in place.<br><br><strong>30 unique one-shots presented in 60 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
           }
         ]
       },
       "audio": {
         "title": "Hear the Difference",
-        "subheader": "",
+        "subheader": "Listen to the difference the kick and snare samples make in these level-matched mixes",
         "samples": [
           {
             "name": "Metal Mix",
@@ -349,16 +350,17 @@
     "headline": "TYPHON: CONTROLLED CHAOS.",
     "heroSubText": "HIGH QUALITY WAV FILES • COMPATIBLE WITH ALL DAWS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
     "description": "TYPHON brings the storm. Massive, distorted textures mixed with punchy transients for industrial and experimental beats. Achieve powerful drums that translate everywhere.",
-    "price": "£15",
-    "originalPrice": "£25",
+    "price": "£25",
+    "originalPrice": "",
     "buyLink": "#",
+    "buyBundleLink": "#",
     "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
       "heroImage": "/assets/images/products/TYPHON.png",
-      "heroVideo": "/assets/videos/Charlie-Bg.mp4",
-      "heroPoster": "/assets/videos/Charlie-poster.webp",
-      "audioBg": "/assets/videos/Ric2-Bg.mp4",
-      "audioBgPoster": "/assets/videos/Ric2-poster.webp"
+      "heroVideo": "/assets/videos/bg-video-Charlie-1.mp4",
+      "heroPoster": "/assets/videos/bg-video-Charlie-1-poster.webp",
+      "audioBg": "/assets/videos/bg-video-Ric-1.mp4",
+      "audioBgPoster": "/assets/videos/bg-video-Ric-1-poster.webp"
     },
     "gradients": {
       "gradient3Start": "#204963",
@@ -372,13 +374,13 @@
         "items": [
           {
             "title": "Achieve powerful drums that translate everywhere.",
-            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>TYPHON is controlled aggression. A curated collection of drum one-shots designed to drive energy forward while keeping transients sharp and low-end tight. Built for modern, dense productions that demand impact without collapse.<br><br>The processed versions are refined through Fed's vast catalogue of vintage hardware, delivering bite, weight, and control.<br><br>Open TYPHON. Drop it. Sense the pressure.<br><br><strong>30 unique one-shots presented in 60 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
+            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>TYPHON is controlled aggression. A curated collection of drum one-shots designed to drive energy forward while keeping transients sharp and low-end tight. Built for modern, dense productions that demand impact without collapsing into noise.<br><br>The processed versions are refined through Fed's vast catalogue of vintage hardware, delivering bite, weight, and control.<br><br>Open TYPHON. Drop it. Feel the pressure.<br><br><strong>30 unique one-shots presented in 60 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
           }
         ]
       },
       "audio": {
         "title": "Hear the Difference",
-        "subheader": "",
+        "subheader": "Listen to the difference the kick and snare samples make in these level-matched mixes",
         "samples": [
           {
             "name": "Metal Mix",
@@ -440,16 +442,17 @@
     "headline": "THEIA: WHERE HITS COLLIDE.",
     "heroSubText": "HIGH QUALITY WAV FILES • COMPATIBLE WITH ALL DAWS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
     "description": "THEIA offers cosmic impact. Deep, resonant kicks and crisp, detailed snares perfect for modern pop and electronic production. Bring chart level drum power to every mix.",
-    "price": "£15",
-    "originalPrice": "£25",
+    "price": "£25",
+    "originalPrice": "",
     "buyLink": "#",
+    "buyBundleLink": "#",
     "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
       "heroImage": "/assets/images/products/THEIA.png",
-      "heroVideo": "/assets/videos/Charlie-Bg.mp4",
-      "heroPoster": "/assets/videos/Charlie-poster.webp",
-      "audioBg": "/assets/videos/Ric-Bg.mp4",
-      "audioBgPoster": "/assets/videos/Ric-poster.webp"
+      "heroVideo": "/assets/videos/bg-video-Charlie-1.mp4",
+      "heroPoster": "/assets/videos/bg-video-Charlie-1-poster.webp",
+      "audioBg": "/assets/videos/bg-video-Ric-3.mp4",
+      "audioBgPoster": "/assets/videos/bg-video-Ric-3-poster.webp"
     },
     "gradients": {
       "gradient3Start": "#d366ac",
@@ -463,13 +466,13 @@
         "items": [
           {
             "title": "Bring chart level drum power to every mix.",
-            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>THEIA is that collection. A curated series of sought-after drum samples from industry-leading mixers. Built to enhance, layer, or completely reshape your drum sound.<br><br>The processed versions are shaped with Fed's vast catalogue of vintage hardware, delivering polish, size, and definition.<br><br>Open THEIA. Drop it in. Feel the impact.<br><br><strong>30 unique one-shots presented in 60 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
+            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>THEIA is that collection: a curated series of sought-after drum samples from industry-leading engineers. Built to enhance, layer, or completely reshape your drum sound.<br><br>The processed versions are shaped with Fed's vast catalogue of vintage hardware, delivering polish, size, and definition.<br><br>Open THEIA. Drop it in. Feel the impact.<br><br><strong>30 unique one-shots presented in 60 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
           }
         ]
       },
       "audio": {
         "title": "Hear the Difference",
-        "subheader": "",
+        "subheader": "Listen to the difference the kick and snare samples make in these level-matched mixes",
         "samples": [
           {
             "name": "Metal Mix",
@@ -535,13 +538,14 @@
     "price": "FREE",
     "originalPrice": "£15",
     "buyLink": "#",
+    "buyBundleLink": "#",
     "discountText": "",
     "assets": {
       "heroImage": "/assets/images/products/ETNA.png",
-      "heroVideo": "/assets/videos/Charlie-Bg.mp4",
-      "heroPoster": "/assets/videos/Charlie-poster.webp",
-      "audioBg": "/assets/videos/Ric-Bg.mp4",
-      "audioBgPoster": "/assets/videos/Ric-poster.webp"
+      "heroVideo": "/assets/videos/bg-video-Charlie-1.mp4",
+      "heroPoster": "/assets/videos/bg-video-Charlie-1-poster.webp",
+      "audioBg": "/assets/videos/bg-video-Ric-3.mp4",
+      "audioBgPoster": "/assets/videos/bg-video-Ric-3-poster.webp"
     },
     "gradients": {
       "gradient3Start": "#f15a29",
@@ -555,13 +559,13 @@
         "items": [
           {
             "title": "Control aggression while preserving definition.",
-            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>ETNA is pressure made audible. A focused collection of drum one-shots designed to hit hard while staying defined. Built to reinforce, layer, or completely reshape aggressive drum sounds without losing clarity.<br><br>The processed versions are shaped using Fed's extensive collection of vintage hardware, adding weight, heat, and controlled saturation.<br><br>Open ETNA. Drop it in. Let it erupt.<br><br><strong>30 unique one-shots presented in 60 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
+            "text": "One shot samples are the quickest way to add punch, clarity, and consistency to your drums. They help your kicks hit harder, your snares cut through and your grooves remain solid from track to track.<br><br>Top mix engineers rely on trusted one-shots. Carefully selected. Proven in real sessions. Ready to deliver a signature sound even when the original source falls short.<br><br>ETNA is pressure made audible. A focused collection of drum one-shots designed to hit hard while staying defined. Built to reinforce, layer, or completely reshape aggressive drum sounds without losing clarity.<br><br>The processed versions are shaped using Fed's extensive collection of vintage hardware, adding weight and controlled saturation.<br><br>Open ETNA. Drop it in. Let it erupt.<br><br><strong>6 unique one-shots presented in 12 high-quality WAV files at 44.1kHz, 24-bit. Each kick and snare comes in both a natural and a mix-ready processed version.</strong>"
           }
         ]
       },
       "audio": {
         "title": "Hear the Difference",
-        "subheader": "",
+        "subheader": "Listen to the difference the kick and snare samples make in these level-matched mixes",
         "samples": [
           {
             "name": "Metal Mix",
@@ -596,7 +600,7 @@
           },
           {
             "q": "How many samples are included in the pack?",
-            "a": "30 unique one-shots, delivered as 60 WAVs. You get 15 kicks and 15 snares, each in natural and processed versions."
+            "a": "6 unique one-shots, delivered as 12 WAVs. You get 3 kicks and 3 snares, each in natural and processed versions."
           },
           {
             "q": "What sample rate and bit depth are the files?",
@@ -623,12 +627,15 @@
     "headline": "ATLAS: NO SUCH THING AS TOO MUCH WEIGHT.",
     "heroSubText": "HIGH-RESOLUTION IRs • COMPATIBLE WITH ALL IR LOADERS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
     "description": "ATLAS holds up the sky. Impulse responses captured from oversized cabinets to give your guitars unparalleled low-end support. Build weighty tones.",
-    "price": "£15",
-    "originalPrice": "£25",
+    "price": "£25",
+    "originalPrice": "",
     "buyLink": "#",
+    "buyBundleLink": "#",
     "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
-      "heroImage": "/assets/images/products/ATLAS.png"
+      "heroImage": "/assets/images/products/ATLAS.png",
+      "heroVideo": "/assets/videos/bg-video-Fed-2.mp4",
+      "heroPoster": "/assets/videos/bg-video-Fed-2-poster.webp"
     },
     "gradients": {
       "gradient3Start": "#204963",
@@ -640,7 +647,7 @@
         "items": [
           {
             "title": "Build weighty tones.",
-            "text": "Impulse Responses are one of the most direct ways to define the weight, focus, and placement of your guitar tone. They shape how your amp interacts with the mix, helping your sound feel grounded, consistent, and ready to translate across systems.<br><br>Engineers rely on trusted IRs to lock tones in place, reduce guesswork, and build reliable results from session to session.<br><br>ATLAS is built to carry weight. A focused collection of IRs designed to deliver mass, width, and low-end authority without sacrificing clarity. Ideal for anchoring guitars in dense mixes and giving tones a solid foundation.<br><br>Each IR is carefully captured, selected, and refined through Fed's extensive experience with vintage cabinets and signal chains, prioritizing balance and real-world usability.<br><br>Open ATLAS. Load it in. Set the foundation.<br><br><strong>25 carefully curated impulse responses delivered as 44.1kHz, 24-bit WAV files. Normalised and compatible with all major DAWs and IR loader software.</strong>"
+            "text": "Impulse Responses are one of the most direct ways to define the weight, focus, and placement of your guitar tone. They shape how your amp interacts with the mix, and help your sound translate consistently across real-world listening environments.<br><br>Engineers rely on trusted IRs to lock tones in place, reduce guesswork, and build reliable results from session to session.<br><br>ATLAS is built to carry weight. A focused collection of IRs designed to deliver mass, width, and low-end authority without sacrificing clarity. Ideal for anchoring guitars in dense mixes and giving tones a solid foundation.<br><br>Each IR is carefully captured and refined through Fed's extensive experience with vintage cabinets and signal chains, prioritizing balance and real-world usability.<br><br>Open ATLAS. Load it in. Set the foundation of your guitar tone.<br><br><strong>25 carefully curated impulse responses delivered as 44.1kHz, 24-bit WAV files. Normalised and compatible with all major DAWs and IR loader software.</strong>"
           }
         ]
       },
@@ -697,12 +704,15 @@
     "headline": "GAIA: THE MOTHER OF ALL TONES.",
     "heroSubText": "HIGH-RESOLUTION IRs • COMPATIBLE WITH ALL IR LOADERS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
     "description": "GAIA is the root of your sound. Earthy, organic, and rich mid-range tones captured from vintage 4x12s. Reach tonal dimension.",
-    "price": "£15",
-    "originalPrice": "£25",
+    "price": "£25",
+    "originalPrice": "",
     "buyLink": "#",
+    "buyBundleLink": "#",
     "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
-      "heroImage": "/assets/images/products/GAIA.png"
+      "heroImage": "/assets/images/products/GAIA.png",
+      "heroVideo": "/assets/videos/bg-video-Fed-2.mp4",
+      "heroPoster": "/assets/videos/bg-video-Fed-2-poster.webp"
     },
     "gradients": {
       "gradient3Start": "#228340",
@@ -714,7 +724,7 @@
         "items": [
           {
             "title": "Reach tonal dimension.",
-            "text": "Impulse Responses are one of the most direct ways to define the weight, focus, and placement of your guitar tone. They shape how your amp interacts with the mix, helping your sound feel grounded, consistent, and ready to translate across systems.<br><br>Engineers rely on trusted IRs to lock tones in place, reduce guesswork, and build reliable results from session to session.<br><br>GAIA is about balance and body. A curated set of IRs designed to deliver fullness, warmth, and density without sounding congested or dull. Built for musical, mix-ready tones that feel complete and natural from the first note.<br><br>Each IR is captured and refined using Fed's deep knowledge of vintage gear and classic signal paths, ensuring warmth and cohesion without exaggeration.<br><br>Open GAIA Load it in. Fill the void.<br><br><strong>25 carefully curated impulse responses delivered as 44.1kHz, 24-bit WAV files. Normalised and compatible with all major DAWs and IR loader software.</strong>"
+            "text": "Impulse Responses are one of the most direct ways to define the weight, focus, and placement of your guitar tone. They shape how your amp interacts with the mix, and help your sound translate consistently across real-world listening environments.<br><br>Engineers rely on trusted IRs to lock tones in place, reduce guesswork, and build reliable results from session to session.<br><br>GAIA is about balance and body. A curated set of IRs designed to deliver fullness, warmth, and density without making the mix sound congested. Built for musical, mix-ready tones that feel complete and natural from the first note.<br><br>Each IR is captured and refined using Fed's deep knowledge of vintage gear and classic signal paths, ensuring warmth and cohesion without exaggeration.<br><br>Open GAIA. Load it in. Fill the mix.<br><br><strong>25 carefully curated impulse responses delivered as 44.1kHz, 24-bit WAV files. Normalised and compatible with all major DAWs and IR loader software.</strong>"
           }
         ]
       },
@@ -771,12 +781,15 @@
     "headline": "HYPERION: DEPTH THAT SHINES THROUGH.",
     "heroSubText": "HIGH-RESOLUTION IRs • COMPATIBLE WITH ALL IR LOADERS • IMMEDIATE DELIVERY AS A ZIP FILE • ROYALTY-FREE FOR COMMERCIAL USE",
     "description": "HYPERION brings light and definition. Modern, scoopy, and precise IRs designed for technical playing and clarity. Deliver sonic control.",
-    "price": "£15",
-    "originalPrice": "£25",
+    "price": "£25",
+    "originalPrice": "",
     "buyLink": "#",
+    "buyBundleLink": "#",
     "discountText": "Reduced price only applies until 1 March 2026",
     "assets": {
-      "heroImage": "/assets/images/products/HYPERION.png"
+      "heroImage": "/assets/images/products/HYPERION.png",
+      "heroVideo": "/assets/videos/bg-video-Fed-2.mp4",
+      "heroPoster": "/assets/videos/bg-video-Fed-2-poster.webp"
     },
     "gradients": {
       "gradient3Start": "#d366ac",
@@ -788,7 +801,7 @@
         "items": [
           {
             "title": "Deliver sonic control.",
-            "text": "Impulse Responses are one of the most direct ways to define the weight, focus, and placement of your guitar tone. They shape how your amp interacts with the mix, helping your sound feel grounded, consistent, and ready to translate across systems.<br><br>Engineers rely on trusted IRs to lock tones in place, reduce guesswork, and build reliable results from session to session.<br><br>HYPERION focuses on clarity through depth. A refined collection of IRs designed to enhance presence, brightness, and spatial definition without thinning the sound. Ideal for layered guitars and modern productions that demand separation and detail.<br><br>Each IR is carefully captured and evaluated using Fed's trusted cabinets and vintage-informed workflows, prioritizing translation and tonal precision.<br><br>Open HYPERION. Load it in. Ground the tone.<br><br><strong>25 carefully curated impulse responses delivered as 44.1kHz, 24-bit WAV files. Normalised and compatible with all major DAWs and IR loader software.</strong>"
+            "text": "Impulse Responses are one of the most direct ways to define the weight, focus, and placement of your guitar tone. They shape how your amp interacts with the mix, and help your sound translate consistently across real-world listening environments.<br><br>Engineers rely on trusted IRs to lock tones in place, reduce guesswork, and build reliable results from session to session.<br><br>HYPERION focuses on the clarity of the guitar in the mix. A refined collection of IRs designed to enhance presence, brightness, and spatial definition without thinning the sound. Ideal for layered guitars and modern productions that demand separation and detail.<br><br>Each IR is carefully captured and evaluated using Fed's trusted cabinets and vintage-informed workflows, prioritizing translation and tonal precision.<br><br>Open HYPERION. Load it in. Enjoy the clarity.<br><br><strong>25 carefully curated impulse responses delivered as 44.1kHz, 24-bit WAV files. Normalised and compatible with all major DAWs and IR loader software.</strong>"
           }
         ]
       },
@@ -851,7 +864,9 @@
     "buyLink": "#",
     "discountText": "",
     "assets": {
-      "heroImage": "/assets/images/products/BLOODMOON.png"
+      "heroImage": "/assets/images/products/BLOODMOON.png",
+      "heroVideo": "/assets/videos/bg-video-Fed-2.mp4",
+      "heroPoster": "/assets/videos/bg-video-Fed-2-poster.webp"
     },
     "gradients": {
       "gradient3Start": "#be1e2d",
@@ -863,7 +878,7 @@
         "items": [
           {
             "title": "Ensure complete balance.",
-            "text": "Impulse Responses are one of the most direct ways to define the weight, focus, and placement of your guitar tone. They shape how your amp interacts with the mix, helping your sound feel grounded, consistent, and ready to translate across systems.<br><br>Engineers rely on trusted IRs to lock tones in place, reduce guesswork, and build reliable results from session to session.<br><br>BLOODMOON is about commitment. A deliberate collection of IRs designed to lock your tone in place with focus and intent. No excess, no distraction: just clear direction and fast commitment.<br><br>Each IR is captured, selected, and refined with Fed's vintage-informed approach, ensuring consistency, balance, and confidence in real-world sessions.<br><br>Open BLOODMOON. Load it in. Lock in place.<br><br><strong>25 carefully curated impulse responses delivered as 44.1kHz, 24-bit WAV files. Normalised and compatible with all major DAWs and IR loader software.</strong>"
+            "text": "Impulse Responses are one of the most direct ways to define the weight, focus, and placement of your guitar tone. They shape how your amp interacts with the mix, and help your sound translate consistently across real-world listening environments.<br><br>Engineers rely on trusted IRs to lock tones in place, reduce guesswork, and build reliable results from session to session.<br><br>BLOODMOON is about commitment. A deliberate collection of IRs designed to lock your tone in place with focus and intent. No excess, no distraction: just clear direction and quick results.<br><br>Each IR is captured and refined with Fed's vintage-informed approach, ensuring consistency, balance, and confidence in your tone.<br><br>Open BLOODMOON. Load it in. Lock in your sound.<br><br><strong>6 carefully curated impulse responses delivered as 44.1kHz, 24-bit WAV files. Normalised and compatible with all major DAWs and IR loader software.</strong>"
           }
         ]
       },
@@ -893,7 +908,7 @@
           },
           {
             "q": "How many IRs are included in the pack?",
-            "a": "25 impulse responses."
+            "a": "6 impulse responses."
           },
           {
             "q": "What file format and resolution are the IRs provided in?",

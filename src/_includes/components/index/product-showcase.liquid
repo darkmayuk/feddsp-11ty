@@ -1,24 +1,22 @@
-<section class="product-showcase-section">
+<section class="product-showcase-section seamless-black">
 
   {% image product.assets.imageShowcase, "3D product render", "(min-width: 1024px) 100vw, 100vw", "showcase-bg-img" %}
 
   <div class="showcase-overlay-layer"></div>
 
   <div class="showcase-video-layer">
-    <video autoplay muted loop playsinline class="dust-video" poster="/assets/videos/dust-screenshot.webp">
-      <source src="/assets/videos/Dust-Particles.mp4" type="video/mp4">
+    <video autoplay muted loop playsinline class="dust-video" poster="/assets/videos/bg-video-Dust-1-poster.webp">
+      <source src="/assets/videos/bg-video-Dust-1.mp4" type="video/mp4">
     </video>
   </div>
 
-  <div class="container position-relative z-3 restrict-width">
+  <div class="container position-relative z-3 restrict-width d-flex flex-column align-items-center justify-content-center text-center">
     
     <p class="text-uppercase product-badge mb-4">
       {{ product.badge | default: "New Release" }}
     </p>
     
-    <div class="mb-4 d-flex justify-content-center hero-logo-image">
-      {% image product.assets.logo, product.name, "(min-width: 768px) 600px, 90vw", "img-fluid hero-logo-image" %}
-    </div>
+    {% image product.assets.logo, product.name, "(min-width: 768px) 600px, 90vw", "img-fluid hero-logo-img mb-4" %}
     
     <h2 class="h3 font-body mb-5">
       {{ product.headline }}

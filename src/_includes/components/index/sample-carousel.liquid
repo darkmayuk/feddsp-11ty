@@ -15,14 +15,12 @@
 
 {% assign featured_sample = samples | first %}
 
-<section class="sample-carousel-section position-relative d-flex flex-column align-items-center justify-content-center text-center py-5">
+<section class="sample-carousel-section position-relative d-flex flex-column align-items-center justify-content-center text-center py-5 seamless-black">
 
   <div class="video-bg-layer">
-    {% if featured_sample.assets.heroVideo %}
-      <video autoplay muted loop playsinline class="bg-video" poster="{{ featured_sample.assets.heroPoster }}">
-        <source src="{{ featured_sample.assets.heroVideo }}" type="video/mp4">
-      </video>
-    {% endif %}
+    <video autoplay muted loop playsinline class="bg-video" poster="{{ texts.index.assets.sampleBgPoster }}">
+      <source src="{{ texts.index.assets.sampleBg }}" type="video/mp4">
+    </video>
     <div class="video-overlay"></div>
   </div>
 

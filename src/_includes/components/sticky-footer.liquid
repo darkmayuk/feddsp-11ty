@@ -1,73 +1,97 @@
 {% comment %}
-  LOGIC:
-  1. Determine if we are on Index.
-  2. If NOT Index, determine if we show the current product (plugins) or the Featured Upsell (samples/IRs).
+LOGIC:
+1. Detect Context (Index vs Product Page).
+2. Set Defaults (Plugin style).
+3. Override if Sample or IR.
 {% endcomment %}
 
 {% assign is_index = false %}
 {% if page.url == '/' %}
-  {% assign is_index = true %}
+{% assign is_index = true %}
 {% endif %}
 
 {% assign footer_product = null %}
+{% assign footer_type = 'plugin' %}
+{% assign border_style = 'var(--rainbow-grad)' %}
+{% assign product_folder = 'products' %}
 
-{% if is_index == false %}
-  {% if product.type == 'plugin' %}
-    {% assign footer_product = product %}
-  {% else %}
-    {% assign target_id = settings.featuredProductId %}
-    {% assign footer_product = products | where: "id", target_id | first %}
-  {% endif %}
+{% if is_index %}
+{% comment %} --- INDEX: Show Featured Product (Usually a plugin) --- {% endcomment %}
+{% assign target_id = settings.featuredProductId %}
+{% assign footer_product = products | where: "id", target_id | first %}
+{% assign footer_type = footer_product.type %}
+{% else %}
+{% comment %} --- PRODUCT PAGE: Show Current Product --- {% endcomment %}
+{% assign footer_product = product %}
+{% assign footer_type = product.type %}
 {% endif %}
 
+{% comment %} --- LOGIC: Samples & IRs Overrides --- {% endcomment %}
+{% if footer_type == 'sample' %}
+{% assign border_style = '#9E241E' %}
+{% assign product_folder = 'samples' %}
+{% elsif footer_type == 'ir' %}
+{% assign border_style = '#83B0C7' %}
+{% assign product_folder = 'irs' %}
+{% endif %}
 
-<div id="sticky-product-footer" class="sticky-footer-wrapper">
-  
-  <div class="container-fluid px-0 px-sm-2 px-md-5 d-flex justify-content-between align-items-center restrict-width w-100">
-    
+<div id="sticky-product-footer" class="sticky-footer-wrapper" style="--footer-border: {{ border_style }};">
+
+  <div
+    class="container-fluid px-0 px-sm-2 px-md-5 d-flex justify-content-between align-items-center restrict-width w-100">
+
     <div class="d-flex align-items-center">
-      {% if is_index %}
-        <div class="footer-brand-wrap" aria-label="fedDSP"></div>
+      {% if footer_type == 'plugin' %}
+      {% if footer_product.assets.logo %}
+      <img src="{{ footer_product.assets.logo }}" alt="{{ footer_product.name }}" class="sticky-footer-logo">
+      {% endif %}
       {% else %}
-        {% if footer_product.assets.logo %}
-          <img src="{{ footer_product.assets.logo }}" alt="{{ footer_product.name }}" class="sticky-footer-logo">
-        {% else %}
-          <h2>
-            {{ footer_product.name }}
-          </h2>
-        {% endif %}
+      <h2 class="font-header text-white text-uppercase m-0">
+        {{ footer_product.name }}
+      </h2>
       {% endif %}
     </div>
 
 
-    <div class="text-white-50 sticky-footer-center small d-none d-xl-block mx-auto text-center">
-      {% if is_index %}
-        {{ texts.stickyFooter.indexText }}
-      {% else %}
-        Buy <a href="/products/{{ footer_product.id }}/">{{ footer_product.name }}</a> by {{ settings.promoDate }} to join the <a href="/founders">Founders' Club</a>
-      {% endif %}
+    <div class="text-white sticky-footer-center small d-none d-xl-block mx-auto text-center">
+      Buy <a href="/{{ product_folder }}/{{ footer_product.id }}/"
+        class="footer-promo-link transition-colors fw-bold">{{ footer_product.name }}</a>
+      by {{ settings.promoDate }} to join the
+      <a href="/founders" class="footer-promo-link transition-colors fw-bold">Founders' Club</a>
     </div>
 
 
     <div class="d-flex gap-2 gap-md-3 align-items-center justify-content-end">
-      
-      {% if is_index %}
-        <button class="btn btn-pill btn-brand-solid btn-lg" data-bs-toggle="modal" data-bs-target="#newsletterModal">
-           <span class="d-inline d-sm-none">{{ texts.stickyFooter.indexButtonMobile }}</span>
-            <span class="d-none d-sm-inline">{{ texts.stickyFooter.indexButton }}</span>
-        </button>
-      
+
+      {% if footer_type == 'sample' or footer_type == 'ir' %}
+
+      {% if footer_product.isFree %}
+      <button class="btn btn-pill btn-grey-solid" data-bs-toggle="modal" data-bs-target="#newsletterModal">
+        FREE
+      </button>
       {% else %}
-        <a href="{{ footer_product.buyLink }}" class="btn btn-pill btn-brand-solid">
-          {{ texts.stickyFooter.productButtonBuy }}
-        </a>
-        
-        {% if footer_product.demoLink %}
-          <a href="{{ footer_product.demoLink }}" class="btn btn-pill btn-grey-solid ms-2 ms-sm-3">
-            <span class="d-inline d-sm-none">{{ texts.stickyFooter.productButtonTryMobile }}</span>
-            <span class="d-none d-sm-inline">{{ texts.stickyFooter.productButtonTry }}</span>
-          </a>
-        {% endif %}
+      <a href="{{ footer_product.buyLink }}" class="btn btn-pill btn-grey-solid">
+        BUY
+      </a>
+      {% endif %}
+
+      {% if footer_product.buyBundleLink %}
+      <a href="{{ footer_product.buyBundleLink }}" class="btn btn-pill btn-brand-solid ms-2 ms-sm-3">
+        BUY BUNDLE
+      </a>
+      {% endif %}
+
+      {% else %}
+      <a href="{{ footer_product.buyLink }}" class="btn btn-pill btn-brand-solid">
+        BUY
+      </a>
+
+      {% if footer_product.demoLink %}
+      <a href="{{ footer_product.demoLink }}" class="btn btn-pill btn-grey-solid ms-2 ms-sm-3">
+        <span class="d-inline d-sm-none">TRY</span>
+        <span class="d-none d-sm-inline">TRY FOR FREE</span>
+      </a>
+      {% endif %}
 
       {% endif %}
 
