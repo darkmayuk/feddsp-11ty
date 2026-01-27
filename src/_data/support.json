@@ -120,7 +120,7 @@
       "items": [
         {
           "question": "I found a bug. How do I report it?",
-          "answer": "Email <a href=\"/mailto:support@feddsp.com\">support@feddsp.com</a> or report it in our Discord (join.feddsp.com/discord) with OS, DAW version, and reproduction steps."
+          "answer": "Email <a href=\"/mailto:support@feddsp.com\">support@feddsp.com</a> or report it in our<a href=\"/join.feddsp.com/discord\">Discord</a> bugs page. Please make sure that you include the name of the plugin, your OS, DAW version, and steps to reproduce the bug. We appreciate you taking the time to let us know about any bugs that you find."
         },
         {
           "question": "The plugin is not showing up in my DAW.",
