@@ -1,64 +1,86 @@
 {
   "pageTitle": "Support",
-  "pageDescription": "Find answers to common questions about installation, licensing, updates, and troubleshooting.",
+  "pageDescription": "Find answers to common questions about installation, licensing, and troubleshooting.",
   "quickLinks": [
     {
       "text": "Product Manuals",
-      "url": "/manuals.html",
-      "btnClass": "btn-outline-light"
+      "url": "/manuals.html"
     },
     {
       "text": "Product Downloads",
-      "url": "/downloads.html",
-      "btnClass": "btn-brand-solid"
+      "url": "/downloads.html"
     }
   ],
   "categories": [
     {
-      "id": "payment-account",
-      "title": "Payment & Account",
+      "id": "account",
+      "title": "Purchasing & Account",
       "items": [
         {
-          "question": "How do I set up an account?",
-          "answer": "You do not need to create an account manually. A user account is automatically created for you by Lemon Squeezy after your first purchase. You can access it via the link in your email receipt to manage your orders."
+          "question": "How do I purchase your products?",
+          "answer": "The only way is right here on the official fedDSP website. Every product page has a BUY button that takes you straight to checkout."
+        },
+        {
+          "question": "What can I see in my account?",
+          "answer": "Your <a href=\"/account\">account</a> allows you to view all past orders, download receipts, retrieve license keys, and manage your email addresses."
+        },
+        {
+          "question": "Do I have to set up an account?",
+          "answer": "A user account is automatically created for you by Lemon Squeezy after your first purchase. You simply need to sign in using the same email address that you used at checkout."
         },
         {
           "question": "I logged into my account, but my licenses are missing.",
-          "answer": "This usually happens if you used a different email address at checkout (e.g., Apple Pay private relay or a different Google account). Please check your other email inboxes. If you cannot find them, email support@feddsp.com and we will merge them for you."
+          "answer": "This usually happens if you used a different email address at checkout. Please check your purchase confirmation email to make sure that you are using the correct address. If you continue to run into problems, get in touch with support for help."
         },
         {
-          "question": "How do I fix a wrong Google/Apple sign-in account?",
-          "answer": "If you signed in with the wrong account, go to 'Manage Account' → 'Email Addresses' → 'Add Email'. Add the email address you used for checkout, verify it, and then reload the account page. Your orders should now appear."
+          "question": "I changed my email address. What do I need to do?",
+          "answer": "???"
         },
         {
-          "question": "Why does my bank statement say “LEMSQZY*”?",
-          "answer": "We use Lemon Squeezy as our secure payment processor. Charges may appear as LEMSQZY* on your statement. This is perfectly normal."
+          "question": "I signed in with a different Apple or Google account than I used to purchase.",
+          "answer": "???"
+        },
+        {
+          "question": "Why does my bank statement say 'LEMSQZY*' ?",
+          "answer": "We use Lemon Squeezy as our secure payment processor. Charges may appear as LEMSQZY* on your statement."
         },
         {
           "question": "Do you offer educational discounts?",
-          "answer": "Not at this time, although we are looking into it for the future."
+          "answer": "Not currently, although we are considering this for the future."
         }
       ]
     },
     {
       "id": "installation",
-      "title": "Installation & Compatibility",
+      "title": "Installation & Demo Versions",
       "items": [
         {
           "question": "How do I install the plugins?",
-          "answer": "Download the installer for your operating system (macOS or Windows) from our Downloads page. Run the installer and follow the on-screen instructions. Once finished, restart your DAW so it can scan for the new plugins."
+          "answer": "Download the installer for your OS from our <a href=\"/downloads\">Downloads page</a>, run it, and restart your DAW so it can scan the new plugins."
+        },
+        {
+          "question": "Where are the plugins installed?",
+          "answer": "macOS: /Library/Audio/Plug-Ins/VST3 and /Library/Audio/Plug-Ins/Components. Windows: C:\\Program Files\\Common Files\\VST3. We only install to standard system locations."
+        },
+        {
+          "question": "How will I know about updates?",
+          "answer": "The latest versions will always be available on the download page. We will notify product owners by email of a new version when it is released."
+        },
+        {
+          "question": "How do I completely uninstall plugins?",
+          "answer": "Delete the plugin files from your system plugin folders: macOS: /Library/Audio/Plug-Ins/VST3 and /Library/Audio/Plug-Ins/Components or Windows: C:\\Program Files\\Common Files\\VST3. No additional files or services are installed."
+        },
+        {
+          "question": "Can I get a demo version?",
+          "answer": "Yes. Demo versions are available from the <a href=\"/downloads\">Downloads page</a>."
         },
         {
           "question": "What are the limitations of the demo versions?",
-          "answer": "The demo versions are fully functional but will output a brief moment of silence every minute. You do not need an account to use the demos."
+          "answer": "The demos are fully functional but will output a brief silence periodically."
         },
         {
-          "question": "Can I get a demo version of Sample or IR packs?",
-          "answer": "No. Due to the nature of unencrypted audio files, we cannot offer trial versions for Sample or Impulse Response packs. Please check the audio demos on the product page before purchasing."
-        },
-        {
-          "question": "How do I completely uninstall plug-ins?",
-          "answer": "To uninstall, simply delete the plugin files from your system's plugin folders (e.g., /Library/Audio/Plug-Ins on macOS or C:\\Program Files\\Common Files\\VST3 on Windows)."
+          "question": "Can I get demo versions of Sample or IR packs?",
+          "answer": "No. Due to the nature of unencrypted audio files, we cannot offer demos for sample or IR packs. Please use the audio examples on the product page to decide which pack is right for you."
         }
       ]
     },
@@ -68,27 +90,27 @@
       "items": [
         {
           "question": "How do I activate my license?",
-          "answer": "1) Open the plugin in your DAW. 2) Click the fedDSP logo to open the license popup. 3) Press the 'Paste License' button (ensure you have copied the full key including the 'BEGIN' and 'END' lines from your email)."
+          "answer": "Open the plugin, click the fedDSP logo, press 'Paste License', and paste the full key including BEGIN and END lines."
         },
         {
           "question": "Can I activate without an internet connection?",
-          "answer": "Yes. Our license activation is entirely offline. You can copy your license key from your email (on a phone or different computer) and paste it directly into the plugin."
+          "answer": "Yes. All licenses work entirely offline. Just paste your license key into the plugin."
         },
         {
-          "question": "How do I transfer my plugins to a new computer?",
-          "answer": "Simply download the latest installer on your new machine and use your existing license key to activate it. You can retrieve your license key anytime from your user account."
+          "question": "How do I move my plugins to a new computer?",
+          "answer": "Install the plugin on your new machine and activate using your existing license key. Please ensure that you remain within the limit of 3 personal activations per license."
         },
         {
           "question": "Can I use my license on multiple computers?",
-          "answer": "Yes. You can activate your license on up to 3 computers that you personally own. If you sell or give away a computer, please deactivate the license first."
+          "answer": "Yes. You can activate on up to 3 personal machines."
         },
         {
           "question": "How do I deactivate a license?",
-          "answer": "Open the plugin, click the fedDSP logo to open the license popup, and select 'Deactivate'. This will free up one of your 3 activations."
+          "answer": "Open the plugin, click the fedDSP logo, and select 'Deactivate' to free an activation slot."
         },
         {
-          "question": "I want to sell or transfer my license.",
-          "answer": "License transfers are handled manually. Please send an email to support@feddsp.com with your order details and the email address of the new owner."
+          "question": "Can I sell or transfer my license?",
+          "answer": "Yes. License transfers are handled manually. Email support@feddsp.com with your order details. A small charge is made for this service."
         }
       ]
     },
@@ -98,21 +120,47 @@
       "items": [
         {
           "question": "I found a bug. How do I report it?",
-          "answer": "We appreciate the help! Please send an email to support@feddsp.com with your OS version, DAW version, and a description of what happened."
+          "answer": "Email <a href=\"/mailto:support@feddsp.com\">support@feddsp.com</a> or report it in our Discord (join.feddsp.com/discord) with OS, DAW version, and reproduction steps."
         },
         {
-          "question": "The plugin isn't showing up in my DAW.",
-          "answer": "First, ensure you have restarted your DAW after installation. If it still doesn't appear, check your DAW's plugin manager and perform a 'Rescan'. Ensure your DAW is looking in the correct system folders."
+          "question": "The plugin is not showing up in my DAW.",
+          "answer": "Restart your DAW, rescan plugins, and confirm your DAW is scanning standard system folders."
         },
         {
           "question": "I'm experiencing CPU spikes or glitches.",
-          "answer": "Ensure your audio buffer size is set reasonably (usually 128 samples or higher for mixing). Check that you are running the latest version of the plugin from our Downloads page."
+          "answer": "Ensure your buffer is at least 128 samples and that you are running the latest plugin version. Our plugins are extremely low CPU by design, so persistent issues usually indicate system or host configuration problems."
+        }
+      ]
+    },
+    {
+      "id": "founders",
+      "title": "fedDSP Founders' Club",
+      "items": [
+        {
+          "question": "What is the Founders' Club?",
+          "answer": "A limited group of early supporters who get exclusive pricing, early access, and direct influence on fedDSP development."
+        },
+        {
+          "question": "How do I join the Founders' Club?",
+          "answer": "Purchase any product during the Founders' period. Eligibility is automatically applied."
+        },
+        {
+          "question": "What benefits does it offer?",
+          "answer": "Permanent discounts, early access to new products, private betas, and priority support."
+        },
+        {
+          "question": "Is this lifetime membership?",
+          "answer": "Yes. Once a Founder, always a Founder."
+        },
+        {
+          "question": "Is membership limited?",
+          "answer": "Yes. Membership is capped and will close permanently once filled."
         }
       ]
     }
   ],
   "contact": {
-    "text": "Can't find what you're looking for? Get in touch with our support team.",
+    "text": "Can't find what you're looking for? Get in touch with our support team:",
     "email": "support@feddsp.com"
   }
 }

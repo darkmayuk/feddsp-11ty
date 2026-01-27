@@ -2,7 +2,7 @@
 permalink: /support/index.html
 layout: layouts/base.liquid
 title: Support
-description: Find answers to common questions about installation, licensing, updates, and troubleshooting.
+description: {{ support.pageDescription }}
 ---
 
 <section class="support-section py-5">
@@ -39,14 +39,14 @@ description: Find answers to common questions about installation, licensing, upd
     <div id="faqContainer">
       {% for category in support.categories %}
         <div class="faq-category mb-5">
-          <h2 class="h4 text-uppercase mb-4 brand-green">{{ category.title }}</h2>
+          <h2 class="text-uppercase mb-4">{{ category.title }}</h2>
           
           {% for item in category.items %}
             <details class="faq-item mb-3 p-3 bg-black border border-secondary rounded-3">
-              <summary class="faq-question fw-bold text-white cursor-pointer" style="list-style: none;">
+              <summary class="faq-question text-white cursor-pointer" style="list-style: none;">
                 {{ item.question }}
               </summary>
-              <div class="faq-answer mt-3 text-white-50">
+              <div class="faq-answer mt-3">
                 {{ item.answer }}
               </div>
             </details>
@@ -59,11 +59,10 @@ description: Find answers to common questions about installation, licensing, upd
       <p class="text-white-50">No results found. Please try a different keyword or contact support below.</p>
     </div>
 
-    <div class="text-center mt-5 pt-4 border-top border-secondary">
-      <p class="mb-3">{{ support.contact.text }}</p>
-      <a href="mailto:{{ support.contact.email }}" class="fs-5 text-brand text-decoration-none fw-bold">
-        {{ support.contact.email }}
-      </a>
+    <div class="mt-5 pt-4">
+      <p class="mb-3">{{ support.contact.text }} 
+      <a href="mailto:{{ support.contact.email }}" class="text-brand text-decoration-none fw-bold text-brand-pink support-link">{{ support.contact.email }}</a>
+      </p>
     </div>
 
   </div>

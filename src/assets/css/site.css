@@ -2121,6 +2121,22 @@
     transition: border-color 0.15s ease-in-out;
   }
 
+  #faqContainer h2 {
+    font-size: 3rem;
+  }
+
+  .faq-answer {
+    color: var(--light-grey);
+  }
+
+  .faq-answer a {
+    color: white !important;
+  }
+
+  .faq-answer a:hover, .faq-answer a:active {
+    color: var(--brand-pink) !important;
+  }
+
   details > summary {
     list-style: none;
     cursor: pointer;
@@ -2134,11 +2150,15 @@
     content: '+';
     float: right;
     font-weight: bold;
-    color: var(--brand-green);
+    color: var(--brand-pink);
   }
 
   details[open] > summary::after {
     content: '-';
+  }
+
+  a.support-link:hover, a.support-link:active {
+    color: white !important;
   }
 
 /* LEGACY */
