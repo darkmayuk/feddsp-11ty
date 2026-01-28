@@ -100,6 +100,14 @@
   .text-brand-pink { color: var(--brand-pink) !important; }
   .brand-green { color: var(--brand-green) !important; }
 
+  a {
+    color: var(--brand-pink);
+  }
+
+  a:hover, a:active {
+    color: black;
+  }
+
 /* LAYOUT UTILITIES */
 
   .restrict-width {
@@ -615,8 +623,8 @@
     }
 
     .hero-subtext p {
-      font-size: 0.9rem;
-      opacity: 0.8;
+      font-size: 1rem;
+      opacity: 0.8 !important;
     }
 
     @media (max-width: 768px) {
@@ -793,6 +801,16 @@
       z-index: 10;
     }
 
+    .index-carousel-description {
+      color: var(--light-grey);
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .sample-card:hover .index-carousel-description {
+      color: white !important;
+    }
+
     .sample-swiper,
     .ir-swiper,
     .free-swiper {
@@ -826,10 +844,6 @@
         .free-swiper {
             padding-left: 15px !important;
             padding-right: 15px !important;
-        }
-        
-        .sample-card {
-            max-width: 100%; 
         }
     }
 
@@ -891,7 +905,50 @@
       opacity: 1;
     }
 
-    .free-carousel-section .swiper-pagination {
+    .sample-swiper .swiper-button-prev,
+    .sample-swiper .swiper-button-next,
+    .ir-swiper .swiper-button-prev,
+    .ir-swiper .swiper-button-next {
+      color: var(--light-grey);
+      transition: color 0.3s ease, transform 0.2s ease;
+      width: 30px;
+      height: 30px;
+    }
+
+    .sample-swiper .swiper-button-prev::after,
+    .sample-swiper .swiper-button-next::after,
+    .ir-swiper .swiper-button-prev::after,
+    .ir-swiper .swiper-button-next::after {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .sample-swiper .swiper-button-prev:hover,
+    .sample-swiper .swiper-button-next:hover,
+    .ir-swiper .swiper-button-prev:hover,
+    .ir-swiper .swiper-button-next:hover {
+      color: white !important;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 767.98px) {
+      /* Pull arrows out to the screen edge */
+      .sample-swiper .swiper-button-prev,
+      .ir-swiper .swiper-button-prev {
+        left: -20px !important; 
+      }
+
+      .sample-swiper .swiper-button-next,
+      .ir-swiper .swiper-button-next {
+        right: -20px !important;
+      }
+    }
+
+    .swiper-pagination-lock {
+      display: none !important;
+    }
+
+    .swiper-button-lock {
       display: none !important;
     }
 
@@ -1179,7 +1236,7 @@
 
       .hero-v2 h2 {
         font-size: 1.6rem;
-        line-height: 1.5rem;
+        line-height: 1.8rem;
       }
 
       .hero-v2 video {
@@ -2003,7 +2060,7 @@
       font-size: 1.25rem;
     }
 
-/* STICKY FOOTER STYLES */
+/* STICKY FOOTER */
   .sticky-footer-wrapper {
     position: fixed;
     bottom: 0;
@@ -2077,16 +2134,11 @@
 
   @media (max-width: 768px) {
     .sticky-footer-logo {
-      height: 20px; 
+      height: 15px; 
     }
     
-    #sticky-product-footer h2.font-header {
-      font-size: 1.2rem !important;
-    }
-
     .sticky-footer-wrapper .btn-pill {
-      padding: 0.4rem 0.8rem;
-      font-size: 0.7rem;
+      padding: 0.3rem 0.9rem;
       min-width: auto;
     }
   }

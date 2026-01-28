@@ -2,9 +2,10 @@
   "index": {
     "heroHeadline": "Shaped by hardware.\nTuned by experience.\nCreated to inspire.",
     "heroSub": "We build audio tools for the real world. Easy to use, but revealing the depth and detail of hardware. Built with ultra-low CPU overhead and zero latency, so you can track through them and perform with them. \nWhile others push AI to do the work for you, we want to put you in charge, to empower your own creativity as a musician or producer.",
-    "metaDescription": "We build musical tools to be used in real musical environments: in the studio, on the stage. Super lightweight CPU overhead and zero latency.",
+    "metaDescription": "We build audio tools for the real world. Easy to use, but revealing the depth and detail of hardware. Built with ultra-low CPU overhead and zero latency, so you can track through them and perform with them.",
+    "free": "Everyone loves free stuff. So do we.\nBuilt to the same standard as everything we make, these packs are yours to try, so you can get a feel for what our collections can bring to your sound. \nEnjoy. And if you like what you hear, there's plenty more waiting for you.",
     "about": "We are proudly independent, passionate about making music, and dedicated to creating the audio tools we want to use in our own work.\nFederico Telesca is the founder and heart of fedDSP. Drawing on 15 years of experience as an industry-leading producer and mastering engineer, Fed knows exactly which tools should exist, but don't. He has the imagination to dream up new concepts, and the exacting standards to build them into finished products that exceed the quality of anything else that already exists.\nFed is joined by a six-man dream team, built around decades of experience in the music business: from performing, mixing, and engineering to videography, promotion, and touring. Every one of the team is an active, passionate, and highly regarded musician in their own right.",
-    "support": "At fedDSP it all starts with our community. We have an active Discord server and Facebook page, where users suggest features, report bugs, and ask questions directly to fedDSP. We pride ourselves on our customer support and satisfaction: we reply to issues within hours, not days.",
+    "support": "At fedDSP it all starts with our community. Our products are built for <b>you</b>, and your feedback is what shapes our mission. We have an active <a href='https://join.feddsp.com/discord'>Discord server</a> and Facebook page, where users suggest features, report bugs, and ask questions directly to fedDSP. so this is your chance to join the conversation. \nWe pride ourselves on our customer support and satisfaction, so no more AI chatbots or lengthy waiting times for a response. You'll get a human reply from one of our team within hours of any support request.",
     "assets": {
       "sampleBg": "/assets/videos/bg-video-Ric-2.mp4",
       "sampleBgPoster": "/assets/videos/bg-video-Ric-2-poster.webp",
@@ -64,5 +65,5 @@
     "productButtonTry": "Try for Free",
     "productButtonTryMobile": "Try"
   },
-  "footerSub": "We build musical tools for the real world, from the stage to the studio. Tools that should exist, but don't. Plugins to be played, to be enjoyed, to inspire the emotions. Built with ultra-low CPU overhead and zero latency, so you can track through them and perform with them."
+  "footerSub": "We build audio tools for the real world. Easy to use, but revealing the depth and detail of hardware. Built with ultra-low CPU overhead and zero latency, so you can track through them and perform with them."
 }

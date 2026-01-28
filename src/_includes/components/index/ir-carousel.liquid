@@ -1,7 +1,7 @@
 {% comment %}
   Filter Logic:
   1. Get all products of type 'ir'.
-  2. Exclude any that are marked "isFree: true" (reserved for the freebies section).
+  2. Exclude any that are marked "isFree: true".
 {% endcomment %}
 
 {% assign all_irs = products | where: "type", "ir" %}
@@ -13,15 +13,12 @@
   {% endunless %}
 {% endfor %}
 
-{% assign featured_ir = irs | first %}
-
 <section class="ir-carousel-section position-relative d-flex flex-column align-items-center justify-content-center text-center py-5 shingle-overlap">
 
   <div class="video-bg-layer">
     <video autoplay muted loop playsinline class="bg-video" poster="{{ texts.index.assets.irBgPoster }}">
       <source src="{{ texts.index.assets.irBg }}" type="video/mp4">
     </video>
-    
     <div class="video-overlay"></div>
   </div>
 
@@ -31,15 +28,19 @@
       Your IR Sounds Boring? <span class="d-block d-md-inline">You're in the Right Place.</span>
     </h2>
 
-    <div class="swiper ir-swiper mb-4">
+    <div class="swiper ir-swiper">
       <div class="swiper-wrapper">
         
         {% for p in irs %}
-          <div class="swiper-slide" data-buy-link="{{ p.buyLink }}">
+          <div class="swiper-slide">
             <a href="/irs/{{ p.id }}/" class="sample-card d-block position-relative text-decoration-none text-white">
               
               <div class="sample-card-img-wrap rounded-4 overflow-hidden">
                 {% image p.assets.heroImage, p.name, "(min-width: 768px) 33vw, 90vw", "img-fluid w-100" %}
+              </div>
+
+              <div class="mt-5 px-2">
+                <p class="index-carousel-description">{{ p.description }}</p>
               </div>
 
             </a>
@@ -47,19 +48,17 @@
         {% endfor %}
 
       </div>
+
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+
     </div>
 
-    <p class="text-uppercase product-badge my-5">
+    <p class="text-uppercase product-badge mb-4">
       Carefully Selected IR Packs
     </p>
 
-    <div class="d-flex justify-content-center align-items-center gap-3">
-      <div class="swiper-pagination custom-indicators position-static m-0"></div>
-      
-      <a href="{{ featured_ir.buyLink }}" id="ir-buy-btn" class="btn btn-pill btn-brand-solid px-4">
-        BUY
-      </a>
-    </div>
+    <div class="swiper-pagination custom-indicators position-static m-0"></div>
 
   </div>
 </section>

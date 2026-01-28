@@ -4,8 +4,13 @@
       <div class="row g-4 align-items-start">
         <!-- Left copy -->
         <div class="col-lg-5 pe-lg-5">
-          <h2 class="mb-3">SUPPORT</h2>
-          <p class="mb-3">{{ texts.index.support | newline_to_br }}</p>
+          <h2 class="mb-3">COMMUNITY</h2>
+          <div>
+            {% assign support_lines = texts.index.support | split: "\n" %}
+            {% for line in support_lines %}
+              <p class="mb-3">{{ line }}</p>
+            {% endfor %}
+          </div>
         </div>
 
         <!-- Right form -->

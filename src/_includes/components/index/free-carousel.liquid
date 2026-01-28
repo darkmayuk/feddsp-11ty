@@ -28,7 +28,6 @@
 
       </div>
 
-      <div class="swiper-pagination custom-indicators position-relative mt-4 z-2"></div>
     </div>
 
 
@@ -38,9 +37,10 @@
       </h2>
 
       <div>
-        <p class="mb-3">Everyone loves free stuff. So do we. That's why these packs are on us.</p>
-        <p class="mb-3">Free doesn't mean lower quality. Every IR and sample pack is built to the same standard as everything we make.</p>
-        <p>Enjoy. And if you like what you hear, there's plenty more waiting for you.</p>
+        {% assign paragraphs = texts.index.free | split: "\n" %}
+        {% for paragraph in paragraphs %}
+          <p class="mb-2">{{ paragraph }}</p>
+        {% endfor %}
       </div>
     </div>
 
