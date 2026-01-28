@@ -70,13 +70,19 @@ LOGIC:
         FREE
       </button>
       {% else %}
-      <a href="{{ footer_product.buyLink }}" class="btn btn-pill btn-grey-solid">
+      <a 
+          href="{{ footer_product.buyLink }}" 
+          class="btn btn-pill btn-grey-solid"
+          data-meta-event="InitiateCheckout">
         BUY
       </a>
       {% endif %}
 
       {% if footer_product.buyBundleLink %}
-      <a href="{{ footer_product.buyBundleLink }}" class="btn btn-pill btn-brand-solid ms-2 ms-sm-3">
+      <a 
+          href="{{ footer_product.buyBundleLink }}" 
+          class="btn btn-pill btn-brand-solid ms-2 ms-sm-3"
+          data-meta-event="InitiateCheckout">
         BUY BUNDLE
       </a>
       {% endif %}
@@ -87,7 +93,9 @@ LOGIC:
       </a>
 
       {% if footer_product.demoLink %}
-      <a href="{{ footer_product.demoLink }}" class="btn btn-pill btn-grey-solid ms-2 ms-sm-3">
+      <a  href="{{ footer_product.demoLink }}" 
+          class="btn btn-pill btn-grey-solid ms-2 ms-sm-3"
+          data-meta-event="StartTrial">
         <span class="d-inline d-sm-none">TRY</span>
         <span class="d-none d-sm-inline">TRY FOR FREE</span>
       </a>

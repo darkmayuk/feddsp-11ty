@@ -49,7 +49,12 @@
       </button>
 
       {% else %}
-      <a href="{{ product.buyLink }}" class="btn btn-pill btn-brand-solid btn-lg">BUY</a>
+      <a 
+        href="{{ product.buyLink }}" 
+        class="btn btn-pill btn-brand-solid btn-lg"
+        data-meta-event="InitiateCheckout">
+        BUY
+      </a>
 
       <div class="d-flex align-items-center gap-2">
         {% if product.originalPrice %}
@@ -60,8 +65,9 @@
       {% endif %}
 
       {% if product.demoLink %}
-      <a href="{{ product.demoLink }}"
-        class="text-white-50 text-decoration-underline small text-uppercase ms-2 hero-try-link">
+      <a  href="{{ product.demoLink }}"
+          class="text-white-50 text-decoration-underline small text-uppercase ms-2 hero-try-link"
+          data-meta-event="StartTrial">
         Try for Free
       </a>
       {% endif %}
