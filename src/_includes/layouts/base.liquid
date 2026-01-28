@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#d466ad">
+  <meta name="theme-color" content="#D368AC">
 
   {% comment %} 
     SEO LOGIC: If description is missing in Front Matter, 
@@ -16,6 +16,25 @@
       {% assign description = seo_product.description %}
     {% endif %}
   {% endif %}
+
+  {% comment %} 
+    title logic
+  {% endcomment %}
+  {% assign url_category = "" %}
+  {% if page.url contains "/samples/" %}
+    {% assign url_category = "Samples" %}
+  {% elsif page.url contains "/irs/" %}
+    {% assign url_category = "IRs" %}
+  {% elsif page.url contains "/products/" %}
+    {% assign url_category = "Products" %}
+  {% endif %}
+  <title>
+    fedDSP &gt; 
+    {% if url_category != "" and title != url_category %}
+      {{ url_category }} &gt; 
+    {% endif %}
+    {{ title }}
+  </title>
 
   <title>fedDSP &gt; {{ title }}</title>
   <meta name="description" content="{{ description | default: texts.index.metaDescription | escape }}">

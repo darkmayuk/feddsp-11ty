@@ -2,18 +2,18 @@
 
   :root {
     /* Brand Colors */
-    --brand-pink: #d466ad;
+    --brand-pink: #D368AC;
     --brand-green: #228340;
-    --brand-pink-rgb: 212, 102, 173;
+    --brand-pink-rgb: 211, 104, 172;
 
     /* Neutrals */
-    --dark-grey: #1a1a1a;
-    --mid-grey: #6b6b6b;
+    --dark-grey: #161616;
+    --mid-grey: #383838;
     --light-grey: #aaaaaa;
     --grey-bg: #f5f5f7;
 
     /* Rainbow border */
-    --rainbow-grad: linear-gradient(135deg, #d466ac, #be1e2d, #f15a29, #228340, #f5c042, #204963);
+    --rainbow-grad: linear-gradient(135deg, #D368AC, #be1e2e, #f15a29, #228340, #f5c043, #204963);
     
     /* Layout */
     --container-x-margin-xs: 2rem;
@@ -476,6 +476,17 @@
         margin-left: 0;
       }
     }
+
+    @media (min-width: 992px) { /* open on hover, desktop only */
+    .navbar .nav-item.dropdown:hover .dropdown-menu {
+      display: block;
+      margin-top: 0; 
+    }
+
+    .navbar .nav-item.dropdown:hover .dropdown-toggle::after {
+      transform: rotate(180deg) !important;
+    }
+  }
 
 
   /* Footer */
